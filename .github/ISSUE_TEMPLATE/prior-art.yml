@@ -1,0 +1,57 @@
+name: Prior art report
+description: Identify work that anticipates or constrains a claimed contribution.
+title: "[Prior art] "
+labels: []
+body:
+  - type: input
+    id: target
+    attributes:
+      label: Target originality entry or claim
+      description: Example — O-003 or CSA-010
+      placeholder: O-___ / CSA-___
+    validations:
+      required: true
+  - type: input
+    id: citation
+    attributes:
+      label: Full citation
+      placeholder: Author, title, venue, year
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: Stable source URL or DOI
+    validations:
+      required: true
+  - type: textarea
+    id: overlap
+    attributes:
+      label: Exact overlap
+      description: Explain what the source already establishes or formulates.
+    validations:
+      required: true
+  - type: textarea
+    id: difference
+    attributes:
+      label: Material difference, if any
+      description: Explain whether this project still adds a distinct synthesis, application, or formulation.
+    validations:
+      required: true
+  - type: dropdown
+    id: consequence
+    attributes:
+      label: Recommended originality change
+      options:
+        - No change
+        - Reduce confidence
+        - Reclassify as synthesis
+        - Remove originality claim
+        - Unclear — requires review
+    validations:
+      required: true
+  - type: textarea
+    id: disclosure
+    attributes:
+      label: Research and AI-use disclosure
+      description: State whether generative AI materially assisted this report.
