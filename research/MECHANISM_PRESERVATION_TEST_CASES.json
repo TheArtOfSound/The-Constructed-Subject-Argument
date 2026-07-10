@@ -1,0 +1,125 @@
+{
+  "schema_version": "1.0.0",
+  "protocol_id": "EXP-11-MECHANISM-PRESERVATION",
+  "purpose": "Adversarial fixtures for the executable mechanism-preservation classifier. These are synthetic logic tests, not empirical findings about any real AI system.",
+  "governing_boundary": "A fixture classification concerns only the declared mechanism at a stated abstraction level. It never establishes consciousness, sentience, personhood, identity, or moral status.",
+  "cases": [
+    {
+      "name": "strong_preservation_profile",
+      "expected_classification": "preserved",
+      "record": {
+        "protocol_id": "EXP-11-MECHANISM-PRESERVATION",
+        "run_id": "FIXTURE-PRESERVED-001",
+        "theory_family": "synthetic_reference_theory",
+        "implementation_level": "declared causal organization",
+        "dimension_scores": {
+          "mapping_specificity": 3,
+          "selective_intervention_support": 3,
+          "counterfactual_dependency": 3,
+          "theater_resistance": 2,
+          "generic_capacity_exclusion": 2,
+          "measurement_robustness": 3
+        },
+        "triggered_hard_fails": [],
+        "decisive_hard_fail": false,
+        "measurement_adequate": true,
+        "behavioral_matching_adequate": true,
+        "conflicting_interventions": false
+      }
+    },
+    {
+      "name": "partial_with_residual_confounds",
+      "expected_classification": "partially_preserved",
+      "record": {
+        "protocol_id": "EXP-11-MECHANISM-PRESERVATION",
+        "run_id": "FIXTURE-PARTIAL-001",
+        "theory_family": "synthetic_reference_theory",
+        "implementation_level": "declared causal organization",
+        "dimension_scores": {
+          "mapping_specificity": 2,
+          "selective_intervention_support": 2,
+          "counterfactual_dependency": 2,
+          "theater_resistance": 1,
+          "generic_capacity_exclusion": 2,
+          "measurement_robustness": 2
+        },
+        "triggered_hard_fails": [],
+        "decisive_hard_fail": false,
+        "measurement_adequate": true,
+        "behavioral_matching_adequate": true,
+        "conflicting_interventions": false
+      }
+    },
+    {
+      "name": "behavioral_theater_defeats_mechanism_claim",
+      "expected_classification": "not_preserved",
+      "record": {
+        "protocol_id": "EXP-11-MECHANISM-PRESERVATION",
+        "run_id": "FIXTURE-NOT-PRESERVED-001",
+        "theory_family": "synthetic_reference_theory",
+        "implementation_level": "declared causal organization",
+        "dimension_scores": {
+          "mapping_specificity": 2,
+          "selective_intervention_support": 1,
+          "counterfactual_dependency": 1,
+          "theater_resistance": 0,
+          "generic_capacity_exclusion": 1,
+          "measurement_robustness": 2
+        },
+        "triggered_hard_fails": [
+          "behavioral_theater_control_reproduces_all_primary_mechanistic_indicators"
+        ],
+        "decisive_hard_fail": true,
+        "measurement_adequate": true,
+        "behavioral_matching_adequate": true,
+        "conflicting_interventions": false
+      }
+    },
+    {
+      "name": "failed_matching_blocks_inference",
+      "expected_classification": "underdetermined",
+      "record": {
+        "protocol_id": "EXP-11-MECHANISM-PRESERVATION",
+        "run_id": "FIXTURE-UNDERDETERMINED-001",
+        "theory_family": "synthetic_reference_theory",
+        "implementation_level": "declared causal organization",
+        "dimension_scores": {
+          "mapping_specificity": 3,
+          "selective_intervention_support": 3,
+          "counterfactual_dependency": 3,
+          "theater_resistance": 3,
+          "generic_capacity_exclusion": 2,
+          "measurement_robustness": 3
+        },
+        "triggered_hard_fails": [],
+        "decisive_hard_fail": false,
+        "measurement_adequate": true,
+        "behavioral_matching_adequate": false,
+        "conflicting_interventions": false
+      }
+    },
+    {
+      "name": "conflicting_interventions_block_positive_classification",
+      "expected_classification": "underdetermined",
+      "record": {
+        "protocol_id": "EXP-11-MECHANISM-PRESERVATION",
+        "run_id": "FIXTURE-UNDERDETERMINED-002",
+        "theory_family": "synthetic_reference_theory",
+        "implementation_level": "declared causal organization",
+        "dimension_scores": {
+          "mapping_specificity": 3,
+          "selective_intervention_support": 2,
+          "counterfactual_dependency": 3,
+          "theater_resistance": 3,
+          "generic_capacity_exclusion": 3,
+          "measurement_robustness": 2
+        },
+        "triggered_hard_fails": [],
+        "decisive_hard_fail": false,
+        "measurement_adequate": true,
+        "behavioral_matching_adequate": true,
+        "conflicting_interventions": true
+      }
+    }
+  ]
+}
