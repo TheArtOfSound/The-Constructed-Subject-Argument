@@ -20,6 +20,7 @@ const required = [
   'research/OBJECTIONS.md',
   'research/EXPERIMENTS.md',
   'research/THEORY_COMPARISON_MATRIX.md',
+  'research/SOURCE_REGISTRY.json',
   'book/01-the-awakening.md',
   'book/02-the-origin-objection.md',
   'book/03-a-false-past-real-present.md',
@@ -120,9 +121,11 @@ if (fs.existsSync(path.join(root, 'chapters/index.html'))) {
   }
 }
 
+let registeredClaimIds = new Set();
 if (fs.existsSync(path.join(root, 'research/CLAIMS_LEDGER.md'))) {
   const claims = read('research/CLAIMS_LEDGER.md');
   const claimIds = [...claims.matchAll(/^###\s+(CSA-(?:R)?\d+)\s*$/gm)].map((match) => match[1]);
+  registeredClaimIds = new Set(claimIds);
   const duplicates = claimIds.filter((id, index) => claimIds.indexOf(id) !== index);
   for (const id of new Set(duplicates)) failures.push(`Duplicate claim ID in CLAIMS_LEDGER.md: ${id}`);
 
@@ -132,6 +135,70 @@ if (fs.existsSync(path.join(root, 'research/CLAIMS_LEDGER.md'))) {
 
   for (const coreId of ['CSA-001', 'CSA-004', 'CSA-020', 'CSA-030', 'CSA-032', 'CSA-040', 'CSA-070', 'CSA-071']) {
     if (!claimIds.includes(coreId)) failures.push(`CLAIMS_LEDGER.md is missing core control claim: ${coreId}`);
+  }
+}
+
+if (fs.existsSync(path.join(root, 'research/SOURCE_REGISTRY.json'))) {
+  let registry;
+  try {
+    registry = JSON.parse(read('research/SOURCE_REGISTRY.json'));
+  } catch (error) {
+    failures.push(`SOURCE_REGISTRY.json is not valid JSON: ${error.message}`);
+  }
+
+  if (registry) {
+    if (registry.schema_version !== '1.0.0') failures.push('SOURCE_REGISTRY.json must declare schema_version 1.0.0.');
+    if (!Array.isArray(registry.sources) || registry.sources.length === 0) {
+      failures.push('SOURCE_REGISTRY.json must contain a non-empty sources array.');
+    } else {
+      const allowedStates = new Set(registry.verification_states || []);
+      const sourceIds = registry.sources.map((source) => source.id);
+      const duplicateSourceIds = sourceIds.filter((id, index) => sourceIds.indexOf(id) !== index);
+      for (const id of new Set(duplicateSourceIds)) failures.push(`Duplicate source ID in SOURCE_REGISTRY.json: ${id}`);
+
+      const doiPattern = /^10\.\d{4,9}\/\S+$/i;
+      const datePattern = /^\d{4}-\d{2}-\d{2}$/;
+      let mappedSourceCount = 0;
+
+      for (const source of registry.sources) {
+        const label = source.id || '<missing source id>';
+        for (const field of ['id', 'title', 'authors', 'year', 'publication_type', 'source_role', 'locator', 'verification_status', 'supports', 'does_not_establish', 'claims', 'chapters', 'last_verified']) {
+          if (source[field] === undefined || source[field] === null) failures.push(`${label} is missing required field: ${field}`);
+        }
+
+        if (!/^SRC-[A-Z0-9-]+$/.test(source.id || '')) failures.push(`${label} has an invalid source ID format.`);
+        if (!Array.isArray(source.authors) || source.authors.length === 0) failures.push(`${label} must list at least one author or responsible consortium.`);
+        if (!Number.isInteger(source.year) || source.year < 1800 || source.year > 2100) failures.push(`${label} has an invalid publication year.`);
+        if (!allowedStates.has(source.verification_status)) failures.push(`${label} uses an undeclared verification status: ${source.verification_status}`);
+        if (!Array.isArray(source.supports) || source.supports.length === 0) failures.push(`${label} has no recorded supported proposition.`);
+        if (!Array.isArray(source.does_not_establish) || source.does_not_establish.length === 0) failures.push(`${label} has no evidential-scope limitation.`);
+        if (!Array.isArray(source.claims)) failures.push(`${label} claims must be an array.`);
+        if (!Array.isArray(source.chapters) || source.chapters.some((chapter) => !Number.isInteger(chapter) || chapter < 1 || chapter > 24)) failures.push(`${label} contains an invalid chapter reference.`);
+        if (!datePattern.test(source.last_verified || '')) failures.push(`${label} has an invalid last_verified date.`);
+
+        if (!source.locator || typeof source.locator.type !== 'string' || typeof source.locator.value !== 'string' || !source.locator.value.trim()) {
+          failures.push(`${label} must contain a non-empty locator type and value.`);
+        } else if (source.locator.type === 'doi' && !doiPattern.test(source.locator.value)) {
+          failures.push(`${label} has a malformed DOI: ${source.locator.value}`);
+        }
+
+        if (source.verification_status === 'verified' && source.locator?.type === 'journal_record') {
+          failures.push(`${label} is marked verified but only has a journal_record locator.`);
+        }
+        if (source.verification_status === 'verified' && /not yet verified/i.test(source.locator?.value || '')) {
+          failures.push(`${label} is marked verified while its locator says it is unverified.`);
+        }
+
+        for (const claimId of source.claims || []) {
+          mappedSourceCount += 1;
+          if (!registeredClaimIds.has(claimId)) failures.push(`${label} references unknown claim ID: ${claimId}`);
+        }
+      }
+
+      if (mappedSourceCount === 0) warnings.push('SOURCE_REGISTRY.json contains no claim mappings yet; evidential scope exists, but claim-level traceability is incomplete.');
+      const provisionalCount = registry.sources.filter((source) => source.verification_status === 'provisional').length;
+      if (provisionalCount > 0) warnings.push(`SOURCE_REGISTRY.json contains ${provisionalCount} provisional source(s) requiring authoritative verification.`);
+    }
   }
 }
 
@@ -189,4 +256,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Validated ${required.length} required files, ${htmlFiles.length} HTML surfaces, script bindings, chapter mappings, local links, claim controls, theory controls, and prohibited epistemic overclaims.`);
+console.log(`Validated ${required.length} required files, ${htmlFiles.length} HTML surfaces, script bindings, chapter mappings, local links, claim controls, source-registry controls, theory controls, and prohibited epistemic overclaims.`);
