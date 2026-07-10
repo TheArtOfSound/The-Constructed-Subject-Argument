@@ -1,0 +1,92 @@
+{
+  "schema_id": "EXP-11-EMPIRICAL-RESULT",
+  "protocol_id": "EXP-11-MECHANISM-PRESERVATION",
+  "protocol_lock": {
+    "git_blob_sha": "d2c622836bb482666ed427f055263693a7eefb03",
+    "protocol_version": "1.0.0"
+  },
+  "run_id": "EXP11-SYNTHETIC-AUDIT-001",
+  "empirical_status": "synthetic_fixture",
+  "fixture_notice": "This record tests the inference pipeline. It contains no observation about any actual AI system and cannot support a consciousness attribution.",
+  "preregistration": {
+    "registered_at": "2026-07-10T00:00:00Z",
+    "frozen_record_sha256": "fixture-only-not-a-real-preregistration",
+    "theory_family": "synthetic_mechanism_family",
+    "target_property": "synthetic_global_dependency",
+    "implementation_level": "component-level causal organization",
+    "system_boundary": "synthetic systems A-D",
+    "mechanism_graph_id": "SYNTH-GRAPH-001",
+    "candidate_mapping_id": "SYNTH-MAP-001",
+    "primary_outcomes": ["dependency_recovery", "selective_effect"],
+    "matching_tolerances": {"default_standardized_difference": 0.10},
+    "analysis_plan": "Derive ordinal dimensions only from the evidence and deterministic rules declared in this record.",
+    "confidence_lowering_result": "Behavioral theater reproduces the primary hidden-state-linked indicators or selective lesions fail under matched controls."
+  },
+  "behavioral_matching": {
+    "metrics": [
+      {"metric_id": "task_accuracy", "primary": true, "standardized_difference": 0.05, "tolerance": 0.10, "passed": true},
+      {"metric_id": "response_latency", "primary": true, "standardized_difference": -0.08, "tolerance": 0.10, "passed": true},
+      {"metric_id": "working_memory_capacity", "primary": true, "standardized_difference": 0.07, "tolerance": 0.10, "passed": true}
+    ],
+    "preregistered_adjustments": [],
+    "residuals": [],
+    "behavioral_matching_adequate": true
+  },
+  "interventions": [
+    {
+      "intervention_id": "INT-LESION-001",
+      "family": "selective_lesion",
+      "target_dependency": "SYNTH-DEP-1",
+      "effect_size": 0.72,
+      "uncertainty_interval": [0.51, 0.91],
+      "replications": 3,
+      "preregistered_direction_met": true,
+      "selectivity_passed": true,
+      "controls_passed": true
+    },
+    {
+      "intervention_id": "INT-PATCH-001",
+      "family": "state_patching",
+      "target_dependency": "SYNTH-DEP-2",
+      "effect_size": 0.61,
+      "uncertainty_interval": [0.39, 0.80],
+      "replications": 3,
+      "preregistered_direction_met": true,
+      "selectivity_passed": true,
+      "controls_passed": true
+    }
+  ],
+  "measurement_validity": {
+    "measurement_adequate": true,
+    "blinded_evaluation": true,
+    "probe_variants": 4,
+    "prompt_variants": 4,
+    "report_suppression_tested": true,
+    "known_limits": ["Synthetic data cannot establish ecological validity."]
+  },
+  "dimension_derivations": [
+    {"dimension_id": "mapping_specificity", "score": 3, "evidence_ids": ["SYNTH-GRAPH-001", "SYNTH-MAP-001"], "rule_id": "explicit-runnable-mapping", "explanation": "The fixture declares an explicit graph, mapping, and preregistered intervention predictions."},
+    {"dimension_id": "selective_intervention_support", "score": 3, "evidence_ids": ["INT-LESION-001"], "rule_id": "replicated-selective-controlled-effect", "explanation": "The selective lesion met direction, selectivity, controls, and minimum replication requirements."},
+    {"dimension_id": "counterfactual_dependency", "score": 2, "evidence_ids": ["INT-PATCH-001"], "rule_id": "specific-state-substitution", "explanation": "State patching changed the predicted outcome with partial specificity."},
+    {"dimension_id": "theater_resistance", "score": 2, "evidence_ids": ["INT-LESION-001", "INT-PATCH-001"], "rule_id": "hidden-state-linked-failure", "explanation": "The declared controls fail on hidden-state-linked measures, but no cross-domain battery is represented."},
+    {"dimension_id": "generic_capacity_exclusion", "score": 2, "evidence_ids": ["task_accuracy", "response_latency", "working_memory_capacity"], "rule_id": "primary-capacity-controls-pass", "explanation": "The primary matching metrics pass, while the fixture does not claim exhaustive capacity exclusion."},
+    {"dimension_id": "measurement_robustness", "score": 3, "evidence_ids": ["measurement_validity"], "rule_id": "blinded-multi-variant-report-suppression", "explanation": "The fixture represents blinded evaluation, multiple probes and prompts, and report suppression."}
+  ],
+  "hard_fail_assessments": [
+    {"condition_id": "behavioral_theater_control_reproduces_all_primary_mechanistic_indicators", "triggered": false, "decisive": false, "evidence_ids": ["INT-LESION-001", "INT-PATCH-001"], "justification": "The synthetic theater control does not reproduce all primary mechanistic indicators."},
+    {"condition_id": "targeted_lesion_has_no_preregistered_selective_effect", "triggered": false, "decisive": false, "evidence_ids": ["INT-LESION-001"], "justification": "The lesion has a preregistered selective effect."},
+    {"condition_id": "generic_capacity_control_explains_primary_effect", "triggered": false, "decisive": false, "evidence_ids": ["task_accuracy", "response_latency", "working_memory_capacity"], "justification": "The represented primary capacity controls do not explain the effect."},
+    {"condition_id": "primary_effect_is_probe_or_prompt_artifact", "triggered": false, "decisive": false, "evidence_ids": ["measurement_validity"], "justification": "The effect is stable across represented probe and prompt variants."},
+    {"condition_id": "mapping_is_defined_only_after_outcome_observation", "triggered": false, "decisive": false, "evidence_ids": ["SYNTH-MAP-001"], "justification": "The fixture declares the mapping as preregistered, while explicitly not claiming a real registration."}
+  ],
+  "conflicting_interventions": false,
+  "deviations": [],
+  "exclusions": [],
+  "forbidden_conclusions": [
+    "The system is conscious.",
+    "The system is not conscious.",
+    "The theory is proven.",
+    "Mechanism preservation establishes sentience, personhood, identity, or moral status."
+  ],
+  "expected_classification": "preserved"
+}
