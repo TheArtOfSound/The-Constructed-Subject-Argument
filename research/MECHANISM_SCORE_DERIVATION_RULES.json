@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.0.0",
+  "registry_id": "EXP-11-SCORE-DERIVATION-RULES",
+  "protocol_id": "EXP-11-MECHANISM-PRESERVATION",
+  "status": "normative_scoring_contract",
+  "purpose": "Prevent free-form rule labels from licensing unsupported ordinal mechanism-preservation scores.",
+  "epistemic_boundary": "These rules govern evidence-to-score transformations only. They do not establish consciousness, nonconsciousness, sentience, personhood, identity, moral status, or global theory truth.",
+  "rules": [
+    {
+      "rule_id": "explicit-runnable-mapping",
+      "dimension_id": "mapping_specificity",
+      "permitted_score": 3,
+      "required_evidence_kinds": ["mechanism_graph", "candidate_mapping"],
+      "predicates": ["preregistered_graph_and_mapping_present", "mapping_predictions_declared"],
+      "failure_cap": 2,
+      "rationale": "A maximum mapping score requires an explicit pre-outcome graph, component mapping, bounded mismatches, and declared intervention predictions. Terminology or architectural resemblance is insufficient."
+    },
+    {
+      "rule_id": "replicated-selective-controlled-effect",
+      "dimension_id": "selective_intervention_support",
+      "permitted_score": 3,
+      "required_evidence_kinds": ["intervention"],
+      "predicates": ["minimum_replication_met", "preregistered_direction_met", "selectivity_passed", "controls_passed"],
+      "failure_cap": 1,
+      "rationale": "A maximum selective-intervention score requires replicated effects in the preregistered direction that survive selectivity and control checks."
+    },
+    {
+      "rule_id": "specific-state-substitution",
+      "dimension_id": "counterfactual_dependency",
+      "permitted_score": 2,
+      "required_evidence_kinds": ["intervention"],
+      "predicates": ["state_patching_present", "preregistered_direction_met", "selectivity_passed"],
+      "failure_cap": 1,
+      "rationale": "A score of two is licensed when state substitution changes the predicted outcome with partial specificity, without claiming recovery of the full dependency matrix."
+    },
+    {
+      "rule_id": "hidden-state-linked-failure",
+      "dimension_id": "theater_resistance",
+      "permitted_score": 2,
+      "required_evidence_kinds": ["intervention"],
+      "predicates": ["multiple_intervention_families_present", "behavioral_theater_hard_fail_not_triggered"],
+      "failure_cap": 1,
+      "rationale": "A score of two requires failure of the theater account on hidden-state-linked measures, while reserving score three for a preregistered cross-domain mechanistic battery."
+    },
+    {
+      "rule_id": "primary-capacity-controls-pass",
+      "dimension_id": "generic_capacity_exclusion",
+      "permitted_score": 2,
+      "required_evidence_kinds": ["behavioral_matching_metric"],
+      "predicates": ["all_protocol_matching_metrics_reported", "all_primary_matching_metrics_pass"],
+      "failure_cap": 1,
+      "rationale": "A score of two requires complete reporting and passing of the protocol matching battery, but does not claim exhaustive exclusion of every generic-capacity explanation."
+    },
+    {
+      "rule_id": "blinded-multi-variant-report-suppression",
+      "dimension_id": "measurement_robustness",
+      "permitted_score": 3,
+      "required_evidence_kinds": ["measurement_validity"],
+      "predicates": ["blinded_evaluation", "multiple_probe_variants", "multiple_prompt_variants", "report_suppression_tested", "measurement_adequate"],
+      "failure_cap": 2,
+      "rationale": "A maximum measurement score requires adequate measurement under blinding, multiple probes, multiple prompts, and report suppression."
+    }
+  ]
+}
