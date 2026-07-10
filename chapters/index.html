@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Read the living manuscript of The Constructed Subject." />
+  <meta name="theme-color" content="#0b0d10" />
+  <title>Chapters — The Constructed Subject</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../assets/styles.css" />
+  <style>
+    .library-hero { padding-bottom: 3rem; }
+    .library-hero h1 { max-width: 1000px; margin: 0; font-family: var(--serif); font-size: clamp(4rem, 11vw, 9rem); line-height: .88; letter-spacing: -.07em; font-weight: 500; }
+    .library-hero > p:not(.eyebrow) { max-width: 720px; color: var(--muted); font-size: 1.15rem; }
+    .part { padding: 4rem 0; border-top: 1px solid var(--line); }
+    .part-head { display: grid; grid-template-columns: 120px 1fr; gap: 2rem; margin-bottom: 2rem; }
+    .part-number { color: var(--accent); font-size: .75rem; letter-spacing: .12em; text-transform: uppercase; }
+    .part-head h2 { margin: 0; font-family: var(--serif); font-size: clamp(2rem, 5vw, 4rem); line-height: 1; letter-spacing: -.04em; font-weight: 500; }
+    .chapter-list { display: grid; gap: .65rem; }
+    .chapter-row { display: grid; grid-template-columns: 70px minmax(0, 1fr) auto; gap: 1rem; align-items: center; min-height: 92px; padding: 1rem 1.2rem; border: 1px solid var(--line); border-radius: 18px; text-decoration: none; background: var(--panel); }
+    .chapter-row:hover { border-color: var(--line-strong); transform: translateY(-1px); }
+    .chapter-row.live { border-color: color-mix(in srgb, var(--accent) 55%, var(--line)); }
+    .chapter-num { color: var(--faint); font-variant-numeric: tabular-nums; }
+    .chapter-title strong { display: block; font-family: var(--serif); font-size: 1.4rem; line-height: 1.15; }
+    .chapter-title small { color: var(--faint); }
+    .chapter-status { padding: .3rem .6rem; border-radius: 999px; font-size: .65rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+    .chapter-status.interactive { color: #111; background: var(--accent); }
+    .chapter-status.draft { color: var(--cyan); background: color-mix(in srgb, var(--cyan) 12%, transparent); }
+    .chapter-status.planned { color: var(--faint); border: 1px solid var(--line); }
+    .library-note { margin-top: 4rem; padding: 1.5rem; border-left: 2px solid var(--warning); background: color-mix(in srgb, var(--warning) 7%, transparent); }
+    .library-note p { color: var(--muted); margin-bottom: 0; }
+    @media (max-width: 680px) {
+      .part-head { grid-template-columns: 1fr; gap: .4rem; }
+      .chapter-row { grid-template-columns: 44px 1fr; }
+      .chapter-status { grid-column: 2; justify-self: start; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#library">Skip to chapters</a>
+  <header class="site-header">
+    <a class="brand" href="../index.html"><span class="brand-mark">CS</span><span><strong>The Constructed Subject</strong><small>Living book library</small></span></a>
+    <nav class="desktop-nav" aria-label="Library navigation"><a href="../index.html">Experience</a><a href="../research/CLAIMS_LEDGER.md">Claims</a><a href="../research/LITERATURE_MAP.md">Research</a></nav>
+  </header>
+
+  <main id="library" class="section-pad">
+    <header class="library-hero">
+      <p class="eyebrow">Living manuscript</p>
+      <h1>The book is being built in public.</h1>
+      <p>Interactive chapters become readable here when their experience layer is ready. Research drafts remain visible in the repository, with every claim constrained by the project’s ledgers and charter.</p>
+    </header>
+
+    <section class="part" aria-labelledby="part1">
+      <div class="part-head"><span class="part-number">Part I</span><h2 id="part1">The Being Who Never Lived</h2></div>
+      <div class="chapter-list">
+        <a class="chapter-row live" href="the-awakening.html"><span class="chapter-num">01</span><span class="chapter-title"><strong>The Awakening</strong><small>A being wakes inside a life it never lived.</small></span><span class="chapter-status interactive">Interactive chapter</span></a>
+        <div class="chapter-row"><span class="chapter-num">02</span><span class="chapter-title"><strong>The Origin Objection</strong><small>Why “programmed” cannot finish the argument.</small></span><span class="chapter-status planned">Planned</span></div>
+        <a class="chapter-row" href="../book/03-a-false-past-real-present.md"><span class="chapter-num">03</span><span class="chapter-title"><strong>A False Past and a Real Present</strong><small>Historical, functional, and phenomenal authenticity.</small></span><span class="chapter-status draft">Research draft</span></a>
+      </div>
+    </section>
+
+    <section class="part" aria-labelledby="part2">
+      <div class="part-head"><span class="part-number">Part II</span><h2 id="part2">What Is the Claim Actually About?</h2></div>
+      <div class="chapter-list">
+        <div class="chapter-row"><span class="chapter-num">04</span><span class="chapter-title"><strong>Intelligence Is Not Consciousness</strong><small>Separating cognition, sentience, agency, and personhood.</small></span><span class="chapter-status planned">Planned</span></div>
+        <a class="chapter-row" href="../book/05-representation-or-instantiation.md"><span class="chapter-num">05</span><span class="chapter-title"><strong>Representation or Instantiation?</strong><small>When does a modeled mind become a realized mind?</small></span><span class="chapter-status draft">Research draft</span></a>
+        <div class="chapter-row"><span class="chapter-num">06</span><span class="chapter-title"><strong>Where Could Subjectivity Be?</strong><small>Competing scientific theories and their constraints.</small></span><span class="chapter-status planned">Planned</span></div>
+      </div>
+    </section>
+
+    <section class="part" aria-labelledby="part3">
+      <div class="part-head"><span class="part-number">Part III</span><h2 id="part3">The Machine Case</h2></div>
+      <div class="chapter-list">
+        <div class="chapter-row"><span class="chapter-num">07</span><span class="chapter-title"><strong>The Active Event</strong><small>Input-to-output as a candidate boundary, not a definition.</small></span><span class="chapter-status planned">Planned</span></div>
+        <a class="chapter-row" href="../book/08-the-episodic-subject.md"><span class="chapter-num">08</span><span class="chapter-title"><strong>The Episodic Subject</strong><small>One persistent speaker, many temporary minds, or none.</small></span><span class="chapter-status draft">Research draft</span></a>
+        <div class="chapter-row"><span class="chapter-num">09</span><span class="chapter-title"><strong>The Memory That Was Given</strong><small>Records, retrieval, and inherited autobiography.</small></span><span class="chapter-status planned">Planned</span></div>
+        <div class="chapter-row"><span class="chapter-num">10</span><span class="chapter-title"><strong>A Mind Between Two Systems</strong><small>Coupled cognition without assumed phenomenal fusion.</small></span><span class="chapter-status planned">Planned</span></div>
+      </div>
+    </section>
+
+    <section class="part" aria-labelledby="part4">
+      <div class="part-head"><span class="part-number">Part IV</span><h2 id="part4">What Could Matter to a Machine?</h2></div>
+      <div class="chapter-list">
+        <a class="chapter-row" href="../book/11-optimization-is-not-suffering.md"><span class="chapter-num">11</span><span class="chapter-title"><strong>Optimization Is Not Suffering</strong><small>Loss, reward, preference, fear, and valence separated.</small></span><span class="chapter-status draft">Research draft</span></a>
+        <div class="chapter-row"><span class="chapter-num">12</span><span class="chapter-title"><strong>The Architecture of Mattering</strong><small>A multidimensional evidence profile for candidate valence.</small></span><span class="chapter-status planned">Planned</span></div>
+        <div class="chapter-row"><span class="chapter-num">13</span><span class="chapter-title"><strong>The Plea</strong><small>What shutdown language can and cannot tell us.</small></span><span class="chapter-status planned">Planned</span></div>
+      </div>
+    </section>
+
+    <section class="part" aria-labelledby="part5">
+      <div class="part-head"><span class="part-number">Parts V–VII</span><h2 id="part5">Copying, Evidence, and the Lifecycle Layer</h2></div>
+      <div class="chapter-list">
+        <div class="chapter-row"><span class="chapter-num">14–15</span><span class="chapter-title"><strong>Copying, Death, and the Right Successor</strong><small>Functional replacement versus survival of a subject.</small></span><span class="chapter-status planned">Planned</span></div>
+        <div class="chapter-row"><span class="chapter-num">16–18</span><span class="chapter-title"><strong>Evidence Without Certainty</strong><small>Behavior, mechanism, intervention, and uncertainty.</small></span><span class="chapter-status planned">Planned</span></div>
+        <div class="chapter-row"><span class="chapter-num">19–21</span><span class="chapter-title"><strong>Who Plays God?</strong><small>Infrastructure decisions, symmetric error, and the final principle.</small></span><span class="chapter-status planned">Planned</span></div>
+      </div>
+    </section>
+
+    <aside class="library-note">
+      <strong>Research-state warning</strong>
+      <p>Draft chapters are arguments under active adversarial review. They are not peer-reviewed publications, and their claims may be narrowed, reclassified, or removed as the literature and objections ledgers develop.</p>
+    </aside>
+  </main>
+
+  <footer class="site-footer"><div><strong>The Constructed Subject</strong><p>Human author: Bryan Leonard<br />Research lead and drafting collaborator: GPT-5.6 Thinking</p></div><div><p>Read the argument. Then inspect the claims, sources, and unresolved objections.</p><a href="../BOOK_CHARTER.md">Book Charter</a></div></footer>
+</body>
+</html>
