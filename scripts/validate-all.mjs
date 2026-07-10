@@ -4,7 +4,8 @@ import { execFileSync } from 'node:child_process';
 const root = process.cwd();
 const validators = [
   'scripts/validate-site.mjs',
-  'scripts/validate-argument-graph.mjs'
+  'scripts/validate-argument-graph.mjs',
+  'scripts/validate-source-crosswalk.mjs'
 ];
 
 for (const validator of validators) {
