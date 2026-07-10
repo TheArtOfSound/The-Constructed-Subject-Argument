@@ -1,0 +1,10 @@
+{
+  "name": "The Constructed Subject",
+  "short_name": "Constructed Subject",
+  "description": "An interactive book about artificial memory, machine consciousness, and constructed minds.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#0b0d10",
+  "theme_color": "#0b0d10",
+  "icons": []
+}
