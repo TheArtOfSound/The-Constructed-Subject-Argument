@@ -4,6 +4,8 @@ import { execFileSync } from 'node:child_process';
 
 const root = process.cwd();
 const failures = [];
+const warnings = [];
+
 const required = [
   'index.html',
   'chapters/index.html',
@@ -16,11 +18,22 @@ const required = [
   'research/CLAIMS_LEDGER.md',
   'research/ORIGINALITY_LEDGER.md',
   'research/OBJECTIONS.md',
-  'research/EXPERIMENTS.md'
+  'research/EXPERIMENTS.md',
+  'research/THEORY_COMPARISON_MATRIX.md',
+  'book/01-the-awakening.md',
+  'book/02-the-origin-fallacy.md',
+  'book/03-a-false-past-real-present.md',
+  'book/04-the-words-we-confuse.md',
+  'book/05-representation-or-instantiation.md',
+  'book/06-theories-machines-and-tests.md'
 ];
 
 for (const file of required) {
   if (!fs.existsSync(path.join(root, file))) failures.push(`Missing required file: ${file}`);
+}
+
+function read(relativePath) {
+  return fs.readFileSync(path.join(root, relativePath), 'utf8');
 }
 
 function idsFromHtml(source) {
@@ -32,16 +45,18 @@ function referencedIds(source) {
 }
 
 function validateBindings(htmlFile, jsFile) {
-  const html = fs.readFileSync(path.join(root, htmlFile), 'utf8');
-  const js = fs.readFileSync(path.join(root, jsFile), 'utf8');
+  const html = read(htmlFile);
+  const js = read(jsFile);
   const ids = idsFromHtml(html);
   for (const id of referencedIds(js)) {
     if (!ids.has(id)) failures.push(`${jsFile} references missing #${id} in ${htmlFile}`);
   }
 }
 
-validateBindings('index.html', 'assets/experience-v2.js');
-validateBindings('chapters/read.html', 'assets/reader-v2.js');
+if (required.every((file) => fs.existsSync(path.join(root, file)))) {
+  validateBindings('index.html', 'assets/experience-v2.js');
+  validateBindings('chapters/read.html', 'assets/reader-v2.js');
+}
 
 for (const jsFile of ['assets/experience-v2.js', 'assets/reader-v2.js', 'assets/chapter.js']) {
   if (!fs.existsSync(path.join(root, jsFile))) continue;
@@ -54,7 +69,8 @@ for (const jsFile of ['assets/experience-v2.js', 'assets/reader-v2.js', 'assets/
 
 const htmlFiles = ['index.html', 'chapters/index.html', 'chapters/read.html', 'chapters/the-awakening.html'];
 for (const htmlFile of htmlFiles) {
-  const source = fs.readFileSync(path.join(root, htmlFile), 'utf8');
+  if (!fs.existsSync(path.join(root, htmlFile))) continue;
+  const source = read(htmlFile);
   const base = path.dirname(path.join(root, htmlFile));
   const localIds = idsFromHtml(source);
   for (const match of source.matchAll(/(?:href|src)=["']([^"']+)["']/g)) {
@@ -80,15 +96,91 @@ for (const htmlFile of htmlFiles) {
   }
 }
 
-const readerSource = fs.readFileSync(path.join(root, 'assets/reader-v2.js'), 'utf8');
-for (const match of readerSource.matchAll(/file:\s*["']([^"']+\.md)["']/g)) {
-  const resolved = path.resolve(path.join(root, 'chapters'), match[1]);
-  if (!fs.existsSync(resolved)) failures.push(`Reader maps to missing chapter: ${match[1]}`);
+if (fs.existsSync(path.join(root, 'assets/reader-v2.js'))) {
+  const readerSource = read('assets/reader-v2.js');
+  const mappedChapters = new Set();
+  for (const match of readerSource.matchAll(/file:\s*["']([^"']+\.md)["']/g)) {
+    const mapped = match[1];
+    mappedChapters.add(path.basename(mapped));
+    const resolved = path.resolve(path.join(root, 'chapters'), mapped);
+    if (!fs.existsSync(resolved)) failures.push(`Reader maps to missing chapter: ${mapped}`);
+  }
+
+  const draftedChapters = fs.readdirSync(path.join(root, 'book'))
+    .filter((file) => /^\d{2}-.+\.md$/.test(file));
+  for (const chapter of draftedChapters) {
+    if (!mappedChapters.has(chapter)) warnings.push(`Drafted chapter is not mapped in reader-v2.js: ${chapter}`);
+  }
 }
 
-const librarySource = fs.readFileSync(path.join(root, 'chapters/index.html'), 'utf8');
-if (/href=["']\.\.\/book\//.test(librarySource)) {
-  failures.push('Chapter library links directly to raw Markdown instead of the reader interface.');
+if (fs.existsSync(path.join(root, 'chapters/index.html'))) {
+  const librarySource = read('chapters/index.html');
+  if (/href=["']\.\.\/book\//.test(librarySource)) {
+    failures.push('Chapter library links directly to raw Markdown instead of the reader interface.');
+  }
+}
+
+if (fs.existsSync(path.join(root, 'research/CLAIMS_LEDGER.md'))) {
+  const claims = read('research/CLAIMS_LEDGER.md');
+  const claimIds = [...claims.matchAll(/^###\s+(CSA-(?:R)?\d+)\s*$/gm)].map((match) => match[1]);
+  const duplicates = claimIds.filter((id, index) => claimIds.indexOf(id) !== index);
+  for (const id of new Set(duplicates)) failures.push(`Duplicate claim ID in CLAIMS_LEDGER.md: ${id}`);
+
+  for (const requiredLabel of ['Established background', 'Contested background', 'Synthesis', 'Proposed contribution', 'Speculation', 'Rejected']) {
+    if (!claims.includes(requiredLabel)) failures.push(`CLAIMS_LEDGER.md is missing status definition: ${requiredLabel}`);
+  }
+
+  for (const coreId of ['CSA-001', 'CSA-004', 'CSA-020', 'CSA-030', 'CSA-032', 'CSA-040', 'CSA-070', 'CSA-071']) {
+    if (!claimIds.includes(coreId)) failures.push(`CLAIMS_LEDGER.md is missing core control claim: ${coreId}`);
+  }
+}
+
+const epistemicFiles = [
+  ...fs.readdirSync(path.join(root, 'book')).filter((file) => file.endsWith('.md')).map((file) => `book/${file}`),
+  'research/THEORY_COMPARISON_MATRIX.md',
+  'research/EXPERIMENTS.md'
+].filter((file) => fs.existsSync(path.join(root, file)));
+
+const prohibitedPatterns = [
+  { pattern: /\bcurrent (?:AI|language models?|LLMs?) (?:is|are) conscious\b/gi, reason: 'unsupported present-tense consciousness declaration' },
+  { pattern: /\bproves? (?:that )?(?:an? )?(?:AI|language model|LLM) (?:is|are) conscious\b/gi, reason: 'single-result proof language' },
+  { pattern: /\bconsciousness detector\b/gi, reason: 'detector framing without a validated theory-neutral test', allowNegation: true },
+  { pattern: /\bprediction error is pain\b/gi, reason: 'collapses computational error and phenomenal valence', allowNegation: true },
+  { pattern: /\breward (?:is|equals) suffering\b/gi, reason: 'collapses optimization and phenomenal suffering', allowNegation: true }
+];
+
+function isExplicitlyNegated(source, index) {
+  const context = source.slice(Math.max(0, index - 80), index).toLowerCase();
+  return /(?:not|no|never|does not|do not|cannot|isn't|aren't|without)\s+[^.]{0,45}$/.test(context);
+}
+
+for (const file of epistemicFiles) {
+  const source = read(file);
+  for (const rule of prohibitedPatterns) {
+    for (const match of source.matchAll(rule.pattern)) {
+      if (rule.allowNegation && isExplicitlyNegated(source, match.index)) continue;
+      failures.push(`${file} contains ${rule.reason}: “${match[0]}”`);
+    }
+  }
+}
+
+if (fs.existsSync(path.join(root, 'research/THEORY_COMPARISON_MATRIX.md'))) {
+  const matrix = read('research/THEORY_COMPARISON_MATRIX.md');
+  for (const control of ['Strongest rival explanation', 'Discriminating intervention', 'Confidence-lowering result', 'What it does not establish']) {
+    if (!matrix.includes(control)) failures.push(`THEORY_COMPARISON_MATRIX.md is missing control field: ${control}`);
+  }
+}
+
+if (fs.existsSync(path.join(root, 'research/EXPERIMENTS.md'))) {
+  const experiments = read('research/EXPERIMENTS.md');
+  for (const control of ['rival', 'falsif', 'consciousness detector']) {
+    if (!experiments.toLowerCase().includes(control)) failures.push(`EXPERIMENTS.md is missing required adversarial concept: ${control}`);
+  }
+}
+
+if (warnings.length) {
+  console.warn('\nSite validation warnings:\n');
+  warnings.forEach((warning) => console.warn(`- ${warning}`));
 }
 
 if (failures.length) {
@@ -97,4 +189,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Validated ${required.length} required files, ${htmlFiles.length} HTML surfaces, script bindings, chapter mappings, local links, and cross-page anchors.`);
+console.log(`Validated ${required.length} required files, ${htmlFiles.length} HTML surfaces, script bindings, chapter mappings, local links, claim controls, theory controls, and prohibited epistemic overclaims.`);
