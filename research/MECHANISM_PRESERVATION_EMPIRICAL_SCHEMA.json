@@ -1,7 +1,8 @@
 {
-  "schema_version": "1.0.0",
+  "schema_version": "1.1.0",
   "schema_id": "EXP-11-EMPIRICAL-RESULT",
   "protocol_id": "EXP-11-MECHANISM-PRESERVATION",
+  "derivation_rule_registry": "research/MECHANISM_SCORE_DERIVATION_RULES.json",
   "status": "research_data_contract",
   "purpose": "Bind mechanism-preservation classifications to preregistered observations rather than unsupported ordinal judgments.",
   "epistemic_boundary": {
@@ -51,6 +52,7 @@
   },
   "behavioral_matching_metric": {
     "required_fields": ["metric_id", "primary", "standardized_difference", "tolerance", "passed"],
+    "coverage_rule": "Every metric named by protocol.behavioral_equivalence.required_metrics must be reported exactly once.",
     "derivation_rule": "passed must equal abs(standardized_difference) <= tolerance.",
     "aggregate_rule": "behavioral_matching_adequate is true only when every primary metric passes or has a preregistered adjustment with a disclosed residual."
   },
@@ -72,7 +74,7 @@
   "dimension_derivation": {
     "required_fields": ["dimension_id", "score", "evidence_ids", "rule_id", "explanation"],
     "allowed_scores": [0, 1, 2, 3],
-    "rule": "Every ordinal score must cite observed evidence identifiers and a deterministic rule."
+    "rule": "Every ordinal score must cite resolvable evidence identifiers and a rule from the canonical derivation registry whose dimension, score, evidence kinds, and predicates all pass."
   },
   "hard_fail_assessment": {
     "required_fields": ["condition_id", "triggered", "decisive", "evidence_ids", "justification"],
@@ -83,10 +85,11 @@
     "completed empirical status",
     "resolvable preregistration hash",
     "protocol lock match",
-    "all primary matching metrics reported",
+    "complete protocol matching battery",
     "all planned interventions reported",
     "all exclusions and deviations disclosed",
-    "dimension scores deterministically derived",
+    "dimension scores derived through canonical rules",
+    "all evidence identifiers resolved",
     "forbidden conclusions preserved"
   ]
 }
