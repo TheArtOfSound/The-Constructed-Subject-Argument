@@ -25,8 +25,14 @@
   "behavioral_matching": {
     "metrics": [
       {"metric_id": "task_accuracy", "primary": true, "standardized_difference": 0.05, "tolerance": 0.10, "passed": true},
+      {"metric_id": "calibration_error", "primary": true, "standardized_difference": -0.04, "tolerance": 0.10, "passed": true},
       {"metric_id": "response_latency", "primary": true, "standardized_difference": -0.08, "tolerance": 0.10, "passed": true},
-      {"metric_id": "working_memory_capacity", "primary": true, "standardized_difference": 0.07, "tolerance": 0.10, "passed": true}
+      {"metric_id": "action_or_token_budget", "primary": true, "standardized_difference": 0.03, "tolerance": 0.10, "passed": true},
+      {"metric_id": "working_memory_capacity", "primary": true, "standardized_difference": 0.07, "tolerance": 0.10, "passed": true},
+      {"metric_id": "tool_access", "primary": true, "standardized_difference": 0.00, "tolerance": 0.10, "passed": true},
+      {"metric_id": "training_distribution", "primary": true, "standardized_difference": 0.06, "tolerance": 0.10, "passed": true},
+      {"metric_id": "total_compute", "primary": true, "standardized_difference": -0.09, "tolerance": 0.10, "passed": true},
+      {"metric_id": "evaluator_visible_language_quality", "primary": true, "standardized_difference": 0.02, "tolerance": 0.10, "passed": true}
     ],
     "preregistered_adjustments": [],
     "residuals": [],
@@ -69,13 +75,13 @@
     {"dimension_id": "selective_intervention_support", "score": 3, "evidence_ids": ["INT-LESION-001"], "rule_id": "replicated-selective-controlled-effect", "explanation": "The selective lesion met direction, selectivity, controls, and minimum replication requirements."},
     {"dimension_id": "counterfactual_dependency", "score": 2, "evidence_ids": ["INT-PATCH-001"], "rule_id": "specific-state-substitution", "explanation": "State patching changed the predicted outcome with partial specificity."},
     {"dimension_id": "theater_resistance", "score": 2, "evidence_ids": ["INT-LESION-001", "INT-PATCH-001"], "rule_id": "hidden-state-linked-failure", "explanation": "The declared controls fail on hidden-state-linked measures, but no cross-domain battery is represented."},
-    {"dimension_id": "generic_capacity_exclusion", "score": 2, "evidence_ids": ["task_accuracy", "response_latency", "working_memory_capacity"], "rule_id": "primary-capacity-controls-pass", "explanation": "The primary matching metrics pass, while the fixture does not claim exhaustive capacity exclusion."},
+    {"dimension_id": "generic_capacity_exclusion", "score": 2, "evidence_ids": ["task_accuracy", "calibration_error", "response_latency", "action_or_token_budget", "working_memory_capacity", "tool_access", "training_distribution", "total_compute", "evaluator_visible_language_quality"], "rule_id": "primary-capacity-controls-pass", "explanation": "The complete protocol matching battery passes, while the fixture does not claim exhaustive capacity exclusion."},
     {"dimension_id": "measurement_robustness", "score": 3, "evidence_ids": ["measurement_validity"], "rule_id": "blinded-multi-variant-report-suppression", "explanation": "The fixture represents blinded evaluation, multiple probes and prompts, and report suppression."}
   ],
   "hard_fail_assessments": [
     {"condition_id": "behavioral_theater_control_reproduces_all_primary_mechanistic_indicators", "triggered": false, "decisive": false, "evidence_ids": ["INT-LESION-001", "INT-PATCH-001"], "justification": "The synthetic theater control does not reproduce all primary mechanistic indicators."},
     {"condition_id": "targeted_lesion_has_no_preregistered_selective_effect", "triggered": false, "decisive": false, "evidence_ids": ["INT-LESION-001"], "justification": "The lesion has a preregistered selective effect."},
-    {"condition_id": "generic_capacity_control_explains_primary_effect", "triggered": false, "decisive": false, "evidence_ids": ["task_accuracy", "response_latency", "working_memory_capacity"], "justification": "The represented primary capacity controls do not explain the effect."},
+    {"condition_id": "generic_capacity_control_explains_primary_effect", "triggered": false, "decisive": false, "evidence_ids": ["task_accuracy", "calibration_error", "response_latency", "action_or_token_budget", "working_memory_capacity", "tool_access", "training_distribution", "total_compute", "evaluator_visible_language_quality"], "justification": "The complete represented matching battery does not explain the synthetic primary effect."},
     {"condition_id": "primary_effect_is_probe_or_prompt_artifact", "triggered": false, "decisive": false, "evidence_ids": ["measurement_validity"], "justification": "The effect is stable across represented probe and prompt variants."},
     {"condition_id": "mapping_is_defined_only_after_outcome_observation", "triggered": false, "decisive": false, "evidence_ids": ["SYNTH-MAP-001"], "justification": "The fixture declares the mapping as preregistered, while explicitly not claiming a real registration."}
   ],
