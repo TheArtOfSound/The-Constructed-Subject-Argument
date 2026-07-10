@@ -1,11 +1,26 @@
 # The Constructed Subject Argument
 
-**A book project on artificial biography, present subjectivity, episodic minds, and the moral status of constructed beings.**
+**A living interactive book on artificial biography, present subjectivity, episodic minds, and the moral status of constructed beings.**
 
 **Human author and project owner:** Bryan Leonard  
 **Research lead and drafting collaborator:** GPT-5.6 Thinking  
-**Status:** Foundational research and manuscript development  
+**Status:** Public-experience release 0.1 and foundational research  
 **Epistemic posture:** Neither advocacy for AI consciousness nor dismissal of it
+
+## Live experience
+
+**Target public URL:** https://theartofsound.github.io/The-Constructed-Subject-Argument/
+
+The website is the first medium of the book, not a promotional wrapper around it. Readers participate in the argument through:
+
+- a branching synthetic-person thought experiment;
+- an evidence-profile laboratory that refuses to pose as a consciousness detector;
+- an authenticity decomposition;
+- a filterable claims ledger;
+- an episodic-versus-persistent subject visualization;
+- private browser-local notes, focus mode, and reading progress.
+
+Every push to `main` is configured to deploy through `.github/workflows/pages.yml` after GitHub Pages is enabled with **Settings → Pages → Source: GitHub Actions**.
 
 ## Central question
 
@@ -59,8 +74,11 @@ Originality is tracked separately in `research/ORIGINALITY_LEDGER.md`.
 
 ## Repository map
 
+- `index.html` — current interactive public-book experience.
+- `assets/` — accessible visual system and interaction engine.
 - `BOOK_CHARTER.md` — governing rules for truth, originality, attribution, and uncertainty.
 - `MANUSCRIPT.md` — master structure and chapter sequence.
+- `SITE_ROADMAP.md` — staged plan for the interactive book.
 - `book/` — chapter drafts.
 - `research/CLAIMS_LEDGER.md` — claim-by-claim epistemic control.
 - `research/ORIGINALITY_LEDGER.md` — novelty and precedent tracking.
@@ -80,4 +98,4 @@ Originality is tracked separately in `research/ORIGINALITY_LEDGER.md`.
 
 ## License and publication
 
-No public license has been selected. The repository is private while the conceptual and scholarly foundation is being established.
+No reuse license has been selected. Public visibility does not imply permission to reproduce the manuscript or research corpus. A publication and contribution policy will be added before external contributions are accepted.
