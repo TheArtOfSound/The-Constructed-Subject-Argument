@@ -9,19 +9,22 @@ The repository currently contains two source-registry layers that were created a
 1. `research/SOURCE_REGISTRY.md` is the **canonical human review ledger**. It records the broad bibliography, review status, intended manuscript use, and verification work still required.
 2. `research/SOURCE_REGISTRY.json` is the **machine-enforced evidential-scope subset**. It currently covers theory sources used in Chapter 6 and records supported propositions, prohibited overreach, locator status, chapter use, and graph-derived claim backlinks.
 3. `research/ARGUMENT_GRAPH.json` is the **authority for evidential relationships** within its declared scope. It records whether a source relationship is direct, inferential, contextual, opposing, or boundary-setting.
+4. `research/SOURCE_ID_CROSSWALK.json` is the **migration authority between identifier namespaces** for the current structured subset. It distinguishes exact matches from unresolved cluster membership and clusters that require conceptual splitting.
 
 The JSON source registry does **not** yet replace the Markdown registry. Its entries must not be interpreted as the complete project bibliography.
 
 ## Non-interchangeable identifiers
 
-The two registries currently use different source identifiers. Until a formal crosswalk is added:
+The two registries currently use different source identifiers. The crosswalk makes their relationship explicit but does not make the identifiers interchangeable:
 
 - Markdown IDs such as `SRC-A003` remain authoritative for the human review ledger.
 - JSON IDs such as `SRC-SEARLE-1980-MBP` are machine identifiers for the enforced subset.
-- A source must not be assumed to be synchronized merely because its title appears in both files.
-- Claim mappings must identify which identifier namespace they use.
+- A title match is not enough; every migration relationship must appear in `SOURCE_ID_CROSSWALK.json`.
+- `exact` means one work is identified in both systems.
+- `cluster_member` means the structured record resolves only one member of a broader legacy cluster.
+- `cluster_overlap_requires_split` means the legacy record combines theoretically distinct literatures and cannot be retired as one source.
 
-This duplication is technical debt, not a designed feature.
+This duplication remains technical debt, but it is now bounded and machine-checked.
 
 ## Claim backlink rule
 
@@ -43,7 +46,7 @@ The intended end state is one canonical machine-readable registry from which a h
 Migration requires:
 
 1. assigning one stable source ID to every retained source;
-2. creating an explicit old-ID-to-new-ID crosswalk;
+2. maintaining an explicit old-ID-to-new-ID crosswalk until the legacy registry is retired;
 3. merging metadata, review status, supported propositions, evidential limits, pinpoint support, claim mappings, and chapter usage;
 4. rejecting or superseding duplicate records rather than silently retaining both;
 5. generating the Markdown view from structured data;
@@ -73,10 +76,11 @@ A source can have a valid DOI and still fail claim verification. Metadata verifi
 
 ## Current unresolved migration work
 
-Chapter 6 claim backlinks are now populated and validated against the argument graph. The remaining source-control debt is narrower but more difficult:
+Chapter 6 claim backlinks and legacy identifier coverage are now populated and validated. The remaining source-control debt is narrower but more difficult:
 
-1. create the old-ID-to-new-ID crosswalk between the Markdown and JSON registries;
-2. add pinpoint locators for proposition-level use;
+1. split the legacy global-workspace and predictive-processing clusters into theory-specific human records;
+2. add pinpoint locators for the remaining proposition-level uses;
 3. verify claim fit independently of metadata identity;
 4. add explicit opposing sources where the graph currently records only warnings;
-5. expand structured coverage beyond Chapter 6 without weakening evidential-scope controls.
+5. expand structured coverage beyond Chapter 6 without weakening evidential-scope controls;
+6. generate the human-readable registry from structured data only after the broader bibliography has migrated.
