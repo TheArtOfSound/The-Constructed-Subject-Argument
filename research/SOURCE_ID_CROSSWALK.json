@@ -1,0 +1,80 @@
+{
+  "schema_version": "1.0.0",
+  "updated_at": "2026-07-10",
+  "scope": "Legacy SOURCE_REGISTRY.md identifiers corresponding to the current Chapter 6 structured source subset",
+  "match_types": {
+    "exact": "The legacy record and structured record identify the same work.",
+    "cluster_member": "The structured record resolves one work inside a legacy unresolved source cluster.",
+    "cluster_overlap_requires_split": "The legacy cluster combines theoretically distinct families and must be split before migration is complete."
+  },
+  "mappings": [
+    {
+      "legacy_id": "SRC-A003",
+      "structured_ids": ["SRC-SEARLE-1980-MBP"],
+      "match_type": "exact",
+      "migration_action": "Replace the legacy identifier after human metadata and claim-fit review."
+    },
+    {
+      "legacy_id": "SRC-D003",
+      "structured_ids": ["SRC-COGITATE-2025"],
+      "match_type": "exact",
+      "migration_action": "Retain provisional status until the structured record uses the verified DOI already present in the human ledger."
+    },
+    {
+      "legacy_id": "SRC-D004",
+      "structured_ids": ["SRC-ALBANTAKIS-ETAL-2023-IIT4"],
+      "match_type": "exact",
+      "migration_action": "Merge metadata and preserve the human ledger's warning against proxy metrics."
+    },
+    {
+      "legacy_id": "SRC-D005",
+      "structured_ids": [
+        "SRC-BAARS-1988-GWT",
+        "SRC-DEHAENE-SERGENT-CHANGEUX-2003",
+        "SRC-DEHAENE-CHANGEUX-2011"
+      ],
+      "match_type": "cluster_overlap_requires_split",
+      "migration_action": "Split global workspace theory from global neuronal workspace theory before retiring the legacy cluster."
+    },
+    {
+      "legacy_id": "SRC-D006",
+      "structured_ids": ["SRC-LAMME-2006-RPT", "SRC-LAMME-ROELFSEMA-2000"],
+      "match_type": "cluster_member",
+      "migration_action": "Replace the unresolved cluster with separate theory-statement and processing-distinction records."
+    },
+    {
+      "legacy_id": "SRC-D007",
+      "structured_ids": ["SRC-LAU-ROSENTHAL-2011"],
+      "match_type": "cluster_member",
+      "migration_action": "Keep the record scoped to the reviewed higher-order account; do not treat it as exhaustive of all higher-order theories."
+    },
+    {
+      "legacy_id": "SRC-D008",
+      "structured_ids": ["SRC-GRAZIANO-WEBB-2015-AST"],
+      "match_type": "cluster_member",
+      "migration_action": "Replace the unresolved cluster only for claims supported by this exact attention-schema source."
+    },
+    {
+      "legacy_id": "SRC-D009",
+      "structured_ids": [
+        "SRC-FRISTON-2010-FEP",
+        "SRC-CLARK-2013-PREDICTIVE",
+        "SRC-SETH-2013-INTEROCEPTION"
+      ],
+      "match_type": "cluster_overlap_requires_split",
+      "migration_action": "Separate free-energy principle, predictive-processing synthesis, and interoceptive inference; do not pool their claims."
+    },
+    {
+      "legacy_id": "SRC-D010",
+      "structured_ids": ["SRC-VARELA-THOMPSON-ROSCH-1991"],
+      "match_type": "cluster_member",
+      "migration_action": "Retain the distinction among embodiment, enactivism, autopoiesis, and life-centered views."
+    },
+    {
+      "legacy_id": "SRC-D011",
+      "structured_ids": ["SRC-FRANKISH-2016-ILLUSIONISM"],
+      "match_type": "cluster_member",
+      "migration_action": "Use this record for Frankish's formulation without treating it as exhaustive of the illusionist family."
+    }
+  ]
+}
