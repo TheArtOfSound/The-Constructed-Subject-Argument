@@ -1,0 +1,41 @@
+name: Validate interactive research labs
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'labs/**'
+      - 'assets/ledger.*'
+      - 'scripts/validate-labs.mjs'
+      - '.github/workflows/labs-validation.yml'
+      - 'chapters/read.html'
+      - 'research/METHOD.md'
+      - 'research/EXPERIMENTS.md'
+  pull_request:
+    paths:
+      - 'labs/**'
+      - 'assets/ledger.*'
+      - 'scripts/validate-labs.mjs'
+      - '.github/workflows/labs-validation.yml'
+      - 'chapters/read.html'
+      - 'research/METHOD.md'
+      - 'research/EXPERIMENTS.md'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-labs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Validate interactive labs
+        run: node scripts/validate-labs.mjs
