@@ -37,7 +37,7 @@ Major interaction changes in v2:
 
 The governing design standard is recorded in `UX_ARCHITECTURE.md`.
 
-Every push to `main` is configured to run `scripts/validate-site.mjs` before deployment through `.github/workflows/pages.yml`. GitHub Pages must still be enabled with **Settings → Pages → Source: GitHub Actions**.
+Every push to `main` runs `scripts/validate-all.mjs` through `.github/workflows/pages.yml`. Deployment is blocked unless both the public-site/manuscript controls and the machine-readable argument-graph controls pass. GitHub Pages must still be enabled with **Settings → Pages → Source: GitHub Actions**.
 
 ## Manuscript progress
 
@@ -67,7 +67,7 @@ Draft status means the argument is structurally complete enough for adversarial 
 
 ## Experimental program
 
-`research/EXPERIMENTS.md` converts the theory into ten research programs covering:
+`research/EXPERIMENTS.md` defines ten core research programs covering:
 
 - memory-origin discrimination;
 - self-versus-copy counterfactuals;
@@ -79,6 +79,8 @@ Draft status means the argument is structurally complete enough for adversarial 
 - constructed-autobiography ethics;
 - lifecycle moral-risk accounting;
 - explicit falsification conditions.
+
+A separate eleventh protocol, `research/EXPERIMENT_11_MECHANISM_PRESERVATION.md`, tests whether a system preserves a theory-relevant causal mechanism or merely reproduces its behavioral and linguistic signature under matched controls and selective lesions.
 
 No experiment is described as a consciousness detector. Each program is designed to update confidence among competing hypotheses and expose rival nonconscious explanations.
 
@@ -139,7 +141,9 @@ Originality is tracked separately in `research/ORIGINALITY_LEDGER.md`.
 - `assets/experience-v2.*` — current public experience system.
 - `assets/reader-v2.*` — local-first research chapter reader.
 - `UX_ARCHITECTURE.md` — governing human/AI dual-lens interface rules.
-- `scripts/validate-site.mjs` — static integrity checks for files, links, scripts, DOM bindings, and chapter mappings.
+- `scripts/validate-all.mjs` — unified deployment gate.
+- `scripts/validate-site.mjs` — static integrity, manuscript-structure, source-registry, and epistemic-overclaim checks.
+- `scripts/validate-argument-graph.mjs` — typed evidence-edge, backlink, falsifier, dependency, and provisional-source checks.
 - `BOOK_CHARTER.md` — rules for truth, originality, attribution, and uncertainty.
 - `MANUSCRIPT.md` — master structure and chapter sequence.
 - `SITE_ROADMAP.md` — staged interactive-book plan.
@@ -147,6 +151,9 @@ Originality is tracked separately in `research/ORIGINALITY_LEDGER.md`.
 - `research/CLAIMS_LEDGER.md` — claim-by-claim epistemic control.
 - `research/ORIGINALITY_LEDGER.md` — novelty and precedent tracking.
 - `research/LITERATURE_MAP.md` — primary literature and conceptual dependencies.
+- `research/SOURCE_REGISTRY.json` — machine-enforced source scope and graph-derived claim backlinks.
+- `research/SOURCE_ARCHITECTURE.md` — authority rules and registry-migration plan.
+- `research/ARGUMENT_GRAPH.json` — typed Chapter 6 proposition-source graph.
 - `research/THEORY_COMPARISON_MATRIX.md` — theory-indexed substrate commitments, rival explanations, interventions, and falsifiers.
 - `research/OBJECTIONS.md` — strongest objections and required responses.
 - `research/TERMINOLOGY.md` — controlled vocabulary.
