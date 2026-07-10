@@ -7,9 +7,10 @@
 The repository currently contains two source-registry layers that were created at different stages:
 
 1. `research/SOURCE_REGISTRY.md` is the **canonical human review ledger**. It records the broad bibliography, review status, intended manuscript use, and verification work still required.
-2. `research/SOURCE_REGISTRY.json` is the **machine-enforced evidential-scope subset**. It currently covers theory sources used in Chapter 6 and records supported propositions, prohibited overreach, locator status, chapter use, and eventual claim mappings.
+2. `research/SOURCE_REGISTRY.json` is the **machine-enforced evidential-scope subset**. It currently covers theory sources used in Chapter 6 and records supported propositions, prohibited overreach, locator status, chapter use, and graph-derived claim backlinks.
+3. `research/ARGUMENT_GRAPH.json` is the **authority for evidential relationships** within its declared scope. It records whether a source relationship is direct, inferential, contextual, opposing, or boundary-setting.
 
-The JSON file does **not** yet replace the Markdown registry. Its entries must not be interpreted as the complete project bibliography.
+The JSON source registry does **not** yet replace the Markdown registry. Its entries must not be interpreted as the complete project bibliography.
 
 ## Non-interchangeable identifiers
 
@@ -21,6 +22,19 @@ The two registries currently use different source identifiers. Until a formal cr
 - Claim mappings must identify which identifier namespace they use.
 
 This duplication is technical debt, not a designed feature.
+
+## Claim backlink rule
+
+The `claims` array in each `SOURCE_REGISTRY.json` record is a generated reverse index. It is the union of claims reached through propositions connected to that source in `ARGUMENT_GRAPH.json`.
+
+A backlink means only that the source is used in the controlled argument surrounding that claim. It does **not** mean the source supports the claim. A source may oppose, constrain, contextualize, or only indirectly inform the proposition.
+
+Therefore:
+
+- typed graph edges are authoritative for evidential direction and strength;
+- source-registry claim arrays must never be interpreted as support lists;
+- `scripts/validate-argument-graph.mjs` must fail when backlinks are missing or stale;
+- claim backlinks must be regenerated whenever proposition-to-claim or source-to-proposition edges change.
 
 ## Migration target
 
@@ -57,8 +71,12 @@ A source can have a valid DOI and still fail claim verification. Metadata verifi
 - A source used by multiple claims does not create independent evidence for each claim.
 - The evidence-dependency registry remains responsible for preventing double-counting across observations and hypotheses.
 
-## Immediate unresolved inconsistency
+## Current unresolved migration work
 
-The current JSON registry contains Chapter 6 theory sources but has no claim mappings. The validator therefore warns rather than fails. This is intentional during migration, but it is not an acceptable publication state.
+Chapter 6 claim backlinks are now populated and validated against the argument graph. The remaining source-control debt is narrower but more difficult:
 
-The next migration increment should map the Chapter 6 theory claims in `research/CLAIMS_LEDGER.md` to the JSON records, then add a crosswalk for duplicate Markdown entries.
+1. create the old-ID-to-new-ID crosswalk between the Markdown and JSON registries;
+2. add pinpoint locators for proposition-level use;
+3. verify claim fit independently of metadata identity;
+4. add explicit opposing sources where the graph currently records only warnings;
+5. expand structured coverage beyond Chapter 6 without weakening evidential-scope controls.
