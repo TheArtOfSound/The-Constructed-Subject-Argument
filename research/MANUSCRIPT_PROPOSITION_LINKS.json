@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0.0",
+  "updated_at": "2026-07-10",
+  "scope": "Stable links from Chapter 6 formal propositions to the existing manuscript sections where the relevant argument is made.",
+  "governing_rules": [
+    "A link identifies where a proposition is argued; it does not imply that the proposition is verified.",
+    "Anchors must resolve from the reader's deterministic heading slugger.",
+    "Every publicly rendered adversarial review must have exactly one primary manuscript anchor.",
+    "The linked passage must state or materially motivate the proposition rather than merely mention a related term."
+  ],
+  "links": [
+    {
+      "proposition_id": "C6-P01",
+      "chapter_id": "06",
+      "heading": "12. Cross-theoretical evidence dimensions",
+      "anchor": "12-cross-theoretical-evidence-dimensions",
+      "relation": "primary_argument",
+      "rationale": "This section permits comparison across theories while explicitly refusing a single pooled score and requiring theory-specific interpretation."
+    },
+    {
+      "proposition_id": "C6-P02",
+      "chapter_id": "06",
+      "heading": "1. Theories, correlates, and indicators",
+      "anchor": "1-theories-correlates-and-indicators",
+      "relation": "primary_argument",
+      "rationale": "This section distinguishes correlates, mechanisms, constitutive conditions, and indicator properties before any transfer to AI."
+    },
+    {
+      "proposition_id": "C6-P03",
+      "chapter_id": "06",
+      "heading": "14. The 2025 adversarial lesson",
+      "anchor": "14-the-2025-adversarial-lesson",
+      "relation": "primary_argument",
+      "rationale": "The architecture-branding warning states that naming an artificial design after a consciousness theory does not establish preservation of the theory's operative mechanism."
+    },
+    {
+      "proposition_id": "C6-P05",
+      "chapter_id": "06",
+      "heading": "16. The project’s provisional architecture hypothesis",
+      "anchor": "16-the-projects-provisional-architecture-hypothesis",
+      "relation": "primary_argument",
+      "rationale": "This section treats online valence and related architecture as a provisional comparative hypothesis, denies sufficiency, and contrasts scalar task signals with globally integrated candidate valence."
+    }
+  ]
+}
