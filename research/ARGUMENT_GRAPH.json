@@ -154,9 +154,13 @@
       "relationship": "inferential",
       "support_scope": "Mixed cross-theory results weaken a decisive-winner narrative.",
       "does_not_support": "That either theory was globally validated or falsified, or that an AI consciousness detector follows.",
-      "pinpoint_locator": null,
-      "proposition_verification": "provisional",
-      "decisive": false
+      "pinpoint_locator": {
+        "type": "section",
+        "value": "Nature 642, 133–142 (2025), Abstract; DOI 10.1038/s41586-025-08888-1"
+      },
+      "proposition_verification": "verified",
+      "decisive": false,
+      "verification_note": "The official abstract reports alignment with some predictions while substantially challenging key tenets of both theories."
     },
     {
       "id": "EDGE-C6P03-BAARS",
@@ -275,9 +279,13 @@
       "relationship": "inferential",
       "support_scope": "Mixed adversarial results weaken claims that one established theory already provides a decisive verdict procedure.",
       "does_not_support": "That present AI systems are conscious or unconscious.",
-      "pinpoint_locator": null,
-      "proposition_verification": "provisional",
-      "decisive": false
+      "pinpoint_locator": {
+        "type": "section",
+        "value": "Nature 642, 133–142 (2025), Abstract and Main theory-testing scope; DOI 10.1038/s41586-025-08888-1"
+      },
+      "proposition_verification": "partially_verified",
+      "decisive": false,
+      "verification_note": "The paper directly supports the mixed-theory premise; the extension to limits on AI verdict procedures remains a bounded project inference."
     },
     {
       "id": "EDGE-C6P06-SEARLE",
