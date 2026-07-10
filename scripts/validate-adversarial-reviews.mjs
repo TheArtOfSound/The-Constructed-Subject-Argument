@@ -27,20 +27,68 @@ function substantive(value, minimum = 30) {
   return typeof value === 'string' && value.trim().length >= minimum;
 }
 
+function hasPinpoint(edge) {
+  return Boolean(
+    edge.pinpoint_locator &&
+    typeof edge.pinpoint_locator.value === 'string' &&
+    edge.pinpoint_locator.value.trim()
+  );
+}
+
 const graph = readJson('research/ARGUMENT_GRAPH.json');
 const reviews = readJson('research/ADVERSARIAL_REVIEWS.json');
+const adversarialEvidence = readJson('research/ADVERSARIAL_EVIDENCE.json');
 
-if (graph && reviews) {
+if (graph && reviews && adversarialEvidence) {
   if (reviews.schema_version !== '1.0.0') failures.push('ADVERSARIAL_REVIEWS.json must declare schema_version 1.0.0.');
+  if (adversarialEvidence.schema_version !== '1.0.0') failures.push('ADVERSARIAL_EVIDENCE.json must declare schema_version 1.0.0.');
   if (!Array.isArray(reviews.state_order) || reviews.state_order.length === 0) failures.push('ADVERSARIAL_REVIEWS.json must declare state_order.');
   if (!Array.isArray(reviews.reviews) || reviews.reviews.length === 0) failures.push('ADVERSARIAL_REVIEWS.json must contain reviews.');
 
   const propositionById = new Map((graph.propositions || []).map((item) => [item.id, item]));
-  const edgesByProposition = new Map();
+  const mainEdgesByProposition = new Map();
   for (const edge of graph.edges || []) {
-    const list = edgesByProposition.get(edge.proposition_id) || [];
+    const list = mainEdgesByProposition.get(edge.proposition_id) || [];
     list.push(edge);
-    edgesByProposition.set(edge.proposition_id, list);
+    mainEdgesByProposition.set(edge.proposition_id, list);
+  }
+
+  const allowedAdversarialRelationships = new Set([
+    'contradictory',
+    'undercutting',
+    'alternative_explanation',
+    'scope_restriction'
+  ]);
+  const evidenceSources = new Map((adversarialEvidence.sources || []).map((source) => [source.id, source]));
+  const evidenceEdgesById = new Map();
+  const evidenceEdgesByProposition = new Map();
+
+  for (const id of duplicates((adversarialEvidence.sources || []).map((source) => source.id))) {
+    failures.push(`Duplicate adversarial evidence source: ${id}`);
+  }
+  for (const edge of adversarialEvidence.edges || []) {
+    if (evidenceEdgesById.has(edge.id)) failures.push(`Duplicate adversarial evidence edge: ${edge.id}`);
+    evidenceEdgesById.set(edge.id, edge);
+    const list = evidenceEdgesByProposition.get(edge.proposition_id) || [];
+    list.push(edge);
+    evidenceEdgesByProposition.set(edge.proposition_id, list);
+
+    if (!propositionById.has(edge.proposition_id)) failures.push(`${edge.id} references unknown proposition ${edge.proposition_id}.`);
+    if (!evidenceSources.has(edge.source_id)) failures.push(`${edge.id} references unknown adversarial source ${edge.source_id}.`);
+    if (!allowedAdversarialRelationships.has(edge.relationship)) failures.push(`${edge.id} has invalid adversarial relationship ${edge.relationship}.`);
+    if (!hasPinpoint(edge)) failures.push(`${edge.id} lacks a pinpoint locator.`);
+    if (!['verified', 'partially_verified', 'unverified'].includes(edge.proposition_verification)) failures.push(`${edge.id} has invalid proposition_verification.`);
+    if (!substantive(edge.objection_scope)) failures.push(`${edge.id} lacks substantive objection_scope.`);
+    if (!substantive(edge.does_not_support)) failures.push(`${edge.id} lacks substantive does_not_support boundary.`);
+  }
+
+  for (const source of adversarialEvidence.sources || []) {
+    if (!substantive(source.supports_objection)) failures.push(`${source.id} lacks substantive supports_objection.`);
+    if (!Array.isArray(source.does_not_establish) || source.does_not_establish.length < 2) failures.push(`${source.id} must record at least two does_not_establish boundaries.`);
+    if (!['verified', 'partially_verified', 'provisional', 'rejected'].includes(source.verification_status)) failures.push(`${source.id} has invalid verification_status.`);
+    if (source.verification_status === 'partially_verified' && (!Array.isArray(source.verified_elements) || !Array.isArray(source.unverified_elements))) {
+      failures.push(`${source.id} is partially verified but does not separate verified_elements from unverified_elements.`);
+    }
   }
 
   for (const id of duplicates((reviews.reviews || []).map((item) => item.proposition_id))) {
@@ -83,42 +131,45 @@ if (graph && reviews) {
       if (typeof review.milestones[milestone] !== 'boolean') failures.push(`${label} milestone ${milestone} must be boolean.`);
     }
 
-    const edges = edgesByProposition.get(review.proposition_id) || [];
-    const groundedOpposition = edges.some((edge) =>
+    const mainGroundedOpposition = (mainEdgesByProposition.get(review.proposition_id) || []).some((edge) =>
       edge.relationship === 'opposing' &&
       ['verified', 'partially_verified'].includes(edge.proposition_verification) &&
-      edge.pinpoint_locator &&
-      typeof edge.pinpoint_locator.value === 'string' &&
-      edge.pinpoint_locator.value.trim()
+      hasPinpoint(edge)
     );
+    const supplementalGroundedOpposition = (evidenceEdgesByProposition.get(review.proposition_id) || []).some((edge) =>
+      allowedAdversarialRelationships.has(edge.relationship) &&
+      ['verified', 'partially_verified'].includes(edge.proposition_verification) &&
+      hasPinpoint(edge)
+    );
+    const groundedOpposition = mainGroundedOpposition || supplementalGroundedOpposition;
 
     if (review.milestones.opposing_source_grounded !== groundedOpposition) {
-      failures.push(`${label} opposing_source_grounded=${review.milestones.opposing_source_grounded} does not match the graph's verified pinpointed opposing edges (${groundedOpposition}).`);
+      failures.push(`${label} opposing_source_grounded=${review.milestones.opposing_source_grounded} does not match verified pinpointed adversarial evidence (${groundedOpposition}).`);
+    }
+
+    const declaredEvidenceEdges = Array.isArray(review.adversarial_evidence_edges) ? review.adversarial_evidence_edges : [];
+    for (const edgeId of declaredEvidenceEdges) {
+      const edge = evidenceEdgesById.get(edgeId);
+      if (!edge) failures.push(`${label} declares unknown adversarial evidence edge ${edgeId}.`);
+      else if (edge.proposition_id !== review.proposition_id) failures.push(`${label} declares adversarial evidence edge ${edgeId} belonging to ${edge.proposition_id}.`);
+    }
+    if (supplementalGroundedOpposition && declaredEvidenceEdges.length === 0) {
+      failures.push(`${label} is grounded by supplemental evidence but does not declare adversarial_evidence_edges.`);
     }
 
     const experimentLinks = Array.isArray(review.experiment_links) ? review.experiment_links : [];
     const validExperimentLinks = experimentLinks.filter((relativePath) => fs.existsSync(path.join(root, relativePath)));
-    if (review.milestones.experiment_linked && validExperimentLinks.length === 0) {
-      failures.push(`${label} is experiment-linked but no listed experiment file exists.`);
-    }
-    if (!review.milestones.experiment_linked && experimentLinks.length > 0) {
-      failures.push(`${label} lists experiment_links while experiment_linked is false.`);
-    }
+    if (review.milestones.experiment_linked && validExperimentLinks.length === 0) failures.push(`${label} is experiment-linked but no listed experiment file exists.`);
+    if (!review.milestones.experiment_linked && experimentLinks.length > 0) failures.push(`${label} lists experiment_links while experiment_linked is false.`);
 
-    if (review.current_state === 'unreviewed' && review.milestones.countermodel_specified) {
-      failures.push(`${label} cannot remain unreviewed after a countermodel is specified.`);
-    }
-    if (review.current_state !== 'unreviewed') {
-      if (!review.milestones.countermodel_specified || !review.milestones.forced_concession_recorded || !review.milestones.confidence_lowering_test_recorded) {
-        failures.push(`${label} state ${review.current_state} requires countermodel, concession, and confidence-lowering-test milestones.`);
-      }
+    if (review.current_state === 'unreviewed' && review.milestones.countermodel_specified) failures.push(`${label} cannot remain unreviewed after a countermodel is specified.`);
+    if (review.current_state !== 'unreviewed' && (!review.milestones.countermodel_specified || !review.milestones.forced_concession_recorded || !review.milestones.confidence_lowering_test_recorded)) {
+      failures.push(`${label} state ${review.current_state} requires countermodel, concession, and confidence-lowering-test milestones.`);
     }
     if (['source_grounded', 'survives_review', 'revised', 'withdrawn'].includes(review.current_state) && !review.milestones.opposing_source_grounded) {
       failures.push(`${label} cannot be ${review.current_state} without grounded opposing evidence.`);
     }
-    if (review.current_state === 'survives_review' && !review.milestones.experiment_linked) {
-      failures.push(`${label} cannot survive review without a linked discriminating experiment or observation protocol.`);
-    }
+    if (review.current_state === 'survives_review' && !review.milestones.experiment_linked) failures.push(`${label} cannot survive review without a linked discriminating experiment or observation protocol.`);
 
     if (proposition && proposition.text === review.surviving_narrowed_claim) {
       warnings.push(`${label} surviving_narrowed_claim is identical to the graph proposition; verify that the concession caused a real scope check rather than a cosmetic review.`);
@@ -127,6 +178,7 @@ if (graph && reviews) {
 
   const groundedCount = (reviews.reviews || []).filter((review) => review.milestones?.opposing_source_grounded).length;
   if (groundedCount === 0) warnings.push('No high-confidence synthesis review is source-grounded yet. Adversarial specification must not be reported as completed review.');
+  if (groundedCount > 0 && groundedCount < (reviews.reviews || []).length) warnings.push(`${groundedCount} of ${(reviews.reviews || []).length} high-confidence synthesis reviews are source-grounded; do not generalize that status to the chapter as a whole.`);
 }
 
 if (warnings.length) {
@@ -140,4 +192,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Validated ${(reviews?.reviews || []).length} adversarial review records against proposition confidence, graph opposition, and experiment links.`);
+console.log(`Validated ${(reviews?.reviews || []).length} adversarial review records against proposition confidence, typed adversarial evidence, graph opposition, and experiment links.`);
