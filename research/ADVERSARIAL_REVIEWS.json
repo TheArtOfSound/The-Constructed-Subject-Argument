@@ -5,7 +5,7 @@
   "governing_rules": [
     "A review state records epistemic completion, not rhetorical confidence.",
     "Completed milestones are tracked independently from the ordered current_state so experiment design can precede source grounding without falsely implying review completion.",
-    "No proposition may be marked source_grounded without at least one verified or partially verified opposing edge with a pinpoint locator.",
+    "No proposition may be marked source_grounded without at least one verified or partially verified adversarial evidence edge with a pinpoint locator.",
     "No proposition may be marked survives_review unless it is source_grounded, has a discriminating test, records a forced concession, and states the surviving narrowed claim.",
     "An adversarial review does not establish that a current AI system is conscious or nonconscious."
   ],
@@ -64,16 +64,19 @@
     },
     {
       "proposition_id": "C6-P03",
-      "current_state": "adversarially_specified",
+      "current_state": "source_grounded",
       "milestones": {
         "countermodel_specified": true,
         "forced_concession_recorded": true,
         "confidence_lowering_test_recorded": true,
-        "opposing_source_grounded": false,
+        "opposing_source_grounded": true,
         "experiment_linked": true
       },
       "experiment_links": [
         "research/EXPERIMENT_11_MECHANISM_PRESERVATION.md"
+      ],
+      "adversarial_evidence_edges": [
+        "ADV-EDGE-C6P03-CAO-YAMINS-3MPP"
       ],
       "strongest_countermodel": "Mechanisms can be multiply realized, and theory terms may denote abstract causal roles that an engineered system can instantiate without biological duplication.",
       "critic_inferential_route": [
@@ -85,7 +88,8 @@
       "forced_concession": "Biological dissimilarity is not evidence of mere simulation. The vocabulary objection applies only when causal-role equivalence has not been demonstrated.",
       "confidence_lowering_test": "Selective lesion, substitution, and counterfactual intervention showing preservation of the source theory's predicted dependencies would defeat a vocabulary-only dismissal.",
       "surviving_narrowed_claim": "Reusing theory vocabulary is not evidence of mechanism preservation unless the implementation satisfies the theory's relevant causal-role and counterfactual dependencies under intervention.",
-      "required_next_evidence": "A primary or canonical mechanistic-functionalist or multiple-realizability source represented by a pinpointed opposing edge."
+      "required_next_evidence": "Complete a full-text audit of the grounded mechanistic-abstraction source, add at least one independent canonical treatment of multiple realization, and execute or preregister the linked intervention protocol before any survives-review claim.",
+      "status_note": "The objection is now literature-grounded but has not survived experimental review. No current AI system is credited with a consciousness-relevant mechanism by this record."
     },
     {
       "proposition_id": "C6-P05",
