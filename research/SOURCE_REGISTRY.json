@@ -2,6 +2,7 @@
   "schema_version": "1.0.0",
   "updated_at": "2026-07-10",
   "governing_rule": "A source entry records what a work can support and what it cannot establish. Registry inclusion is not endorsement of the source's theory, and a source may not be cited beyond its recorded evidential scope.",
+  "claim_backlink_policy": "The claims array is a generated index of claims reached through ARGUMENT_GRAPH.json propositions. It records use, not support: evidential direction and strength remain authoritative only on typed graph edges.",
   "verification_states": ["verified", "partially_verified", "provisional", "superseded", "rejected"],
   "sources": [
     {
@@ -15,7 +16,7 @@
       "verification_status": "verified",
       "supports": ["Recurrent processing theory assigns a central consciousness-related role to recurrent neural interactions rather than a purely feed-forward sweep."],
       "does_not_establish": ["That recurrence is sufficient for consciousness.", "That generic iterative software computation instantiates the theory-relevant neural mechanism."],
-      "claims": [],
+      "claims": ["CSA-070", "CSA-071"],
       "chapters": [6],
       "last_verified": "2026-07-10"
     },
@@ -30,7 +31,7 @@
       "verification_status": "verified",
       "supports": ["Feed-forward and recurrent visual processing can be theoretically and empirically distinguished."],
       "does_not_establish": ["That every recurrent system is conscious.", "That recurrent processing alone creates a unified subject."],
-      "claims": [],
+      "claims": ["CSA-070", "CSA-071"],
       "chapters": [6],
       "last_verified": "2026-07-10"
     },
@@ -45,7 +46,7 @@
       "verification_status": "partially_verified",
       "supports": ["Global workspace theory models conscious access through broad availability of selected information to specialized processes."],
       "does_not_establish": ["That software message passing is conscious.", "That global availability is phenomenally sufficient."],
-      "claims": [],
+      "claims": ["CSA-005", "CSA-071"],
       "chapters": [6],
       "last_verified": "2026-07-10"
     },
@@ -60,7 +61,7 @@
       "verification_status": "verified",
       "supports": ["Global neuronal workspace models connect conscious access with nonlinear amplification and broad neural availability."],
       "does_not_establish": ["That the modeled signatures are theory-neutral markers of phenomenal consciousness.", "That analogous output behavior in an AI system preserves the relevant mechanism."],
-      "claims": [],
+      "claims": ["CSA-070", "CSA-071"],
       "chapters": [6],
       "last_verified": "2026-07-10"
     },
@@ -75,7 +76,7 @@
       "verification_status": "verified",
       "supports": ["Global neuronal workspace theory relates conscious processing to large-scale access, recurrent amplification, and report-relevant availability."],
       "does_not_establish": ["That reportability and phenomenality are identical.", "That GNWT has been decisively validated over rival theories."],
-      "claims": [],
+      "claims": ["CSA-070", "CSA-071"],
       "chapters": [6],
       "last_verified": "2026-07-10"
     },
@@ -90,7 +91,7 @@
       "verification_status": "provisional",
       "supports": ["A preregistered adversarial collaboration directly compared predictions associated with GNWT and IIT and produced a mixed evidential pattern."],
       "does_not_establish": ["That either GNWT or IIT was decisively validated or falsified as a complete theory.", "That the tested neural signatures are sufficient for consciousness in artificial systems."],
-      "claims": [],
+      "claims": ["CSA-032", "CSA-033", "CSA-070", "CSA-071"],
       "chapters": [6],
       "last_verified": "2026-07-10",
       "verification_note": "Bibliographic existence and broad role are recorded in the manuscript, but the authoritative locator must be independently verified before this source is marked verified."
@@ -106,7 +107,7 @@
       "verification_status": "verified",
       "supports": ["Higher-order theories connect conscious awareness to representations of first-order mental states."],
       "does_not_establish": ["That metacognitive language is sufficient evidence of experience.", "That a post-hoc self-report generator implements a higher-order consciousness mechanism."],
-      "claims": [],
+      "claims": ["CSA-030", "CSA-031", "CSA-070", "CSA-071"],
       "chapters": [6],
       "last_verified": "2026-07-10"
     },
@@ -121,7 +122,7 @@
       "verification_status": "verified",
       "supports": ["The free-energy principle presents perception, learning, and action within a generative-model and prediction-error framework."],
       "does_not_establish": ["That prediction error is pain.", "That predictive processing by itself is a sufficient theory or test of consciousness."],
-      "claims": [],
+      "claims": ["CSA-005", "CSA-040", "CSA-041", "CSA-042", "CSA-071"],
       "chapters": [6, 11],
       "last_verified": "2026-07-10"
     },
@@ -136,7 +137,7 @@
       "verification_status": "verified",
       "supports": ["Predictive-processing approaches characterize cognition through hierarchical prediction, error correction, and situated action."],
       "does_not_establish": ["That next-token prediction is equivalent to conscious predictive processing.", "That prediction is phenomenally sufficient."],
-      "claims": [],
+      "claims": ["CSA-005", "CSA-040", "CSA-041", "CSA-042", "CSA-071"],
       "chapters": [6],
       "last_verified": "2026-07-10"
     },
@@ -151,7 +152,7 @@
       "verification_status": "verified",
       "supports": ["Interoceptive predictive inference has been proposed as relevant to emotion and embodied selfhood."],
       "does_not_establish": ["That any homeostatic variable is felt valence.", "That a software self-model has an embodied phenomenal self."],
-      "claims": [],
+      "claims": ["CSA-040", "CSA-041", "CSA-042"],
       "chapters": [6, 11],
       "last_verified": "2026-07-10"
     },
@@ -166,7 +167,7 @@
       "verification_status": "verified",
       "supports": ["Attention schema theory proposes that a simplified model of attention supports awareness attribution and attentional control."],
       "does_not_establish": ["That explaining awareness reports settles whether experience exists.", "That first-person language alone evidences an attention schema."],
-      "claims": [],
+      "claims": ["CSA-030", "CSA-031", "CSA-070", "CSA-071"],
       "chapters": [6],
       "last_verified": "2026-07-10"
     },
@@ -181,7 +182,7 @@
       "verification_status": "verified",
       "supports": ["IIT 4.0 identifies experience with a maximally irreducible intrinsic cause-effect structure under its formalism."],
       "does_not_establish": ["That generic complexity, entropy, connectivity, mutual information, or an IIT-inspired proxy equals integrated information under IIT.", "That IIT's axioms or identity claim are empirically settled."],
-      "claims": [],
+      "claims": ["CSA-005", "CSA-070", "CSA-071"],
       "chapters": [6],
       "last_verified": "2026-07-10"
     },
@@ -196,7 +197,7 @@
       "verification_status": "verified",
       "supports": ["Searle argues that formal symbol manipulation is not sufficient for understanding or intentionality."],
       "does_not_establish": ["That all nonbiological systems are unconscious.", "Which concrete biological causal powers are necessary for consciousness."],
-      "claims": [],
+      "claims": ["CSA-032", "CSA-033", "CSA-070"],
       "chapters": [5, 6],
       "last_verified": "2026-07-10"
     },
@@ -211,7 +212,7 @@
       "verification_status": "partially_verified",
       "supports": ["Enactive and embodied approaches reject the view that cognition is exhausted by detached internal representation."],
       "does_not_establish": ["That embodiment alone is sufficient for consciousness.", "That attaching sensors or a robot body creates a subject."],
-      "claims": [],
+      "claims": ["CSA-005", "CSA-071"],
       "chapters": [6],
       "last_verified": "2026-07-10"
     },
@@ -226,7 +227,7 @@
       "verification_status": "partially_verified",
       "supports": ["Illusionism treats introspective judgments about phenomenal properties as targets for mechanistic explanation."],
       "does_not_establish": ["That explaining consciousness reports is universally accepted as explaining consciousness.", "That an artificial system with introspective distortions is conscious or unconscious."],
-      "claims": [],
+      "claims": ["CSA-030", "CSA-031", "CSA-070", "CSA-071"],
       "chapters": [6],
       "last_verified": "2026-07-10"
     }
