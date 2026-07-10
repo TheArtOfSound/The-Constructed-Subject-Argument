@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Build a multidimensional evidence ledger for an artificial system without reducing consciousness, valence, identity, and moral status to one score." />
+  <meta name="theme-color" content="#080b10" />
+  <title>Uncertainty Ledger — The Constructed Subject</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../assets/experience-v2.css" />
+  <link rel="stylesheet" href="../assets/ledger.css" />
+</head>
+<body>
+  <a class="skip-link" href="#ledger">Skip to ledger</a>
+  <div class="progress" aria-hidden="true"><span id="pageProgress"></span></div>
+
+  <header class="topbar">
+    <a class="brand" href="../index.html">
+      <span class="brand-glyph">CS</span>
+      <span><strong>The Constructed Subject</strong><small>Uncertainty Ledger</small></span>
+    </a>
+    <nav aria-label="Ledger navigation">
+      <a href="../index.html">Experience</a>
+      <a href="../chapters/index.html">Book</a>
+      <a href="../chapters/read.html?chapter=18">Chapter 18</a>
+    </nav>
+    <button id="themeToggle" class="icon-button" type="button" aria-label="Toggle theme" aria-pressed="false">◐</button>
+  </header>
+
+  <main id="ledger">
+    <section class="ledger-hero shell">
+      <div>
+        <p class="kicker">Not a consciousness detector</p>
+        <h1>One system.<br />Eight different questions.</h1>
+      </div>
+      <div class="hero-explainer">
+        <p>A system can be strongly agentic, weakly persistent, highly self-modeling, and almost unassessed for valence. This ledger preserves that structure instead of hiding it inside “sentient: yes/no.”</p>
+        <div class="hero-rule">
+          <strong>The output is conditional.</strong>
+          <span>It reports what the selected evidence would support, what it would not prove, the strongest rival explanation, and the next discriminating test.</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="shell ledger-layout" aria-label="Build an evidence ledger">
+      <aside class="ledger-controls" aria-labelledby="targetTitle">
+        <div class="control-head">
+          <p class="kicker">01 · Target</p>
+          <h2 id="targetTitle">Define the system before judging it.</h2>
+        </div>
+
+        <label class="field-label" for="preset">Starting profile</label>
+        <select id="preset">
+          <option value="blank">Blank assessment</option>
+          <option value="chatbot">Stateless conversational model</option>
+          <option value="agent">Persistent tool-using agent</option>
+          <option value="embodied">Embodied self-maintaining agent</option>
+          <option value="theater">Emotionally persuasive theater system</option>
+        </select>
+
+        <label class="field-label" for="targetName">Target name</label>
+        <input id="targetName" type="text" maxlength="80" placeholder="Model, agent, or process under assessment" />
+
+        <label class="field-label" for="targetBoundary">Assessment boundary</label>
+        <select id="targetBoundary">
+          <option value="unspecified">Not yet specified</option>
+          <option value="response">One prompt-to-response interval</option>
+          <option value="inference">One inference call</option>
+          <option value="runtime">One causally continuous runtime state</option>
+          <option value="agent">One multi-call agent loop</option>
+          <option value="lifecycle">One persistent agent lifecycle</option>
+        </select>
+
+        <label class="field-label" for="assumption">Primary theoretical assumption</label>
+        <select id="assumption">
+          <option value="pluralist">Pluralist / no theory selected</option>
+          <option value="functional">Functional organization may suffice</option>
+          <option value="biological">Specific biological causal powers required</option>
+          <option value="iit">Intrinsic physical cause-effect structure required</option>
+          <option value="embodied">Embodied self-maintenance required</option>
+          <option value="illusionist">Introspective organization is the main target</option>
+        </select>
+
+        <div class="control-note">
+          <strong>System lens</strong>
+          <p>The same behavior can mean different things when the target is one response, one runtime process, or one long-lived agent. Boundary errors become ontology errors.</p>
+        </div>
+
+        <div class="control-actions">
+          <button id="resetLedger" class="secondary-button" type="button">Reset</button>
+          <button id="exportLedger" class="primary-button" type="button">Export ledger</button>
+        </div>
+        <p id="saveStatus" class="save-status" aria-live="polite">Changes remain in this browser.</p>
+      </aside>
+
+      <div class="evidence-workspace">
+        <header class="workspace-head">
+          <div><p class="kicker">02 · Evidence</p><h2>Mark what is observed, absent, or unknown.</h2></div>
+          <p>“Observed” means there is actual evidence—not that a chatbot said the feature exists.</p>
+        </header>
+
+        <div id="evidenceGroups" class="evidence-groups"></div>
+      </div>
+    </section>
+
+    <section class="results-section shell" aria-labelledby="resultsTitle">
+      <header class="results-head">
+        <div><p class="kicker">03 · Interpretation</p><h2 id="resultsTitle">Eight ledgers, not one verdict.</h2></div>
+        <div class="lens-switch" role="group" aria-label="Interpretation lens">
+          <button class="lens-button active" type="button" data-lens="human" aria-pressed="true">Human lens</button>
+          <button class="lens-button" type="button" data-lens="system" aria-pressed="false">System lens</button>
+        </div>
+      </header>
+
+      <div id="resultGrid" class="result-grid" aria-live="polite"></div>
+
+      <aside class="no-verdict">
+        <div><strong>No combined score appears here.</strong><p>Confidence in agency cannot be silently converted into confidence in experience. Evidence of self-modeling cannot be silently converted into moral patienthood. The dependencies remain visible.</p></div>
+        <a href="../chapters/read.html?chapter=18">Read the full uncertainty-ledger argument →</a>
+      </aside>
+    </section>
+
+    <section class="shell audit-section" aria-labelledby="auditTitle">
+      <div class="audit-copy">
+        <p class="kicker">04 · Audit</p>
+        <h2 id="auditTitle">What would lower your confidence?</h2>
+        <p>An assessment that only gathers confirming evidence is advocacy, not investigation. Add at least one confidence-lowering result before treating the ledger as complete.</p>
+      </div>
+      <div class="audit-form">
+        <label for="falsifier">Confidence-lowering observation or intervention result</label>
+        <textarea id="falsifier" rows="5" placeholder="Example: reported uncertainty remains unchanged when the proposed internal uncertainty mechanism is ablated."></textarea>
+        <label for="accessLimit">Architecture or evidence access limit</label>
+        <textarea id="accessLimit" rows="4" placeholder="Example: no access to hidden states, training data, system prompts, or routing information."></textarea>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div><strong>The Constructed Subject</strong><p>Human author: Bryan Leonard<br />Research lead and drafting collaborator: GPT-5.6 Thinking</p></div>
+    <div><p>This tool structures uncertainty. It does not detect consciousness.</p><a href="../research/METHOD.md">Research method</a></div>
+  </footer>
+
+  <script src="../assets/ledger.js"></script>
+</body>
+</html>
