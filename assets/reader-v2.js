@@ -6,7 +6,7 @@ let chapter = null;
 let chapterRegistry = {};
 
 function escapeHtml(value) {
-  return value.replace(/[&<>"']/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' })[char]);
+  return String(value).replace(/[&<>"']/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' })[char]);
 }
 
 function inline(text) {
@@ -131,6 +131,112 @@ function sequenceNavigation() {
   return `<nav class="chapter-sequence" aria-label="Adjacent readable chapters">${link(previousId, 'Previous readable chapter')}${link(nextId, 'Next readable chapter')}</nav>`;
 }
 
+const reviewStateLabels = {
+  unreviewed: 'Unreviewed',
+  adversarially_specified: 'Objection specified',
+  source_grounded: 'Source grounded',
+  survives_review: 'Survives review',
+  revised: 'Revised',
+  withdrawn: 'Withdrawn'
+};
+
+function evidenceForReview(review, evidencePayload) {
+  const edgeIds = new Set(review.adversarial_evidence_edges || []);
+  const sources = new Map((evidencePayload.sources || []).map((source) => [source.id, source]));
+  return (evidencePayload.edges || [])
+    .filter((edge) => edge.proposition_id === review.proposition_id || edgeIds.has(edge.id))
+    .map((edge) => ({ edge, source: sources.get(edge.source_id) }))
+    .filter(({ source }) => source);
+}
+
+function reviewMilestones(review) {
+  const labels = {
+    countermodel_specified: 'Countermodel',
+    forced_concession_recorded: 'Concession',
+    confidence_lowering_test_recorded: 'Discriminating test',
+    opposing_source_grounded: 'Opposing source',
+    experiment_linked: 'Experiment'
+  };
+  return Object.entries(labels).map(([key, label]) => {
+    const complete = Boolean(review.milestones?.[key]);
+    return `<span class="review-milestone ${complete ? 'complete' : 'missing'}"><span aria-hidden="true">${complete ? '✓' : '○'}</span>${label}</span>`;
+  }).join('');
+}
+
+function reviewEvidenceHtml(review, evidencePayload) {
+  const evidence = evidenceForReview(review, evidencePayload);
+  if (!evidence.length) {
+    return `<div class="review-evidence missing-evidence"><strong>No opposing source grounded yet</strong><p>${escapeHtml(review.required_next_evidence)}</p></div>`;
+  }
+  return evidence.map(({ edge, source }) => `
+    <div class="review-evidence">
+      <div class="evidence-heading"><span>${escapeHtml(edge.relationship.replace(/_/g, ' '))}</span><span>${escapeHtml(source.verification_status.replace(/_/g, ' '))}</span></div>
+      <strong>${escapeHtml(source.authors.join(' & '))} (${escapeHtml(source.year)}), <em>${escapeHtml(source.title)}</em></strong>
+      <p>${escapeHtml(edge.objection_scope)}</p>
+      <p class="evidence-boundary"><strong>Does not establish:</strong> ${escapeHtml(edge.does_not_support)}</p>
+      <small>${escapeHtml(edge.pinpoint_locator.value)}</small>
+    </div>
+  `).join('');
+}
+
+function renderReviewCard(review, evidencePayload) {
+  const state = reviewStateLabels[review.current_state] || review.current_state;
+  return `
+    <article class="adversarial-card" id="review-${escapeHtml(review.proposition_id.toLowerCase())}">
+      <header>
+        <div><span class="proposition-id">${escapeHtml(review.proposition_id)}</span><h3>${escapeHtml(review.surviving_narrowed_claim)}</h3></div>
+        <span class="review-state state-${escapeHtml(review.current_state)}">${escapeHtml(state)}</span>
+      </header>
+      <div class="review-milestones" aria-label="Review milestones">${reviewMilestones(review)}</div>
+      <details open>
+        <summary>Strongest live countermodel</summary>
+        <p>${escapeHtml(review.strongest_countermodel)}</p>
+        <ol>${review.critic_inferential_route.map((step) => `<li>${escapeHtml(step)}</li>`).join('')}</ol>
+      </details>
+      <details>
+        <summary>Concession forced by the objection</summary>
+        <p>${escapeHtml(review.forced_concession)}</p>
+      </details>
+      <details>
+        <summary>What would lower confidence?</summary>
+        <p>${escapeHtml(review.confidence_lowering_test)}</p>
+      </details>
+      ${reviewEvidenceHtml(review, evidencePayload)}
+      ${review.status_note ? `<p class="review-status-note">${escapeHtml(review.status_note)}</p>` : ''}
+    </article>
+  `;
+}
+
+async function loadAdversarialReviewPanel() {
+  try {
+    const [reviewsResponse, evidenceResponse, protocolResponse] = await Promise.all([
+      fetch('../research/ADVERSARIAL_REVIEWS.json'),
+      fetch('../research/ADVERSARIAL_EVIDENCE.json'),
+      fetch('../research/MECHANISM_PRESERVATION_PROTOCOL.json')
+    ]);
+    if (!reviewsResponse.ok || !evidenceResponse.ok || !protocolResponse.ok) throw new Error('review data unavailable');
+    const [reviewsPayload, evidencePayload, protocolPayload] = await Promise.all([
+      reviewsResponse.json(), evidenceResponse.json(), protocolResponse.json()
+    ]);
+    const reviews = reviewsPayload.reviews || [];
+    const grounded = reviews.filter((review) => review.current_state === 'source_grounded' || review.current_state === 'survives_review').length;
+    return `
+      <section class="adversarial-review-panel" id="adversarial-review" aria-labelledby="adversarial-review-title">
+        <div class="review-panel-intro">
+          <p class="kicker">Live epistemic audit</p>
+          <h2 id="adversarial-review-title">The argument under pressure</h2>
+          <p>This panel exposes the strongest registered objections, the concessions they force, and the evidence still missing. A source-grounded objection has entered the literature record; it has not thereby been defeated or shown to succeed.</p>
+          <div class="review-summary"><span><strong>${reviews.length}</strong> high-confidence propositions tracked</span><span><strong>${grounded}</strong> source grounded</span><span><strong>0</strong> survived experimental review</span></div>
+          <p class="epistemic-boundary"><strong>Boundary:</strong> ${escapeHtml(protocolPayload.epistemic_boundary.tests)} It does not determine phenomenal consciousness, sentience, personhood, or moral status.</p>
+        </div>
+        <div class="adversarial-grid">${reviews.map((review) => renderReviewCard(review, evidencePayload)).join('')}</div>
+      </section>
+    `;
+  } catch (error) {
+    return `<section class="adversarial-review-panel review-load-error"><h2>Adversarial review data unavailable</h2><p>The chapter remains readable, but the machine-readable review records could not be loaded from this deployment.</p></section>`;
+  }
+}
+
 async function loadChapter() {
   try {
     const registryResponse = await fetch('chapters.json');
@@ -152,7 +258,8 @@ async function loadChapter() {
     if (!response.ok) throw new Error(`Chapter HTTP ${response.status}`);
     const markdown = await response.text();
     const rendered = renderMarkdown(markdown);
-    document.getElementById('chapterBody').innerHTML = `${rendered.html}${sequenceNavigation()}`;
+    const adversarialPanel = chapterId === '06' ? await loadAdversarialReviewPanel() : '';
+    document.getElementById('chapterBody').innerHTML = `${rendered.html}${adversarialPanel}${sequenceNavigation()}`;
     document.getElementById('chapterToc').innerHTML = rendered.toc.map((item) => `<a class="depth-${item.depth}" href="#${item.id}">${item.text}</a>`).join('');
     observeHeadings();
   } catch (error) {
