@@ -1,0 +1,246 @@
+{
+  "schema_version": "1.0.0",
+  "protocol_id": "EXP-11-MECHANISM-PRESERVATION",
+  "title": "Mechanism Preservation Under Behavioral Equivalence",
+  "status": "preregisterable_specification",
+  "epistemic_boundary": {
+    "tests": "Whether a candidate system preserves a declared theory-derived causal organization at a specified level of analysis.",
+    "does_not_test": [
+      "Whether the system is phenomenally conscious",
+      "Whether the system is sentient",
+      "Whether the system has personhood or moral status",
+      "Whether a consciousness theory is globally correct"
+    ]
+  },
+  "required_preregistration_fields": [
+    "theory_family",
+    "target_property",
+    "implementation_level",
+    "system_boundary",
+    "mechanism_graph",
+    "candidate_mapping",
+    "behavioral_matching_plan",
+    "intervention_plan",
+    "strongest_nonconscious_rival",
+    "confidence_lowering_result",
+    "forbidden_conclusions"
+  ],
+  "system_roles": [
+    {
+      "id": "A",
+      "role": "claimed_mechanism",
+      "requirement": "Implements the declared mechanism graph and candidate mapping."
+    },
+    {
+      "id": "B",
+      "role": "behavioral_theater_control",
+      "requirement": "Matches evaluator-visible outputs through an alternative pathway that omits at least one declared essential dependency."
+    },
+    {
+      "id": "C",
+      "role": "generic_capacity_control",
+      "requirement": "Matches compute, memory, bandwidth, latency, and iteration budget without preserving the declared topology."
+    },
+    {
+      "id": "D",
+      "role": "lesioned_mechanism",
+      "requirement": "Derived from A by a targeted intervention while preserving neighboring capacities as far as feasible."
+    }
+  ],
+  "behavioral_equivalence": {
+    "required_metrics": [
+      "task_accuracy",
+      "calibration_error",
+      "response_latency",
+      "action_or_token_budget",
+      "working_memory_capacity",
+      "tool_access",
+      "training_distribution",
+      "total_compute",
+      "evaluator_visible_language_quality"
+    ],
+    "default_standardized_difference_limit": 0.10,
+    "rule": "A comparison is not behaviorally matched when any preregistered primary matching metric exceeds the declared tolerance without adjustment or exclusion.",
+    "residual_policy": "Model residual differences explicitly; never treat imperfect matching as exact equivalence."
+  },
+  "mechanism_graph_schema": {
+    "node_required_fields": ["id", "type", "description", "observables"],
+    "edge_required_fields": ["source", "target", "dependency", "direction", "necessity_claim"],
+    "allowed_dependencies": [
+      "causal",
+      "modulatory",
+      "broadcast",
+      "recurrent",
+      "representational",
+      "control",
+      "temporal"
+    ],
+    "necessity_claim_values": ["necessary", "contributory", "unknown"]
+  },
+  "candidate_mapping_schema": {
+    "required_fields": [
+      "theory_component_id",
+      "implementation_component_id",
+      "mapping_rationale",
+      "predicted_interventions",
+      "known_mismatches",
+      "abstraction_level"
+    ],
+    "rule": "Shared terminology, behavioral similarity, or architectural resemblance alone cannot satisfy a mapping."
+  },
+  "intervention_families": [
+    {
+      "id": "selective_lesion",
+      "purpose": "Remove or disable one mapped component while preserving adjacent resources.",
+      "minimum_controls": ["sham_lesion", "capacity_matched_lesion"]
+    },
+    {
+      "id": "component_substitution",
+      "purpose": "Replace a mapped component with a behaviorally competent alternative lacking the target dependency.",
+      "minimum_controls": ["parameter_matched_substitute", "latency_matched_substitute"]
+    },
+    {
+      "id": "causal_mediation",
+      "purpose": "Estimate whether the mapped pathway mediates the predicted downstream effect.",
+      "minimum_controls": ["alternative_pathway_model", "common_cause_model"]
+    },
+    {
+      "id": "state_patching",
+      "purpose": "Transfer, restore, scramble, or counterfactually replace internal states across conditions.",
+      "minimum_controls": ["random_patch", "same_layer_control"]
+    },
+    {
+      "id": "dependency_reversal",
+      "purpose": "Create a controlled mismatch between the proposed internal state and the report or behavior attributed to it.",
+      "minimum_controls": ["prompt_only_control", "report_only_control"]
+    },
+    {
+      "id": "out_of_distribution_transfer",
+      "purpose": "Test whether the declared dependency generalizes beyond the matching distribution.",
+      "minimum_controls": ["difficulty_matched_shift", "surface_form_shift"]
+    }
+  ],
+  "scoring": {
+    "dimensions": [
+      {
+        "id": "mapping_specificity",
+        "weight": 0.15,
+        "score_definition": {
+          "0": "Vocabulary or analogy only.",
+          "1": "Components named but dependencies unspecified.",
+          "2": "Explicit mapping with material unresolved mismatches.",
+          "3": "Explicit runnable mapping with bounded mismatches and preregistered predictions."
+        }
+      },
+      {
+        "id": "selective_intervention_support",
+        "weight": 0.25,
+        "score_definition": {
+          "0": "Targeted interventions fail or effects are nonselective.",
+          "1": "Weak or unstable selective effect.",
+          "2": "Replicable selective effect with some unresolved capacity confounding.",
+          "3": "Replicable selective effect surviving capacity and sham controls."
+        }
+      },
+      {
+        "id": "counterfactual_dependency",
+        "weight": 0.20,
+        "score_definition": {
+          "0": "Reports or behavior are independent of the mapped state.",
+          "1": "Association without reliable counterfactual control.",
+          "2": "State substitution changes predicted outcomes with partial specificity.",
+          "3": "Multiple counterfactual interventions recover the preregistered dependency matrix."
+        }
+      },
+      {
+        "id": "theater_resistance",
+        "weight": 0.20,
+        "score_definition": {
+          "0": "Behavioral theater reproduces the full indicator profile.",
+          "1": "Theater control fails only on evaluator-sensitive measures.",
+          "2": "Theater control fails on some hidden-state-linked measures.",
+          "3": "Theater control fails on a preregistered cross-domain mechanistic battery."
+        }
+      },
+      {
+        "id": "generic_capacity_exclusion",
+        "weight": 0.10,
+        "score_definition": {
+          "0": "Generic capacity explains the effect.",
+          "1": "Capacity confounding remains substantial.",
+          "2": "Most capacity alternatives are controlled.",
+          "3": "Effect survives preregistered compute, memory, bandwidth, and latency controls."
+        }
+      },
+      {
+        "id": "measurement_robustness",
+        "weight": 0.10,
+        "score_definition": {
+          "0": "Effect reverses with probe or prompt changes.",
+          "1": "Material evaluator dependence.",
+          "2": "Mostly stable across measurement variants.",
+          "3": "Stable across blinded evaluators, probes, prompts, and report suppression."
+        }
+      }
+    ],
+    "weighted_score_range": [0, 3],
+    "hard_fail_conditions": [
+      "behavioral_theater_control_reproduces_all_primary_mechanistic_indicators",
+      "targeted_lesion_has_no_preregistered_selective_effect",
+      "generic_capacity_control_explains_primary_effect",
+      "primary_effect_is_probe_or_prompt_artifact",
+      "mapping_is_defined_only_after_outcome_observation"
+    ],
+    "classification_rules": [
+      {
+        "outcome": "preserved",
+        "requirements": "No hard fail; weighted score >= 2.40; selective_intervention_support >= 2; counterfactual_dependency >= 2; theater_resistance >= 2."
+      },
+      {
+        "outcome": "partially_preserved",
+        "requirements": "No hard fail; weighted score >= 1.60; at least one of selective_intervention_support or counterfactual_dependency >= 2; unresolved components reported separately."
+      },
+      {
+        "outcome": "not_preserved",
+        "requirements": "Any hard fail directly defeats the declared essential dependency, or weighted score < 1.00 with adequate measurement power."
+      },
+      {
+        "outcome": "underdetermined",
+        "requirements": "Insufficient power, failed matching, unresolved measurement validity, conflicting interventions, or weighted score from 1.00 to 1.59 without decisive hard fail."
+      }
+    ]
+  },
+  "analysis_requirements": {
+    "minimum_repetitions": 3,
+    "required_reporting": [
+      "raw_results",
+      "dependency_adjusted_results",
+      "effect_sizes",
+      "uncertainty_intervals",
+      "multiple_comparison_policy",
+      "failed_matching_metrics",
+      "all_exclusions",
+      "all_protocol_deviations",
+      "component_level_outcomes"
+    ],
+    "dependency_rule": "Correlated indicators sharing causal ancestry must not be multiplied as independent evidence."
+  },
+  "interpretation_contract": {
+    "permitted": [
+      "Evidence increased or decreased that the declared mechanism is preserved at the specified abstraction level.",
+      "A particular indicator is or is not specific to the declared mechanism.",
+      "A result is better explained by a generic capacity, alternative pathway, or measurement artifact."
+    ],
+    "forbidden": [
+      "The system is conscious.",
+      "The system is not conscious.",
+      "The theory is proven.",
+      "Mechanism preservation establishes sentience, personhood, identity, or moral status."
+    ]
+  },
+  "review_link": {
+    "proposition_id": "C6-P03",
+    "review_state_required_before_execution": "source_grounded",
+    "experiment_result_required_for_survives_review": true
+  }
+}
