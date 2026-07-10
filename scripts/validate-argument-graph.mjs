@@ -27,6 +27,10 @@ function duplicates(values) {
   return [...new Set(values.filter((value, index) => values.indexOf(value) !== index))];
 }
 
+function sortedUnique(values) {
+  return [...new Set(values)].sort();
+}
+
 const graph = readJson('research/ARGUMENT_GRAPH.json');
 const registry = readJson('research/SOURCE_REGISTRY.json');
 const claimsPath = 'research/CLAIMS_LEDGER.md';
@@ -38,6 +42,9 @@ if (graph && registry && claimsSource) {
   if (!Array.isArray(graph.propositions) || graph.propositions.length === 0) failures.push('ARGUMENT_GRAPH.json must contain propositions.');
   if (!Array.isArray(graph.edges) || graph.edges.length === 0) failures.push('ARGUMENT_GRAPH.json must contain typed edges.');
   if (!Array.isArray(graph.dependency_declarations)) failures.push('ARGUMENT_GRAPH.json must contain dependency_declarations.');
+  if (typeof registry.claim_backlink_policy !== 'string' || !registry.claim_backlink_policy.includes('ARGUMENT_GRAPH.json')) {
+    failures.push('SOURCE_REGISTRY.json must declare that claims arrays are graph-derived use backlinks, not evidential support declarations.');
+  }
 
   const registeredClaimIds = new Set(
     [...claimsSource.matchAll(/^###\s+(CSA-(?:R)?\d+)\s*$/gm)].map((match) => match[1])
@@ -73,6 +80,7 @@ if (graph && registry && claimsSource) {
 
   const edgeCountByProposition = new Map();
   const opposingCountByProposition = new Map();
+  const expectedClaimsBySource = new Map();
 
   for (const edge of graph.edges || []) {
     const label = edge.id || '<missing edge id>';
@@ -90,6 +98,13 @@ if (graph && registry && claimsSource) {
     edgeCountByProposition.set(edge.proposition_id, (edgeCountByProposition.get(edge.proposition_id) || 0) + 1);
     if (edge.relationship === 'opposing') opposingCountByProposition.set(edge.proposition_id, (opposingCountByProposition.get(edge.proposition_id) || 0) + 1);
 
+    const proposition = propositionById.get(edge.proposition_id);
+    if (proposition && sourceById.has(edge.source_id)) {
+      const backlinks = expectedClaimsBySource.get(edge.source_id) || new Set();
+      for (const claimId of proposition.ledger_claims || []) backlinks.add(claimId);
+      expectedClaimsBySource.set(edge.source_id, backlinks);
+    }
+
     const source = sourceById.get(edge.source_id);
     if (source?.verification_status === 'provisional' && edge.decisive !== false) {
       failures.push(`${label} uses provisional source ${edge.source_id} without decisive:false.`);
@@ -97,7 +112,26 @@ if (graph && registry && claimsSource) {
     if (edge.relationship === 'direct' && edge.proposition_verification === 'verified' && !edge.pinpoint_locator) {
       failures.push(`${label} is marked proposition-verified direct support without a pinpoint locator.`);
     }
-    if (edge.pinpoint_locator === null) warnings.push(`${label} lacks a pinpoint locator.`);
+    if (edge.pinpoint_locator === null) {
+      warnings.push(`${label} lacks a pinpoint locator.`);
+    } else if (
+      typeof edge.pinpoint_locator !== 'object' ||
+      typeof edge.pinpoint_locator.type !== 'string' ||
+      typeof edge.pinpoint_locator.value !== 'string' ||
+      !edge.pinpoint_locator.value.trim()
+    ) {
+      failures.push(`${label} has a malformed pinpoint locator.`);
+    }
+  }
+
+  for (const source of registry.sources || []) {
+    const expected = sortedUnique([...(expectedClaimsBySource.get(source.id) || [])]);
+    const actual = sortedUnique(Array.isArray(source.claims) ? source.claims : []);
+    const missing = expected.filter((claimId) => !actual.includes(claimId));
+    const stale = actual.filter((claimId) => !expected.includes(claimId));
+    if (missing.length || stale.length) {
+      failures.push(`${source.id} claim backlinks are out of sync with ARGUMENT_GRAPH.json; missing [${missing.join(', ')}], stale [${stale.join(', ')}].`);
+    }
   }
 
   for (const proposition of graph.propositions || []) {
@@ -130,4 +164,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Validated ${(graph?.propositions || []).length} propositions, ${(graph?.edges || []).length} typed edges, and ${(graph?.dependency_declarations || []).length} dependency declarations.`);
+console.log(`Validated ${(graph?.propositions || []).length} propositions, ${(graph?.edges || []).length} typed edges, graph-derived source backlinks, and ${(graph?.dependency_declarations || []).length} dependency declarations.`);
