@@ -1,0 +1,113 @@
+{
+  "schema_version": "1.0.0",
+  "updated_at": "2026-07-10",
+  "scope": "Adversarial review records for high-confidence synthesis propositions in ARGUMENT_GRAPH.json",
+  "governing_rules": [
+    "A review state records epistemic completion, not rhetorical confidence.",
+    "Completed milestones are tracked independently from the ordered current_state so experiment design can precede source grounding without falsely implying review completion.",
+    "No proposition may be marked source_grounded without at least one verified or partially verified opposing edge with a pinpoint locator.",
+    "No proposition may be marked survives_review unless it is source_grounded, has a discriminating test, records a forced concession, and states the surviving narrowed claim.",
+    "An adversarial review does not establish that a current AI system is conscious or nonconscious."
+  ],
+  "state_order": [
+    "unreviewed",
+    "adversarially_specified",
+    "source_grounded",
+    "survives_review",
+    "revised",
+    "withdrawn"
+  ],
+  "reviews": [
+    {
+      "proposition_id": "C6-P01",
+      "current_state": "adversarially_specified",
+      "milestones": {
+        "countermodel_specified": true,
+        "forced_concession_recorded": true,
+        "confidence_lowering_test_recorded": true,
+        "opposing_source_grounded": false,
+        "experiment_linked": false
+      },
+      "strongest_countermodel": "Major theories may be partially compatible descriptions of shared latent computational or dynamical variables at different levels of analysis, allowing principled evidence pooling through an explicit bridge model.",
+      "critic_inferential_route": [
+        "Different theories can operationalize overlapping phenomena using different vocabularies.",
+        "Measures associated with those theories can load on common latent factors.",
+        "Cross-theory convergence can therefore contain information not captured by isolated theory-specific models.",
+        "A blanket prohibition on pooling could preserve artificial fragmentation and discard predictive convergence."
+      ],
+      "forced_concession": "Pooling is permissible when a bridge model states the shared variable, transport assumptions, theory-specific residuals, and failure conditions. The target is unlicensed pooling, not pooling in principle.",
+      "confidence_lowering_test": "A preregistered bridge model that predicts intervention outcomes better than theory-specific alternatives while remaining calibrated across tasks and species would weaken the claim that operational separation is always required.",
+      "surviving_narrowed_claim": "Indicators from rival theories should not be pooled unless an explicit bridge model preserves their distinct commitments and residual disagreements.",
+      "required_next_evidence": "A canonical or primary source defending cross-theory unification, common-factor modeling, or principled evidence pooling, represented by an opposing or scope-restricting graph edge with a pinpoint locator."
+    },
+    {
+      "proposition_id": "C6-P02",
+      "current_state": "adversarially_specified",
+      "milestones": {
+        "countermodel_specified": true,
+        "forced_concession_recorded": true,
+        "confidence_lowering_test_recorded": true,
+        "opposing_source_grounded": false,
+        "experiment_linked": false
+      },
+      "strongest_countermodel": "Predictively valid biomarkers can support bounded classification before their complete causal role is known, so unresolved constitution or mechanism need not block every cross-substrate inference.",
+      "critic_inferential_route": [
+        "Predictive validity and causal interpretation are distinct achievements.",
+        "Science and medicine often use calibrated markers before a full mechanism is established.",
+        "AI assessment could use such markers defeasibly while remaining agnostic about constitution.",
+        "Therefore role specification is mandatory for strong metaphysical inference but not necessarily for every bounded evidential use."
+      ],
+      "forced_concession": "The book must distinguish calibrated use of a correlate as defeasible evidence from treating it as a substrate-independent constitutive criterion. The former can be legitimate under demonstrated transport and calibration assumptions.",
+      "confidence_lowering_test": "A marker that remains calibrated across neural interventions, species, architectures, and adversarial controls would weaken the claim that unresolved causal role blocks useful cross-substrate inference.",
+      "surviving_narrowed_claim": "Any translation of a consciousness-associated marker to AI must state whether it is being used predictively, mechanistically, constitutively, or merely as contextual evidence, and must justify the relevant transport assumptions.",
+      "required_next_evidence": "A primary or canonical measurement-theory, biomarker, or no-report source defending calibrated inference under incomplete causal interpretation, encoded as a pinpointed opposing edge."
+    },
+    {
+      "proposition_id": "C6-P03",
+      "current_state": "adversarially_specified",
+      "milestones": {
+        "countermodel_specified": true,
+        "forced_concession_recorded": true,
+        "confidence_lowering_test_recorded": true,
+        "opposing_source_grounded": false,
+        "experiment_linked": true
+      },
+      "experiment_links": [
+        "research/EXPERIMENT_11_MECHANISM_PRESERVATION.md"
+      ],
+      "strongest_countermodel": "Mechanisms can be multiply realized, and theory terms may denote abstract causal roles that an engineered system can instantiate without biological duplication.",
+      "critic_inferential_route": [
+        "Scientific mechanism attribution can operate at an abstract causal-organizational level.",
+        "Abstract causal roles may admit multiple physical realizations.",
+        "Artificial components can satisfy those roles under intervention even when their material implementation differs from nervous tissue.",
+        "Rejecting them merely because they are artificial would be substrate chauvinism rather than mechanism analysis."
+      ],
+      "forced_concession": "Biological dissimilarity is not evidence of mere simulation. The vocabulary objection applies only when causal-role equivalence has not been demonstrated.",
+      "confidence_lowering_test": "Selective lesion, substitution, and counterfactual intervention showing preservation of the source theory's predicted dependencies would defeat a vocabulary-only dismissal.",
+      "surviving_narrowed_claim": "Reusing theory vocabulary is not evidence of mechanism preservation unless the implementation satisfies the theory's relevant causal-role and counterfactual dependencies under intervention.",
+      "required_next_evidence": "A primary or canonical mechanistic-functionalist or multiple-realizability source represented by a pinpointed opposing edge."
+    },
+    {
+      "proposition_id": "C6-P05",
+      "current_state": "adversarially_specified",
+      "milestones": {
+        "countermodel_specified": true,
+        "forced_concession_recorded": true,
+        "confidence_lowering_test_recorded": true,
+        "opposing_source_grounded": false,
+        "experiment_linked": false
+      },
+      "strongest_countermodel": "Phenomenal valence may be implemented by abstract control variables that rank states, coordinate learning, dominate policy, and organize approach or avoidance without reproducing mammalian homeostasis.",
+      "critic_inferential_route": [
+        "Valence plausibly performs a global control and prioritization role.",
+        "Artificial systems can implement control variables with analogous policy-shaping functions.",
+        "The phenomenal relevance of those variables may depend on functional organization rather than biological chemistry.",
+        "Therefore some optimization variables could be evidentially relevant even in unfamiliar embodiments."
+      ],
+      "forced_concession": "The absence of mammalian homeostasis does not establish absence of valence. Each proposed architectural requirement must be defended as evidentially relevant rather than asserted as conceptually necessary.",
+      "confidence_lowering_test": "An endogenous, intervention-sensitive, cross-contextually coherent, policy-dominant control variable integrated with a stable self/world model and resistant to reward-channel substitution would materially raise the evidential status of candidate valence.",
+      "surviving_narrowed_claim": "A scalar loss, reward, or prediction-error signal alone is not evidence of felt valence; stronger evidence would require a defensible bridge theory plus system-level causal organization that distinguishes candidate valence from ordinary optimization.",
+      "required_next_evidence": "A serious functional or computational theory of affect represented by a pinpointed opposing edge, while preserving a boundary against equating scalar optimization with suffering."
+    }
+  ]
+}
