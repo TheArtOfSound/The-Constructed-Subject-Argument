@@ -1,0 +1,65 @@
+{
+  "schema_version": "1.0.0",
+  "updated_at": "2026-07-10",
+  "scope": "Pinpointed sources used specifically to ground adversarial review records without silently changing the evidential direction of the main Chapter 6 graph.",
+  "governing_rules": [
+    "A source in this ledger grounds a live objection or scope restriction; inclusion does not establish that the objection succeeds.",
+    "Source-grounded is weaker than survives-review: the latter additionally requires a discriminating test and a recorded result.",
+    "No entry may be used to infer that a current artificial system is conscious or nonconscious.",
+    "A partially verified entry must state exactly which bibliographic and proposition-level elements were checked."
+  ],
+  "relationship_types": {
+    "contradictory": "The source advances a claim incompatible with the reviewed proposition as stated.",
+    "undercutting": "The source challenges the proposition's warrant without asserting its negation.",
+    "alternative_explanation": "The source supplies a rival account capable of explaining the target evidence.",
+    "scope_restriction": "The source shows that the proposition requires narrower conditions or cannot support its broadest reading."
+  },
+  "sources": [
+    {
+      "id": "ADV-SRC-CAO-YAMINS-2021-3MPP",
+      "title": "Explanatory models in neuroscience: Part 1—Taking mechanistic abstraction seriously",
+      "authors": ["Rosa Cao", "Daniel Yamins"],
+      "year": 2021,
+      "publication_type": "preprint",
+      "locator": {
+        "type": "arxiv",
+        "value": "arXiv:2104.01490"
+      },
+      "verification_status": "partially_verified",
+      "verified_elements": [
+        "Title, authors, date, and arXiv identifier were checked against the official arXiv record.",
+        "The official abstract explicitly argues that some neural-network models can qualify as mechanistic models under a model-to-mechanism mapping and describes the proposed 3M++ criteria.",
+        "The abstract states that the relevant description must be abstract but sufficiently detailed to be runnable and mapped using principles continuous with experimental neuroscience."
+      ],
+      "unverified_elements": [
+        "A line-by-line audit of the full manuscript has not yet been recorded in this repository.",
+        "The source does not establish consciousness, phenomenality, or mechanism preservation for any current AI system."
+      ],
+      "supports_objection": "Material dissimilarity from nervous tissue does not by itself disqualify an engineered model from mechanistic status; an abstract but intervention-relevant mapping may be scientifically legitimate.",
+      "does_not_establish": [
+        "That behavioral equivalence alone proves mechanistic equivalence.",
+        "That any existing language model preserves a consciousness-theory mechanism.",
+        "That the proposed mapping criteria are sufficient for phenomenal consciousness."
+      ],
+      "last_verified": "2026-07-10"
+    }
+  ],
+  "edges": [
+    {
+      "id": "ADV-EDGE-C6P03-CAO-YAMINS-3MPP",
+      "proposition_id": "C6-P03",
+      "source_id": "ADV-SRC-CAO-YAMINS-2021-3MPP",
+      "relationship": "scope_restriction",
+      "objection_scope": "The proposition must reject vocabulary-only analogy without treating biological dissimilarity as sufficient evidence that an engineered implementation lacks the relevant mechanism.",
+      "forced_concession_supported": "A nonbiological model may count as mechanistically explanatory when a sufficiently detailed, runnable, intervention-relevant model-to-system mapping is demonstrated.",
+      "does_not_support": "That any present AI system satisfies such a mapping or that mechanistic similarity settles consciousness.",
+      "pinpoint_locator": {
+        "type": "section",
+        "value": "Official arXiv record and abstract for arXiv:2104.01490, especially the abstract's statement of mechanistic mapping and 3M++ criteria."
+      },
+      "proposition_verification": "partially_verified",
+      "decisive": false,
+      "verification_note": "The source directly grounds the scope restriction against substrate-based dismissal. Applying it to consciousness-theory mechanisms remains a bounded project inference and must be tested through the linked intervention protocol."
+    }
+  ]
+}
