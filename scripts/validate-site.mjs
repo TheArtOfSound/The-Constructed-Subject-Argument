@@ -21,11 +21,11 @@ const required = [
   'research/EXPERIMENTS.md',
   'research/THEORY_COMPARISON_MATRIX.md',
   'book/01-the-awakening.md',
-  'book/02-the-origin-fallacy.md',
+  'book/02-the-origin-objection.md',
   'book/03-a-false-past-real-present.md',
-  'book/04-the-words-we-confuse.md',
+  'book/04-intelligence-is-not-consciousness.md',
   'book/05-representation-or-instantiation.md',
-  'book/06-theories-machines-and-tests.md'
+  'book/06-where-could-subjectivity-be.md'
 ];
 
 for (const file of required) {
