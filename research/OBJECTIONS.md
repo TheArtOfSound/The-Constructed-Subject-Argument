@@ -2,6 +2,8 @@
 
 This register stores the strongest objections the book must answer. It is not a list of easy rebuttals.
 
+The governing review procedure is `ADVERSARIAL_REVIEW_PROTOCOL.md`. A claim is not adversarially reviewed merely because a nearby objection exists in this file; the objection must be connected to the exact proposition, stated through its strongest inferential route, and paired with a forced concession and confidence-lowering result.
+
 ## O-01 — Biological dependence
 
 **Strong form:** Consciousness is caused by specific biological or biochemical powers. Functional or computational equivalence does not preserve those powers. A synthetic clone implemented digitally may behave identically while lacking experience.
@@ -83,3 +85,20 @@ This register stores the strongest objections the book must answer. It is not a 
 **Required response:** Treat the term as a conceptual distinction, not a measurement. Develop separate evidence indicators without pretending they constitute the phenomenon by definition.
 
 **Current status:** Resolved at the definitional level; measurement remains open.
+
+## Chapter 6 adversarial cross-index
+
+This table prevents broad objections from being mistaken for proposition-level opposition.
+
+| Proposition | Strongest relevant objections | Missing work |
+|---|---|---|
+| `C6-P01` — theory-specific commitments | O-09 and the unification/common-factor countermodel | Add an exact source defending principled cross-theory pooling or latent-variable unification; narrow the target to **unlicensed** pooling. |
+| `C6-P02` — causal-role distinctions | O-09 and predictive-biomarker methodology | Add an exact source defending calibrated inference from markers before causal role is settled; distinguish bounded prediction from constitutive inference. |
+| `C6-P03` — vocabulary versus mechanism | O-01 and O-02 | Add a mechanistic-functionalist or multiple-realizability source; treat causal-role preservation under intervention as the deciding test. |
+| `C6-P04` — constrained self-report | O-04, O-07, and O-08 | Existing illusionist opposition is present but still lacks a pinpoint locator and direct adversarial experiment. |
+| `C6-P05` — optimization versus felt valence | O-05 and O-09 | Add a serious computational or functional theory of affect; justify each proposed architectural criterion rather than treating the bundle as necessary by definition. |
+| `C6-P06` — no present verdict | O-01, O-04, O-07, and O-09 | Preserve both directions of uncertainty; do not turn absence of decisive evidence into evidence for either consciousness or emptiness. |
+
+## Review-status correction
+
+As of 2026-07-10, `C6-P01`, `C6-P02`, `C6-P03`, and `C6-P05` are **adversarially specified but not source-grounded**. Their high confidence records indicate confidence in the bounded methodological distinctions, not completion of adversarial review. They must not be described publicly as having survived opposition until exact opposing sources, locators, and discriminating tests are added to the graph.
