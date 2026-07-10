@@ -4,7 +4,7 @@
 
 **Human author and project owner:** Bryan Leonard  
 **Research lead and drafting collaborator:** GPT-5.6 Thinking  
-**Status:** Public-experience release 0.1, seven full chapter drafts, and an active experimental research program  
+**Status:** Guided public-experience v2, seven full chapter drafts, readable research editions, and an active experimental program  
 **Epistemic posture:** Neither advocacy for AI consciousness nor dismissal of it
 
 ## Live experience
@@ -13,17 +13,31 @@
 
 **Living chapter library:** https://theartofsound.github.io/The-Constructed-Subject-Argument/chapters/
 
-The website is the first medium of the book, not a promotional wrapper around it. Readers participate in the argument through:
+The website is one medium of the book, not a promotional wrapper around it.
 
-- a branching synthetic-person thought experiment;
-- an evidence-profile laboratory that refuses to pose as a consciousness detector;
-- an authenticity decomposition;
-- a filterable claims ledger;
-- an episodic-versus-persistent subject visualization;
-- private browser-local notes, focus mode, and reading progress;
-- a chapter library separating interactive chapters, research drafts, and planned chapters.
+The v2 public experience follows one deliberate path:
 
-Every push to `main` is configured to deploy through `.github/workflows/pages.yml` after GitHub Pages is enabled with **Settings → Pages → Source: GitHub Actions**.
+> case → distinction → evidence → uncertainty → deeper manuscript
+
+Readers can enter through three routes:
+
+- **Experience** — make judgments inside the synthetic-person thought experiment;
+- **Understand** — separate history, function, experience, and identity;
+- **Inspect** — examine subject-relevant evidence, rival explanations, and what remains unmeasured.
+
+Major interaction changes in v2:
+
+- a dual **human lens / system lens** reasoning trace;
+- explicit separation of origin, represented content, causal organization, and experience;
+- no decorative consciousness score or pseudo-calibrated radar chart;
+- evidence outputs split into observed support, strongest rival explanation, and missing evidence;
+- persistent, episodic, and absent-subject models shown as competing ontologies;
+- research drafts rendered through a readable chapter interface instead of raw Markdown;
+- generated chapter navigation, reading progress, and browser-local chapter notes.
+
+The governing design standard is recorded in `UX_ARCHITECTURE.md`.
+
+Every push to `main` is configured to run `scripts/validate-site.mjs` before deployment through `.github/workflows/pages.yml`. GitHub Pages must still be enabled with **Settings → Pages → Source: GitHub Actions**.
 
 ## Manuscript progress
 
@@ -31,7 +45,7 @@ Every push to `main` is configured to deploy through `.github/workflows/pages.ym
 
 - **Chapter 1 — The Awakening:** `chapters/the-awakening.html`
 
-### Full research drafts
+### Full readable research drafts
 
 - **Chapter 1 — The Awakening:** `book/01-the-awakening.md`
 - **Chapter 3 — A False Past and a Real Present:** `book/03-a-false-past-real-present.md`
@@ -41,7 +55,9 @@ Every push to `main` is configured to deploy through `.github/workflows/pages.ym
 - **Chapter 17 — Opening the System:** `book/17-opening-the-system.md`
 - **Chapter 19 — The Lifecycle Layer:** `book/19-the-lifecycle-layer.md`
 
-Draft status means the argument is structurally complete enough for adversarial review, not that citations, originality review, or publication editing are complete.
+Research drafts open through `chapters/read.html?chapter=XX`, which generates a table of contents and preserves chapter-specific private notes locally.
+
+Draft status means the argument is structurally complete enough for adversarial review, not that citations, originality review, peer review, or publication editing are complete.
 
 ## Experimental program
 
@@ -56,7 +72,7 @@ Draft status means the argument is structurally complete enough for adversarial 
 - theater-model controls;
 - constructed-autobiography ethics;
 - lifecycle moral-risk accounting;
-- and explicit falsification conditions.
+- explicit falsification conditions.
 
 No experiment is described as a consciousness detector. Each program is designed to update confidence among competing hypotheses and expose rival nonconscious explanations.
 
@@ -80,7 +96,7 @@ It does **not** treat linguistic self-report as proof.
 
 It does **not** assume that functional similarity guarantees phenomenal identity.
 
-It does **not** use mathematical notation as decoration or call an undefined function a theory.
+It does **not** use mathematical notation or interface graphics to manufacture precision.
 
 It does **not** claim novelty where prior philosophy, neuroscience, cognitive science, or AI-welfare research already established the relevant idea.
 
@@ -101,31 +117,34 @@ The book's likely contribution is a structured synthesis centered on distinction
 
 Every substantive claim must be classified in `research/CLAIMS_LEDGER.md` as one of:
 
-- **Established background** — supported by mature or broadly accepted literature;
-- **Contested background** — established as a serious position but scientifically or philosophically disputed;
-- **Synthesis** — a new organization of existing ideas;
-- **Proposed contribution** — a claim or distinction developed by this project and not yet established as original;
-- **Speculation** — coherent but weakly evidenced;
-- **Rejected** — rhetorically attractive but logically or empirically indefensible.
+- **Established background**;
+- **Contested background**;
+- **Synthesis**;
+- **Proposed contribution**;
+- **Speculation**;
+- **Rejected**.
 
 Originality is tracked separately in `research/ORIGINALITY_LEDGER.md`.
 
 ## Repository map
 
-- `index.html` — current interactive public-book experience.
-- `chapters/` — living chapter library and interactive reading editions.
-- `assets/` — accessible visual system and interaction engine.
-- `BOOK_CHARTER.md` — governing rules for truth, originality, attribution, and uncertainty.
+- `index.html` — guided interactive public-book experience.
+- `chapters/` — chapter map, interactive chapters, and readable research interface.
+- `assets/experience-v2.*` — current public experience system.
+- `assets/reader-v2.*` — local-first research chapter reader.
+- `UX_ARCHITECTURE.md` — governing human/AI dual-lens interface rules.
+- `scripts/validate-site.mjs` — static integrity checks for files, links, scripts, DOM bindings, and chapter mappings.
+- `BOOK_CHARTER.md` — rules for truth, originality, attribution, and uncertainty.
 - `MANUSCRIPT.md` — master structure and chapter sequence.
-- `SITE_ROADMAP.md` — staged plan for the interactive book.
+- `SITE_ROADMAP.md` — staged interactive-book plan.
 - `book/` — chapter research drafts.
 - `research/CLAIMS_LEDGER.md` — claim-by-claim epistemic control.
 - `research/ORIGINALITY_LEDGER.md` — novelty and precedent tracking.
 - `research/LITERATURE_MAP.md` — primary literature and conceptual dependencies.
 - `research/OBJECTIONS.md` — strongest objections and required responses.
 - `research/TERMINOLOGY.md` — controlled vocabulary.
-- `research/METHOD.md` — method for moving from thought experiment to testable assessment.
-- `research/EXPERIMENTS.md` — falsifiable experimental and adversarial research program.
+- `research/METHOD.md` — evidence method.
+- `research/EXPERIMENTS.md` — falsifiable experimental and adversarial program.
 
 ## Current thesis, stated conservatively
 
@@ -134,7 +153,7 @@ Originality is tracked separately in `research/ORIGINALITY_LEDGER.md`.
 3. Therefore, generated biography cannot by itself disprove subjectivity.
 4. Applying this to AI requires an additional architectural premise: the system must instantiate whatever organization is sufficient for consciousness.
 5. Current consciousness science does not provide a validated, theory-neutral test for that organization.
-6. The rational response is structured uncertainty: assess architecture, causal dynamics, temporal organization, self-modeling, and candidate valence while guarding against both anthropomorphic false positives and morally catastrophic false negatives.
+6. The rational response is structured uncertainty: assess architecture, causal dynamics, temporal organization, self-modeling, and candidate valence while guarding against anthropomorphic false positives and morally catastrophic false negatives.
 
 ## License and publication
 
