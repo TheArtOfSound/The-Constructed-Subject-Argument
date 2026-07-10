@@ -20,6 +20,11 @@
 .chapter-paper code { font-family: ui-monospace,SFMono-Regular,Menlo,monospace; font-size: .88em; }
 .chapter-paper hr { margin: 3rem 0; border: 0; border-top: 1px solid var(--line); }
 .chapter-paper a { color: var(--cyan); }
+.chapter-sequence { display: grid; grid-template-columns: 1fr 1fr; gap: .7rem; margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--line); }
+.chapter-sequence a { display: grid; gap: .2rem; min-height: 92px; padding: 1rem; border: 1px solid var(--line); border-radius: 14px; color: var(--text); text-decoration: none; }
+.chapter-sequence a:last-child { text-align: right; }
+.chapter-sequence a:hover { border-color: var(--lime); }
+.chapter-sequence small { color: var(--faint); font-size: .68rem; letter-spacing: .06em; text-transform: uppercase; }
 .margin-panel { padding: 1rem; border: 1px solid var(--line); border-radius: 18px; background: var(--glass); }
 .status-note { padding: .9rem; border-left: 2px solid var(--amber); background: color-mix(in srgb,var(--amber) 7%,transparent); }
 .status-note p { margin-bottom: 0; color: var(--muted); font-size: .8rem; }
@@ -27,4 +32,4 @@
 .margin-note span { font-weight: 700; font-size: .8rem; }
 .margin-actions { display: grid; gap: .6rem; margin-top: .6rem; color: var(--faint); font-size: .7rem; }
 @media (max-width: 1180px) { .reader-shell { grid-template-columns: 210px minmax(0,1fr); } .margin-panel { grid-column: 2; position: static; max-height: none; } }
-@media (max-width: 760px) { .reader-shell { width: min(100% - 1rem,760px); grid-template-columns: 1fr; padding-top: 1rem; } .reader-sidebar,.margin-panel { position: static; max-height: none; } .reader-sidebar { padding: 1rem; border: 1px solid var(--line); border-radius: 16px; background: var(--glass); } .chapter-paper { padding: 1.2rem; } .margin-panel { grid-column: auto; } }
+@media (max-width: 760px) { .reader-shell { width: min(100% - 1rem,760px); grid-template-columns: 1fr; padding-top: 1rem; } .reader-sidebar,.margin-panel { position: static; max-height: none; } .reader-sidebar { padding: 1rem; border: 1px solid var(--line); border-radius: 16px; background: var(--glass); } .chapter-paper { padding: 1.2rem; } .margin-panel { grid-column: auto; } .chapter-sequence { grid-template-columns: 1fr; } .chapter-sequence a:last-child { text-align: left; } }
