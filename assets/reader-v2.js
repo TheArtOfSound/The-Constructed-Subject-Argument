@@ -4,6 +4,7 @@ const chapters = {
   '01': { file: '../book/01-the-awakening.md', title: 'The Awakening', status: 'Research draft', part: 'Part I' },
   '02': { file: '../book/02-the-origin-objection.md', title: 'The Origin Objection', status: 'Research draft', part: 'Part I' },
   '03': { file: '../book/03-a-false-past-real-present.md', title: 'A False Past and a Real Present', status: 'Research draft', part: 'Part I' },
+  '04': { file: '../book/04-intelligence-is-not-consciousness.md', title: 'Intelligence Is Not Consciousness', status: 'Research draft', part: 'Part II' },
   '05': { file: '../book/05-representation-or-instantiation.md', title: 'Representation or Instantiation?', status: 'Research draft', part: 'Part II' },
   '08': { file: '../book/08-the-episodic-subject.md', title: 'The Episodic Subject', status: 'Research draft', part: 'Part III' },
   '11': { file: '../book/11-optimization-is-not-suffering.md', title: 'Optimization Is Not Suffering', status: 'Research draft', part: 'Part IV' },
