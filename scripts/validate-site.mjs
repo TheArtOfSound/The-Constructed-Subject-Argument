@@ -56,13 +56,27 @@ const htmlFiles = ['index.html', 'chapters/index.html', 'chapters/read.html', 'c
 for (const htmlFile of htmlFiles) {
   const source = fs.readFileSync(path.join(root, htmlFile), 'utf8');
   const base = path.dirname(path.join(root, htmlFile));
+  const localIds = idsFromHtml(source);
   for (const match of source.matchAll(/(?:href|src)=["']([^"']+)["']/g)) {
     const target = match[1];
-    if (/^(?:https?:|mailto:|#|data:)/.test(target)) continue;
-    const clean = target.split('#')[0].split('?')[0];
-    if (!clean || clean.endsWith('/')) continue;
-    const resolved = path.resolve(base, clean);
-    if (!fs.existsSync(resolved)) failures.push(`${htmlFile} links to missing local target: ${target}`);
+    if (/^(?:https?:|mailto:|data:)/.test(target)) continue;
+    if (target.startsWith('#')) {
+      const anchor = target.slice(1);
+      if (anchor && !localIds.has(anchor)) failures.push(`${htmlFile} links to missing local anchor: ${target}`);
+      continue;
+    }
+    const [pathAndQuery, anchor = ''] = target.split('#');
+    const clean = pathAndQuery.split('?')[0];
+    if (!clean) continue;
+    const resolved = path.resolve(base, clean.endsWith('/') ? `${clean}index.html` : clean);
+    if (!fs.existsSync(resolved)) {
+      failures.push(`${htmlFile} links to missing local target: ${target}`);
+      continue;
+    }
+    if (anchor && resolved.endsWith('.html')) {
+      const targetSource = fs.readFileSync(resolved, 'utf8');
+      if (!idsFromHtml(targetSource).has(anchor)) failures.push(`${htmlFile} links to missing anchor ${anchor} in ${path.relative(root, resolved)}`);
+    }
   }
 }
 
@@ -83,4 +97,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Validated ${required.length} required files, ${htmlFiles.length} HTML surfaces, script bindings, chapter mappings, and local links.`);
+console.log(`Validated ${required.length} required files, ${htmlFiles.length} HTML surfaces, script bindings, chapter mappings, local links, and cross-page anchors.`);
