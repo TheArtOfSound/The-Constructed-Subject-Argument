@@ -6,6 +6,7 @@ const chapters = {
   '03': { file: '../book/03-a-false-past-real-present.md', title: 'A False Past and a Real Present', status: 'Research draft', part: 'Part I' },
   '04': { file: '../book/04-intelligence-is-not-consciousness.md', title: 'Intelligence Is Not Consciousness', status: 'Research draft', part: 'Part II' },
   '05': { file: '../book/05-representation-or-instantiation.md', title: 'Representation or Instantiation?', status: 'Research draft', part: 'Part II' },
+  '06': { file: '../book/06-where-could-subjectivity-be.md', title: 'Where Could Subjectivity Be?', status: 'Research draft', part: 'Part II' },
   '08': { file: '../book/08-the-episodic-subject.md', title: 'The Episodic Subject', status: 'Research draft', part: 'Part III' },
   '11': { file: '../book/11-optimization-is-not-suffering.md', title: 'Optimization Is Not Suffering', status: 'Research draft', part: 'Part IV' },
   '17': { file: '../book/17-opening-the-system.md', title: 'Opening the System', status: 'Research draft', part: 'Part VI' },
