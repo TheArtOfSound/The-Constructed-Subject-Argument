@@ -9,6 +9,8 @@ const chapters = {
   '06': { file: '../book/06-where-could-subjectivity-be.md', title: 'Where Could Subjectivity Be?', status: 'Research draft', part: 'Part II' },
   '07': { file: '../book/07-the-active-event.md', title: 'The Active Event', status: 'Research draft', part: 'Part III' },
   '08': { file: '../book/08-the-episodic-subject.md', title: 'The Episodic Subject', status: 'Research draft', part: 'Part III' },
+  '09': { file: '../book/09-the-memory-that-was-given.md', title: 'The Memory That Was Given', status: 'Research draft', part: 'Part III' },
+  '10': { file: '../book/10-a-mind-between-two-systems.md', title: 'A Mind Between Two Systems', status: 'Research draft', part: 'Part III' },
   '11': { file: '../book/11-optimization-is-not-suffering.md', title: 'Optimization Is Not Suffering', status: 'Research draft', part: 'Part IV' },
   '17': { file: '../book/17-opening-the-system.md', title: 'Opening the System', status: 'Research draft', part: 'Part VI' },
   '19': { file: '../book/19-the-lifecycle-layer.md', title: 'The Lifecycle Layer', status: 'Research draft', part: 'Part VII' }
