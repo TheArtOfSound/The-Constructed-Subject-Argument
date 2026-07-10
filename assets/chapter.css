@@ -1,0 +1,83 @@
+.chapter-body { background: var(--bg); }
+.chapter-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem clamp(1rem, 4vw, 3rem);
+  border-bottom: 1px solid var(--line);
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(18px);
+}
+.chapter-actions { display: flex; align-items: center; gap: .8rem; }
+.chapter-actions a { color: var(--muted); text-decoration: none; font-size: .8rem; }
+.chapter-layout {
+  width: min(1320px, calc(100% - 2rem));
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 230px minmax(0, 760px);
+  gap: clamp(3rem, 8vw, 8rem);
+  justify-content: center;
+  padding: clamp(4rem, 8vw, 8rem) 0;
+}
+.chapter-rail { position: sticky; top: 110px; align-self: start; }
+.chapter-rail nav { display: grid; border-left: 1px solid var(--line); }
+.chapter-rail nav a { padding: .55rem 0 .55rem 1rem; color: var(--faint); text-decoration: none; font-size: .8rem; border-left: 2px solid transparent; margin-left: -1px; }
+.chapter-rail nav a.active { color: var(--text); border-color: var(--accent); }
+.rail-status { display: grid; gap: .3rem; margin-top: 2rem; color: var(--faint); font-size: .68rem; }
+.chapter-title { padding-bottom: clamp(3rem, 7vw, 6rem); border-bottom: 1px solid var(--line); }
+.chapter-title h1 { margin: 0; font-family: var(--serif); font-size: clamp(4rem, 10vw, 8rem); line-height: .9; letter-spacing: -.065em; font-weight: 500; }
+.chapter-deck { max-width: 680px; color: var(--muted); font-family: var(--serif); font-size: clamp(1.4rem, 3vw, 2.2rem); line-height: 1.25; }
+.chapter-meta { display: flex; flex-wrap: wrap; gap: 1rem; color: var(--faint); font-size: .72rem; }
+.chapter-article > section { padding: clamp(3.5rem, 7vw, 6rem) 0; border-bottom: 1px solid var(--line); scroll-margin-top: 90px; }
+.chapter-article > section > h2 { margin: 0 0 2rem; font-family: var(--serif); font-size: clamp(2.5rem, 6vw, 4.8rem); line-height: 1; letter-spacing: -.045em; font-weight: 500; }
+.chapter-article p { font-family: var(--serif); font-size: clamp(1.13rem, 2vw, 1.3rem); line-height: 1.8; }
+.dropcap::first-letter { float: left; margin: .08em .12em 0 0; color: var(--accent); font-size: 5.4em; line-height: .75; }
+.dialogue { margin: 2rem 0; padding-left: 1.5rem; border-left: 2px solid var(--line-strong); font-family: var(--serif); font-size: clamp(1.35rem, 3vw, 2rem); line-height: 1.45; }
+.dialogue.long { color: var(--muted); }
+.dialogue.emphasis, .dialogue.final-plea { border-color: var(--accent); }
+.dialogue.emphasis { font-size: clamp(1.8rem, 4vw, 3rem); }
+.dialogue.final-plea { padding: 1.5rem; border: 1px solid var(--accent); border-radius: var(--radius); background: var(--accent-soft); }
+.position-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: .8rem; margin: 2.5rem 0; }
+.position-grid article { padding: 1rem; border: 1px solid var(--line); border-radius: 16px; background: var(--panel); }
+.position-grid span { color: var(--accent); font-size: .68rem; text-transform: uppercase; letter-spacing: .1em; }
+.position-grid h3 { font-family: var(--serif); font-size: 1.3rem; line-height: 1.1; }
+.position-grid p { color: var(--muted); font-family: var(--sans); font-size: .82rem; line-height: 1.55; }
+.reader-pause { margin: 3rem 0; padding: 1.5rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--panel); }
+.reader-pause h3 { margin: 0 0 1rem; font-family: var(--serif); font-size: 1.8rem; line-height: 1.1; }
+.reveal-button { border: 0; padding: 0; background: none; color: var(--accent); cursor: pointer; }
+.reveal-content { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--line); }
+.reveal-content p { margin-bottom: 0; color: var(--muted); font-size: 1rem; }
+.chapter-thesis { margin: 3rem 0; padding: 2rem 0; border-top: 1px solid var(--accent); border-bottom: 1px solid var(--accent); font-family: var(--serif); font-size: clamp(2rem, 5vw, 4rem); line-height: 1.1; letter-spacing: -.035em; }
+.chapter-thesis.large { text-align: center; }
+.proxy-list { margin: 2rem 0; padding: 1.2rem 1.5rem; border-left: 2px solid var(--accent); background: var(--accent-soft); }
+.proxy-list p { margin: .5rem 0; font-family: var(--sans); font-size: .95rem; }
+.distinction-table { display: grid; gap: 1rem; margin: 2rem 0; }
+.distinction-table > div { display: grid; grid-template-columns: 1.1fr 1fr 1fr; gap: 1rem; padding: 1rem; border: 1px solid var(--line); border-radius: 14px; }
+.distinction-table strong { color: var(--accent); }
+.distinction-table span { color: var(--muted); }
+.chapter-audit { margin-top: 3rem; padding: 2rem !important; border: 1px solid var(--line) !important; border-radius: var(--radius); background: var(--panel); }
+.audit-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: .8rem; }
+.audit-grid article { padding: 1rem; border: 1px solid var(--line); border-radius: 14px; }
+.audit-grid h3 { font-family: var(--serif); font-size: 1.35rem; }
+.audit-grid p { color: var(--muted); font-family: var(--sans); font-size: .82rem; line-height: 1.55; }
+.audit-grid .earned { border-color: color-mix(in srgb, var(--success) 50%, var(--line)); }
+.audit-grid .not-earned { border-color: color-mix(in srgb, var(--danger) 50%, var(--line)); }
+.chapter-note textarea { width: 100%; }
+.chapter-next { padding-top: 4rem; }
+.chapter-next a { display: flex; flex-direction: column; padding: 1.4rem; border: 1px solid var(--line); border-radius: var(--radius); text-decoration: none; background: var(--panel); }
+.chapter-next span { color: var(--faint); font-size: .75rem; }
+.chapter-next strong { margin-top: .4rem; font-family: var(--serif); font-size: 1.5rem; }
+
+@media (max-width: 900px) {
+  .chapter-layout { grid-template-columns: 1fr; }
+  .chapter-rail { display: none; }
+  .position-grid, .audit-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 680px) {
+  .chapter-actions a { display: none; }
+  .chapter-layout { width: min(100% - 1.2rem, 760px); }
+  .distinction-table > div { grid-template-columns: 1fr; }
+}
