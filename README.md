@@ -147,6 +147,7 @@ Originality is tracked separately in `research/ORIGINALITY_LEDGER.md`.
 - `research/CLAIMS_LEDGER.md` — claim-by-claim epistemic control.
 - `research/ORIGINALITY_LEDGER.md` — novelty and precedent tracking.
 - `research/LITERATURE_MAP.md` — primary literature and conceptual dependencies.
+- `research/THEORY_COMPARISON_MATRIX.md` — theory-indexed substrate commitments, rival explanations, interventions, and falsifiers.
 - `research/OBJECTIONS.md` — strongest objections and required responses.
 - `research/TERMINOLOGY.md` — controlled vocabulary.
 - `research/METHOD.md` — evidence method.
