@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#080b10" />
+  <title>Reading — The Constructed Subject</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../assets/experience-v2.css" />
+  <link rel="stylesheet" href="../assets/reader-v2.css" />
+</head>
+<body>
+  <a class="skip-link" href="#chapterBody">Skip to chapter</a>
+  <div class="progress-track" aria-hidden="true"><span id="pageProgress"></span></div>
+  <header class="topbar">
+    <a class="brand" href="../index.html"><span class="brand-glyph">CS</span><span><strong>The Constructed Subject</strong><small>Research reading edition</small></span></a>
+    <nav aria-label="Reading navigation"><a href="./">All chapters</a><a href="../index.html#evidence">Evidence</a><a href="../index.html#research">Research</a></nav>
+    <button class="quiet-button" id="themeToggle" type="button" aria-pressed="false">Theme</button>
+  </header>
+
+  <main class="reader-shell">
+    <aside class="reader-sidebar">
+      <p class="micro-label">Chapter navigation</p>
+      <h2 id="sideTitle">Loading chapter…</h2>
+      <div class="reader-meta" id="readerMeta"></div>
+      <nav id="chapterToc" aria-label="Chapter table of contents"></nav>
+      <a class="back-link" href="./">← Complete chapter map</a>
+    </aside>
+
+    <article class="chapter-paper" id="chapterBody" aria-live="polite">
+      <header class="chapter-loading"><p class="kicker">Research draft</p><h1>Loading chapter…</h1></header>
+    </article>
+
+    <aside class="margin-panel">
+      <p class="micro-label">Epistemic status</p>
+      <div class="status-note"><strong>Research draft</strong><p>This chapter is structurally developed but remains subject to citation review, originality review, adversarial criticism, and revision.</p></div>
+      <label class="margin-note"><span>Your private note</span><textarea id="chapterNote" rows="8" placeholder="Record an objection, distinction, or unresolved question…"></textarea></label>
+      <div class="margin-actions"><span id="chapterNoteStatus">Not saved</span><button class="button secondary" id="saveChapterNote" type="button">Save locally</button></div>
+    </aside>
+  </main>
+
+  <script src="../assets/reader-v2.js" defer></script>
+</body>
+</html>
