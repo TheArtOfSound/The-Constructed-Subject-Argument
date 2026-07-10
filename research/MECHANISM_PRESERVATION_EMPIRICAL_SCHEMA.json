@@ -1,0 +1,92 @@
+{
+  "schema_version": "1.0.0",
+  "schema_id": "EXP-11-EMPIRICAL-RESULT",
+  "protocol_id": "EXP-11-MECHANISM-PRESERVATION",
+  "status": "research_data_contract",
+  "purpose": "Bind mechanism-preservation classifications to preregistered observations rather than unsupported ordinal judgments.",
+  "epistemic_boundary": {
+    "supports": "Auditable evidence about preservation of a declared mechanism at a specified abstraction level.",
+    "does_not_support": [
+      "A claim that any tested system is conscious or nonconscious",
+      "A claim that mechanism preservation is sufficient for sentience",
+      "A claim that the source consciousness theory is globally correct"
+    ]
+  },
+  "required_top_level_fields": [
+    "schema_id",
+    "protocol_id",
+    "protocol_lock",
+    "run_id",
+    "empirical_status",
+    "preregistration",
+    "behavioral_matching",
+    "interventions",
+    "measurement_validity",
+    "dimension_derivations",
+    "hard_fail_assessments",
+    "deviations",
+    "exclusions",
+    "forbidden_conclusions"
+  ],
+  "protocol_lock": {
+    "required_fields": ["git_blob_sha", "protocol_version"],
+    "rule": "The result must name the exact Git blob SHA and schema version of the protocol used before outcomes were observed."
+  },
+  "preregistration": {
+    "required_fields": [
+      "registered_at",
+      "frozen_record_sha256",
+      "theory_family",
+      "target_property",
+      "implementation_level",
+      "system_boundary",
+      "mechanism_graph_id",
+      "candidate_mapping_id",
+      "primary_outcomes",
+      "matching_tolerances",
+      "analysis_plan",
+      "confidence_lowering_result"
+    ],
+    "rule": "A result is not preregistered merely because a timestamp is present; the frozen record hash must resolve to the exact pre-outcome plan."
+  },
+  "behavioral_matching_metric": {
+    "required_fields": ["metric_id", "primary", "standardized_difference", "tolerance", "passed"],
+    "derivation_rule": "passed must equal abs(standardized_difference) <= tolerance.",
+    "aggregate_rule": "behavioral_matching_adequate is true only when every primary metric passes or has a preregistered adjustment with a disclosed residual."
+  },
+  "intervention_result": {
+    "required_fields": [
+      "intervention_id",
+      "family",
+      "target_dependency",
+      "effect_size",
+      "uncertainty_interval",
+      "replications",
+      "preregistered_direction_met",
+      "selectivity_passed",
+      "controls_passed"
+    ],
+    "minimum_replications": 3,
+    "rule": "Intervention support cannot be scored above 1 when the preregistered direction, selectivity, controls, or minimum replication requirement fails."
+  },
+  "dimension_derivation": {
+    "required_fields": ["dimension_id", "score", "evidence_ids", "rule_id", "explanation"],
+    "allowed_scores": [0, 1, 2, 3],
+    "rule": "Every ordinal score must cite observed evidence identifiers and a deterministic rule."
+  },
+  "hard_fail_assessment": {
+    "required_fields": ["condition_id", "triggered", "decisive", "evidence_ids", "justification"],
+    "rule": "A hard fail can be decisive only when its justification identifies the essential declared dependency defeated by the evidence."
+  },
+  "empirical_status_values": ["synthetic_fixture", "pilot", "completed", "retracted"],
+  "required_for_public_claim": [
+    "completed empirical status",
+    "resolvable preregistration hash",
+    "protocol lock match",
+    "all primary matching metrics reported",
+    "all planned interventions reported",
+    "all exclusions and deviations disclosed",
+    "dimension scores deterministically derived",
+    "forbidden conclusions preserved"
+  ]
+}
