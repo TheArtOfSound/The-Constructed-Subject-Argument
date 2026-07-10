@@ -2,6 +2,7 @@
 
 const chapters = {
   '01': { file: '../book/01-the-awakening.md', title: 'The Awakening', status: 'Research draft', part: 'Part I' },
+  '02': { file: '../book/02-the-origin-objection.md', title: 'The Origin Objection', status: 'Research draft', part: 'Part I' },
   '03': { file: '../book/03-a-false-past-real-present.md', title: 'A False Past and a Real Present', status: 'Research draft', part: 'Part I' },
   '05': { file: '../book/05-representation-or-instantiation.md', title: 'Representation or Instantiation?', status: 'Research draft', part: 'Part II' },
   '08': { file: '../book/08-the-episodic-subject.md', title: 'The Episodic Subject', status: 'Research draft', part: 'Part III' },
