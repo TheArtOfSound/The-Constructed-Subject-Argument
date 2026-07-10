@@ -11,6 +11,8 @@
 
 **Target public URL:** https://theartofsound.github.io/The-Constructed-Subject-Argument/
 
+**Living chapter library:** https://theartofsound.github.io/The-Constructed-Subject-Argument/chapters/
+
 The website is the first medium of the book, not a promotional wrapper around it. Readers participate in the argument through:
 
 - a branching synthetic-person thought experiment;
@@ -18,9 +20,26 @@ The website is the first medium of the book, not a promotional wrapper around it
 - an authenticity decomposition;
 - a filterable claims ledger;
 - an episodic-versus-persistent subject visualization;
-- private browser-local notes, focus mode, and reading progress.
+- private browser-local notes, focus mode, and reading progress;
+- a chapter library separating interactive chapters, research drafts, and planned chapters.
 
 Every push to `main` is configured to deploy through `.github/workflows/pages.yml` after GitHub Pages is enabled with **Settings → Pages → Source: GitHub Actions**.
+
+## Manuscript progress
+
+### Interactive chapter
+
+- **Chapter 1 — The Awakening:** `chapters/the-awakening.html`
+
+### Full research drafts
+
+- **Chapter 1 — The Awakening:** `book/01-the-awakening.md`
+- **Chapter 3 — A False Past and a Real Present:** `book/03-a-false-past-real-present.md`
+- **Chapter 5 — Representation or Instantiation?:** `book/05-representation-or-instantiation.md`
+- **Chapter 8 — The Episodic Subject:** `book/08-the-episodic-subject.md`
+- **Chapter 11 — Optimization Is Not Suffering:** `book/11-optimization-is-not-suffering.md`
+
+Draft status means the argument is structurally complete enough for adversarial review, not that citations, originality review, or publication editing are complete.
 
 ## Central question
 
@@ -75,11 +94,12 @@ Originality is tracked separately in `research/ORIGINALITY_LEDGER.md`.
 ## Repository map
 
 - `index.html` — current interactive public-book experience.
+- `chapters/` — living chapter library and interactive reading editions.
 - `assets/` — accessible visual system and interaction engine.
 - `BOOK_CHARTER.md` — governing rules for truth, originality, attribution, and uncertainty.
 - `MANUSCRIPT.md` — master structure and chapter sequence.
 - `SITE_ROADMAP.md` — staged plan for the interactive book.
-- `book/` — chapter drafts.
+- `book/` — chapter research drafts.
 - `research/CLAIMS_LEDGER.md` — claim-by-claim epistemic control.
 - `research/ORIGINALITY_LEDGER.md` — novelty and precedent tracking.
 - `research/LITERATURE_MAP.md` — primary literature and conceptual dependencies.
