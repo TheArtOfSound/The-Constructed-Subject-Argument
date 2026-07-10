@@ -1,0 +1,49 @@
+name: Validate complete manuscript
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'book/**'
+      - 'chapters/chapters.json'
+      - 'research/**'
+      - 'reviews/**'
+      - 'appendices/**'
+      - 'BOOK_CHARTER.md'
+      - 'MANUSCRIPT.md'
+      - 'MANUSCRIPT_STATUS.md'
+      - 'UX_ARCHITECTURE.md'
+      - 'scripts/validate-manuscript.mjs'
+      - '.github/workflows/manuscript-validation.yml'
+  pull_request:
+    paths:
+      - 'book/**'
+      - 'chapters/chapters.json'
+      - 'research/**'
+      - 'reviews/**'
+      - 'appendices/**'
+      - 'BOOK_CHARTER.md'
+      - 'MANUSCRIPT.md'
+      - 'MANUSCRIPT_STATUS.md'
+      - 'UX_ARCHITECTURE.md'
+      - 'scripts/validate-manuscript.mjs'
+      - '.github/workflows/manuscript-validation.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-manuscript:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Validate manuscript integrity
+        run: node scripts/validate-manuscript.mjs
