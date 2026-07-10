@@ -23,8 +23,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Validate site integrity
-        run: node scripts/validate-site.mjs
+      - name: Validate manuscript, site, and argument graph
+        run: node scripts/validate-all.mjs
       - name: Configure Pages
         uses: actions/configure-pages@v5
       - name: Upload static site
