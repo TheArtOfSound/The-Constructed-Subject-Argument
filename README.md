@@ -37,7 +37,7 @@ Major interaction changes in v2:
 
 The governing design standard is recorded in `UX_ARCHITECTURE.md`.
 
-Every push to `main` runs `scripts/validate-all.mjs` through `.github/workflows/pages.yml`. Deployment is blocked unless both the public-site/manuscript controls and the machine-readable argument-graph controls pass. GitHub Pages must still be enabled with **Settings → Pages → Source: GitHub Actions**.
+Every push to `main` runs `scripts/validate-all.mjs` through `.github/workflows/pages.yml`. Deployment is blocked unless the public-site/manuscript controls, machine-readable argument-graph controls, and source-identifier migration controls pass. GitHub Pages must still be enabled with **Settings → Pages → Source: GitHub Actions**.
 
 ## Manuscript progress
 
@@ -144,6 +144,7 @@ Originality is tracked separately in `research/ORIGINALITY_LEDGER.md`.
 - `scripts/validate-all.mjs` — unified deployment gate.
 - `scripts/validate-site.mjs` — static integrity, manuscript-structure, source-registry, and epistemic-overclaim checks.
 - `scripts/validate-argument-graph.mjs` — typed evidence-edge, backlink, falsifier, dependency, and provisional-source checks.
+- `scripts/validate-source-crosswalk.mjs` — legacy/structured identifier coverage and migration-consistency checks.
 - `BOOK_CHARTER.md` — rules for truth, originality, attribution, and uncertainty.
 - `MANUSCRIPT.md` — master structure and chapter sequence.
 - `SITE_ROADMAP.md` — staged interactive-book plan.
@@ -152,6 +153,7 @@ Originality is tracked separately in `research/ORIGINALITY_LEDGER.md`.
 - `research/ORIGINALITY_LEDGER.md` — novelty and precedent tracking.
 - `research/LITERATURE_MAP.md` — primary literature and conceptual dependencies.
 - `research/SOURCE_REGISTRY.json` — machine-enforced source scope and graph-derived claim backlinks.
+- `research/SOURCE_ID_CROSSWALK.json` — checked migration between legacy and structured source IDs.
 - `research/SOURCE_ARCHITECTURE.md` — authority rules and registry-migration plan.
 - `research/ARGUMENT_GRAPH.json` — typed Chapter 6 proposition-source graph.
 - `research/THEORY_COMPARISON_MATRIX.md` — theory-indexed substrate commitments, rival explanations, interventions, and falsifiers.
