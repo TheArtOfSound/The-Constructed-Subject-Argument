@@ -5,6 +5,7 @@ const root = process.cwd();
 const validators = [
   'scripts/validate-site.mjs',
   'scripts/validate-argument-graph.mjs',
+  'scripts/validate-adversarial-reviews.mjs',
   'scripts/validate-source-crosswalk.mjs'
 ];
 
