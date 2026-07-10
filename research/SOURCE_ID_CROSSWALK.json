@@ -18,7 +18,7 @@
       "legacy_id": "SRC-D003",
       "structured_ids": ["SRC-COGITATE-2025"],
       "match_type": "exact",
-      "migration_action": "Retain provisional status until the structured record uses the verified DOI already present in the human ledger."
+      "migration_action": "Metadata and DOI are synchronized; preserve edge-specific limits on what the adversarial test establishes."
     },
     {
       "legacy_id": "SRC-D004",
