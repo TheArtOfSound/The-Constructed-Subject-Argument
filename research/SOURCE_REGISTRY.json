@@ -87,14 +87,14 @@
       "year": 2025,
       "publication_type": "journal_article",
       "source_role": "adversarial_test",
-      "locator": {"type": "journal_record", "value": "Nature, 2025; DOI not yet verified in repository"},
-      "verification_status": "provisional",
+      "locator": {"type": "doi", "value": "10.1038/s41586-025-08888-1"},
+      "verification_status": "verified",
       "supports": ["A preregistered adversarial collaboration directly compared predictions associated with GNWT and IIT and produced a mixed evidential pattern."],
       "does_not_establish": ["That either GNWT or IIT was decisively validated or falsified as a complete theory.", "That the tested neural signatures are sufficient for consciousness in artificial systems."],
       "claims": ["CSA-032", "CSA-033", "CSA-070", "CSA-071"],
       "chapters": [6],
       "last_verified": "2026-07-10",
-      "verification_note": "Bibliographic existence and broad role are recorded in the manuscript, but the authoritative locator must be independently verified before this source is marked verified."
+      "verification_note": "Official Nature article metadata and DOI were independently checked. Proposition fit and inferential reach remain controlled separately by ARGUMENT_GRAPH.json."
     },
     {
       "id": "SRC-LAU-ROSENTHAL-2011",
