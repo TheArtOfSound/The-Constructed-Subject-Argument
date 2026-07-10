@@ -179,14 +179,23 @@ function reviewEvidenceHtml(review, evidencePayload) {
   `).join('');
 }
 
-function renderReviewCard(review, evidencePayload) {
+function manuscriptLinkForReview(review, linksPayload) {
+  return (linksPayload.links || []).find((link) => link.proposition_id === review.proposition_id && link.chapter_id === chapterId);
+}
+
+function renderReviewCard(review, evidencePayload, linksPayload) {
   const state = reviewStateLabels[review.current_state] || review.current_state;
+  const manuscriptLink = manuscriptLinkForReview(review, linksPayload);
+  const manuscriptTrace = manuscriptLink
+    ? `<a class="manuscript-trace" href="#${escapeHtml(manuscriptLink.anchor)}"><span>Read the claim in the chapter</span><small>${escapeHtml(manuscriptLink.heading)}</small></a>`
+    : '<p class="review-status-note">No manuscript anchor is registered for this proposition.</p>';
   return `
     <article class="adversarial-card" id="review-${escapeHtml(review.proposition_id.toLowerCase())}">
       <header>
         <div><span class="proposition-id">${escapeHtml(review.proposition_id)}</span><h3>${escapeHtml(review.surviving_narrowed_claim)}</h3></div>
         <span class="review-state state-${escapeHtml(review.current_state)}">${escapeHtml(state)}</span>
       </header>
+      ${manuscriptTrace}
       <div class="review-milestones" aria-label="Review milestones">${reviewMilestones(review)}</div>
       <details open>
         <summary>Strongest live countermodel</summary>
@@ -209,27 +218,29 @@ function renderReviewCard(review, evidencePayload) {
 
 async function loadAdversarialReviewPanel() {
   try {
-    const [reviewsResponse, evidenceResponse, protocolResponse] = await Promise.all([
+    const [reviewsResponse, evidenceResponse, protocolResponse, linksResponse] = await Promise.all([
       fetch('../research/ADVERSARIAL_REVIEWS.json'),
       fetch('../research/ADVERSARIAL_EVIDENCE.json'),
-      fetch('../research/MECHANISM_PRESERVATION_PROTOCOL.json')
+      fetch('../research/MECHANISM_PRESERVATION_PROTOCOL.json'),
+      fetch('../research/MANUSCRIPT_PROPOSITION_LINKS.json')
     ]);
-    if (!reviewsResponse.ok || !evidenceResponse.ok || !protocolResponse.ok) throw new Error('review data unavailable');
-    const [reviewsPayload, evidencePayload, protocolPayload] = await Promise.all([
-      reviewsResponse.json(), evidenceResponse.json(), protocolResponse.json()
+    if (!reviewsResponse.ok || !evidenceResponse.ok || !protocolResponse.ok || !linksResponse.ok) throw new Error('review data unavailable');
+    const [reviewsPayload, evidencePayload, protocolPayload, linksPayload] = await Promise.all([
+      reviewsResponse.json(), evidenceResponse.json(), protocolResponse.json(), linksResponse.json()
     ]);
     const reviews = reviewsPayload.reviews || [];
-    const grounded = reviews.filter((review) => review.current_state === 'source_grounded' || review.current_state === 'survives_review').length;
+    const grounded = reviews.filter((review) => ['source_grounded', 'survives_review'].includes(review.current_state)).length;
+    const survived = reviews.filter((review) => review.current_state === 'survives_review').length;
     return `
       <section class="adversarial-review-panel" id="adversarial-review" aria-labelledby="adversarial-review-title">
         <div class="review-panel-intro">
           <p class="kicker">Live epistemic audit</p>
           <h2 id="adversarial-review-title">The argument under pressure</h2>
           <p>This panel exposes the strongest registered objections, the concessions they force, and the evidence still missing. A source-grounded objection has entered the literature record; it has not thereby been defeated or shown to succeed.</p>
-          <div class="review-summary"><span><strong>${reviews.length}</strong> high-confidence propositions tracked</span><span><strong>${grounded}</strong> source grounded</span><span><strong>0</strong> survived experimental review</span></div>
+          <div class="review-summary"><span><strong>${reviews.length}</strong> high-confidence propositions tracked</span><span><strong>${grounded}</strong> source grounded</span><span><strong>${survived}</strong> survived experimental review</span></div>
           <p class="epistemic-boundary"><strong>Boundary:</strong> ${escapeHtml(protocolPayload.epistemic_boundary.tests)} It does not determine phenomenal consciousness, sentience, personhood, or moral status.</p>
         </div>
-        <div class="adversarial-grid">${reviews.map((review) => renderReviewCard(review, evidencePayload)).join('')}</div>
+        <div class="adversarial-grid">${reviews.map((review) => renderReviewCard(review, evidencePayload, linksPayload)).join('')}</div>
       </section>
     `;
   } catch (error) {
@@ -260,7 +271,9 @@ async function loadChapter() {
     const rendered = renderMarkdown(markdown);
     const adversarialPanel = chapterId === '06' ? await loadAdversarialReviewPanel() : '';
     document.getElementById('chapterBody').innerHTML = `${rendered.html}${adversarialPanel}${sequenceNavigation()}`;
-    document.getElementById('chapterToc').innerHTML = rendered.toc.map((item) => `<a class="depth-${item.depth}" href="#${item.id}">${item.text}</a>`).join('');
+    const toc = [...rendered.toc];
+    if (chapterId === '06') toc.push({ depth: 2, text: 'Adversarial review — live research state', id: 'adversarial-review' });
+    document.getElementById('chapterToc').innerHTML = toc.map((item) => `<a class="depth-${item.depth}" href="#${item.id}">${item.text}</a>`).join('');
     observeHeadings();
   } catch (error) {
     document.getElementById('chapterBody').innerHTML = `<h1>Unable to load this draft</h1><p>The chapter registry or manuscript file could not be fetched from the current deployment. Error: ${escapeHtml(error.message)}</p>`;
