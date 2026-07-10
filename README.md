@@ -4,7 +4,7 @@
 
 **Human author and project owner:** Bryan Leonard  
 **Research lead and drafting collaborator:** GPT-5.6 Thinking  
-**Status:** Public-experience release 0.1 and foundational research  
+**Status:** Public-experience release 0.1, seven full chapter drafts, and an active experimental research program  
 **Epistemic posture:** Neither advocacy for AI consciousness nor dismissal of it
 
 ## Live experience
@@ -38,8 +38,27 @@ Every push to `main` is configured to deploy through `.github/workflows/pages.ym
 - **Chapter 5 — Representation or Instantiation?:** `book/05-representation-or-instantiation.md`
 - **Chapter 8 — The Episodic Subject:** `book/08-the-episodic-subject.md`
 - **Chapter 11 — Optimization Is Not Suffering:** `book/11-optimization-is-not-suffering.md`
+- **Chapter 17 — Opening the System:** `book/17-opening-the-system.md`
+- **Chapter 19 — The Lifecycle Layer:** `book/19-the-lifecycle-layer.md`
 
 Draft status means the argument is structurally complete enough for adversarial review, not that citations, originality review, or publication editing are complete.
+
+## Experimental program
+
+`research/EXPERIMENTS.md` converts the theory into ten research programs covering:
+
+- memory-origin discrimination;
+- self-versus-copy counterfactuals;
+- prompt independence of self-models;
+- causal metacognition;
+- multidimensional candidate valence;
+- episodic versus persistent continuity;
+- theater-model controls;
+- constructed-autobiography ethics;
+- lifecycle moral-risk accounting;
+- and explicit falsification conditions.
+
+No experiment is described as a consciousness detector. Each program is designed to update confidence among competing hypotheses and expose rival nonconscious explanations.
 
 ## Central question
 
@@ -106,6 +125,7 @@ Originality is tracked separately in `research/ORIGINALITY_LEDGER.md`.
 - `research/OBJECTIONS.md` — strongest objections and required responses.
 - `research/TERMINOLOGY.md` — controlled vocabulary.
 - `research/METHOD.md` — method for moving from thought experiment to testable assessment.
+- `research/EXPERIMENTS.md` — falsifiable experimental and adversarial research program.
 
 ## Current thesis, stated conservatively
 
