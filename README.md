@@ -4,7 +4,7 @@
 
 **Human author and project owner:** Bryan Leonard  
 **Research lead and drafting collaborator:** GPT-5.6 Thinking  
-**Status:** Guided public-experience v2, eight full chapter drafts, readable research editions, and an active experimental program  
+**Status:** Guided public-experience v2, nine full chapter drafts, readable research editions, and an active experimental program  
 **Epistemic posture:** Neither advocacy for AI consciousness nor dismissal of it
 
 ## Live experience
@@ -50,6 +50,7 @@ Every push to `main` is configured to run `scripts/validate-site.mjs` before dep
 - **Chapter 1 — The Awakening:** `book/01-the-awakening.md`
 - **Chapter 2 — The Origin Objection:** `book/02-the-origin-objection.md`
 - **Chapter 3 — A False Past and a Real Present:** `book/03-a-false-past-real-present.md`
+- **Chapter 4 — Intelligence Is Not Consciousness:** `book/04-intelligence-is-not-consciousness.md`
 - **Chapter 5 — Representation or Instantiation?:** `book/05-representation-or-instantiation.md`
 - **Chapter 8 — The Episodic Subject:** `book/08-the-episodic-subject.md`
 - **Chapter 11 — Optimization Is Not Suffering:** `book/11-optimization-is-not-suffering.md`
