@@ -1,0 +1,48 @@
+name: Strong objection
+description: Submit the strongest serious objection to a claim or chapter.
+title: "[Objection] "
+labels: []
+body:
+  - type: input
+    id: target
+    attributes:
+      label: Target claim, chapter, or passage
+      placeholder: CSA-___, Chapter __, or file and heading
+    validations:
+      required: true
+  - type: textarea
+    id: objection
+    attributes:
+      label: Strongest form of the objection
+      description: State it in a form its strongest serious defender would accept.
+    validations:
+      required: true
+  - type: textarea
+    id: premise
+    attributes:
+      label: Premise or inference attacked
+      description: Identify exactly where the argument fails, overreaches, or becomes underdetermined.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence and primary sources
+    validations:
+      required: true
+  - type: textarea
+    id: consequence
+    attributes:
+      label: Required revision if the objection succeeds
+      description: Narrow, retract, reclassify, add evidence, or restructure.
+    validations:
+      required: true
+  - type: textarea
+    id: counter
+    attributes:
+      label: Best response you can see
+      description: Do not submit a one-sided objection if an obvious response exists.
+  - type: textarea
+    id: disclosure
+    attributes:
+      label: Research and AI-use disclosure
