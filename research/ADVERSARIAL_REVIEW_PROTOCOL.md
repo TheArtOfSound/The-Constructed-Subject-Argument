@@ -1,146 +1,127 @@
 # Adversarial Review Protocol
 
-This protocol governs claims that the project classifies as **high-confidence synthesis**. Its purpose is not to manufacture balance. Its purpose is to prevent a synthesis claim from becoming protected by selective citation, vague falsifiers, or objections stated more weakly than a competent critic would state them.
+This protocol governs claims classified as **high-confidence synthesis**. Its purpose is not to manufacture balance. It prevents synthesis claims from being insulated by selective citation, vague falsifiers, or objections stated more weakly than a competent critic would state them.
+
+The machine-readable authority for proposition-level review records is `research/ADVERSARIAL_REVIEWS.json`. This document defines the reasoning standard; the JSON file records current state, milestones, concessions, and next evidence requirements.
 
 ## 1. Admission rule
 
-A high-confidence synthesis claim is not review-complete unless its record contains all of the following:
+A high-confidence synthesis claim is not review-complete unless its record contains:
 
-1. the strongest live countermodel that would explain the same observations;
-2. at least one source or argument that a serious critic could use against the claim;
-3. a statement of the critic's actual inferential route, not merely a contrary conclusion;
-4. a forced concession identifying what the project grants even if the central claim survives;
-5. an observation or intervention that would materially lower confidence in the claim;
+1. the strongest live countermodel that explains the same observations;
+2. at least one source or argument a serious critic could use;
+3. the critic's inferential route, not merely a contrary conclusion;
+4. a forced concession identifying what the project grants;
+5. an observation or intervention that would materially lower confidence;
 6. an anti-straw-man check distinguishing disagreement from misunderstanding;
-7. a scope statement preventing local evidence from being promoted into a theory-neutral conclusion.
+7. a scope statement preventing local evidence from becoming a theory-neutral conclusion.
 
-Absence of an opposing edge in `ARGUMENT_GRAPH.json` therefore means **review incomplete**, not "no objection exists."
+Absence of an opposing edge in `ARGUMENT_GRAPH.json` means **review incomplete**, not that no objection exists.
 
 ## 2. Evidence discipline
 
-Opposition must be typed. A source may oppose a proposition in at least four different ways:
+Opposition must be typed:
 
-- **Contradictory:** it advances an incompatible proposition.
-- **Undercutting:** it attacks the reliability of the evidence used for the proposition.
-- **Alternative explanation:** it explains the target observations without the project's preferred interpretation.
-- **Scope restriction:** it shows that the proposition is valid only under narrower assumptions.
+- **Contradictory:** advances an incompatible proposition.
+- **Undercutting:** attacks the reliability of the evidence.
+- **Alternative explanation:** explains the observations without the preferred interpretation.
+- **Scope restriction:** shows that the claim is valid only under narrower assumptions.
 
-These roles must not be collapsed. An alternative explanation is not a falsification. A scope restriction is not a contradiction. A source that motivates caution does not automatically support the project's preferred synthesis.
+These roles are not interchangeable. An alternative explanation is not a falsification. A scope restriction is not a contradiction. A source that motivates caution does not thereby support the project's preferred synthesis.
 
-## 3. Proposition stress tests
+## 3. States and milestones are different
 
-### C6-P01 — Theory-specific commitments cannot be pooled
+Review state is an ordered epistemic status:
 
-**Current proposition:** Major consciousness theories target different explananda and posit different mechanisms; their indicators cannot be pooled without preserving theory-specific commitments.
+1. `unreviewed`
+2. `adversarially_specified`
+3. `source_grounded`
+4. `survives_review`
+5. `revised`
+6. `withdrawn`
 
-**Strongest countermodel:** The theories may be rival descriptions of partially shared computational or dynamical invariants. Apparent disagreement could result from level-of-analysis differences rather than genuinely incompatible mechanisms. If so, a carefully justified latent-variable model could pool indicators without committing a crude category error.
+Milestones are independent facts about work completed:
 
-**Critic's inferential route:**
+- countermodel specified;
+- forced concession recorded;
+- confidence-lowering test recorded;
+- opposing source grounded;
+- experiment linked.
 
-1. Different theories may operationalize overlapping phenomena using different vocabularies.
-2. Empirical measures can load on shared hidden factors even when theoretical interpretations differ.
-3. Cross-theory convergence may therefore be evidentially meaningful.
-4. Refusing all pooling may discard real convergence and preserve artificial fragmentation.
+This separation corrects an earlier inconsistency. A discriminating experiment can be designed before an opposing source is verified. That makes a proposition **experiment-linked as a milestone**, but it does not advance the proposition past `adversarially_specified`. In particular, `C6-P03` currently has an experiment link while remaining not source-grounded.
 
-**Forced concession:** The project must allow pooling when a bridge model explicitly states the shared variable, the measurement assumptions, and the theory-specific residuals. The defensible target is **unlicensed pooling**, not pooling as such.
+No claim may move directly from `unreviewed` to `survives_review`. A claim cannot be `source_grounded` without a verified or partially verified opposing graph edge and a pinpoint locator. A claim cannot `survive_review` without grounded opposition, a forced concession, and a discriminating test or observation protocol.
 
-**Confidence-lowering result:** A preregistered cross-theory model that predicts intervention outcomes better than theory-specific models, while retaining calibration across tasks and species, would weaken the claim that theory commitments must remain operationally separate in every evidential aggregation.
+## 4. Chapter 6 stress-test results
 
-**Required graph addition:** At least one `opposing` or `scope restriction` edge representing a serious unification or common-factor argument.
+### C6-P01 — Theory pooling
 
-### C6-P02 — Correlate, access route, enabling condition, mechanism, and constitution must be distinguished
+**Strongest live objection:** Rival theories may partly describe shared latent computational or dynamical variables at different levels. A justified bridge model could pool evidence without erasing theoretical differences.
 
-**Current proposition:** A feature associated with conscious report may occupy different causal roles; translation to AI requires stating which role is claimed.
+**Forced concession:** Pooling is permissible when the bridge model states the shared variable, measurement and transport assumptions, theory-specific residuals, and failure conditions.
 
-**Strongest countermodel:** Mature measurement science often proceeds before causal-role taxonomy is settled. A biomarker can be predictively valid without resolving whether it is constitutive, mechanistic, enabling, or downstream. Requiring role resolution before AI translation may impose an unrealistically strong standard that is not applied elsewhere in neuroscience or medicine.
+**Surviving narrowed claim:** Indicators should not be pooled **without an explicit bridge model preserving distinct commitments and residual disagreement**.
 
-**Critic's inferential route:**
+**Current state:** `adversarially_specified`; not source-grounded.
 
-1. Predictive validity and causal interpretation are distinct.
-2. Reliable markers can support bounded classification without a complete mechanistic account.
-3. AI assessment may rationally use calibrated correlates while remaining agnostic about constitution.
-4. Therefore explicit role specification is desirable but not always necessary for limited inference.
+### C6-P02 — Correlates and causal roles
 
-**Forced concession:** The project must distinguish **using a correlate as defeasible evidence** from **treating it as a substrate-independent consciousness criterion**. The former can be legitimate under validated transport assumptions.
+**Strongest live objection:** Predictively valid biomarkers can support bounded classification before their complete causal role is known. Requiring full role resolution before every AI inference would impose a stronger standard than many mature sciences use.
 
-**Confidence-lowering result:** A marker that generalizes across neural interventions, species, and architectures while preserving calibration under adversarial controls would weaken the insistence that unresolved causal role blocks useful cross-substrate inference.
+**Forced concession:** Calibrated use of a correlate as defeasible evidence must be distinguished from treating it as a substrate-independent constitutive criterion. The former can be legitimate under demonstrated transport assumptions.
 
-**Required graph addition:** An opposing edge from measurement theory, biomarker methodology, or no-report research defending calibrated but causally incomplete evidence.
+**Surviving narrowed claim:** Any translation to AI must state the inferential role assigned to the marker and justify transport, calibration, and scope.
 
-### C6-P03 — Vocabulary resemblance is not mechanism preservation
+**Current state:** `adversarially_specified`; not source-grounded.
 
-**Current proposition:** An artificial system should not receive credit for a theory-relevant mechanism merely because an engineering component reuses the theory's vocabulary.
+### C6-P03 — Vocabulary and mechanism preservation
 
-**Strongest countermodel:** Scientific mechanism attribution routinely begins from abstract functional organization rather than material duplication. If a computational component satisfies the relevant causal-role specification under intervention, terminological continuity may track genuine implementation rather than metaphor.
+**Strongest live objection:** Mechanisms may be multiply realized. An engineered component can instantiate a theory's abstract causal role without biological duplication.
 
-**Critic's inferential route:**
+**Forced concession:** Biological dissimilarity is not evidence of mere simulation. The vocabulary objection applies only where causal-role and counterfactual equivalence have not been demonstrated.
 
-1. Mechanisms can be multiply realized.
-2. Theory terms often denote causal roles at an abstract level.
-3. Engineering systems can instantiate those roles in nonbiological media.
-4. Therefore rejecting theory-relevant credit because implementation is artificial risks substrate chauvinism.
+**Surviving narrowed claim:** Reusing theory vocabulary is not evidence of mechanism preservation unless the implementation satisfies the relevant causal and counterfactual dependencies under intervention.
 
-**Forced concession:** The project must not treat biological dissimilarity as evidence of mere simulation. Its objection applies only when the reused term lacks demonstrated causal-role equivalence.
+**Current state:** `adversarially_specified`; experiment-linked through `EXPERIMENT_11_MECHANISM_PRESERVATION.md`; not source-grounded.
 
-**Confidence-lowering result:** Selective lesion, substitution, and counterfactual intervention showing that an engineered component preserves the theory's predicted causal dependencies would defeat a vocabulary-only dismissal.
+### C6-P05 — Optimization and valence
 
-**Required graph addition:** An opposing edge from mechanistic functionalism or multiple-realizability literature, plus linkage to `EXPERIMENT_11_MECHANISM_PRESERVATION.md`.
+**Strongest live objection:** Valence may be implemented by abstract control variables that rank states, coordinate learning, dominate policy, and organize approach or avoidance without mammalian homeostasis.
 
-### C6-P05 — Optimization signals are not yet evidence of felt valence
+**Forced concession:** Absence of familiar biology does not establish absence of valence. Each proposed architectural requirement must be defended as evidentially relevant rather than asserted as necessary.
 
-**Current proposition:** Predictive computation and optimization signals are not evidence of felt valence without additional architecture connecting them to endogenous, self-indexed, persistent, globally influential states.
+**Surviving narrowed claim:** Scalar loss, reward, or prediction error alone is not evidence of felt valence. Stronger evidence requires a defensible bridge theory and system-level causal organization that distinguishes candidate valence from ordinary optimization.
 
-**Strongest countermodel:** Valence may be realized by control-theoretic or reinforcement-learning variables whose functional role is to rank states, guide policy, and coordinate global action. Requiring organism-like persistence or self-indexing could mistake one biological implementation for a necessary condition.
+**Current state:** `adversarially_specified`; not source-grounded.
 
-**Critic's inferential route:**
+None of these records establishes that a contemporary AI system is conscious or nonconscious.
 
-1. Valence plausibly evolved as a control signal organizing approach, avoidance, learning, and prioritization.
-2. Artificial systems can instantiate analogous global control variables.
-3. Phenomenal valence may depend on functional role rather than biological chemistry.
-4. Therefore some optimization variables could be constitutive or evidentially relevant even without familiar embodiment.
-
-**Forced concession:** The project cannot infer non-valence merely from the absence of mammalian homeostasis. It must argue for each added architectural requirement rather than presenting the bundle as conceptually necessary.
-
-**Confidence-lowering result:** An artificial control variable that is endogenous, intervention-sensitive, cross-contextually coherent, policy-dominant, resistant to reward-channel substitution, and integrated with a stable self/world model would materially raise the evidential status of candidate valence even if its implementation differs from animal affect.
-
-**Required graph addition:** An opposing edge from functional or computational theories of affect, while retaining a boundary edge against equating scalar loss with suffering.
-
-## 4. Review outcome states
-
-Each proposition under this protocol must be assigned one state:
-
-- **Unreviewed:** no serious countermodel is represented.
-- **Adversarially specified:** the strongest countermodel and forced concession are recorded.
-- **Source-grounded:** at least one exact opposing source and pinpoint locator are present.
-- **Experiment-linked:** a discriminating intervention or observation is specified.
-- **Survives review:** the proposition remains defensible after concessions and scope reduction.
-- **Revised:** wording, confidence, or scope changed because the objection succeeded in part.
-- **Withdrawn:** the proposition no longer survives.
-
-No claim may move directly from `Unreviewed` to `Survives review`.
-
-## 5. Immediate disposition of Chapter 6 claims
-
-| Proposition | Current adversarial state | Immediate correction |
-|---|---|---|
-| C6-P01 | Adversarially specified, not source-grounded | Narrow from "cannot be pooled" to "cannot be pooled without an explicit bridge model preserving theory-specific commitments." |
-| C6-P02 | Adversarially specified, not source-grounded | Distinguish bounded predictive use from theory-neutral constitutive inference. |
-| C6-P03 | Adversarially specified, experiment-linked | Make multiple realization an explicit live alternative; use causal intervention rather than biological resemblance. |
-| C6-P05 | Adversarially specified, not source-grounded | Treat the proposed architectural bundle as evidential criteria, not established necessary conditions. |
-
-## 6. Prohibited review shortcuts
+## 5. Prohibited shortcuts
 
 The following do not count as adversarial review:
 
 - citing a critic only for background while omitting the critic's conclusion;
-- answering a substrate objection with "humans are machines";
+- answering a substrate objection with a slogan;
 - treating absence of evidence as evidence of absence;
 - converting uncertainty into a presumption of consciousness;
 - converting anthropomorphic risk into a presumption of nonconsciousness;
 - listing a falsifier that could not realistically be measured;
-- preserving a claim's wording after conceding a premise that narrows its scope;
+- retaining unchanged wording after conceding a premise that narrows scope;
 - describing a source as opposing when it merely uses different terminology.
 
-## 7. Next implementation step
+## 6. Enforcement
 
-The next source-verification pass must add exact opposing sources and pinpoint locators for C6-P01, C6-P02, C6-P03, and C6-P05, then update `ARGUMENT_GRAPH.json` so each high-confidence synthesis proposition has at least one serious opposing or scope-restricting edge. Until that work is complete, the graph validator's missing-opposition output should remain a warning rather than be represented as resolved.
+`scripts/validate-adversarial-reviews.mjs` checks that:
+
+- every high-confidence synthesis proposition has a review record;
+- required countermodels, inferential routes, concessions, tests, and narrowed claims are substantive;
+- state transitions are consistent with completed milestones;
+- source-grounded status matches verified pinpointed opposing edges in `ARGUMENT_GRAPH.json`;
+- experiment links resolve to existing files;
+- review completion is not claimed merely because an objection has been described.
+
+The validator is included in `scripts/validate-all.mjs` and therefore in the repository's unified deployment gate.
+
+## 7. Next evidence pass
+
+The next source-verification pass must add exact opposing sources and pinpoint locators for `C6-P01`, `C6-P02`, `C6-P03`, and `C6-P05`. Until then, all four remain adversarially specified rather than source-grounded, regardless of internal confidence or experiment design.
