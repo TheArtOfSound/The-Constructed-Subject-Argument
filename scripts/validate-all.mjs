@@ -7,6 +7,7 @@ const validators = [
   'scripts/validate-argument-graph.mjs',
   'scripts/validate-adversarial-reviews.mjs',
   'scripts/validate-mechanism-protocol.mjs',
+  'scripts/validate-public-review.mjs',
   'scripts/validate-source-crosswalk.mjs'
 ];
 
