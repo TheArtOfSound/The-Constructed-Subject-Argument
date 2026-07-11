@@ -1,11 +1,12 @@
 {
-  "schema_version": "1.3.0",
+  "schema_version": "1.4.0",
   "schema_id": "EXP-11-EMPIRICAL-RESULT",
   "protocol_id": "EXP-11-MECHANISM-PRESERVATION",
   "derivation_rule_registry": "research/MECHANISM_SCORE_DERIVATION_RULES.json",
   "intervention_manifest_schema": "research/MECHANISM_PRESERVATION_INTERVENTION_MANIFEST.json",
+  "capacity_confound_adjudication_schema": "research/MECHANISM_PRESERVATION_CAPACITY_CONFOUND_ADJUDICATION.json",
   "status": "research_data_contract",
-  "purpose": "Bind mechanism-preservation classifications to preregistered observations rather than unsupported ordinal judgments or selectively reported interventions.",
+  "purpose": "Bind mechanism-preservation classifications to preregistered observations rather than unsupported ordinal judgments, selectively reported interventions, or duplicate confound decisions.",
   "epistemic_boundary": {
     "supports": "Auditable evidence about preservation of a declared mechanism at a specified abstraction level.",
     "does_not_support": [
@@ -19,6 +20,7 @@
     "protocol_id",
     "protocol_lock",
     "intervention_manifest_lock",
+    "capacity_confound_adjudication_lock",
     "run_id",
     "empirical_status",
     "preregistration",
@@ -38,6 +40,10 @@
   "intervention_manifest_lock": {
     "required_fields": ["manifest_id", "path", "git_blob_sha", "sha256"],
     "rule": "The result must resolve to a frozen intervention manifest for the same protocol and run, and both the Git blob SHA and SHA-256 digest must match the exact manifest bytes. Every planned intervention must appear exactly once in reported results regardless of outcome."
+  },
+  "capacity_confound_adjudication_lock": {
+    "required_fields": ["adjudication_id", "path", "adjudication_state"],
+    "rule": "The generated causal-confound adjudication is authoritative for the generic-capacity score ceiling, hard-fail state, and whether unresolved or partial confounding blocks a positive mechanism classification. Manually duplicated matching or hard-fail fields may not override it."
   },
   "preregistration": {
     "required_fields": [
@@ -60,7 +66,7 @@
     "required_fields": ["metric_id", "primary", "standardized_difference", "tolerance", "passed"],
     "coverage_rule": "Every metric named by protocol.behavioral_equivalence.required_metrics must be reported exactly once.",
     "derivation_rule": "passed must equal abs(standardized_difference) <= tolerance.",
-    "aggregate_rule": "behavioral_matching_adequate is true only when every primary metric passes or has a preregistered adjustment with a disclosed residual."
+    "aggregate_rule": "The generated matching and causal-confound adjudication artifacts, not a manually entered Boolean alone, determine downstream matching adequacy."
   },
   "intervention_result": {
     "required_fields": [
@@ -85,11 +91,11 @@
   "dimension_derivation": {
     "required_fields": ["dimension_id", "score", "evidence_ids", "rule_id", "explanation"],
     "allowed_scores": [0, 1, 2, 3],
-    "rule": "Every ordinal score must cite resolvable evidence identifiers and a rule from the canonical derivation registry whose dimension, score, evidence kinds, and predicates all pass."
+    "rule": "Every ordinal score must cite resolvable evidence identifiers and a rule from the canonical derivation registry whose dimension, score, evidence kinds, and predicates all pass. The generic-capacity score must also equal the authoritative adjudication ceiling."
   },
   "hard_fail_assessment": {
     "required_fields": ["condition_id", "triggered", "decisive", "evidence_ids", "justification"],
-    "rule": "A hard fail can be decisive only when its justification identifies the essential declared dependency defeated by the evidence."
+    "rule": "A hard fail can be decisive only when its justification identifies the essential declared dependency defeated by the evidence. The generic-capacity hard fail must equal the generated causal-confound adjudication."
   },
   "empirical_status_values": ["synthetic_fixture", "pilot", "completed", "retracted"],
   "required_for_public_claim": [
@@ -98,6 +104,7 @@
     "protocol lock match",
     "cryptographic frozen intervention manifest match",
     "complete protocol matching battery",
+    "authoritative causal-confound adjudication",
     "all planned interventions and controls reported",
     "all exclusions and deviations disclosed",
     "dimension scores derived through canonical rules",
