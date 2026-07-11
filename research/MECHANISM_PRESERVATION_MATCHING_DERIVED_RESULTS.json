@@ -22,7 +22,10 @@
       "standardizer": "preregistered_scale",
       "pair_count": 4,
       "standardized_difference": 0.05,
-      "equivalence_interval": [0.0404, 0.0596],
+      "equivalence_interval": [
+        0.0404,
+        0.0596
+      ],
       "equivalence_margin": 0.1,
       "interval_level": 0.9,
       "passed": true
@@ -34,7 +37,10 @@
       "standardizer": "preregistered_scale",
       "pair_count": 4,
       "standardized_difference": -0.04,
-      "equivalence_interval": [-0.0496, -0.0304],
+      "equivalence_interval": [
+        -0.0496,
+        -0.0304
+      ],
       "equivalence_margin": 0.1,
       "interval_level": 0.9,
       "passed": true
@@ -46,7 +52,10 @@
       "standardizer": "preregistered_scale",
       "pair_count": 4,
       "standardized_difference": -0.08,
-      "equivalence_interval": [-0.0896, -0.0704],
+      "equivalence_interval": [
+        -0.0896,
+        -0.0704
+      ],
       "equivalence_margin": 0.1,
       "interval_level": 0.9,
       "passed": true
@@ -58,7 +67,10 @@
       "standardizer": "preregistered_scale",
       "pair_count": 4,
       "standardized_difference": 0.03,
-      "equivalence_interval": [0.0204, 0.0396],
+      "equivalence_interval": [
+        0.0204,
+        0.0396
+      ],
       "equivalence_margin": 0.1,
       "interval_level": 0.9,
       "passed": true
@@ -70,7 +82,10 @@
       "standardizer": "preregistered_scale",
       "pair_count": 4,
       "standardized_difference": 0.07,
-      "equivalence_interval": [0.0604, 0.0796],
+      "equivalence_interval": [
+        0.0604,
+        0.0796
+      ],
       "equivalence_margin": 0.1,
       "interval_level": 0.9,
       "passed": true
@@ -82,7 +97,10 @@
       "standardizer": "preregistered_scale",
       "pair_count": 4,
       "standardized_difference": 0,
-      "equivalence_interval": [0, 0],
+      "equivalence_interval": [
+        0,
+        0
+      ],
       "equivalence_margin": 0.1,
       "interval_level": 0.9,
       "passed": true
@@ -94,7 +112,10 @@
       "standardizer": "preregistered_scale",
       "pair_count": 4,
       "standardized_difference": 0.06,
-      "equivalence_interval": [0.0504, 0.0696],
+      "equivalence_interval": [
+        0.0504,
+        0.0696
+      ],
       "equivalence_margin": 0.1,
       "interval_level": 0.9,
       "passed": true
@@ -106,7 +127,10 @@
       "standardizer": "preregistered_scale",
       "pair_count": 4,
       "standardized_difference": -0.09,
-      "equivalence_interval": [-0.0996, -0.0804],
+      "equivalence_interval": [
+        -0.0996,
+        -0.0804
+      ],
       "equivalence_margin": 0.1,
       "interval_level": 0.9,
       "passed": true
@@ -118,7 +142,10 @@
       "standardizer": "preregistered_scale",
       "pair_count": 4,
       "standardized_difference": 0.02,
-      "equivalence_interval": [0.0104, 0.0296],
+      "equivalence_interval": [
+        0.0104,
+        0.0296
+      ],
       "equivalence_margin": 0.1,
       "interval_level": 0.9,
       "passed": true
