@@ -24,22 +24,16 @@ export function generateClassificationTraceSuite() {
       weighted_score: result.weighted_score,
       capacity_confound_adjudication_state: result.capacity_confound_adjudication_state,
       triggered_hard_fails: result.triggered_hard_fails,
-      passed_predicate_ids: result.classification_predicate_evaluations
-        .filter(({ passed }) => passed)
-        .map(({ predicate_id, operator }) => predicate_id ?? operator),
-      expectation_matches:
-        result.classification === fixture.expected_classification &&
-        result.classification_rule_id === fixture.expected_rule_id
+      passed_predicate_ids: result.classification_predicate_evaluations.filter(({ passed }) => passed).map(({ predicate_id, operator }) => predicate_id ?? operator),
+      expectation_matches: result.classification === fixture.expected_classification && result.classification_rule_id === fixture.expected_rule_id
     };
   });
-
   return {
     schema_id: 'EXP-11-CLASSIFICATION-TRACE-SUITE',
     schema_version: '1.0.0',
     protocol_id: fixtures.protocol_id,
     status: 'generated_synthetic_adversarial_trace_suite',
-    purpose:
-      'Exercise every classification-policy branch and precedence interaction with synthetic records. This suite is a logic audit, not evidence about any actual AI system.',
+    purpose: 'Exercise every classification-policy branch and precedence interaction with synthetic records. This suite is a logic audit, not evidence about any actual AI system.',
     presentation_safety: policy.presentation_contract,
     cases,
     epistemic_boundary: policy.epistemic_boundary
@@ -51,18 +45,18 @@ export function serializeClassificationTraceSuite() {
 }
 
 function main() {
-  const serialized = serializeClassificationTraceSuite();
+  const generated = generateClassificationTraceSuite();
   if (process.argv.includes('--stdout')) {
-    process.stdout.write(serialized);
+    process.stdout.write(`${JSON.stringify(generated, null, 2)}\n`);
     return;
   }
   if (process.argv.includes('--check')) {
-    const committed = fs.readFileSync(outputPath, 'utf8');
-    if (committed !== serialized) throw new Error('Committed classification trace suite differs from deterministic regeneration.');
+    const committed = JSON.parse(fs.readFileSync(outputPath, 'utf8'));
+    if (JSON.stringify(committed) !== JSON.stringify(generated)) throw new Error('Committed classification trace suite differs from deterministic regeneration.');
     console.log('Classification trace suite matches deterministic regeneration.');
     return;
   }
-  fs.writeFileSync(outputPath, serialized);
+  fs.writeFileSync(outputPath, `${JSON.stringify(generated, null, 2)}\n`);
   console.log(`Wrote ${path.relative(root, outputPath)}.`);
 }
 
