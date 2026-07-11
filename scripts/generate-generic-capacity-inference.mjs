@@ -5,6 +5,17 @@ import { fileURLToPath } from 'node:url';
 const root = process.cwd();
 const matchingPath = path.join(root, 'research/MECHANISM_PRESERVATION_MATCHING_DERIVED_RESULTS.json');
 const outputPath = path.join(root, 'research/MECHANISM_PRESERVATION_GENERIC_CAPACITY_INFERENCE.json');
+const requiredMetricIds = [
+  'task_accuracy',
+  'calibration_error',
+  'response_latency',
+  'action_or_token_budget',
+  'working_memory_capacity',
+  'tool_access',
+  'training_distribution',
+  'total_compute',
+  'evaluator_visible_language_quality'
+];
 
 function classifyMetric(metric) {
   const pairCount = Number(metric.pair_count ?? metric.n_pairs ?? 0);
@@ -21,22 +32,19 @@ function classifyMetric(metric) {
     return { state: 'underdetermined', reason: 'invalid_numeric_evidence' };
   }
 
-  if (lower >= -margin && upper <= margin) {
-    return { state: 'matched', reason: 'equivalence_interval_within_margin' };
-  }
-
-  if (upper < -margin || lower > margin) {
-    return { state: 'not_matched', reason: 'equivalence_interval_outside_margin' };
-  }
-
+  if (lower >= -margin && upper <= margin) return { state: 'matched', reason: 'equivalence_interval_within_margin' };
+  if (upper < -margin || lower > margin) return { state: 'not_matched', reason: 'equivalence_interval_outside_margin' };
   return { state: 'underdetermined', reason: 'interval_crosses_equivalence_boundary' };
 }
 
 export function buildGenericCapacityInference(matching) {
   const metrics = matching.metrics ?? matching.results ?? [];
   if (!Array.isArray(metrics) || metrics.length === 0) throw new Error('Matching artifact contains no metrics.');
+  const byId = new Map(metrics.map((metric) => [metric.metric_id, metric]));
 
-  const metricStates = metrics.map((metric) => {
+  const metricStates = requiredMetricIds.map((metricId) => {
+    const metric = byId.get(metricId);
+    if (!metric) return { metric_id: metricId, primary: true, state: 'underdetermined', reason: 'missing_required_metric' };
     const classified = classifyMetric(metric);
     return {
       metric_id: metric.metric_id,
