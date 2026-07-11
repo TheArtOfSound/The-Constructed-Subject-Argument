@@ -1,14 +1,14 @@
 {
   "schema_id": "EXP-11-CLASSIFICATION-POLICY",
-  "schema_version": "1.0.0",
+  "schema_version": "1.1.0",
   "protocol_id": "EXP-11-MECHANISM-PRESERVATION",
   "status": "normative_machine_readable_policy",
   "evaluation_order": [
-    "not_preserved",
-    "underdetermined",
-    "preserved",
-    "partially_preserved",
-    "underdetermined_fallback"
+    "not-preserved-decisive-defeat",
+    "underdetermined-blocked-or-intermediate",
+    "preserved-thresholds",
+    "partially-preserved-thresholds",
+    "underdetermined-fallback"
   ],
   "operators": ["==", "<", ">=", "between_inclusive_lower_exclusive_upper", "is_false", "is_true", "any_true", "all_true"],
   "outcomes": [
