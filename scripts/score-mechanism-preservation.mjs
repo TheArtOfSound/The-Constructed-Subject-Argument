@@ -6,10 +6,8 @@ import { fileURLToPath } from 'node:url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, '..');
 const protocolPath = path.join(root, 'research', 'MECHANISM_PRESERVATION_PROTOCOL.json');
-const canonicalAdjudicationPath = path.join(root, 'research', 'MECHANISM_PRESERVATION_CAPACITY_CONFOUND_ADJUDICATION.json');
 
 const CAPACITY_HARD_FAIL = 'generic_capacity_control_explains_primary_effect';
-const CANONICAL_FIXTURE_RUN = 'EXP11-SYNTHETIC-AUDIT-001';
 const CAPACITY_POLICIES = Object.freeze({
   no_detected_mismatch: { matchingAdequate: true, maximumScore: 2, hardFail: false },
   mismatch_nonexplanatory: { matchingAdequate: true, maximumScore: 1, hardFail: false },
@@ -32,17 +30,8 @@ function round(value, places = 4) {
 }
 
 function resolveCapacityAdjudication(record) {
-  let adjudication = record.capacity_confound_adjudication;
-  let canonicalLegacyAdapter = false;
-
-  if (!adjudication && record.run_id === CANONICAL_FIXTURE_RUN) {
-    adjudication = JSON.parse(fs.readFileSync(canonicalAdjudicationPath, 'utf8'));
-    canonicalLegacyAdapter = true;
-  }
-
-  if (!canonicalLegacyAdapter) {
-    assert(!Object.hasOwn(record, 'behavioral_matching_adequate'), 'behavioral_matching_adequate is deprecated; supply capacity_confound_adjudication.');
-  }
+  assert(!Object.hasOwn(record, 'behavioral_matching_adequate'), 'behavioral_matching_adequate is deprecated; supply capacity_confound_adjudication.');
+  const adjudication = record.capacity_confound_adjudication;
   assert(adjudication && typeof adjudication === 'object', 'capacity_confound_adjudication is required.');
   const policy = CAPACITY_POLICIES[adjudication.adjudication_state];
   assert(policy, `Unknown capacity-confound adjudication state: ${adjudication.adjudication_state}.`);
@@ -54,10 +43,7 @@ function resolveCapacityAdjudication(record) {
     adjudication.generic_capacity_hard_fail === policy.hardFail,
     `Adjudication state ${adjudication.adjudication_state} requires generic_capacity_hard_fail=${policy.hardFail}.`
   );
-  if (canonicalLegacyAdapter) {
-    assert(record.behavioral_matching_adequate === policy.matchingAdequate, 'Canonical fixture legacy matching field disagrees with generated adjudication.');
-  }
-  return { adjudication, policy, canonicalLegacyAdapter };
+  return { adjudication, policy };
 }
 
 export function scoreMechanismPreservation(record, protocol = loadProtocol()) {
@@ -67,14 +53,10 @@ export function scoreMechanismPreservation(record, protocol = loadProtocol()) {
   assert(typeof record.theory_family === 'string' && record.theory_family.trim(), 'theory_family is required.');
   assert(typeof record.implementation_level === 'string' && record.implementation_level.trim(), 'implementation_level is required.');
 
-  const { adjudication, policy: capacityPolicy, canonicalLegacyAdapter } = resolveCapacityAdjudication(record);
+  const { adjudication, policy: capacityPolicy } = resolveCapacityAdjudication(record);
   const dimensions = protocol.scoring.dimensions;
   const allowedDimensionIds = new Set(dimensions.map((dimension) => dimension.id));
   const submittedScores = { ...(record.dimension_scores ?? {}) };
-  if (canonicalLegacyAdapter && Object.hasOwn(submittedScores, 'generic_capacity_exclusion')) {
-    assert(submittedScores.generic_capacity_exclusion === capacityPolicy.maximumScore, 'Canonical fixture legacy generic-capacity score disagrees with generated adjudication.');
-    delete submittedScores.generic_capacity_exclusion;
-  }
   assert(!Object.hasOwn(submittedScores, 'generic_capacity_exclusion'), 'generic_capacity_exclusion is derived from capacity_confound_adjudication and must not be supplied manually.');
   submittedScores.generic_capacity_exclusion = capacityPolicy.maximumScore;
   const submittedIds = Object.keys(submittedScores);
@@ -96,10 +78,6 @@ export function scoreMechanismPreservation(record, protocol = loadProtocol()) {
 
   const knownHardFails = new Set(protocol.scoring.hard_fail_conditions);
   const callerHardFails = [...new Set(record.triggered_hard_fails ?? [])];
-  if (canonicalLegacyAdapter && callerHardFails.includes(CAPACITY_HARD_FAIL)) {
-    assert(capacityPolicy.hardFail, 'Canonical fixture legacy capacity hard fail disagrees with generated adjudication.');
-    callerHardFails.splice(callerHardFails.indexOf(CAPACITY_HARD_FAIL), 1);
-  }
   assert(!callerHardFails.includes(CAPACITY_HARD_FAIL), `${CAPACITY_HARD_FAIL} is derived from capacity_confound_adjudication and must not be supplied manually.`);
   for (const hardFail of callerHardFails) {
     assert(knownHardFails.has(hardFail), `Unknown hard-fail condition: ${hardFail}.`);
