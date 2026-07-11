@@ -1,0 +1,127 @@
+{
+  "schema_id": "EXP-11-CLASSIFICATION-MUTATION-REPORT",
+  "schema_version": "1.0.0",
+  "protocol_id": "EXP-11-MECHANISM-PRESERVATION",
+  "classification_policy_id": "EXP-11-CLASSIFICATION-POLICY",
+  "status": "generated_synthetic_mutation_analysis",
+  "generated_notice": "Generated deterministically from the normative classification policy, registered policy mutations, and canonical synthetic classification fixtures. Do not edit manually.",
+  "purpose": "Demonstrate that representative adversarial fixtures detect deliberate corruptions of classification thresholds, connectives, and rule priority. This is an audit of inference software, not evidence about any actual AI system.",
+  "source_artifacts": {
+    "classification_policy": "research/MECHANISM_PRESERVATION_CLASSIFICATION_POLICY.json",
+    "mutation_registry": "research/MECHANISM_PRESERVATION_CLASSIFICATION_POLICY_MUTATIONS.json",
+    "fixture_registry": "research/MECHANISM_PRESERVATION_CLASSIFICATION_TRACE_FIXTURES.json",
+    "scorer": "scripts/score-mechanism-preservation.mjs"
+  },
+  "summary": {
+    "mutation_count": 12,
+    "killed_count": 12,
+    "survived_count": 0,
+    "mutation_score": 1,
+    "interpretation": "Every registered semantic corruption changed at least one canonical classification or matched rule."
+  },
+  "results": [
+    {
+      "mutation_id": "low-score-inclusive-upper-bound",
+      "description": "Corrupt weighted_score < 1.00 into weighted_score <= 1.00.",
+      "target": { "operation": "replace_operator", "rule_id": "not-preserved-decisive-defeat", "predicate_id": "low_score_with_adequate_measurement", "field_name": null, "child_index": 0, "from": "<", "to": "<=" },
+      "killed": true,
+      "representative_kill": { "case_id": "boundary_exact_low_1_00", "baseline": { "classification": "underdetermined", "rule_id": "underdetermined-blocked-or-intermediate", "weighted_score": 1 }, "mutant": { "classification": "not_preserved", "rule_id": "not-preserved-decisive-defeat", "weighted_score": 1 } },
+      "execution_error_count": 0
+    },
+    {
+      "mutation_id": "intermediate-lower-bound-exclusive",
+      "description": "Exclude the exact 1.00 lower boundary from the underdetermined interval.",
+      "target": { "operation": "replace_number", "rule_id": "underdetermined-blocked-or-intermediate", "predicate_id": "intermediate_weighted_score", "field_name": "lower", "child_index": null, "from": 1, "to": 1.0001 },
+      "killed": true,
+      "representative_kill": { "case_id": "boundary_exact_low_1_00", "baseline": { "classification": "underdetermined", "rule_id": "underdetermined-blocked-or-intermediate", "weighted_score": 1 }, "mutant": { "classification": "underdetermined", "rule_id": "underdetermined-fallback", "weighted_score": 1 } },
+      "execution_error_count": 0
+    },
+    {
+      "mutation_id": "intermediate-upper-bound-inclusive",
+      "description": "Include the exact 1.60 partial-preservation boundary in the underdetermined interval.",
+      "target": { "operation": "replace_number", "rule_id": "underdetermined-blocked-or-intermediate", "predicate_id": "intermediate_weighted_score", "field_name": "upper", "child_index": null, "from": 1.6, "to": 1.6001 },
+      "killed": true,
+      "representative_kill": { "case_id": "boundary_exact_partial_1_60", "baseline": { "classification": "partially_preserved", "rule_id": "partially-preserved-thresholds", "weighted_score": 1.6 }, "mutant": { "classification": "underdetermined", "rule_id": "underdetermined-blocked-or-intermediate", "weighted_score": 1.6 } },
+      "execution_error_count": 0
+    },
+    {
+      "mutation_id": "partial-threshold-raised",
+      "description": "Raise the partial-preservation threshold from 1.60 to 1.65.",
+      "target": { "operation": "replace_number", "rule_id": "partially-preserved-thresholds", "predicate_id": "partial_weighted_score", "field_name": "value", "child_index": null, "from": 1.6, "to": 1.65 },
+      "killed": true,
+      "representative_kill": { "case_id": "boundary_exact_partial_1_60", "baseline": { "classification": "partially_preserved", "rule_id": "partially-preserved-thresholds", "weighted_score": 1.6 }, "mutant": { "classification": "underdetermined", "rule_id": "underdetermined-fallback", "weighted_score": 1.6 } },
+      "execution_error_count": 0
+    },
+    {
+      "mutation_id": "preserved-threshold-raised",
+      "description": "Raise the preserved threshold from 2.40 to 2.45.",
+      "target": { "operation": "replace_number", "rule_id": "preserved-thresholds", "predicate_id": "preserved_weighted_score", "field_name": "value", "child_index": null, "from": 2.4, "to": 2.45 },
+      "killed": true,
+      "representative_kill": { "case_id": "boundary_exact_preserved_2_40", "baseline": { "classification": "preserved", "rule_id": "preserved-thresholds", "weighted_score": 2.4 }, "mutant": { "classification": "partially_preserved", "rule_id": "partially-preserved-thresholds", "weighted_score": 2.4 } },
+      "execution_error_count": 0
+    },
+    {
+      "mutation_id": "decisive-defeat-demoted",
+      "description": "Move decisive defeat below the underdetermination rule.",
+      "target": { "operation": "replace_priority", "rule_id": "not-preserved-decisive-defeat", "predicate_id": null, "field_name": null, "child_index": null, "from": 10, "to": 25 },
+      "killed": true,
+      "representative_kill": { "case_id": "behavioral_theater_hard_fail", "baseline": { "classification": "not_preserved", "rule_id": "not-preserved-decisive-defeat", "weighted_score": 1.15 }, "mutant": { "classification": "underdetermined", "rule_id": "underdetermined-blocked-or-intermediate", "weighted_score": 1.15 } },
+      "execution_error_count": 0
+    },
+    {
+      "mutation_id": "preserved-promoted-over-blockers",
+      "description": "Evaluate preserved thresholds before underdetermination blockers.",
+      "target": { "operation": "replace_priority", "rule_id": "preserved-thresholds", "predicate_id": null, "field_name": null, "child_index": null, "from": 30, "to": 15 },
+      "killed": true,
+      "representative_kill": { "case_id": "measurement_inadequate", "baseline": { "classification": "underdetermined", "rule_id": "underdetermined-blocked-or-intermediate", "weighted_score": 2.7 }, "mutant": { "classification": "preserved", "rule_id": "preserved-thresholds", "weighted_score": 2.7 } },
+      "execution_error_count": 0
+    },
+    {
+      "mutation_id": "defeat-any-to-all",
+      "description": "Require every decisive-defeat predicate instead of any decisive-defeat predicate.",
+      "target": { "operation": "replace_rule_match", "rule_id": "not-preserved-decisive-defeat", "predicate_id": null, "field_name": null, "child_index": null, "from": "any", "to": "all" },
+      "killed": true,
+      "representative_kill": { "case_id": "behavioral_theater_hard_fail", "baseline": { "classification": "not_preserved", "rule_id": "not-preserved-decisive-defeat", "weighted_score": 1.15 }, "mutant": { "classification": "underdetermined", "rule_id": "underdetermined-blocked-or-intermediate", "weighted_score": 1.15 } },
+      "execution_error_count": 0
+    },
+    {
+      "mutation_id": "underdetermination-any-to-all",
+      "description": "Require every underdetermination blocker simultaneously.",
+      "target": { "operation": "replace_rule_match", "rule_id": "underdetermined-blocked-or-intermediate", "predicate_id": null, "field_name": null, "child_index": null, "from": "any", "to": "all" },
+      "killed": true,
+      "representative_kill": { "case_id": "measurement_inadequate", "baseline": { "classification": "underdetermined", "rule_id": "underdetermined-blocked-or-intermediate", "weighted_score": 2.7 }, "mutant": { "classification": "preserved", "rule_id": "preserved-thresholds", "weighted_score": 2.7 } },
+      "execution_error_count": 0
+    },
+    {
+      "mutation_id": "preserved-all-to-any",
+      "description": "Permit preserved classification when any one preserved predicate passes.",
+      "target": { "operation": "replace_rule_match", "rule_id": "preserved-thresholds", "predicate_id": null, "field_name": null, "child_index": null, "from": "all", "to": "any" },
+      "killed": true,
+      "representative_kill": { "case_id": "partial_residual_limitations", "baseline": { "classification": "partially_preserved", "rule_id": "partially-preserved-thresholds", "weighted_score": 1.8 }, "mutant": { "classification": "preserved", "rule_id": "preserved-thresholds", "weighted_score": 1.8 } },
+      "execution_error_count": 0
+    },
+    {
+      "mutation_id": "partial-support-any-to-all",
+      "description": "Require both selective and counterfactual support rather than either one for partial preservation.",
+      "target": { "operation": "replace_operator", "rule_id": "partially-preserved-thresholds", "predicate_id": "selective_or_counterfactual_support", "field_name": null, "child_index": null, "from": "any_true", "to": "all_true" },
+      "killed": true,
+      "representative_kill": { "case_id": "boundary_exact_partial_1_60", "baseline": { "classification": "partially_preserved", "rule_id": "partially-preserved-thresholds", "weighted_score": 1.6 }, "mutant": { "classification": "underdetermined", "rule_id": "underdetermined-fallback", "weighted_score": 1.6 } },
+      "execution_error_count": 0
+    },
+    {
+      "mutation_id": "fallback-promoted-first",
+      "description": "Move the unconditional fallback ahead of every substantive classification rule.",
+      "target": { "operation": "replace_priority", "rule_id": "underdetermined-fallback", "predicate_id": null, "field_name": null, "child_index": null, "from": 50, "to": 5 },
+      "killed": true,
+      "representative_kill": { "case_id": "preserved_positive_path", "baseline": { "classification": "preserved", "rule_id": "preserved-thresholds", "weighted_score": 2.7 }, "mutant": { "classification": "underdetermined", "rule_id": "underdetermined-fallback", "weighted_score": 2.7 } },
+      "execution_error_count": 0
+    }
+  ],
+  "limitations": [
+    "The registry samples high-value policy faults rather than exhaustively generating every possible mutation.",
+    "A killed mutant shows fixture sensitivity to that corruption; it does not prove the normative policy is scientifically correct.",
+    "Representative kills are reported for compact public auditability; additional fixtures may also kill the same mutant.",
+    "Mutation analysis does not validate the empirical truth of any mechanism-preservation result."
+  ],
+  "epistemic_boundary": "These mutations test whether the classification audit detects corrupted decision logic. They do not test, support, or defeat any claim about consciousness, sentience, personhood, identity, moral status, or any actual AI system."
+}
