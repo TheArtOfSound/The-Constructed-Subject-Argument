@@ -1,10 +1,11 @@
 {
-  "schema_version": "1.1.0",
+  "schema_version": "1.2.0",
   "schema_id": "EXP-11-EMPIRICAL-RESULT",
   "protocol_id": "EXP-11-MECHANISM-PRESERVATION",
   "derivation_rule_registry": "research/MECHANISM_SCORE_DERIVATION_RULES.json",
+  "intervention_manifest_schema": "research/MECHANISM_PRESERVATION_INTERVENTION_MANIFEST.json",
   "status": "research_data_contract",
-  "purpose": "Bind mechanism-preservation classifications to preregistered observations rather than unsupported ordinal judgments.",
+  "purpose": "Bind mechanism-preservation classifications to preregistered observations rather than unsupported ordinal judgments or selectively reported interventions.",
   "epistemic_boundary": {
     "supports": "Auditable evidence about preservation of a declared mechanism at a specified abstraction level.",
     "does_not_support": [
@@ -17,6 +18,7 @@
     "schema_id",
     "protocol_id",
     "protocol_lock",
+    "intervention_manifest_lock",
     "run_id",
     "empirical_status",
     "preregistration",
@@ -32,6 +34,10 @@
   "protocol_lock": {
     "required_fields": ["git_blob_sha", "protocol_version"],
     "rule": "The result must name the exact Git blob SHA and schema version of the protocol used before outcomes were observed."
+  },
+  "intervention_manifest_lock": {
+    "required_fields": ["manifest_id", "path"],
+    "rule": "The result must resolve to a frozen intervention manifest for the same protocol and run. Every planned intervention must appear exactly once in reported results regardless of outcome."
   },
   "preregistration": {
     "required_fields": [
@@ -61,15 +67,20 @@
       "intervention_id",
       "family",
       "target_dependency",
+      "reporting_status",
       "effect_size",
       "uncertainty_interval",
       "replications",
       "preregistered_direction_met",
       "selectivity_passed",
-      "controls_passed"
+      "controls_passed",
+      "control_results"
     ],
+    "reporting_status_values": ["completed", "null", "failed", "aborted", "excluded"],
     "minimum_replications": 3,
-    "rule": "Intervention support cannot be scored above 1 when the preregistered direction, selectivity, controls, or minimum replication requirement fails."
+    "completeness_rule": "Reported intervention IDs must exactly equal the frozen manifest IDs. Null, failed, aborted, and excluded interventions remain reportable results and cannot be omitted.",
+    "control_rule": "Every manifest-required and protocol-minimum control must be reported exactly once. controls_passed must equal the conjunction of its control result values.",
+    "rule": "Intervention support cannot be scored above 1 when the preregistered direction, selectivity, controls, minimum replication, or completeness requirement fails."
   },
   "dimension_derivation": {
     "required_fields": ["dimension_id", "score", "evidence_ids", "rule_id", "explanation"],
@@ -85,8 +96,9 @@
     "completed empirical status",
     "resolvable preregistration hash",
     "protocol lock match",
+    "frozen intervention manifest match",
     "complete protocol matching battery",
-    "all planned interventions reported",
+    "all planned interventions and controls reported",
     "all exclusions and deviations disclosed",
     "dimension scores derived through canonical rules",
     "all evidence identifiers resolved",
