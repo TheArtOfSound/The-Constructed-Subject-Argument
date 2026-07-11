@@ -1,12 +1,13 @@
 {
-  "schema_version": "1.0.0",
+  "schema_version": "1.1.0",
   "registry_id": "EXP11-GENERIC-CAPACITY-CONFOUND-RULES-001",
   "protocol_id": "EXP-11-MECHANISM-PRESERVATION",
-  "purpose": "Distinguish a detected generic-capacity mismatch from evidence that the mismatch explains a mechanism-associated outcome.",
+  "purpose": "Distinguish a detected generic-capacity mismatch from evidence that the mismatch explains a mechanism-associated outcome, while serving as the single normative source for matching authority, score ceilings, hard-fail behavior, and admissible repair transitions.",
   "epistemic_boundary": "A mismatch is not automatically a causal explanation. These rules adjudicate represented confounds only and do not establish mechanism preservation, consciousness, nonconsciousness, sentience, personhood, identity, or moral status.",
   "outcomes": [
     {
       "state": "mismatch_nonexplanatory",
+      "matching_adequate": true,
       "hard_fail": false,
       "maximum_generic_capacity_exclusion_score": 1,
       "requirements": [
@@ -20,6 +21,7 @@
     },
     {
       "state": "mismatch_partially_explanatory",
+      "matching_adequate": false,
       "hard_fail": false,
       "maximum_generic_capacity_exclusion_score": 0,
       "requirements": [
@@ -33,6 +35,7 @@
     },
     {
       "state": "mismatch_sufficiently_explanatory",
+      "matching_adequate": false,
       "hard_fail": true,
       "maximum_generic_capacity_exclusion_score": 0,
       "requirements": [
@@ -46,6 +49,7 @@
     },
     {
       "state": "explanatory_role_underdetermined",
+      "matching_adequate": false,
       "hard_fail": false,
       "maximum_generic_capacity_exclusion_score": 0,
       "requirements": [
@@ -56,12 +60,50 @@
     },
     {
       "state": "no_detected_mismatch",
+      "matching_adequate": true,
       "hard_fail": false,
       "maximum_generic_capacity_exclusion_score": 2,
       "requirements": [
         "all_primary_matching_metrics_equivalent"
       ],
       "interpretation": "No represented generic-capacity mismatch was detected within the preregistered battery and margins. This is bounded matching evidence, not proof that every possible confound is absent."
+    }
+  ],
+  "repair_edges": [
+    {
+      "edge_id": "remove_sufficient_explanation",
+      "from": "mismatch_sufficiently_explanatory",
+      "to": "mismatch_partially_explanatory",
+      "epistemic_direction": "reduces_explanatory_strength",
+      "interpretation": "New evidence rules out sufficient explanation while leaving a material partial explanation."
+    },
+    {
+      "edge_id": "resolve_role_partial",
+      "from": "explanatory_role_underdetermined",
+      "to": "mismatch_partially_explanatory",
+      "epistemic_direction": "resolves_uncertainty",
+      "interpretation": "Previously unresolved evidence establishes a material but incomplete explanatory role."
+    },
+    {
+      "edge_id": "resolve_role_nonexplanatory",
+      "from": "explanatory_role_underdetermined",
+      "to": "mismatch_nonexplanatory",
+      "epistemic_direction": "resolves_uncertainty",
+      "interpretation": "Previously unresolved evidence establishes that the represented mismatch is nonexplanatory under the preregistered model."
+    },
+    {
+      "edge_id": "reduce_explanatory_strength",
+      "from": "mismatch_partially_explanatory",
+      "to": "mismatch_nonexplanatory",
+      "epistemic_direction": "reduces_explanatory_strength",
+      "interpretation": "Additional evidence reduces the represented mismatch from partial explanation to nonexplanation."
+    },
+    {
+      "edge_id": "remove_detected_mismatch",
+      "from": "mismatch_nonexplanatory",
+      "to": "no_detected_mismatch",
+      "epistemic_direction": "improves_matching_evidence",
+      "interpretation": "Improved matching evidence removes the represented mismatch within the preregistered battery."
     }
   ],
   "thresholds": {
