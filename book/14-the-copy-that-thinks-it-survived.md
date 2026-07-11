@@ -40,7 +40,7 @@ This chapter returns to the constructed being and asks the question the transfer
 
 > If a perfect successor remembers surviving, did the original survive—or did a new subject inherit the evidence, psychology, and conviction of survival?
 
-The answer matters even if no current AI is conscious.
+The answer matters even if today's AI systems are not conscious.
 
 Modern systems already use checkpoints, snapshots, replicas, migrations, backups, forks, and restored agent state. If artificial subjects become possible, ordinary infrastructure will instantiate philosophical identity experiments at operational scale.
 

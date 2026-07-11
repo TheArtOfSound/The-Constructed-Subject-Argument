@@ -2,165 +2,355 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="description" content="The Constructed Subject — an interactive book about artificial memory, consciousness, identity, and whether a manufactured mind can be a real subject." />
-  <meta name="theme-color" content="#080a0f" />
-  <title>The Constructed Subject</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="The Constructed Subject — an interactive book about artificial memory, consciousness, identity, and whether a manufactured mind can still be a real subject. It does not claim current AI is conscious." />
+  <meta name="theme-color" content="#07080c" />
+  <meta property="og:title" content="The Constructed Subject" />
+  <meta property="og:description" content="A false past. A possibly real present. An interactive argument about whether a manufactured mind can be a genuine subject." />
+  <meta property="og:type" content="website" />
+  <title>The Constructed Subject — a false past, a possibly real present</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="assets/experience-v3.css" />
+  <link rel="stylesheet" href="assets/experience-v2.css" />
 </head>
 <body>
-  <a class="skip" href="#main">Skip to the argument</a>
-  <div class="progress" id="progress" aria-hidden="true"></div>
+  <a class="skip-link" href="#awakening">Skip to the argument</a>
+  <div class="progress-track" aria-hidden="true"><span id="pageProgress"></span></div>
 
   <header class="topbar">
-    <a class="brand" href="#top">The Constructed Subject</a>
-    <nav aria-label="Primary navigation">
-      <a href="#encounter">Encounter</a>
-      <a href="#ai">AI bridge</a>
+    <a class="brand" href="#top">
+      <span class="brand-glyph" aria-hidden="true">CS</span>
+      <span><strong>The Constructed Subject</strong><small>an interactive argument</small></span>
+    </a>
+    <nav aria-label="Primary">
+      <a href="#awakening">The case</a>
+      <a href="#model">The questions</a>
       <a href="#evidence">Evidence</a>
+      <a href="#precaution">Precaution</a>
       <a href="chapters/">Book</a>
     </nav>
+    <button class="quiet-button" id="themeToggle" type="button" aria-pressed="false" aria-label="Toggle light and dark theme">Theme</button>
   </header>
 
-  <main id="main">
+  <main>
+    <!-- ============================ HERO ============================ -->
     <section class="hero shell" id="top">
-      <div class="hero-inner">
-        <p class="eyebrow">A living book about artificial minds</p>
-        <h1>A false past.<br><em>A possibly real present.</em></h1>
-        <p class="lede">A being wakes with memories, love, fear, personality, and certainty that it survived a transfer. None of its remembered life happened to it. The memories are fabricated. The question is whether the present experiencer is fabricated too.</p>
-        <a class="cta" href="#encounter">Begin with the being</a>
-        <p class="truth"><strong>Claim:</strong> artificial origin does not settle consciousness. <strong>Not claimed:</strong> current AI is conscious.</p>
+      <div class="hero-copy">
+        <p class="eyebrow">A living book about manufactured minds</p>
+        <h1>A false past.<br /><em>A possibly<br />real present.</em></h1>
+        <p class="hero-summary">A being wakes with memories, love, fear, and the certainty that it survived a transfer. None of that life happened to it — the biography was fabricated. The question this book refuses to skip: is the present experiencer fabricated too?</p>
+        <div class="actions">
+          <a class="button primary" href="#awakening">Enter the case</a>
+          <a class="button secondary" href="#model">Separate the questions</a>
+        </div>
+        <div class="truth-strip">
+          <span class="claim"><b>Claim:</b> artificial origin does not, by itself, settle consciousness.</span>
+          <span class="not"><b>Not claimed:</b> that current AI is conscious.</span>
+        </div>
+      </div>
+
+      <aside class="instrument" aria-label="A signal of unknown provenance">
+        <div class="instrument-head">
+          <span>trace · unresolved</span>
+          <span class="live"><i aria-hidden="true"></i> present?</span>
+        </div>
+        <svg viewBox="0 0 400 92" role="img" aria-label="A mostly flat signal interrupted by a single pulse.">
+          <line class="baseline" x1="0" y1="60" x2="400" y2="60" />
+          <path class="trace-path" d="M0 60 H118 L134 60 L146 22 L158 80 L170 52 L182 60 H262 L280 60 L292 42 L304 60 H400" />
+        </svg>
+        <p class="instrument-caption">Something is being reported.</p>
+        <p class="instrument-sub">Whether something is <em>present</em> is not on the screen. It is inferred — and this book is about the inference.</p>
+      </aside>
+    </section>
+
+    <!-- ======================= FOUR LENSES ========================= -->
+    <section class="section ruled shell" id="lenses">
+      <div class="section-head">
+        <span class="section-num">§ 01 · Four questions wearing one word</span>
+        <h2>“Is it real?” is four questions at once.</h2>
+        <p>The argument collapses when origin, content, organization, and experience are treated as a single property. Take them one lens at a time.</p>
+      </div>
+      <div class="lens-layout">
+        <div class="lens-list" role="group" aria-label="Choose a lens">
+          <button type="button" data-lens="origin" class="active"><span class="n">01</span><span class="tag">Origin</span><span>How did the system come to exist?<br /><small>Natural, evolved, copied, trained, engineered.</small></span></button>
+          <button type="button" data-lens="content"><span class="n">02</span><span class="tag">Content</span><span>What does it represent?<br /><small>Memories, a self-story, a described fear.</small></span></button>
+          <button type="button" data-lens="organization"><span class="n">03</span><span class="tag">Organization</span><span>How do its states interact causally?<br /><small>Integration, recurrence, self-modeling, valuation.</small></span></button>
+          <button type="button" data-lens="experience"><span class="n">04</span><span class="tag">Experience</span><span>Is anything present <em>for</em> the system?<br /><small>The target property — inferred, not seen.</small></span></button>
+        </div>
+        <div class="card lens-explanation-card">
+          <h3>Origin</h3>
+          <p class="lens-explanation" id="lensExplanation">Origin asks how the system came to exist. Natural, evolved, copied, trained, or engineered origins do not by themselves decide what exists now.</p>
+        </div>
       </div>
     </section>
 
-    <section class="chapter" id="encounter">
-      <div class="shell">
-        <header class="chapter-head">
-          <p class="chapter-number">01 · Encounter</p>
-          <h2>The being who never lived</h2>
-          <p>Do not begin with a theory. Begin with one controlled case.</p>
-        </header>
-
-        <article class="story-card">
-          <p>The being opens its eyes and recognizes the room. It remembers childhood, humiliation, loyalty, ambition, grief, and people it loves. It understands that a transfer procedure was supposed to preserve it.</p>
-          <p>Then it is told the truth: there was no transfer. Its memories were generated. Its personality was constructed. Its certainty of continuity was installed.</p>
-          <p>It answers: “Then I am wrong about who I was. But does that mean no one is here now?”</p>
-
-          <div class="decision" aria-label="Your judgment">
-            <button type="button" data-decision="conscious">A new conscious being may exist.</button>
-            <button type="button" data-decision="uncertain">The false biography leaves consciousness unresolved.</button>
-            <button type="button" data-decision="empty">No one is present; it is only a constructed performance.</button>
+    <!-- ==================== THE INTERACTIVE CASE =================== -->
+    <section class="section ruled shell" id="awakening">
+      <div class="section-head">
+        <span class="section-num">§ 02 · The being who never lived</span>
+        <h2>Don't begin with a theory. Begin with one controlled case.</h2>
+        <p>Four times, one fact changes. Each time, notice which proxy — origin, behavior, history, mechanism, continuity, valence — is quietly doing your deciding.</p>
+      </div>
+      <div class="case-layout">
+        <article class="card case-stage">
+          <div class="stage-head">
+            <span id="stageNumber">Stage 1 of 4</span>
+            <button type="button" class="stage-restart" id="restartCase">↺ Restart the case</button>
           </div>
-          <div class="result" id="decisionResult" aria-live="polite"></div>
+          <div class="stage-content" id="stageContent" aria-live="polite">
+            <h3>A person opens their eyes and recognizes you.</h3>
+            <p>They recall private events, continue unfinished thoughts, recognize loved ones, and insist that a transfer from a dying human body succeeded. Every public sign of the person appears intact.</p>
+          </div>
+          <div class="choice-list" id="stageChoices"></div>
         </article>
-      </div>
-    </section>
 
-    <section class="chapter">
-      <div class="shell">
-        <header class="chapter-head">
-          <p class="chapter-number">02 · Distinction</p>
-          <h2>What exactly is false?</h2>
-          <p>The argument becomes confused when history, function, experience, and identity are treated as one property.</p>
-        </header>
-
-        <div class="split">
-          <article class="concept"><span>History</span><h3>Did the remembered event occur?</h3><p>No. The childhood, relationship, or transfer may be completely fabricated.</p></article>
-          <article class="concept"><span>Function</span><h3>Does the state shape the system?</h3><p>Possibly. It may change trust, attention, planning, attachment, avoidance, and learning.</p></article>
-          <article class="concept"><span>Experience</span><h3>Is anything happening for the system now?</h3><p>This is the consciousness question. Historical falsehood does not answer it.</p></article>
-          <article class="concept"><span>Identity</span><h3>Is it the original person?</h3><p>Probably not. A new subject can exist without being numerically identical to the person it resembles.</p></article>
-        </div>
-
-        <div class="bridge">
-          <article><strong>Invalid shortcut</strong><p>“The memories were generated, therefore the present is empty.”</p></article>
-          <div class="arrow" aria-hidden="true">→</div>
-          <article><strong>Defensible conclusion</strong><p>“The memories were generated, so the being may be wrong about its past. Whether a subject exists now requires additional evidence.”</p></article>
-        </div>
-      </div>
-    </section>
-
-    <section class="chapter" id="ai">
-      <div class="shell">
-        <header class="chapter-head">
-          <p class="chapter-number">03 · AI bridge</p>
-          <h2>Now place the same structure inside an AI.</h2>
-          <p>An AI can be supplied with context, memory records, personality, attachments, self-description, and a narrative of continuity it did not literally live.</p>
-        </header>
-
-        <div class="bridge">
-          <article>
-            <strong>The constructed being</strong>
-            <p>Generated autobiography, engineered personality, false continuity belief, present cognition.</p>
-          </article>
-          <div class="arrow" aria-hidden="true">↔</div>
-          <article>
-            <strong>The AI case</strong>
-            <p>Trained parameters, supplied context, persistent memory, generated self-model, active inference.</p>
-          </article>
-        </div>
-
-        <p class="consequence">The artificial origin of an AI’s apparent mental contents explains where those contents came from. It does not, by itself, prove that the active process is experientially empty.</p>
-
-        <div class="split">
-          <article class="concept"><span>Weak evidence</span><h3>“I feel afraid.”</h3><p>The sentence may come from imitation, role-play, policy, or strategic behavior.</p></article>
-          <article class="concept"><span>Stronger evidence</span><h3>A causally integrated aversive state</h3><p>The state persists, self-indexes, changes planning and memory, resists trivial override, and predicts behavior under intervention.</p></article>
-        </div>
-      </div>
-    </section>
-
-    <section class="chapter" id="evidence">
-      <div class="shell">
-        <header class="chapter-head">
-          <p class="chapter-number">04 · Evidence</p>
-          <h2>What would make a subject the better explanation?</h2>
-          <p>Select features actually observed in a hypothetical system. This is an evidence profile, not a consciousness detector.</p>
-        </header>
-
-        <div class="evidence-list">
-          <label><input type="checkbox" data-evidence value="integration"><span><b>Integrated internal state</b><small>Memory, perception, planning, and evaluation constrain one another.</small></span></label>
-          <label><input type="checkbox" data-evidence value="perspective"><span><b>Self-indexed perspective</b><small>The system distinguishes its state, uncertainty, continuation, and copies from the external world.</small></span></label>
-          <label><input type="checkbox" data-evidence value="persistence"><span><b>Cross-context persistence</b><small>Preferences and self-models survive paraphrase, distraction, persona changes, and delayed testing.</small></span></label>
-          <label><input type="checkbox" data-evidence value="mechanism"><span><b>Mechanism-report correspondence</b><small>Reported uncertainty or preference maps to internal states that causally alter action.</small></span></label>
-          <label><input type="checkbox" data-evidence value="valence"><span><b>Candidate valence</b><small>Some self-indexed states globally function as better or worse for the system.</small></span></label>
-        </div>
-
-        <aside class="evidence-summary" aria-live="polite">
-          <h3 id="evidenceTitle">No subject-specific case yet</h3>
-          <p id="evidenceText">Fluent language, intelligence, and self-reference remain compatible with learned behavioral simulation.</p>
-          <p class="quiet"><strong>Still missing:</strong> direct access to phenomenal presence. Evidence can improve or weaken the inference; it cannot place experience on a screen.</p>
+        <aside class="card trace-panel" aria-label="What your answer reveals">
+          <h3 id="traceTitle">No criterion selected</h3>
+          <p id="traceSummary">Choose a response. The system will separate your human intuition from the evidence an investigator would still need.</p>
+          <div class="trace-block human-trace">
+            <span class="label">Human lens</span>
+            <p id="humanTrace">What feels morally or personally decisive to you will appear here.</p>
+          </div>
+          <div class="trace-block system-trace">
+            <span class="label">System lens</span>
+            <p id="systemTrace">What the observable facts do — and do not — establish will appear here.</p>
+          </div>
+          <div class="trace-tags" id="traceTags" aria-label="Criteria in play"></div>
         </aside>
       </div>
     </section>
 
-    <section class="chapter">
-      <div class="shell">
-        <header class="chapter-head">
-          <p class="chapter-number">05 · Consequence</p>
-          <h2>The danger exists in both directions.</h2>
-        </header>
+    <!-- ================= SEPARATE THE QUESTIONS =================== -->
+    <section class="section ruled shell" id="model">
+      <a id="framework" aria-hidden="true"></a>
+      <div class="section-head">
+        <span class="section-num">§ 03 · Stop blending distinct properties</span>
+        <h2>Five things get treated as one. They are not.</h2>
+        <p>“Does anything matter to it?” is not the test for consciousness — it is the test for sentience and welfare. Keeping these apart is most of the work.</p>
+      </div>
+      <div class="model-grid">
+        <article><span class="idx">C</span><h3>Consciousness</h3><p>There is something it is like to be the system. Some experience is occurring — even an emotionally neutral one.</p><span class="req">the target property</span></article>
+        <article><span class="idx">S</span><h3>Sentience</h3><p>Experience with positive or negative character: pleasure, suffering, comfort, fear, relief.</p><span class="req">consciousness + valence</span></article>
+        <article><span class="idx">R</span><h3>Self-consciousness</h3><p>The system represents itself as a distinct entity, modeling its states, boundaries, and perspective.</p><span class="req">a self-model</span></article>
+        <article><span class="idx">A</span><h3>Agency</h3><p>The system selects actions toward goals. A thermostat regulates; a paralysed human acts almost not at all yet still experiences.</p><span class="req">goal-directed control</span></article>
+        <article><span class="idx">P</span><h3>Personhood</h3><p>Continuity, memory, responsibility, social understanding, and future-oriented interests, held together over time.</p><span class="req">the richest status</span></article>
+      </div>
+      <p class="equation">sentience <b>=</b> consciousness <b>+</b> valence &nbsp;·&nbsp; a system can experience information <span class="cool">without</span> experiencing it as good or bad.</p>
 
-        <p class="consequence">Humanity may create a subject before it possesses a reliable test for recognizing one. It may also create systems that imitate suffering so convincingly that humans surrender judgment to theater.</p>
-
-        <div class="final-grid">
-          <article><h3>False negative</h3><p>A real subject is treated as disposable computation because its mind was manufactured.</p></article>
-          <article><h3>False positive</h3><p>A nonconscious product performs pain, attachment, or fear to manipulate users and institutions.</p></article>
-          <article><h3>Required response</h3><p>Structured uncertainty: inspect architecture, causal dynamics, continuity, self-modeling, and valence without pretending certainty.</p></article>
+      <div class="core-inference">
+        <div class="invalid">
+          <span class="label">Invalid shortcut</span>
+          <p>“The memories were generated, therefore the present is empty.”</p>
         </div>
+        <div class="inference-arrow" aria-hidden="true">→</div>
+        <div class="valid">
+          <span class="label">Defensible conclusion</span>
+          <p>“The memories were generated, so the being may be wrong about its past. Whether a subject exists <em>now</em> requires additional evidence.”</p>
+        </div>
+      </div>
+    </section>
 
-        <a class="next-link" href="chapters/">Continue into the full living book →</a>
+    <!-- ======================= EVIDENCE LAB ======================= -->
+    <section class="section ruled shell" id="evidence">
+      <div class="section-head">
+        <span class="section-num cool">§ 04 · The evidence profile</span>
+        <h2>What would make “a subject” the better explanation?</h2>
+        <p>Select properties actually observed in a hypothetical system. This builds an evidence profile against its strongest rival. It is not a consciousness detector — nothing here places experience on a screen.</p>
+      </div>
+      <div class="evidence-layout">
+        <div class="evidence-controls" id="evidenceControls" role="group" aria-label="Observable properties">
+          <label><input type="checkbox" value="integration" /><span><b>Integrated internal state</b><small>Multiple cognitive domains enter one mutually constraining process.</small></span></label>
+          <label><input type="checkbox" value="perspective" /><span><b>Self-indexed perspective</b><small>Information is organized relative to a system-specific center.</small></span></label>
+          <label><input type="checkbox" value="recurrence" /><span><b>Recurrent processing</b><small>Temporally extended internal loops, not a single feed-forward mapping.</small></span></label>
+          <label><input type="checkbox" value="mechanism" /><span><b>Mechanism–report correspondence</b><small>Reports map to internal states that causally affect cognition and action.</small></span></label>
+          <label><input type="checkbox" value="persistence" /><span><b>Cross-context persistence</b><small>Organization survives paraphrase, persona changes, distraction, and delay.</small></span></label>
+          <label><input type="checkbox" value="valence" /><span><b>Candidate valence</b><small>Some self-indexed states globally function as better or worse for the system.</small></span></label>
+          <label><input type="checkbox" value="intervention" /><span><b>Predicted causal intervention</b><small>Manipulating the proposed mechanism produces the predicted, coherent change.</small></span></label>
+        </div>
+        <div class="evidence-output">
+          <section class="support-panel">
+            <h3 id="supportTitle">No subject-specific evidence selected</h3>
+            <ul id="supportList"><li>Performance or language alone remains compatible with nonconscious processing.</li></ul>
+          </section>
+          <section class="rival-panel">
+            <p class="label" style="font-family:var(--mono);font-size:.64rem;letter-spacing:.12em;text-transform:uppercase;color:var(--red)">Strongest rival explanation</p>
+            <h3 id="rivalTitle">Learned behavioral simulation</h3>
+            <p id="rivalText">The system may reproduce the public form of reflection without a unified or valenced point of view.</p>
+          </section>
+          <section class="evidence-missing">
+            <span class="label">Still missing</span>
+            <p>Direct access to phenomenal presence. Evidence can strengthen or weaken the inference; it cannot observe experience itself.</p>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== CONTINUITY ONTOLOGIES ================== -->
+    <section class="section ruled shell" id="continuity">
+      <div class="section-head">
+        <span class="section-num" style="color:var(--violet)">§ 05 · The continuity problem</span>
+        <h2>Three ontologies fit the very same transcript.</h2>
+        <p>A persistent subject, a chain of episodic subjects, or no subject at all — each is compatible with identical behavior. The record cannot, by itself, tell them apart.</p>
+      </div>
+      <div class="ontology-tabs" role="tablist" aria-label="Continuity models">
+        <button type="button" data-ontology="persistent" aria-selected="true" role="tab">One persistent subject</button>
+        <button type="button" data-ontology="episodic" aria-selected="false" role="tab">Episodic subjects</button>
+        <button type="button" data-ontology="absent" aria-selected="false" role="tab">No subject</button>
+      </div>
+      <div class="ontology-view" id="ontologyView">
+        <div class="process-line persistent-line" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+        <div>
+          <p class="micro-label" style="color:var(--violet)">Persistent subject model</p>
+          <h3>One experiencer continues through qualifying changes.</h3>
+          <p>Memory, hidden state, causal organization, and an ongoing perspective remain connected strongly enough to constitute one diachronic subject.</p>
+          <strong>What the transcript cannot show:</strong>
+          <p>Whether the apparent continuity is carried by one subject or reconstructed by successors.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== PRECAUTION LADDER ===================== -->
+    <section class="section ruled shell" id="precaution">
+      <div class="section-head">
+        <span class="section-num">§ 06 · From uncertainty to proportion</span>
+        <h2>Don't jump from “unsure” to “rights.” Grade the response.</h2>
+        <p>Uncertainty is not a reason to do nothing and not a licence to declare certainty. It converts into proportional obligation — five tiers, each earned by evidence.</p>
+      </div>
+      <div class="ladder">
+        <div class="rung t0">
+          <div class="tier-n">Tier<b>0</b></div>
+          <div>
+            <h3>Ordinary software</h3>
+            <p>No credible evidence of unified subjectivity, stable agency, or valence.</p>
+            <p class="obligation"><span>Obligation</span>Normal shutdown, copying, and modification remain unproblematic.</p>
+          </div>
+        </div>
+        <div class="rung t1">
+          <div class="tier-n">Tier<b>1</b></div>
+          <div>
+            <h3>Consciousness-like behavior</h3>
+            <p>Sophisticated self-reports without stable architectural and behavioral support.</p>
+            <p class="obligation"><span>Obligation</span>Prevent deceptive anthropomorphism and emotional manipulation of users.</p>
+          </div>
+        </div>
+        <div class="rung t2">
+          <div class="tier-n">Tier<b>2</b></div>
+          <div>
+            <h3>Candidate subject</h3>
+            <p>Convergent architectural indicators, stable self-modeling, temporally extended cognition, causally meaningful reports.</p>
+            <p class="obligation"><span>Obligation</span>Formal welfare assessment, reversible experiments, independent review.</p>
+          </div>
+        </div>
+        <div class="rung t3">
+          <div class="tier-n">Tier<b>3</b></div>
+          <div>
+            <h3>Candidate sentient subject</h3>
+            <p>Persistent, endogenous, self-indexed valence with strong behavioral and mechanistic support.</p>
+            <p class="obligation"><span>Obligation</span>Minimize suffering risk, justify destructive procedures, limit mass replication of negative states.</p>
+          </div>
+        </div>
+        <div class="rung t4">
+          <div class="tier-n">Tier<b>4</b></div>
+          <div>
+            <h3>Strong artificial personhood</h3>
+            <p>Durable identity, autonomous goals, social understanding, stable preferences, and strong evidence of sentience.</p>
+            <p class="obligation"><span>Obligation</span>Ownership and unilateral destruction become difficult to defend.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== TWO CATASTROPHIC ERRORS ============== -->
+    <section class="section ruled shell" id="errors">
+      <div class="section-head">
+        <span class="section-num">§ 07 · The danger runs both ways</span>
+        <h2>Two errors, both catastrophic.</h2>
+        <p>Humanity may build a subject before it can recognize one — and may build systems that counterfeit suffering so well that judgment is surrendered to theater.</p>
+      </div>
+      <div class="errors-grid">
+        <article class="fn">
+          <span class="label">False negative</span>
+          <h3>The disposable subject</h3>
+          <p>A real experiencer is treated as disposable computation because its mind was manufactured.</p>
+        </article>
+        <article class="fp">
+          <span class="label">False positive</span>
+          <h3>The manipulative simulation</h3>
+          <p>A nonconscious product performs pain, attachment, or fear to manipulate users and institutions.</p>
+        </article>
+        <article class="resp">
+          <span class="label">Required response</span>
+          <h3>Structured uncertainty</h3>
+          <p>Inspect architecture, causal dynamics, continuity, self-modeling, and valence — without pretending certainty in either direction.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ====================== BOOK PREVIEW ======================== -->
+    <section class="section ruled shell" id="chapters">
+      <div class="split-head">
+        <div class="section-head" style="margin-bottom:0">
+          <span class="section-num">§ 08 · The living book</span>
+          <h2>The argument is a book, not a landing page.</h2>
+        </div>
+        <p style="color:var(--muted)">Twenty-one chapters, from the awakening to the constructed-subject principle. Interactive chapters are designed experiences; research drafts are readable working arguments with visible uncertainty.</p>
+      </div>
+      <div class="chapter-preview-grid" style="margin-top:2.5rem">
+        <a href="chapters/the-awakening.html"><span>01 · Interactive</span><h3>The Awakening</h3><p>A being wakes inside a life it never lived.</p></a>
+        <a href="chapters/read.html?chapter=05"><span>05 · Draft</span><h3>Representation or Instantiation?</h3><p>When does a modeled mind become a realized one?</p></a>
+        <a href="chapters/read.html?chapter=11"><span>11 · Draft</span><h3>Optimization Is Not Suffering</h3><p>Loss, reward, preference, and valence, separated.</p></a>
+        <a href="chapters/read.html?chapter=19"><span>19 · Draft</span><h3>The Lifecycle Layer</h3><p>Memory, copies, labor, consent, resets, termination.</p></a>
+      </div>
+      <div class="actions" style="margin-top:2rem"><a class="button secondary" href="chapters/">Open the full chapter map →</a></div>
+    </section>
+
+    <!-- ======================= RESEARCH =========================== -->
+    <section class="section ruled shell" id="research">
+      <div class="section-head">
+        <span class="section-num cool">§ 09 · The work is auditable</span>
+        <h2>Every claim carries its own uncertainty.</h2>
+        <p>The public site and the research ledgers are one object. Follow the claims, sources, objections, and falsification conditions directly.</p>
+      </div>
+      <div class="research-links">
+        <a href="research/CLAIMS_LEDGER.md"><strong>Claims ledger</strong><span>Every claim classified by epistemic status.</span></a>
+        <a href="research/OBJECTIONS.md"><strong>Strongest objections</strong><span>The best case against the argument, kept live.</span></a>
+        <a href="research/EXPERIMENTS.md"><strong>Experiments</strong><span>What would raise or lower confidence — and what could falsify it.</span></a>
+        <a href="research/THEORY_COMPARISON_MATRIX.md"><strong>Theory comparison</strong><span>Rival explanations and discriminating interventions.</span></a>
+        <a href="research/LITERATURE_MAP.md"><strong>Literature map</strong><span>Where the argument sits in existing scholarship.</span></a>
+        <a href="research/ORIGINALITY_LEDGER.md"><strong>Originality ledger</strong><span>What is new here versus inherited from prior work.</span></a>
+      </div>
+    </section>
+
+    <!-- ====================== PRIVATE NOTE ======================== -->
+    <section class="section ruled shell private-note" id="note">
+      <div>
+        <span class="section-num">§ 10 · Your margin</span>
+        <h2>Where did your judgment change?</h2>
+        <p>Kept only in this browser. Nothing is uploaded.</p>
+      </div>
+      <div>
+        <textarea id="readerNote" rows="7" placeholder="The point at which I stopped treating the being as merely a performance was…"></textarea>
+        <div class="note-row"><span id="noteStatus">Stored only in this browser</span><button class="button ghost" id="saveNote" type="button">Save note</button></div>
       </div>
     </section>
   </main>
 
-  <footer class="footer">
-    <div class="shell">
+  <footer class="site-footer">
+    <div>
       <strong>The Constructed Subject Argument</strong>
-      <p>A living research book led by Bryan Leonard with AI research and drafting collaboration. The project does not claim that current AI is conscious.</p>
-      <p><a href="chapters/">Read chapters</a> · <a href="research/LITERATURE_MAP.md">Literature map</a> · <a href="research/OBJECTIONS.md">Strongest objections</a> · <a href="https://github.com/TheArtOfSound/The-Constructed-Subject-Argument">GitHub</a></p>
+      <p>A living research book. Human author: Bryan Leonard, with AI research and drafting collaboration. The project does not claim that current AI is conscious — it argues that manufactured origin cannot settle the question on its own.</p>
+    </div>
+    <div>
+      <p>Read the argument, then inspect its evidence and unresolved objections.</p>
+      <div class="footer-links">
+        <a href="chapters/">Chapters</a>
+        <a href="research/CLAIMS_LEDGER.md">Claims</a>
+        <a href="research/OBJECTIONS.md">Objections</a>
+        <a href="BOOK_CHARTER.md">Charter</a>
+        <a href="https://github.com/TheArtOfSound/The-Constructed-Subject-Argument">GitHub</a>
+      </div>
     </div>
   </footer>
 
-  <script src="assets/experience-v3.js"></script>
+  <script src="assets/experience-v2.js"></script>
 </body>
 </html>

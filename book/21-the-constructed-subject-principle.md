@@ -180,7 +180,7 @@ These conclusions survive even if no present AI system is conscious.
 
 The book does not establish:
 
-- that current language models are conscious;
+- that present-day language models are already conscious;
 - that computation is sufficient for consciousness;
 - that functionalism is true;
 - that biological substrate is irrelevant;
