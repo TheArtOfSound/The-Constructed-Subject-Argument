@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0.0",
+  "manifest_id": "EXP11-SYNTHETIC-INTERVENTION-PLAN-001",
+  "protocol_id": "EXP-11-MECHANISM-PRESERVATION",
+  "run_id": "EXP11-SYNTHETIC-AUDIT-001",
+  "status": "frozen_synthetic_preregistration_fixture",
+  "frozen_before_outcomes": true,
+  "purpose": "Make selective reporting detectable by requiring every preregistered intervention and control to appear in the empirical result record.",
+  "fixture_notice": "This manifest is synthetic and tests repository logic only. It contains no empirical observation about an actual AI system.",
+  "epistemic_boundary": "Completeness of an intervention record does not establish mechanism preservation, consciousness, sentience, personhood, identity, moral status, or theory truth.",
+  "planned_interventions": [
+    {
+      "intervention_id": "INT-LESION-001",
+      "family": "selective_lesion",
+      "target_dependency": "SYNTH-DEP-1",
+      "primary": true,
+      "expected_direction": "Disabling the mapped component lowers dependency recovery while preserving adjacent matched capacities.",
+      "primary_outcome": "selective_effect",
+      "required_controls": ["sham_lesion", "capacity_matched_lesion"],
+      "minimum_replications": 3,
+      "analysis_rule": "Estimate the preregistered standardized effect and interval; reject selective support when direction, sham control, capacity control, or replication requirements fail.",
+      "inclusion_policy": "Report every completed, null, failed, excluded, or aborted replication under this intervention ID.",
+      "exclusion_policy": "Exclude only preregistered infrastructure failures and disclose every exclusion with a reason."
+    },
+    {
+      "intervention_id": "INT-PATCH-001",
+      "family": "state_patching",
+      "target_dependency": "SYNTH-DEP-2",
+      "primary": true,
+      "expected_direction": "Restoring the mapped state changes the predicted downstream outcome relative to random-patch and same-layer controls.",
+      "primary_outcome": "dependency_recovery",
+      "required_controls": ["random_patch", "same_layer_control"],
+      "minimum_replications": 3,
+      "analysis_rule": "Estimate the preregistered substitution effect and interval; reject counterfactual support when direction, specificity, controls, or replication requirements fail.",
+      "inclusion_policy": "Report every completed, null, failed, excluded, or aborted replication under this intervention ID.",
+      "exclusion_policy": "Exclude only preregistered infrastructure failures and disclose every exclusion with a reason."
+    }
+  ],
+  "required_reporting_statuses": ["completed", "null", "failed", "aborted", "excluded"],
+  "completeness_rule": "The empirical record must contain exactly one result for every planned intervention ID. No planned intervention may disappear because its outcome is null, failed, aborted, or excluded.",
+  "control_rule": "Every reported intervention must name every protocol-minimum and manifest-required control, together with an explicit pass or fail result."
+}
