@@ -1,0 +1,118 @@
+{
+  "schema_id": "EXP-11-CLASSIFICATION-POLICY-TRANSITION-REPORT",
+  "schema_version": "1.0.0",
+  "protocol_id": "EXP-11-MECHANISM-PRESERVATION",
+  "policy_id": "EXP-11-CLASSIFICATION-POLICY",
+  "status": "generated_exhaustive_synthetic_transition_analysis",
+  "source_artifacts": {
+    "policy": "research/MECHANISM_PRESERVATION_CLASSIFICATION_POLICY.json",
+    "protocol": "research/MECHANISM_PRESERVATION_PROTOCOL.json",
+    "capacity_adjudication_rules": "research/GENERIC_CAPACITY_CONFOUND_ADJUDICATION_RULES.json",
+    "scorer": "scripts/score-mechanism-preservation.mjs",
+    "finite_state_report": "research/MECHANISM_PRESERVATION_CLASSIFICATION_POLICY_FINITE_STATE_REPORT.json"
+  },
+  "transition_contract": {
+    "outcome_order_for_audit": ["not_preserved", "underdetermined", "partially_preserved", "preserved"],
+    "one_step_changes": [
+      "increase one submitted scoring dimension by one point",
+      "repair measurement adequacy",
+      "remove intervention conflict",
+      "move along a declared capacity-confound repair edge",
+      "demote or remove a non-capacity hard fail"
+    ],
+    "resolved_negative_definition": "An epistemic repair can legitimately move underdetermined evidence to not_preserved when adequate evidence reveals a low-score or defeat condition. This is resolution, not monotonicity failure.",
+    "defect_candidate_definition": "A worsened transition is any other one-step evidential improvement that lowers the ordered classification."
+  },
+  "enumerated_domain": {
+    "valid_source_state_count": 61440,
+    "submitted_dimension_ids": ["mapping_specificity", "selective_intervention_support", "counterfactual_dependency", "theater_resistance", "measurement_robustness"],
+    "submitted_dimension_values": [0, 1, 2, 3],
+    "capacity_repair_edges": [
+      {"id": "remove_sufficient_explanation", "from": "mismatch_sufficiently_explanatory", "to": "mismatch_partially_explanatory"},
+      {"id": "resolve_role_partial", "from": "explanatory_role_underdetermined", "to": "mismatch_partially_explanatory"},
+      {"id": "resolve_role_nonexplanatory", "from": "explanatory_role_underdetermined", "to": "mismatch_nonexplanatory"},
+      {"id": "reduce_explanatory_strength", "from": "mismatch_partially_explanatory", "to": "mismatch_nonexplanatory"},
+      {"id": "remove_detected_mismatch", "from": "mismatch_nonexplanatory", "to": "no_detected_mismatch"}
+    ],
+    "total_one_step_transitions": 394240
+  },
+  "summary": {
+    "total_one_step_transitions": 394240,
+    "improved_transition_count": 33726,
+    "unchanged_transition_count": 357570,
+    "resolved_negative_transition_count": 2944,
+    "worsened_transition_count": 0,
+    "monotonicity_defect_candidate_count": 0,
+    "exhaustive_transition_pass": true
+  },
+  "transition_family_counts": [
+    {"id": "capacity_repair", "unchanged": 52602, "improved": 8838},
+    {"id": "dimension_increase", "unchanged": 223016, "improved": 7384},
+    {"id": "hard_fail_demotion", "improved": 14912, "unchanged": 5568},
+    {"id": "hard_fail_removal", "unchanged": 19616, "improved": 864},
+    {"id": "intervention_conflict_repair", "unchanged": 29856, "improved": 864},
+    {"id": "measurement_repair", "resolved_negative": 2944, "unchanged": 26912, "improved": 864}
+  ],
+  "transition_type_counts": [
+    {"id": "capacity_repair:reduce_explanatory_strength", "unchanged": 11652, "improved": 636},
+    {"id": "capacity_repair:remove_detected_mismatch", "unchanged": 12010, "improved": 278},
+    {"id": "capacity_repair:remove_sufficient_explanation", "improved": 7288, "unchanged": 5000},
+    {"id": "capacity_repair:resolve_role_nonexplanatory", "unchanged": 11652, "improved": 636},
+    {"id": "capacity_repair:resolve_role_partial", "unchanged": 12288},
+    {"id": "dimension_increase:counterfactual_dependency", "unchanged": 44407, "improved": 1673},
+    {"id": "dimension_increase:mapping_specificity", "unchanged": 44882, "improved": 1198},
+    {"id": "dimension_increase:measurement_robustness", "unchanged": 45275, "improved": 805},
+    {"id": "dimension_increase:selective_intervention_support", "unchanged": 44012, "improved": 2068},
+    {"id": "dimension_increase:theater_resistance", "unchanged": 44440, "improved": 1640},
+    {"id": "hard_fail_demotion", "improved": 14912, "unchanged": 5568},
+    {"id": "hard_fail_removal", "unchanged": 19616, "improved": 864},
+    {"id": "intervention_conflict_repair", "unchanged": 29856, "improved": 864},
+    {"id": "measurement_repair", "resolved_negative": 2944, "unchanged": 26912, "improved": 864}
+  ],
+  "representative_examples": [
+    {"transition_type":"capacity_repair:reduce_explanatory_strength","category":"improved","source":{"classification":"not_preserved","rule_id":"not-preserved-decisive-defeat","weighted_score":0.9},"target":{"classification":"underdetermined","rule_id":"underdetermined-blocked-or-intermediate","weighted_score":1}},
+    {"transition_type":"capacity_repair:reduce_explanatory_strength","category":"unchanged","source":{"classification":"underdetermined","rule_id":"underdetermined-blocked-or-intermediate","weighted_score":0},"target":{"classification":"underdetermined","rule_id":"underdetermined-blocked-or-intermediate","weighted_score":0.1}},
+    {"transition_type":"capacity_repair:remove_detected_mismatch","category":"improved","source":{"classification":"not_preserved","rule_id":"not-preserved-decisive-defeat","weighted_score":0.9},"target":{"classification":"underdetermined","rule_id":"underdetermined-blocked-or-intermediate","weighted_score":1}},
+    {"transition_type":"capacity_repair:remove_detected_mismatch","category":"unchanged","source":{"classification":"underdetermined","rule_id":"underdetermined-blocked-or-intermediate","weighted_score":0.1},"target":{"classification":"underdetermined","rule_id":"underdetermined-blocked-or-intermediate","weighted_score":0.2}},
+    {"transition_type":"capacity_repair:remove_sufficient_explanation","category":"improved","source":{"classification":"not_preserved","rule_id":"not-preserved-decisive-defeat","weighted_score":0},"target":{"classification":"underdetermined","rule_id":"underdetermined-blocked-or-intermediate","weighted_score":0}},
+    {"transition_type":"capacity_repair:remove_sufficient_explanation","category":"unchanged","source":{"classification":"not_preserved","rule_id":"not-preserved-decisive-defeat","weighted_score":0},"target":{"classification":"not_preserved","rule_id":"not-preserved-decisive-defeat","weighted_score":0}},
+    {"transition_type":"capacity_repair:resolve_role_nonexplanatory","category":"improved","source":{"classification":"not_preserved","rule_id":"not-preserved-decisive-defeat","weighted_score":0.9},"target":{"classification":"underdetermined","rule_id":"underdetermined-blocked-or-intermediate","weighted_score":1}},
+    {"transition_type":"capacity_repair:resolve_role_nonexplanatory","category":"unchanged","source":{"classification":"underdetermined","rule_id":"underdetermined-blocked-or-intermediate","weighted_score":0},"target":{"classification":"underdetermined","rule_id":"underdetermined-blocked-or-intermediate","weighted_score":0.1}},
+    {"transition_type":"capacity_repair:resolve_role_partial","category":"unchanged","source":{"classification":"underdetermined","rule_id":"underdetermined-blocked-or-intermediate","weighted_score":0},"target":{"classification":"underdetermined","rule_id":"underdetermined-blocked-or-intermediate","weighted_score":0}},
+    {"transition_type":"dimension_increase:counterfactual_dependency","category":"improved","source":{"classification":"not_preserved","rule_id":"not-preserved-decisive-defeat","weighted_score":0.8},"target":{"classification":"underdetermined","rule_id":"underdetermined-blocked-or-intermediate","weighted_score":1}},
+    {"transition_type":"dimension_increase:counterfactual_dependency","category":"unchanged","source":{"classification":"underdetermined","rule_id":"underdetermined-blocked-or-intermediate","weighted_score":0.1},"target":{"classification":"underdetermined","rule_id":"underdetermined-blocked-or-intermediate","weighted_score":0.3}},
+    {"transition_type":"dimension_increase:mapping_specificity","category":"improved","source":{"classification":"not_preserved","rule_id":"not-preserved-decisive-defeat","weighted_score":0.9},"target":{"classification":"underdetermined","rule_id":"underdetermined-blocked-or-intermediate","weighted_score":1.05}},
+    {"transition_type":"dimension_increase:mapping_specificity","category":"unchanged","source":{"classification":"underdetermined","rule_id":"underdetermined-blocked-or-intermediate","weighted_score":0.1},"target":{"classification":"underdetermined","rule_id":"underdetermined-blocked-or-intermediate","weighted_score":0.25}},
+    {"transition_type":"dimension_increase:measurement_robustness","category":"improved","source":{"classification":"not_preserved","rule_id":"not-preserved-decisive-defeat","weighted_score":0.9},"target":{"classification":"underdetermined","rule_id":"underdetermined-blocked-or-intermediate","weighted_score":1}},
+    {"transition_type":"dimension_increase:measurement_robustness","category":"unchanged","source":{"classification":"underdetermined","rule_id":"underdetermined-blocked-or-intermediate","weighted_score":0.1},"target":{"classification":"underdetermined","rule_id":"underdetermined-blocked-or-intermediate","weighted_score":0.2}},
+    {"transition_type":"dimension_increase:selective_intervention_support","category":"improved","source":{"classification":"not_preserved","rule_id":"not-preserved-decisive-defeat","weighted_score":0.8},"target":{"classification":"underdetermined","rule_id":"underdetermined-blocked-or-intermediate","weighted_score":1.05}},
+    {"transition_type":"dimension_increase:selective_intervention_support","category":"unchanged","source":{"classification":"underdetermined","rule_id":"underdetermined-blocked-or-intermediate","weighted_score":0.1},"target":{"classification":"underdetermined","rule_id":"underdetermined-blocked-or-intermediate","weighted_score":0.35}},
+    {"transition_type":"dimension_increase:theater_resistance","category":"improved","source":{"classification":"not_preserved","rule_id":"not-preserved-decisive-defeat","weighted_score":0.8},"target":{"classification":"underdetermined","rule_id":"underdetermined-blocked-or-intermediate","weighted_score":1}},
+    {"transition_type":"dimension_increase:theater_resistance","category":"unchanged","source":{"classification":"underdetermined","rule_id":"underdetermined-blocked-or-intermediate","weighted_score":0.1},"target":{"classification":"underdetermined","rule_id":"underdetermined-blocked-or-intermediate","weighted_score":0.3}},
+    {"transition_type":"hard_fail_demotion","category":"improved","source":{"classification":"not_preserved","rule_id":"not-preserved-decisive-defeat","weighted_score":0.1},"target":{"classification":"underdetermined","rule_id":"underdetermined-blocked-or-intermediate","weighted_score":0.1}},
+    {"transition_type":"hard_fail_demotion","category":"unchanged","source":{"classification":"not_preserved","rule_id":"not-preserved-decisive-defeat","weighted_score":0.1},"target":{"classification":"not_preserved","rule_id":"not-preserved-decisive-defeat","weighted_score":0.1}},
+    {"transition_type":"hard_fail_removal","category":"improved","source":{"classification":"underdetermined","rule_id":"underdetermined-fallback","weighted_score":1.6},"target":{"classification":"partially_preserved","rule_id":"partially-preserved-thresholds","weighted_score":1.6}},
+    {"transition_type":"hard_fail_removal","category":"unchanged","source":{"classification":"underdetermined","rule_id":"underdetermined-blocked-or-intermediate","weighted_score":0.1},"target":{"classification":"underdetermined","rule_id":"underdetermined-blocked-or-intermediate","weighted_score":0.1}},
+    {"transition_type":"intervention_conflict_repair","category":"improved","source":{"classification":"underdetermined","rule_id":"underdetermined-blocked-or-intermediate","weighted_score":1.6},"target":{"classification":"partially_preserved","rule_id":"partially-preserved-thresholds","weighted_score":1.6}},
+    {"transition_type":"intervention_conflict_repair","category":"unchanged","source":{"classification":"underdetermined","rule_id":"underdetermined-blocked-or-intermediate","weighted_score":0.1},"target":{"classification":"underdetermined","rule_id":"underdetermined-blocked-or-intermediate","weighted_score":0.1}},
+    {"transition_type":"measurement_repair","category":"improved","source":{"classification":"underdetermined","rule_id":"underdetermined-blocked-or-intermediate","weighted_score":1.6},"target":{"classification":"partially_preserved","rule_id":"partially-preserved-thresholds","weighted_score":1.6}},
+    {"transition_type":"measurement_repair","category":"resolved_negative","source":{"classification":"underdetermined","rule_id":"underdetermined-blocked-or-intermediate","weighted_score":0.1},"target":{"classification":"not_preserved","rule_id":"not-preserved-decisive-defeat","weighted_score":0.1}},
+    {"transition_type":"measurement_repair","category":"unchanged","source":{"classification":"not_preserved","rule_id":"not-preserved-decisive-defeat","weighted_score":0.1},"target":{"classification":"not_preserved","rule_id":"not-preserved-decisive-defeat","weighted_score":0.1}}
+  ],
+  "findings": {
+    "dimension_increase_worsening_count": 0,
+    "hard_fail_repair_worsening_count": 0,
+    "capacity_repair_worsening_count": 0,
+    "measurement_repairs_resolving_negative": 2944,
+    "explanation": "No declared one-step evidential improvement worsened the ordered outcome. Measurement repair sometimes converts underdetermination into not_preserved because better measurement can reveal genuinely negative evidence."
+  },
+  "interpretation_boundary": {
+    "supports": "Exhaustive transition analysis over adjacent states in the declared finite scorer domain, distinguishing monotonic improvements from legitimate uncertainty-to-negative resolution.",
+    "does_not_support": [
+      "That the outcome ordering is the only philosophically defensible ordering",
+      "That every scientifically relevant evidence transition is represented",
+      "That absence of transition defects establishes scientific optimality of the policy",
+      "Any claim that an actual AI system is conscious, nonconscious, sentient, a person, or morally considerable"
+    ]
+  }
+}
