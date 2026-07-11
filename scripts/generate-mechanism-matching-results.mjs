@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 const root = process.cwd();
 const rawPath = path.join(root, 'research/MECHANISM_PRESERVATION_MATCHING_RAW_FIXTURE.json');
@@ -58,19 +59,24 @@ export function buildMatchingResults() {
   };
 }
 
-const serialized = `${JSON.stringify(buildMatchingResults(), null, 2)}\n`;
-const args = new Set(process.argv.slice(2));
-
-if (args.has('--stdout')) {
-  process.stdout.write(serialized);
-} else if (args.has('--check')) {
-  const committed = fs.readFileSync(outputPath, 'utf8');
-  if (committed !== serialized) {
-    console.error('Committed behavioral-matching results differ from deterministic regeneration.');
-    process.exit(1);
+function runCli() {
+  const serialized = `${JSON.stringify(buildMatchingResults(), null, 2)}\n`;
+  const args = new Set(process.argv.slice(2));
+  if (args.has('--stdout')) {
+    process.stdout.write(serialized);
+  } else if (args.has('--check')) {
+    const committed = fs.readFileSync(outputPath, 'utf8');
+    if (committed !== serialized) {
+      console.error('Committed behavioral-matching results differ from deterministic regeneration.');
+      process.exit(1);
+    }
+    console.log('Behavioral-matching derived results are byte-identical to regeneration.');
+  } else {
+    fs.writeFileSync(outputPath, serialized);
+    console.log(`Wrote ${path.relative(root, outputPath)}.`);
   }
-  console.log('Behavioral-matching derived results are byte-identical to regeneration.');
-} else {
-  fs.writeFileSync(outputPath, serialized);
-  console.log(`Wrote ${path.relative(root, outputPath)}.`);
+}
+
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  runCli();
 }
