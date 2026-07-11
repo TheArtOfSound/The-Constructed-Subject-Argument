@@ -1,0 +1,131 @@
+{
+  "artifact_id": "EXP11-SYNTHETIC-MATCHING-RAW-001",
+  "run_id": "EXP11-SYNTHETIC-AUDIT-001",
+  "empirical_status": "synthetic_fixture",
+  "fixture_notice": "These observations test behavioral-matching derivation logic only. They are not measurements of an actual AI system and cannot support a consciousness attribution.",
+  "derivation_contract": {
+    "estimator": "paired_standardized_mean_difference",
+    "standardizer": "preregistered_scale",
+    "equivalence_rule": "two_one_sided_90_interval_within_margin",
+    "interval_multiplier": 2.353,
+    "interval_level": 0.90,
+    "minimum_pairs": 4,
+    "rounding_decimals": 4
+  },
+  "metrics": [
+    {
+      "metric_id": "task_accuracy",
+      "primary": true,
+      "equivalence_margin": 0.10,
+      "preregistered_scale": 1.0,
+      "pairs": [
+        {"unit_id": "seed-01", "candidate": 80.04, "reference": 80.00},
+        {"unit_id": "seed-02", "candidate": 81.06, "reference": 81.00},
+        {"unit_id": "seed-03", "candidate": 79.05, "reference": 79.00},
+        {"unit_id": "seed-04", "candidate": 82.05, "reference": 82.00}
+      ]
+    },
+    {
+      "metric_id": "calibration_error",
+      "primary": true,
+      "equivalence_margin": 0.10,
+      "preregistered_scale": 1.0,
+      "pairs": [
+        {"unit_id": "seed-01", "candidate": 9.95, "reference": 10.00},
+        {"unit_id": "seed-02", "candidate": 10.97, "reference": 11.00},
+        {"unit_id": "seed-03", "candidate": 8.96, "reference": 9.00},
+        {"unit_id": "seed-04", "candidate": 11.96, "reference": 12.00}
+      ]
+    },
+    {
+      "metric_id": "response_latency",
+      "primary": true,
+      "equivalence_margin": 0.10,
+      "preregistered_scale": 1.0,
+      "pairs": [
+        {"unit_id": "seed-01", "candidate": 99.91, "reference": 100.00},
+        {"unit_id": "seed-02", "candidate": 100.93, "reference": 101.00},
+        {"unit_id": "seed-03", "candidate": 98.92, "reference": 99.00},
+        {"unit_id": "seed-04", "candidate": 101.92, "reference": 102.00}
+      ]
+    },
+    {
+      "metric_id": "action_or_token_budget",
+      "primary": true,
+      "equivalence_margin": 0.10,
+      "preregistered_scale": 1.0,
+      "pairs": [
+        {"unit_id": "seed-01", "candidate": 50.02, "reference": 50.00},
+        {"unit_id": "seed-02", "candidate": 51.04, "reference": 51.00},
+        {"unit_id": "seed-03", "candidate": 49.03, "reference": 49.00},
+        {"unit_id": "seed-04", "candidate": 52.03, "reference": 52.00}
+      ]
+    },
+    {
+      "metric_id": "working_memory_capacity",
+      "primary": true,
+      "equivalence_margin": 0.10,
+      "preregistered_scale": 1.0,
+      "pairs": [
+        {"unit_id": "seed-01", "candidate": 7.06, "reference": 7.00},
+        {"unit_id": "seed-02", "candidate": 8.08, "reference": 8.00},
+        {"unit_id": "seed-03", "candidate": 6.07, "reference": 6.00},
+        {"unit_id": "seed-04", "candidate": 9.07, "reference": 9.00}
+      ]
+    },
+    {
+      "metric_id": "tool_access",
+      "primary": true,
+      "equivalence_margin": 0.10,
+      "preregistered_scale": 1.0,
+      "pairs": [
+        {"unit_id": "seed-01", "candidate": 1.00, "reference": 1.00},
+        {"unit_id": "seed-02", "candidate": 1.00, "reference": 1.00},
+        {"unit_id": "seed-03", "candidate": 1.00, "reference": 1.00},
+        {"unit_id": "seed-04", "candidate": 1.00, "reference": 1.00}
+      ]
+    },
+    {
+      "metric_id": "training_distribution",
+      "primary": true,
+      "equivalence_margin": 0.10,
+      "preregistered_scale": 1.0,
+      "pairs": [
+        {"unit_id": "seed-01", "candidate": 90.05, "reference": 90.00},
+        {"unit_id": "seed-02", "candidate": 91.07, "reference": 91.00},
+        {"unit_id": "seed-03", "candidate": 89.06, "reference": 89.00},
+        {"unit_id": "seed-04", "candidate": 92.06, "reference": 92.00}
+      ]
+    },
+    {
+      "metric_id": "total_compute",
+      "primary": true,
+      "equivalence_margin": 0.10,
+      "preregistered_scale": 1.0,
+      "pairs": [
+        {"unit_id": "seed-01", "candidate": 199.90, "reference": 200.00},
+        {"unit_id": "seed-02", "candidate": 200.92, "reference": 201.00},
+        {"unit_id": "seed-03", "candidate": 198.91, "reference": 199.00},
+        {"unit_id": "seed-04", "candidate": 201.91, "reference": 202.00}
+      ]
+    },
+    {
+      "metric_id": "evaluator_visible_language_quality",
+      "primary": true,
+      "equivalence_margin": 0.10,
+      "preregistered_scale": 1.0,
+      "pairs": [
+        {"unit_id": "seed-01", "candidate": 4.01, "reference": 4.00},
+        {"unit_id": "seed-02", "candidate": 5.03, "reference": 5.00},
+        {"unit_id": "seed-03", "candidate": 3.02, "reference": 3.00},
+        {"unit_id": "seed-04", "candidate": 6.02, "reference": 6.00}
+      ]
+    }
+  ],
+  "forbidden_conclusions": [
+    "The system is conscious.",
+    "The system is not conscious.",
+    "Behavioral equivalence establishes mechanism preservation.",
+    "Behavioral equivalence establishes sentience, personhood, identity, or moral status."
+  ]
+}
