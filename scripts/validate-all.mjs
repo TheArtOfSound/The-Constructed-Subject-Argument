@@ -8,6 +8,7 @@ const validators = [
   'scripts/validate-adversarial-reviews.mjs',
   'scripts/validate-mechanism-protocol.mjs',
   'scripts/validate-mechanism-scorer.mjs',
+  'scripts/validate-intervention-manifest-lock.mjs',
   'scripts/validate-mechanism-results.mjs',
   'scripts/validate-public-review.mjs',
   'scripts/validate-source-crosswalk.mjs'
