@@ -17,6 +17,7 @@ const validators = [
   'scripts/validate-capacity-confound-adjudication.mjs',
   'scripts/validate-authoritative-capacity-adjudication.mjs',
   'scripts/validate-mechanism-results.mjs',
+  'scripts/validate-mechanism-classification-trace.mjs',
   'scripts/validate-public-review.mjs',
   'scripts/validate-source-crosswalk.mjs'
 ];
