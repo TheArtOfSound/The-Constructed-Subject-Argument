@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Inspect how synthetic adversarial fixtures detect deliberate corruptions of the Constructed Subject mechanism-preservation classifier. This is a software audit, not evidence that any AI is conscious." />
+  <meta name="theme-color" content="#07080c" />
+  <title>Classifier stress test — The Constructed Subject</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="assets/experience-v2.css" />
+  <link rel="stylesheet" href="assets/classifier-audit.css" />
+</head>
+<body>
+  <a class="skip-link" href="#audit">Skip to the audit</a>
+  <header class="topbar">
+    <a class="brand" href="index.html">
+      <span class="brand-glyph" aria-hidden="true">CS</span>
+      <span><strong>The Constructed Subject</strong><small>classifier stress test</small></span>
+    </a>
+    <nav aria-label="Primary">
+      <a href="index.html">Experience</a>
+      <a href="chapters/read.html?chapter=06">Chapter 6</a>
+      <a href="research/MECHANISM_PRESERVATION_CLASSIFICATION_POLICY.json">Policy</a>
+      <a href="research/MECHANISM_PRESERVATION_CLASSIFICATION_MUTATION_REPORT.json">Raw report</a>
+    </nav>
+  </header>
+
+  <main id="audit">
+    <section class="audit-hero shell">
+      <div>
+        <p class="eyebrow">Synthetic policy stress test</p>
+        <h1>Break the decision rule.<br /><em>See whether the audit notices.</em></h1>
+        <p class="hero-summary">The mechanism-preservation classifier is deliberately corrupted in twelve registered ways. Canonical synthetic fixtures must detect each change in conclusion or rule selection.</p>
+      </div>
+      <aside class="audit-warning" aria-label="Epistemic boundary">
+        <strong>SYNTHETIC FIXTURES — SOFTWARE AUDIT ONLY</strong>
+        <p>This page tests whether the classification system notices corrupted decision logic. It does not test whether any actual AI system is conscious, nonconscious, sentient, a person, or morally considerable.</p>
+      </aside>
+    </section>
+
+    <section class="section ruled shell" aria-labelledby="audit-title">
+      <div class="section-head">
+        <span class="section-num cool">Experiment 11 · Public inference audit</span>
+        <h2 id="audit-title">Registered mutations, visible consequences.</h2>
+        <p>A killed mutation means at least one fixture detected changed classifier behavior. It does not prove that the original threshold or ontology is scientifically correct.</p>
+      </div>
+
+      <div class="audit-summary" aria-live="polite">
+        <article><span>Registered</span><strong id="mutationCount">—</strong></article>
+        <article><span>Detected</span><strong id="killedCount">—</strong></article>
+        <article><span>Survived</span><strong id="survivedCount">—</strong></article>
+        <article><span>Scoped score</span><strong id="mutationScore">—</strong></article>
+      </div>
+
+      <div class="audit-toolbar" role="group" aria-label="Filter mutations">
+        <button type="button" class="active" data-filter="all">All</button>
+        <button type="button" data-filter="threshold">Threshold</button>
+        <button type="button" data-filter="priority">Priority</button>
+        <button type="button" data-filter="connective">Connective</button>
+        <button type="button" data-filter="fallback">Fallback</button>
+      </div>
+
+      <div class="audit-layout">
+        <div class="mutation-list" id="mutationList" aria-label="Registered policy mutations"></div>
+        <article class="mutation-detail card" id="mutationDetail" aria-live="polite">
+          <p class="micro-label">Select a mutation</p>
+          <h3>Why this decision rule matters</h3>
+          <p>Choose a registered corruption to compare the baseline and mutant conclusions under the same weighted evidence.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section ruled shell audit-method" id="method">
+      <div class="section-head">
+        <span class="section-num">Method boundary</span>
+        <h2>What a perfect registered score does not establish.</h2>
+      </div>
+      <div class="method-grid">
+        <article><h3>It establishes</h3><p>The current fixture suite is sensitive to every corruption in the registered mutation set.</p></article>
+        <article><h3>It does not establish</h3><p>That every possible policy defect was tested, that the normative thresholds are optimal, or that the mechanism-preservation theory is true.</p></article>
+        <article><h3>It cannot establish</h3><p>Consciousness, nonconsciousness, sentience, personhood, identity, or moral status in any current AI system.</p></article>
+      </div>
+      <div class="audit-links">
+        <a href="research/MECHANISM_PRESERVATION_CLASSIFICATION_POLICY.json">Normative policy</a>
+        <a href="research/MECHANISM_PRESERVATION_CLASSIFICATION_POLICY_MUTATIONS.json">Mutation registry</a>
+        <a href="research/MECHANISM_PRESERVATION_CLASSIFICATION_TRACE_FIXTURES.json">Fixture registry</a>
+        <a href="scripts/score-mechanism-preservation.mjs">Scorer source</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div><strong>The Constructed Subject Argument</strong><p>A living research book with public, inspectable inference controls.</p></div>
+    <div><p>Software sensitivity is not evidence of machine consciousness.</p><div class="footer-links"><a href="index.html">Home</a><a href="chapters/">Book</a><a href="research/EXPERIMENT_11_MECHANISM_PRESERVATION.md">Protocol</a></div></div>
+  </footer>
+
+  <script src="assets/classifier-audit.js"></script>
+</body>
+</html>
