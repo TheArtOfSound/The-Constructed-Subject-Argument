@@ -1,0 +1,25 @@
+{
+  "manifest_id": "EXP11-SYNTHETIC-RAW-MANIFEST-001",
+  "run_id": "EXP11-SYNTHETIC-AUDIT-001",
+  "empirical_status": "synthetic_fixture",
+  "artifacts": [
+    {
+      "artifact_id": "EXP11-SYNTHETIC-RAW-001",
+      "path": "research/MECHANISM_PRESERVATION_RAW_FIXTURE.json",
+      "git_blob_sha": "b2a5557c0845da83ed11c15fb6349d73c62230a4",
+      "sha256": "82768f7741453805f4a69c4e7c7b813752a8ba8747bd273dbdf0154c15dbfcfc",
+      "media_type": "application/json",
+      "role": "raw_intervention_observations"
+    }
+  ],
+  "derivation_contract": {
+    "estimator": "mean_paired_difference",
+    "lesion_direction": "reference_minus_candidate",
+    "patch_direction": "candidate_minus_reference",
+    "interval_method": "normal_approximation_95",
+    "interval_multiplier": 1.96,
+    "rounding_decimals": 4,
+    "control_pass_rule": "absolute mean paired difference <= 0.05"
+  },
+  "epistemic_boundary": "This manifest binds synthetic validator fixtures only. Reproducible numerical derivation does not establish that any actual system preserves a consciousness-relevant mechanism or is conscious."
+}
