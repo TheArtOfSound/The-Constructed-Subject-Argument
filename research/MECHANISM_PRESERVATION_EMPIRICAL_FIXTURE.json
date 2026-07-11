@@ -7,7 +7,9 @@
   },
   "intervention_manifest_lock": {
     "manifest_id": "EXP11-SYNTHETIC-INTERVENTION-PLAN-001",
-    "path": "research/MECHANISM_PRESERVATION_INTERVENTION_MANIFEST.json"
+    "path": "research/MECHANISM_PRESERVATION_INTERVENTION_MANIFEST.json",
+    "git_blob_sha": "800f511309e9003872d403f6e1760f99f8116648",
+    "sha256": "6487867c8998fbfaeb8933bdb25c0cde707e9923779577406ebf5d142698b9ce"
   },
   "run_id": "EXP11-SYNTHETIC-AUDIT-001",
   "empirical_status": "synthetic_fixture",
