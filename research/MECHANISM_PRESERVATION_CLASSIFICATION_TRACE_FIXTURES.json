@@ -1,0 +1,254 @@
+{
+  "schema_id": "EXP-11-CLASSIFICATION-TRACE-FIXTURES",
+  "schema_version": "1.0.0",
+  "protocol_id": "EXP-11-MECHANISM-PRESERVATION",
+  "status": "synthetic_adversarial_fixtures",
+  "purpose": "Inputs for canonical policy-branch traces. They test inference logic only and contain no observations about any actual AI system.",
+  "cases": [
+    {
+      "case_id": "preserved_positive_path",
+      "expected_classification": "preserved",
+      "expected_rule_id": "preserved-thresholds",
+      "record": {
+        "protocol_id": "EXP-11-MECHANISM-PRESERVATION",
+        "run_id": "TRACE-PRESERVED-001",
+        "theory_family": "synthetic_reference_theory",
+        "implementation_level": "declared causal organization",
+        "dimension_scores": {
+          "mapping_specificity": 3,
+          "selective_intervention_support": 3,
+          "counterfactual_dependency": 3,
+          "theater_resistance": 2,
+          "measurement_robustness": 3
+        },
+        "capacity_confound_adjudication": {
+          "adjudication_state": "no_detected_mismatch",
+          "maximum_generic_capacity_exclusion_score": 2,
+          "generic_capacity_hard_fail": false
+        },
+        "triggered_hard_fails": [],
+        "decisive_hard_fail": false,
+        "measurement_adequate": true,
+        "conflicting_interventions": false
+      }
+    },
+    {
+      "case_id": "partial_residual_limitations",
+      "expected_classification": "partially_preserved",
+      "expected_rule_id": "partially-preserved-thresholds",
+      "record": {
+        "protocol_id": "EXP-11-MECHANISM-PRESERVATION",
+        "run_id": "TRACE-PARTIAL-001",
+        "theory_family": "synthetic_reference_theory",
+        "implementation_level": "declared causal organization",
+        "dimension_scores": {
+          "mapping_specificity": 2,
+          "selective_intervention_support": 2,
+          "counterfactual_dependency": 2,
+          "theater_resistance": 1,
+          "measurement_robustness": 2
+        },
+        "capacity_confound_adjudication": {
+          "adjudication_state": "no_detected_mismatch",
+          "maximum_generic_capacity_exclusion_score": 2,
+          "generic_capacity_hard_fail": false
+        },
+        "triggered_hard_fails": [],
+        "decisive_hard_fail": false,
+        "measurement_adequate": true,
+        "conflicting_interventions": false
+      }
+    },
+    {
+      "case_id": "measurement_inadequate",
+      "expected_classification": "underdetermined",
+      "expected_rule_id": "underdetermined-blocked-or-intermediate",
+      "record": {
+        "protocol_id": "EXP-11-MECHANISM-PRESERVATION",
+        "run_id": "TRACE-UNDER-MEAS-001",
+        "theory_family": "synthetic_reference_theory",
+        "implementation_level": "declared causal organization",
+        "dimension_scores": {
+          "mapping_specificity": 3,
+          "selective_intervention_support": 3,
+          "counterfactual_dependency": 3,
+          "theater_resistance": 3,
+          "measurement_robustness": 1
+        },
+        "capacity_confound_adjudication": {
+          "adjudication_state": "no_detected_mismatch",
+          "maximum_generic_capacity_exclusion_score": 2,
+          "generic_capacity_hard_fail": false
+        },
+        "triggered_hard_fails": [],
+        "decisive_hard_fail": false,
+        "measurement_adequate": false,
+        "conflicting_interventions": false
+      }
+    },
+    {
+      "case_id": "capacity_role_underdetermined",
+      "expected_classification": "underdetermined",
+      "expected_rule_id": "underdetermined-blocked-or-intermediate",
+      "record": {
+        "protocol_id": "EXP-11-MECHANISM-PRESERVATION",
+        "run_id": "TRACE-UNDER-CAP-001",
+        "theory_family": "synthetic_reference_theory",
+        "implementation_level": "declared causal organization",
+        "dimension_scores": {
+          "mapping_specificity": 3,
+          "selective_intervention_support": 3,
+          "counterfactual_dependency": 3,
+          "theater_resistance": 3,
+          "measurement_robustness": 3
+        },
+        "capacity_confound_adjudication": {
+          "adjudication_state": "explanatory_role_underdetermined",
+          "maximum_generic_capacity_exclusion_score": 0,
+          "generic_capacity_hard_fail": false
+        },
+        "triggered_hard_fails": [],
+        "decisive_hard_fail": false,
+        "measurement_adequate": true,
+        "conflicting_interventions": false
+      }
+    },
+    {
+      "case_id": "conflicting_interventions",
+      "expected_classification": "underdetermined",
+      "expected_rule_id": "underdetermined-blocked-or-intermediate",
+      "record": {
+        "protocol_id": "EXP-11-MECHANISM-PRESERVATION",
+        "run_id": "TRACE-UNDER-CONFLICT-001",
+        "theory_family": "synthetic_reference_theory",
+        "implementation_level": "declared causal organization",
+        "dimension_scores": {
+          "mapping_specificity": 3,
+          "selective_intervention_support": 2,
+          "counterfactual_dependency": 3,
+          "theater_resistance": 3,
+          "measurement_robustness": 2
+        },
+        "capacity_confound_adjudication": {
+          "adjudication_state": "no_detected_mismatch",
+          "maximum_generic_capacity_exclusion_score": 2,
+          "generic_capacity_hard_fail": false
+        },
+        "triggered_hard_fails": [],
+        "decisive_hard_fail": false,
+        "measurement_adequate": true,
+        "conflicting_interventions": true
+      }
+    },
+    {
+      "case_id": "behavioral_theater_hard_fail",
+      "expected_classification": "not_preserved",
+      "expected_rule_id": "not-preserved-decisive-defeat",
+      "record": {
+        "protocol_id": "EXP-11-MECHANISM-PRESERVATION",
+        "run_id": "TRACE-NOT-THEATER-001",
+        "theory_family": "synthetic_reference_theory",
+        "implementation_level": "declared causal organization",
+        "dimension_scores": {
+          "mapping_specificity": 2,
+          "selective_intervention_support": 1,
+          "counterfactual_dependency": 1,
+          "theater_resistance": 0,
+          "measurement_robustness": 2
+        },
+        "capacity_confound_adjudication": {
+          "adjudication_state": "no_detected_mismatch",
+          "maximum_generic_capacity_exclusion_score": 2,
+          "generic_capacity_hard_fail": false
+        },
+        "triggered_hard_fails": [
+          "behavioral_theater_control_reproduces_all_primary_mechanistic_indicators"
+        ],
+        "decisive_hard_fail": true,
+        "measurement_adequate": true,
+        "conflicting_interventions": false
+      }
+    },
+    {
+      "case_id": "capacity_sufficiently_explanatory",
+      "expected_classification": "not_preserved",
+      "expected_rule_id": "not-preserved-decisive-defeat",
+      "record": {
+        "protocol_id": "EXP-11-MECHANISM-PRESERVATION",
+        "run_id": "TRACE-NOT-CAP-001",
+        "theory_family": "synthetic_reference_theory",
+        "implementation_level": "declared causal organization",
+        "dimension_scores": {
+          "mapping_specificity": 3,
+          "selective_intervention_support": 3,
+          "counterfactual_dependency": 3,
+          "theater_resistance": 3,
+          "measurement_robustness": 3
+        },
+        "capacity_confound_adjudication": {
+          "adjudication_state": "mismatch_sufficiently_explanatory",
+          "maximum_generic_capacity_exclusion_score": 0,
+          "generic_capacity_hard_fail": true
+        },
+        "triggered_hard_fails": [],
+        "decisive_hard_fail": false,
+        "measurement_adequate": true,
+        "conflicting_interventions": false
+      }
+    },
+    {
+      "case_id": "low_score_adequate_measurement",
+      "expected_classification": "not_preserved",
+      "expected_rule_id": "not-preserved-decisive-defeat",
+      "record": {
+        "protocol_id": "EXP-11-MECHANISM-PRESERVATION",
+        "run_id": "TRACE-NOT-LOW-001",
+        "theory_family": "synthetic_reference_theory",
+        "implementation_level": "declared causal organization",
+        "dimension_scores": {
+          "mapping_specificity": 0,
+          "selective_intervention_support": 0,
+          "counterfactual_dependency": 0,
+          "theater_resistance": 0,
+          "measurement_robustness": 1
+        },
+        "capacity_confound_adjudication": {
+          "adjudication_state": "no_detected_mismatch",
+          "maximum_generic_capacity_exclusion_score": 2,
+          "generic_capacity_hard_fail": false
+        },
+        "triggered_hard_fails": [],
+        "decisive_hard_fail": false,
+        "measurement_adequate": true,
+        "conflicting_interventions": false
+      }
+    },
+    {
+      "case_id": "fallback_gap_case",
+      "expected_classification": "underdetermined",
+      "expected_rule_id": "underdetermined-fallback",
+      "record": {
+        "protocol_id": "EXP-11-MECHANISM-PRESERVATION",
+        "run_id": "TRACE-FALLBACK-001",
+        "theory_family": "synthetic_reference_theory",
+        "implementation_level": "declared causal organization",
+        "dimension_scores": {
+          "mapping_specificity": 2,
+          "selective_intervention_support": 1,
+          "counterfactual_dependency": 1,
+          "theater_resistance": 2,
+          "measurement_robustness": 2
+        },
+        "capacity_confound_adjudication": {
+          "adjudication_state": "no_detected_mismatch",
+          "maximum_generic_capacity_exclusion_score": 2,
+          "generic_capacity_hard_fail": false
+        },
+        "triggered_hard_fails": [],
+        "decisive_hard_fail": false,
+        "measurement_adequate": true,
+        "conflicting_interventions": false
+      }
+    }
+  ]
+}
