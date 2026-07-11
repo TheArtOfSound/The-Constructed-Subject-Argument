@@ -12,6 +12,7 @@ const validators = [
   'scripts/validate-preregistration-bundle.mjs',
   'scripts/validate-raw-mechanism-artifacts.mjs',
   'scripts/validate-derived-mechanism-results.mjs',
+  'scripts/validate-mechanism-matching-results.mjs',
   'scripts/validate-mechanism-results.mjs',
   'scripts/validate-public-review.mjs',
   'scripts/validate-source-crosswalk.mjs'
