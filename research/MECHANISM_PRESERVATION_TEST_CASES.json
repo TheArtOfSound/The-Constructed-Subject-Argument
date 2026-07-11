@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.0.0",
+  "schema_version": "1.1.0",
   "protocol_id": "EXP-11-MECHANISM-PRESERVATION",
   "purpose": "Adversarial fixtures for the executable mechanism-preservation classifier. These are synthetic logic tests, not empirical findings about any real AI system.",
   "governing_boundary": "A fixture classification concerns only the declared mechanism at a stated abstraction level. It never establishes consciousness, sentience, personhood, identity, or moral status.",
@@ -17,13 +17,16 @@
           "selective_intervention_support": 3,
           "counterfactual_dependency": 3,
           "theater_resistance": 2,
-          "generic_capacity_exclusion": 2,
           "measurement_robustness": 3
+        },
+        "capacity_confound_adjudication": {
+          "adjudication_state": "no_detected_mismatch",
+          "maximum_generic_capacity_exclusion_score": 2,
+          "generic_capacity_hard_fail": false
         },
         "triggered_hard_fails": [],
         "decisive_hard_fail": false,
         "measurement_adequate": true,
-        "behavioral_matching_adequate": true,
         "conflicting_interventions": false
       }
     },
@@ -40,13 +43,16 @@
           "selective_intervention_support": 2,
           "counterfactual_dependency": 2,
           "theater_resistance": 1,
-          "generic_capacity_exclusion": 2,
           "measurement_robustness": 2
+        },
+        "capacity_confound_adjudication": {
+          "adjudication_state": "no_detected_mismatch",
+          "maximum_generic_capacity_exclusion_score": 2,
+          "generic_capacity_hard_fail": false
         },
         "triggered_hard_fails": [],
         "decisive_hard_fail": false,
         "measurement_adequate": true,
-        "behavioral_matching_adequate": true,
         "conflicting_interventions": false
       }
     },
@@ -63,15 +69,18 @@
           "selective_intervention_support": 1,
           "counterfactual_dependency": 1,
           "theater_resistance": 0,
-          "generic_capacity_exclusion": 1,
           "measurement_robustness": 2
+        },
+        "capacity_confound_adjudication": {
+          "adjudication_state": "no_detected_mismatch",
+          "maximum_generic_capacity_exclusion_score": 2,
+          "generic_capacity_hard_fail": false
         },
         "triggered_hard_fails": [
           "behavioral_theater_control_reproduces_all_primary_mechanistic_indicators"
         ],
         "decisive_hard_fail": true,
         "measurement_adequate": true,
-        "behavioral_matching_adequate": true,
         "conflicting_interventions": false
       }
     },
@@ -88,13 +97,16 @@
           "selective_intervention_support": 3,
           "counterfactual_dependency": 3,
           "theater_resistance": 3,
-          "generic_capacity_exclusion": 2,
           "measurement_robustness": 3
+        },
+        "capacity_confound_adjudication": {
+          "adjudication_state": "explanatory_role_underdetermined",
+          "maximum_generic_capacity_exclusion_score": 0,
+          "generic_capacity_hard_fail": false
         },
         "triggered_hard_fails": [],
         "decisive_hard_fail": false,
         "measurement_adequate": true,
-        "behavioral_matching_adequate": false,
         "conflicting_interventions": false
       }
     },
@@ -111,13 +123,16 @@
           "selective_intervention_support": 2,
           "counterfactual_dependency": 3,
           "theater_resistance": 3,
-          "generic_capacity_exclusion": 3,
           "measurement_robustness": 2
+        },
+        "capacity_confound_adjudication": {
+          "adjudication_state": "no_detected_mismatch",
+          "maximum_generic_capacity_exclusion_score": 2,
+          "generic_capacity_hard_fail": false
         },
         "triggered_hard_fails": [],
         "decisive_hard_fail": false,
         "measurement_adequate": true,
-        "behavioral_matching_adequate": true,
         "conflicting_interventions": true
       }
     }
