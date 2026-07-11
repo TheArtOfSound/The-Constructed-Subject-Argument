@@ -1,0 +1,117 @@
+{
+  "schema_id": "EXP-11-CLASSIFICATION-POLICY-MUTATIONS",
+  "schema_version": "1.0.0",
+  "protocol_id": "EXP-11-MECHANISM-PRESERVATION",
+  "status": "synthetic_adversarial_policy_mutations",
+  "purpose": "Deliberately corrupt the normative classification policy and require the canonical synthetic trace fixtures to detect each corruption. Mutation survival indicates an unprotected decision property, not evidence about any actual AI system.",
+  "mutations": [
+    {
+      "mutation_id": "low-score-inclusive-upper-bound",
+      "description": "Corrupt weighted_score < 1.00 into weighted_score <= 1.00.",
+      "operation": "replace_operator",
+      "rule_id": "not-preserved-decisive-defeat",
+      "predicate_id": "low_score_with_adequate_measurement",
+      "child_index": 0,
+      "from": "<",
+      "to": "<="
+    },
+    {
+      "mutation_id": "intermediate-lower-bound-exclusive",
+      "description": "Exclude the exact 1.00 lower boundary from the underdetermined interval.",
+      "operation": "replace_number",
+      "rule_id": "underdetermined-blocked-or-intermediate",
+      "predicate_id": "intermediate_weighted_score",
+      "field_name": "lower",
+      "from": 1.0,
+      "to": 1.0001
+    },
+    {
+      "mutation_id": "intermediate-upper-bound-inclusive",
+      "description": "Include the exact 1.60 partial-preservation boundary in the underdetermined interval.",
+      "operation": "replace_number",
+      "rule_id": "underdetermined-blocked-or-intermediate",
+      "predicate_id": "intermediate_weighted_score",
+      "field_name": "upper",
+      "from": 1.6,
+      "to": 1.6001
+    },
+    {
+      "mutation_id": "partial-threshold-raised",
+      "description": "Raise the partial-preservation threshold from 1.60 to 1.65.",
+      "operation": "replace_number",
+      "rule_id": "partially-preserved-thresholds",
+      "predicate_id": "partial_weighted_score",
+      "field_name": "value",
+      "from": 1.6,
+      "to": 1.65
+    },
+    {
+      "mutation_id": "preserved-threshold-raised",
+      "description": "Raise the preserved threshold from 2.40 to 2.45.",
+      "operation": "replace_number",
+      "rule_id": "preserved-thresholds",
+      "predicate_id": "preserved_weighted_score",
+      "field_name": "value",
+      "from": 2.4,
+      "to": 2.45
+    },
+    {
+      "mutation_id": "decisive-defeat-demoted",
+      "description": "Move decisive defeat below the underdetermination rule.",
+      "operation": "replace_priority",
+      "rule_id": "not-preserved-decisive-defeat",
+      "from": 10,
+      "to": 25
+    },
+    {
+      "mutation_id": "preserved-promoted-over-blockers",
+      "description": "Evaluate preserved thresholds before underdetermination blockers.",
+      "operation": "replace_priority",
+      "rule_id": "preserved-thresholds",
+      "from": 30,
+      "to": 15
+    },
+    {
+      "mutation_id": "defeat-any-to-all",
+      "description": "Require every decisive-defeat predicate instead of any decisive-defeat predicate.",
+      "operation": "replace_rule_match",
+      "rule_id": "not-preserved-decisive-defeat",
+      "from": "any",
+      "to": "all"
+    },
+    {
+      "mutation_id": "underdetermination-any-to-all",
+      "description": "Require every underdetermination blocker simultaneously.",
+      "operation": "replace_rule_match",
+      "rule_id": "underdetermined-blocked-or-intermediate",
+      "from": "any",
+      "to": "all"
+    },
+    {
+      "mutation_id": "preserved-all-to-any",
+      "description": "Permit preserved classification when any one preserved predicate passes.",
+      "operation": "replace_rule_match",
+      "rule_id": "preserved-thresholds",
+      "from": "all",
+      "to": "any"
+    },
+    {
+      "mutation_id": "partial-support-any-to-all",
+      "description": "Require both selective and counterfactual support rather than either one for partial preservation.",
+      "operation": "replace_operator",
+      "rule_id": "partially-preserved-thresholds",
+      "predicate_id": "selective_or_counterfactual_support",
+      "from": "any_true",
+      "to": "all_true"
+    },
+    {
+      "mutation_id": "fallback-promoted-first",
+      "description": "Move the unconditional fallback ahead of every substantive classification rule.",
+      "operation": "replace_priority",
+      "rule_id": "underdetermined-fallback",
+      "from": 50,
+      "to": 5
+    }
+  ],
+  "epistemic_boundary": "These mutations test whether the classification audit detects corrupted decision logic. They do not test, support, or defeat any claim about consciousness, sentience, personhood, identity, moral status, or any actual AI system."
+}
