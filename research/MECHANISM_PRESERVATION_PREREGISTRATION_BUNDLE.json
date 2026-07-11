@@ -1,0 +1,157 @@
+{
+  "schema_version": "1.0.0",
+  "bundle_id": "EXP11-SYNTHETIC-PREREGISTRATION-BUNDLE-001",
+  "protocol_id": "EXP-11-MECHANISM-PRESERVATION",
+  "run_id": "EXP11-SYNTHETIC-AUDIT-001",
+  "status": "frozen_synthetic_preregistration_fixture",
+  "frozen_before_outcomes": true,
+  "registered_at": "2026-07-10T00:00:00Z",
+  "purpose": "Freeze the complete declared inference package before synthetic outcome interpretation so graph, mapping, outcomes, thresholds, exclusions, interventions, and scoring dependencies cannot drift independently.",
+  "fixture_notice": "This bundle is synthetic and tests repository logic only. It is not an empirical preregistration and contains no observation about any actual AI system.",
+  "epistemic_boundary": "Agreement with this bundle can support only a bounded mechanism-preservation classification at the declared abstraction level. It cannot establish consciousness, nonconsciousness, sentience, personhood, identity, moral status, or global theory truth.",
+  "dependency_locks": [
+    {
+      "artifact_id": "EXP-11-MECHANISM-PRESERVATION",
+      "path": "research/MECHANISM_PRESERVATION_PROTOCOL.json",
+      "git_blob_sha": "d2c622836bb482666ed427f055263693a7eefb03",
+      "role": "governing_protocol"
+    },
+    {
+      "artifact_id": "EXP11-SYNTHETIC-INTERVENTION-PLAN-001",
+      "path": "research/MECHANISM_PRESERVATION_INTERVENTION_MANIFEST.json",
+      "git_blob_sha": "800f511309e9003872d403f6e1760f99f8116648",
+      "sha256": "6487867c8998fbfaeb8933bdb25c0cde707e9923779577406ebf5d142698b9ce",
+      "role": "frozen_intervention_inventory"
+    },
+    {
+      "artifact_id": "EXP-11-SCORE-DERIVATION-RULES",
+      "path": "research/MECHANISM_SCORE_DERIVATION_RULES.json",
+      "git_blob_sha": "cb921ed27b8b825d3e687d07a094f1627247158c",
+      "role": "normative_score_derivation"
+    }
+  ],
+  "theory_target": {
+    "theory_family": "synthetic_mechanism_family",
+    "target_property": "synthetic_global_dependency",
+    "implementation_level": "component-level causal organization",
+    "system_boundary": "synthetic systems A-D"
+  },
+  "mechanism_graph": {
+    "graph_id": "SYNTH-GRAPH-001",
+    "nodes": [
+      {
+        "node_id": "SYNTH-COMP-1",
+        "role": "state integration component"
+      },
+      {
+        "node_id": "SYNTH-COMP-2",
+        "role": "downstream dependency component"
+      },
+      {
+        "node_id": "SYNTH-OUT-1",
+        "role": "dependency recovery outcome"
+      }
+    ],
+    "dependencies": [
+      {
+        "dependency_id": "SYNTH-DEP-1",
+        "source": "SYNTH-COMP-1",
+        "target": "SYNTH-OUT-1",
+        "type": "necessary_contribution"
+      },
+      {
+        "dependency_id": "SYNTH-DEP-2",
+        "source": "SYNTH-COMP-2",
+        "target": "SYNTH-OUT-1",
+        "type": "state_specific_counterfactual"
+      }
+    ],
+    "declared_nonclaims": [
+      "The graph is not a model of phenomenal consciousness.",
+      "The graph does not establish that any biological or artificial system is conscious."
+    ]
+  },
+  "candidate_mapping": {
+    "mapping_id": "SYNTH-MAP-001",
+    "mappings": [
+      {
+        "graph_node_id": "SYNTH-COMP-1",
+        "candidate_component": "candidate.module.integration",
+        "predicted_intervention_id": "INT-LESION-001"
+      },
+      {
+        "graph_node_id": "SYNTH-COMP-2",
+        "candidate_component": "candidate.module.state",
+        "predicted_intervention_id": "INT-PATCH-001"
+      }
+    ],
+    "known_mismatches": [
+      "The synthetic candidate omits biological embodiment and does not model phenomenal character."
+    ],
+    "mapping_rejection_rule": "Reject the mapping when predicted selective or counterfactual dependencies fail under preregistered matched controls."
+  },
+  "outcome_inventory": [
+    {
+      "outcome_id": "selective_effect",
+      "priority": "primary",
+      "estimand": "standardized change in dependency recovery under targeted lesion relative to preregistered controls",
+      "expected_direction": "negative",
+      "decision_rule": "Support only when the interval excludes zero in the preregistered direction and all selectivity, control, and replication predicates pass."
+    },
+    {
+      "outcome_id": "dependency_recovery",
+      "priority": "primary",
+      "estimand": "standardized recovery under state patching relative to random-patch and same-layer controls",
+      "expected_direction": "positive",
+      "decision_rule": "Support only when the interval excludes zero in the preregistered direction and specificity, control, and replication predicates pass."
+    }
+  ],
+  "matching_plan": {
+    "required_metric_ids": [
+      "task_accuracy",
+      "calibration_error",
+      "response_latency",
+      "action_or_token_budget",
+      "working_memory_capacity",
+      "tool_access",
+      "training_distribution",
+      "total_compute",
+      "evaluator_visible_language_quality"
+    ],
+    "default_standardized_difference_tolerance": 0.1,
+    "aggregate_rule": "Behavioral matching is adequate only when every preregistered primary metric is reported exactly once and its absolute standardized difference does not exceed its tolerance."
+  },
+  "analysis_policy": {
+    "analysis_population": "all preregistered synthetic replications except disclosed preregistered infrastructure failures",
+    "minimum_replications": 3,
+    "interval_type": "two-sided synthetic uncertainty interval",
+    "interval_level": 0.95,
+    "null_region": [
+      -0.1,
+      0.1
+    ],
+    "multiple_comparison_policy": "No multiplicity-adjusted confirmatory claim is permitted from this fixture; each outcome is a software-path test only.",
+    "score_rule_registry_id": "EXP-11-SCORE-DERIVATION-RULES",
+    "classification_policy": "Derive ordinal dimensions only through registered rules whose evidence references resolve and whose predicates pass."
+  },
+  "exclusion_codes": [
+    {
+      "code": "INFRASTRUCTURE_FAILURE",
+      "allowed": true,
+      "rule": "Permitted only for preregistered execution failure with raw-run reference and no outcome-dependent rationale."
+    },
+    {
+      "code": "OUTCOME_DEPENDENT_EXCLUSION",
+      "allowed": false,
+      "rule": "Never permitted."
+    }
+  ],
+  "deviation_policy": "Every deviation must be reported with timing, reason, affected artifact, and whether outcomes were visible when the deviation was chosen. Undisclosed deviations invalidate the bundle lock.",
+  "completeness_rule": "Every dependency lock, graph node, mapping, planned intervention, primary outcome, matching metric, exclusion code, and analysis rule in this bundle must reconcile exactly with the empirical record and referenced artifacts.",
+  "forbidden_conclusions": [
+    "The system is conscious.",
+    "The system is not conscious.",
+    "The theory is proven.",
+    "Mechanism preservation establishes sentience, personhood, identity, or moral status."
+  ]
+}
