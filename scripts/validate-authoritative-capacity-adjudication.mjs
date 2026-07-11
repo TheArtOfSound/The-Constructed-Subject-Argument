@@ -42,25 +42,15 @@ assert(capacityHardFail.triggered === adjudication.generic_capacity_hard_fail, '
 assert(capacityHardFail.decisive === adjudication.generic_capacity_hard_fail, 'A sufficiently explanatory generic-capacity confound must be decisive; all other states must remain nondecisive.');
 assert(capacityHardFail.justification?.includes('authoritative causal-confound adjudication'), 'Generic-capacity hard-fail justification must identify the authoritative adjudication.');
 
-const statePolicy = {
-  no_detected_mismatch: { matchingAdequate: true, decisive: false },
-  mismatch_nonexplanatory: { matchingAdequate: true, decisive: false },
-  mismatch_partially_explanatory: { matchingAdequate: false, decisive: false },
-  mismatch_sufficiently_explanatory: { matchingAdequate: false, decisive: true },
-  explanatory_role_underdetermined: { matchingAdequate: false, decisive: false }
-};
-
 function scoreUnderAdjudication(candidate) {
-  const policy = statePolicy[candidate.adjudication_state];
-  assert(policy, `Unknown adjudication state: ${candidate.adjudication_state}.`);
-
-  const dimensions = Object.fromEntries(record.dimension_derivations.map((item) => [item.dimension_id, item.score]));
-  dimensions.generic_capacity_exclusion = candidate.maximum_generic_capacity_exclusion_score;
-
+  const dimensions = Object.fromEntries(
+    record.dimension_derivations
+      .filter((item) => item.dimension_id !== 'generic_capacity_exclusion')
+      .map((item) => [item.dimension_id, item.score])
+  );
   const triggered = record.hard_fail_assessments
     .filter((item) => item.condition_id !== capacityHardFailId && item.triggered)
     .map((item) => item.condition_id);
-  if (candidate.generic_capacity_hard_fail) triggered.push(capacityHardFailId);
 
   return scoreMechanismPreservation({
     protocol_id: record.protocol_id,
@@ -68,16 +58,18 @@ function scoreUnderAdjudication(candidate) {
     theory_family: record.preregistration.theory_family,
     implementation_level: record.preregistration.implementation_level,
     dimension_scores: dimensions,
+    capacity_confound_adjudication: candidate,
     triggered_hard_fails: triggered,
-    decisive_hard_fail: policy.decisive,
+    decisive_hard_fail: record.hard_fail_assessments.some((item) => item.condition_id !== capacityHardFailId && item.decisive),
     measurement_adequate: record.measurement_validity.measurement_adequate,
-    behavioral_matching_adequate: policy.matchingAdequate,
     conflicting_interventions: record.conflicting_interventions
   }, protocol);
 }
 
 const authoritativeScore = scoreUnderAdjudication(adjudication);
 assert(authoritativeScore.classification === record.expected_classification, `Authoritative adjudication yields ${authoritativeScore.classification}, not expected ${record.expected_classification}.`);
+assert(authoritativeScore.dimension_scores.generic_capacity_exclusion === adjudication.maximum_generic_capacity_exclusion_score, 'Scorer did not derive the generic-capacity dimension from adjudication.');
+assert(authoritativeScore.capacity_confound_adjudication_state === adjudication.adjudication_state, 'Scorer output lost the adjudication state.');
 
 const counterfactuals = [
   {
@@ -112,7 +104,43 @@ const nonexplanatory = scoreUnderAdjudication({
 });
 assert(nonexplanatory.classification !== 'not_preserved', 'A detected but demonstrated nonexplanatory mismatch cannot itself force not_preserved.');
 
-console.log(`Validated authoritative capacity-confound adjudication ${adjudication.adjudication_id}.`);
+const invalidBase = {
+  protocol_id: record.protocol_id,
+  run_id: 'INVALID-CAPACITY-AUTHORITY',
+  theory_family: record.preregistration.theory_family,
+  implementation_level: record.preregistration.implementation_level,
+  dimension_scores: Object.fromEntries(record.dimension_derivations.filter((item) => item.dimension_id !== 'generic_capacity_exclusion').map((item) => [item.dimension_id, item.score])),
+  capacity_confound_adjudication: adjudication,
+  triggered_hard_fails: [],
+  decisive_hard_fail: false,
+  measurement_adequate: true,
+  conflicting_interventions: false
+};
+
+assert.throws = (fn, pattern, message) => {
+  let threw = false;
+  try { fn(); } catch (error) { threw = pattern.test(error.message); }
+  assert(threw, message);
+};
+
+assert.throws(
+  () => scoreMechanismPreservation({ ...invalidBase, behavioral_matching_adequate: true }, protocol),
+  /deprecated/,
+  'Scorer must reject caller-supplied behavioral matching authority.'
+);
+assert.throws(
+  () => scoreMechanismPreservation({ ...invalidBase, dimension_scores: { ...invalidBase.dimension_scores, generic_capacity_exclusion: 3 } }, protocol),
+  /derived/,
+  'Scorer must reject caller-supplied generic-capacity scores.'
+);
+assert.throws(
+  () => scoreMechanismPreservation({ ...invalidBase, triggered_hard_fails: [capacityHardFailId] }, protocol),
+  /derived/,
+  'Scorer must reject caller-supplied generic-capacity hard fails.'
+);
+
+console.log(`Validated scorer-native capacity-confound adjudication ${adjudication.adjudication_id}.`);
 console.log(`Current state: ${adjudication.adjudication_state}; classification: ${authoritativeScore.classification}.`);
 console.log('Partial or unresolved confounding blocks positive classification; sufficiently explanatory confounding forces not_preserved.');
+console.log('Conflicting manual matching, score, and hard-fail inputs are rejected by the scorer itself.');
 console.log('Synthetic fixture only; no current AI consciousness claim is licensed.');
