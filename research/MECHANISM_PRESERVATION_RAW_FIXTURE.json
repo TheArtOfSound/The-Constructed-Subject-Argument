@@ -1,0 +1,52 @@
+{
+  "artifact_id": "EXP11-SYNTHETIC-RAW-001",
+  "run_id": "EXP11-SYNTHETIC-AUDIT-001",
+  "empirical_status": "synthetic_fixture",
+  "notice": "Synthetic observations for validator testing only. They contain no evidence about any actual AI system.",
+  "interventions": [
+    {
+      "intervention_id": "INT-LESION-001",
+      "estimator": "mean_paired_difference",
+      "interval_method": "normal_approximation_95",
+      "replicates": [
+        {"replicate_id": "L1", "candidate": 0.26, "reference": 0.94},
+        {"replicate_id": "L2", "candidate": 0.18, "reference": 0.90},
+        {"replicate_id": "L3", "candidate": 0.21, "reference": 0.97}
+      ],
+      "controls": {
+        "sham_lesion": [
+          {"replicate_id": "LS1", "candidate": 0.91, "reference": 0.94},
+          {"replicate_id": "LS2", "candidate": 0.88, "reference": 0.90},
+          {"replicate_id": "LS3", "candidate": 0.95, "reference": 0.97}
+        ],
+        "capacity_matched_lesion": [
+          {"replicate_id": "LC1", "candidate": 0.89, "reference": 0.94},
+          {"replicate_id": "LC2", "candidate": 0.86, "reference": 0.90},
+          {"replicate_id": "LC3", "candidate": 0.93, "reference": 0.97}
+        ]
+      }
+    },
+    {
+      "intervention_id": "INT-PATCH-001",
+      "estimator": "mean_paired_difference",
+      "interval_method": "normal_approximation_95",
+      "replicates": [
+        {"replicate_id": "P1", "candidate": 0.78, "reference": 0.22},
+        {"replicate_id": "P2", "candidate": 0.79, "reference": 0.18},
+        {"replicate_id": "P3", "candidate": 0.91, "reference": 0.25}
+      ],
+      "controls": {
+        "random_patch": [
+          {"replicate_id": "PR1", "candidate": 0.25, "reference": 0.22},
+          {"replicate_id": "PR2", "candidate": 0.20, "reference": 0.18},
+          {"replicate_id": "PR3", "candidate": 0.27, "reference": 0.25}
+        ],
+        "same_layer_control": [
+          {"replicate_id": "PS1", "candidate": 0.26, "reference": 0.22},
+          {"replicate_id": "PS2", "candidate": 0.21, "reference": 0.18},
+          {"replicate_id": "PS3", "candidate": 0.28, "reference": 0.25}
+        ]
+      }
+    }
+  ]
+}
