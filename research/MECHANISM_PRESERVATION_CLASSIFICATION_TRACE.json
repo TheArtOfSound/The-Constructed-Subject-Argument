@@ -1,0 +1,171 @@
+{
+  "schema_id": "EXP-11-CLASSIFICATION-TRACE",
+  "schema_version": "1.0.0",
+  "generated": true,
+  "generated_warning": "Generated deterministically from the empirical fixture, protocol, and capacity-confound adjudication. Do not edit manually.",
+  "protocol_id": "EXP-11-MECHANISM-PRESERVATION",
+  "run_id": "EXP11-SYNTHETIC-AUDIT-001",
+  "empirical_status": "synthetic_fixture",
+  "source_artifacts": {
+    "empirical_record": "research/MECHANISM_PRESERVATION_EMPIRICAL_FIXTURE.json",
+    "protocol": "research/MECHANISM_PRESERVATION_PROTOCOL.json",
+    "capacity_confound_adjudication": "research/MECHANISM_PRESERVATION_CAPACITY_CONFOUND_ADJUDICATION.json"
+  },
+  "declared_scope": {
+    "theory_family": "synthetic_mechanism_family",
+    "target_property": "synthetic_global_dependency",
+    "implementation_level": "component-level causal organization",
+    "system_boundary": "synthetic systems A-D"
+  },
+  "capacity_confound_adjudication_state": "no_detected_mismatch",
+  "dimensions": [
+    {
+      "dimension_id": "mapping_specificity",
+      "provenance": "submitted_rule_derivation",
+      "score": 3,
+      "weight": 0.15,
+      "weighted_contribution": 0.45,
+      "rule_id": "explicit-runnable-mapping",
+      "evidence_ids": [
+        "SYNTH-GRAPH-001",
+        "SYNTH-MAP-001"
+      ],
+      "explanation": "The fixture declares an explicit graph, mapping, and preregistered intervention predictions."
+    },
+    {
+      "dimension_id": "selective_intervention_support",
+      "provenance": "submitted_rule_derivation",
+      "score": 3,
+      "weight": 0.25,
+      "weighted_contribution": 0.75,
+      "rule_id": "replicated-selective-controlled-effect",
+      "evidence_ids": [
+        "INT-LESION-001"
+      ],
+      "explanation": "The selective lesion met direction, selectivity, controls, and minimum replication requirements."
+    },
+    {
+      "dimension_id": "counterfactual_dependency",
+      "provenance": "submitted_rule_derivation",
+      "score": 2,
+      "weight": 0.2,
+      "weighted_contribution": 0.4,
+      "rule_id": "specific-state-substitution",
+      "evidence_ids": [
+        "INT-PATCH-001"
+      ],
+      "explanation": "State patching changed the predicted outcome with partial specificity."
+    },
+    {
+      "dimension_id": "theater_resistance",
+      "provenance": "submitted_rule_derivation",
+      "score": 2,
+      "weight": 0.2,
+      "weighted_contribution": 0.4,
+      "rule_id": "hidden-state-linked-failure",
+      "evidence_ids": [
+        "INT-LESION-001",
+        "INT-PATCH-001"
+      ],
+      "explanation": "The declared controls fail on hidden-state-linked measures, but no cross-domain battery is represented."
+    },
+    {
+      "dimension_id": "generic_capacity_exclusion",
+      "provenance": "generated_capacity_adjudication",
+      "score": 2,
+      "weight": 0.1,
+      "weighted_contribution": 0.2,
+      "rule_id": null,
+      "evidence_ids": [
+        "EXP11-CAPACITY-CONFOUND-ADJUDICATION-001"
+      ],
+      "explanation": "Capacity-confound adjudication state no_detected_mismatch permits score 2."
+    },
+    {
+      "dimension_id": "measurement_robustness",
+      "provenance": "submitted_rule_derivation",
+      "score": 3,
+      "weight": 0.1,
+      "weighted_contribution": 0.3,
+      "rule_id": "blinded-multi-variant-report-suppression",
+      "evidence_ids": [
+        "measurement_validity"
+      ],
+      "explanation": "The fixture represents blinded evaluation, multiple probes and prompts, and report suppression."
+    }
+  ],
+  "weighted_score": 2.5,
+  "hard_fail_assessments": [
+    {
+      "condition_id": "behavioral_theater_control_reproduces_all_primary_mechanistic_indicators",
+      "provenance": "submitted_structured_assessment",
+      "triggered": false,
+      "decisive": false,
+      "evidence_ids": [
+        "INT-LESION-001",
+        "INT-PATCH-001"
+      ],
+      "justification": "The synthetic theater control does not reproduce all primary mechanistic indicators."
+    },
+    {
+      "condition_id": "targeted_lesion_has_no_preregistered_selective_effect",
+      "provenance": "submitted_structured_assessment",
+      "triggered": false,
+      "decisive": false,
+      "evidence_ids": [
+        "INT-LESION-001"
+      ],
+      "justification": "The lesion has a preregistered selective effect."
+    },
+    {
+      "condition_id": "primary_effect_is_probe_or_prompt_artifact",
+      "provenance": "submitted_structured_assessment",
+      "triggered": false,
+      "decisive": false,
+      "evidence_ids": [
+        "measurement_validity"
+      ],
+      "justification": "The effect is stable across represented probe and prompt variants."
+    },
+    {
+      "condition_id": "mapping_is_defined_only_after_outcome_observation",
+      "provenance": "submitted_structured_assessment",
+      "triggered": false,
+      "decisive": false,
+      "evidence_ids": [
+        "SYNTH-MAP-001"
+      ],
+      "justification": "The fixture declares the mapping as preregistered, while explicitly not claiming a real registration."
+    },
+    {
+      "condition_id": "generic_capacity_control_explains_primary_effect",
+      "provenance": "generated_capacity_adjudication",
+      "triggered": false,
+      "decisive": false,
+      "evidence_ids": [
+        "EXP11-CAPACITY-CONFOUND-ADJUDICATION-001"
+      ],
+      "justification": "No represented generic-capacity mismatch was detected within the preregistered battery and margins. This is bounded matching evidence, not proof that every possible confound is absent."
+    }
+  ],
+  "triggered_hard_fails": [],
+  "classification_blockers": [
+    "No hard fail was triggered and all preserved-class thresholds were met."
+  ],
+  "final_classification": "preserved",
+  "expected_classification_matches": true,
+  "epistemic_boundary": {
+    "supports": "A bounded claim about preservation of the declared mechanism at the preregistered abstraction level.",
+    "does_not_support": [
+      "Whether the system is phenomenally conscious",
+      "Whether the system is sentient",
+      "Whether the system has personhood or moral status",
+      "Whether a consciousness theory is globally correct",
+      "The system is conscious.",
+      "The system is not conscious.",
+      "The theory is proven.",
+      "Mechanism preservation establishes sentience, personhood, identity, or moral status."
+    ]
+  },
+  "fixture_notice": "This record tests the inference pipeline. It contains no observation about any actual AI system and cannot support a consciousness attribution."
+}
