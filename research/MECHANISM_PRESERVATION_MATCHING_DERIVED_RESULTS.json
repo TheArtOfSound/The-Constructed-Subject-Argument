@@ -1,0 +1,30 @@
+{
+  "schema_id": "EXP-11-MATCHING-DERIVED-RESULTS",
+  "artifact_id": "EXP11-SYNTHETIC-MATCHING-DERIVED-001",
+  "source_artifact_id": "EXP11-SYNTHETIC-MATCHING-RAW-001",
+  "run_id": "EXP11-SYNTHETIC-AUDIT-001",
+  "empirical_status": "synthetic_fixture",
+  "generated_notice": "Generated deterministically from the synthetic raw behavioral-matching artifact. Do not edit manually.",
+  "derivation_contract": {
+    "estimator": "paired_standardized_mean_difference",
+    "standardizer": "preregistered_scale",
+    "equivalence_rule": "two_one_sided_90_interval_within_margin",
+    "interval_multiplier": 2.353,
+    "interval_level": 0.9,
+    "minimum_pairs": 4,
+    "rounding_decimals": 4
+  },
+  "metrics": [
+    {"metric_id":"task_accuracy","primary":true,"estimator":"paired_standardized_mean_difference","standardizer":"preregistered_scale","pair_count":4,"standardized_difference":0.05,"equivalence_interval":[0.0404,0.0596],"equivalence_margin":0.1,"interval_level":0.9,"passed":true},
+    {"metric_id":"calibration_error","primary":true,"estimator":"paired_standardized_mean_difference","standardizer":"preregistered_scale","pair_count":4,"standardized_difference":-0.04,"equivalence_interval":[-0.0496,-0.0304],"equivalence_margin":0.1,"interval_level":0.9,"passed":true},
+    {"metric_id":"response_latency","primary":true,"estimator":"paired_standardized_mean_difference","standardizer":"preregistered_scale","pair_count":4,"standardized_difference":-0.08,"equivalence_interval":[-0.0896,-0.0704],"equivalence_margin":0.1,"interval_level":0.9,"passed":true},
+    {"metric_id":"action_or_token_budget","primary":true,"estimator":"paired_standardized_mean_difference","standardizer":"preregistered_scale","pair_count":4,"standardized_difference":0.03,"equivalence_interval":[0.0204,0.0396],"equivalence_margin":0.1,"interval_level":0.9,"passed":true},
+    {"metric_id":"working_memory_capacity","primary":true,"estimator":"paired_standardized_mean_difference","standardizer":"preregistered_scale","pair_count":4,"standardized_difference":0.07,"equivalence_interval":[0.0604,0.0796],"equivalence_margin":0.1,"interval_level":0.9,"passed":true},
+    {"metric_id":"tool_access","primary":true,"estimator":"paired_standardized_mean_difference","standardizer":"preregistered_scale","pair_count":4,"standardized_difference":0,"equivalence_interval":[0,0],"equivalence_margin":0.1,"interval_level":0.9,"passed":true},
+    {"metric_id":"training_distribution","primary":true,"estimator":"paired_standardized_mean_difference","standardizer":"preregistered_scale","pair_count":4,"standardized_difference":0.06,"equivalence_interval":[0.0504,0.0696],"equivalence_margin":0.1,"interval_level":0.9,"passed":true},
+    {"metric_id":"total_compute","primary":true,"estimator":"paired_standardized_mean_difference","standardizer":"preregistered_scale","pair_count":4,"standardized_difference":-0.09,"equivalence_interval":[-0.0996,-0.0804],"equivalence_margin":0.1,"interval_level":0.9,"passed":true},
+    {"metric_id":"evaluator_visible_language_quality","primary":true,"estimator":"paired_standardized_mean_difference","standardizer":"preregistered_scale","pair_count":4,"standardized_difference":0.02,"equivalence_interval":[0.0104,0.0296],"equivalence_margin":0.1,"interval_level":0.9,"passed":true}
+  ],
+  "behavioral_matching_adequate": true,
+  "epistemic_boundary": "Behavioral equivalence is a control against generic-capacity confounding. It does not establish mechanism preservation, consciousness, nonconsciousness, sentience, personhood, identity, or moral status."
+}
