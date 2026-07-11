@@ -1,0 +1,111 @@
+{
+  "schema_id": "EXP-11-CLASSIFICATION-POLICY-FINITE-STATE-REPORT",
+  "schema_version": "1.0.0",
+  "protocol_id": "EXP-11-MECHANISM-PRESERVATION",
+  "status": "generated_exhaustive_synthetic_policy_analysis",
+  "policy_id": "EXP-11-CLASSIFICATION-POLICY",
+  "source_artifacts": {
+    "policy": "research/MECHANISM_PRESERVATION_CLASSIFICATION_POLICY.json",
+    "protocol": "research/MECHANISM_PRESERVATION_PROTOCOL.json",
+    "capacity_adjudication_rules": "research/GENERIC_CAPACITY_CONFOUND_ADJUDICATION_RULES.json",
+    "scorer": "scripts/score-mechanism-preservation.mjs"
+  },
+  "enumerated_domain": {
+    "submitted_dimension_ids": [
+      "mapping_specificity",
+      "selective_intervention_support",
+      "counterfactual_dependency",
+      "theater_resistance",
+      "measurement_robustness"
+    ],
+    "submitted_dimension_values": [0, 1, 2, 3],
+    "submitted_score_vector_count": 1024,
+    "capacity_adjudication_states": [
+      "mismatch_nonexplanatory",
+      "mismatch_partially_explanatory",
+      "mismatch_sufficiently_explanatory",
+      "explanatory_role_underdetermined",
+      "no_detected_mismatch"
+    ],
+    "measurement_adequate_values": [false, true],
+    "conflicting_interventions_values": [false, true],
+    "non_capacity_hard_fail_modes": ["none", "triggered_nondecisive", "triggered_decisive"],
+    "total_valid_states": 61440
+  },
+  "summary": {
+    "total_valid_states": 61440,
+    "states_without_matching_rule": 0,
+    "selected_rule_count": 5,
+    "policy_rule_count": 5,
+    "fully_shadowed_rule_count": 0,
+    "partially_shadowed_rule_count": 3,
+    "distinct_match_signature_count": 8,
+    "exhaustive_coverage_pass": true
+  },
+  "selected_rule_coverage": [
+    {"rule_id": "not-preserved-decisive-defeat", "selected_state_count": 31616},
+    {"rule_id": "underdetermined-blocked-or-intermediate", "selected_state_count": 28028},
+    {"rule_id": "preserved-thresholds", "selected_state_count": 56},
+    {"rule_id": "partially-preserved-thresholds", "selected_state_count": 808},
+    {"rule_id": "underdetermined-fallback", "selected_state_count": 932}
+  ],
+  "outcome_counts": [
+    {"outcome": "not_preserved", "state_count": 31616},
+    {"outcome": "partially_preserved", "state_count": 808},
+    {"outcome": "preserved", "state_count": 56},
+    {"outcome": "underdetermined", "state_count": 28960}
+  ],
+  "raw_rule_match_counts": [
+    {"rule_id": "not-preserved-decisive-defeat", "matched_state_count": 31616},
+    {"rule_id": "underdetermined-blocked-or-intermediate", "matched_state_count": 57894},
+    {"rule_id": "preserved-thresholds", "matched_state_count": 320},
+    {"rule_id": "partially-preserved-thresholds", "matched_state_count": 6048},
+    {"rule_id": "underdetermined-fallback", "matched_state_count": 61440}
+  ],
+  "suppressed_rule_match_counts": [
+    {"rule_id": "not-preserved-decisive-defeat", "suppressed_state_count": 0},
+    {"rule_id": "underdetermined-blocked-or-intermediate", "suppressed_state_count": 29866},
+    {"rule_id": "preserved-thresholds", "suppressed_state_count": 264},
+    {"rule_id": "partially-preserved-thresholds", "suppressed_state_count": 5240},
+    {"rule_id": "underdetermined-fallback", "suppressed_state_count": 60508}
+  ],
+  "rule_overlap_counts": [
+    {"rule_pair": ["not-preserved-decisive-defeat", "underdetermined-blocked-or-intermediate"], "state_count": 29866},
+    {"rule_pair": ["not-preserved-decisive-defeat", "underdetermined-fallback"], "state_count": 31616},
+    {"rule_pair": ["partially-preserved-thresholds", "underdetermined-fallback"], "state_count": 6048},
+    {"rule_pair": ["preserved-thresholds", "partially-preserved-thresholds"], "state_count": 320},
+    {"rule_pair": ["preserved-thresholds", "underdetermined-fallback"], "state_count": 320},
+    {"rule_pair": ["underdetermined-blocked-or-intermediate", "partially-preserved-thresholds"], "state_count": 5184},
+    {"rule_pair": ["underdetermined-blocked-or-intermediate", "preserved-thresholds"], "state_count": 264},
+    {"rule_pair": ["underdetermined-blocked-or-intermediate", "underdetermined-fallback"], "state_count": 57894}
+  ],
+  "match_signatures": [
+    {"matched_rule_ids": ["not-preserved-decisive-defeat", "underdetermined-blocked-or-intermediate", "underdetermined-fallback"], "state_count": 29866},
+    {"matched_rule_ids": ["not-preserved-decisive-defeat", "underdetermined-fallback"], "state_count": 1750},
+    {"matched_rule_ids": ["partially-preserved-thresholds", "underdetermined-fallback"], "state_count": 808},
+    {"matched_rule_ids": ["preserved-thresholds", "partially-preserved-thresholds", "underdetermined-fallback"], "state_count": 56},
+    {"matched_rule_ids": ["underdetermined-blocked-or-intermediate", "partially-preserved-thresholds", "underdetermined-fallback"], "state_count": 4920},
+    {"matched_rule_ids": ["underdetermined-blocked-or-intermediate", "preserved-thresholds", "partially-preserved-thresholds", "underdetermined-fallback"], "state_count": 264},
+    {"matched_rule_ids": ["underdetermined-blocked-or-intermediate", "underdetermined-fallback"], "state_count": 22844},
+    {"matched_rule_ids": ["underdetermined-fallback"], "state_count": 932}
+  ],
+  "findings": {
+    "fully_shadowed_rule_ids": [],
+    "partially_shadowed_rule_ids": [
+      "underdetermined-blocked-or-intermediate",
+      "preserved-thresholds",
+      "partially-preserved-thresholds"
+    ],
+    "no_rule_state_count": 0,
+    "fallback_selected_state_count": 932
+  },
+  "interpretation_boundary": {
+    "supports": "Exhaustive behavioral analysis over the declared finite scorer-input domain, including rule reachability, overlap, suppression, and fallback use.",
+    "does_not_support": [
+      "That the classification thresholds are scientifically optimal",
+      "That the enumerated input schema captures every scientifically relevant uncertainty",
+      "That overlap between policy rules is itself an error when priority resolves it explicitly",
+      "Any claim that an actual AI system is conscious, nonconscious, sentient, a person, or morally considerable"
+    ]
+  }
+}
