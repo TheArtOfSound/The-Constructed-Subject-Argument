@@ -1,0 +1,37 @@
+{
+  "generator_id": "EXP11-DERIVED-RESULTS-V1",
+  "run_id": "EXP11-SYNTHETIC-AUDIT-001",
+  "empirical_status": "synthetic_fixture",
+  "source_manifest_id": "EXP11-SYNTHETIC-RAW-MANIFEST-001",
+  "source_artifact_id": "EXP11-SYNTHETIC-RAW-001",
+  "generated_notice": "Generated deterministically from the locked synthetic raw artifact. Do not edit manually.",
+  "interventions": [
+    {
+      "intervention_id": "INT-LESION-001",
+      "estimator": "mean_paired_difference",
+      "direction": "reference_minus_candidate",
+      "replications": 3,
+      "effect_size": 0.72,
+      "uncertainty_interval": [0.6747, 0.7653],
+      "controls": [
+        {"control_id": "capacity_matched_lesion", "mean_paired_difference": 0.0433, "passed": true},
+        {"control_id": "sham_lesion", "mean_paired_difference": 0.0233, "passed": true}
+      ],
+      "controls_passed": true
+    },
+    {
+      "intervention_id": "INT-PATCH-001",
+      "estimator": "mean_paired_difference",
+      "direction": "candidate_minus_reference",
+      "replications": 3,
+      "effect_size": 0.61,
+      "uncertainty_interval": [0.5534, 0.6666],
+      "controls": [
+        {"control_id": "random_patch", "mean_paired_difference": 0.0233, "passed": true},
+        {"control_id": "same_layer_control", "mean_paired_difference": 0.0333, "passed": true}
+      ],
+      "controls_passed": true
+    }
+  ],
+  "epistemic_boundary": "This generated synthetic artifact tests numerical provenance only. It is not evidence that any actual AI system preserves a consciousness-relevant mechanism or is conscious."
+}
