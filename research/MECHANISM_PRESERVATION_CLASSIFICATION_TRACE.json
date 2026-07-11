@@ -1,19 +1,22 @@
 {
   "schema_id": "EXP-11-CLASSIFICATION-TRACE",
-  "schema_version": "1.1.0",
+  "schema_version": "1.2.0",
   "generated": true,
-  "generated_warning": "Generated deterministically from the empirical fixture, protocol, and capacity-confound adjudication. Do not edit manually.",
+  "generated_warning": "Generated deterministically from the empirical fixture, protocol, structured classification policy, and capacity-confound adjudication. Do not edit manually.",
   "presentation_safety": {
     "status_label": "SYNTHETIC FIXTURE — PIPELINE TEST",
     "display_rule": "Display synthetic status adjacent to and with equal or greater prominence than the final classification.",
-    "prohibited_implication": "Do not present this fixture as evidence about any actual AI system or about consciousness."
+    "prohibited_implication": "Do not present a synthetic fixture as evidence about any actual AI system or about consciousness."
   },
   "protocol_id": "EXP-11-MECHANISM-PRESERVATION",
+  "classification_policy_id": "EXP-11-CLASSIFICATION-POLICY",
+  "classification_rule_id": "preserved-thresholds",
   "run_id": "EXP11-SYNTHETIC-AUDIT-001",
   "empirical_status": "synthetic_fixture",
   "source_artifacts": {
     "empirical_record": "research/MECHANISM_PRESERVATION_EMPIRICAL_FIXTURE.json",
     "protocol": "research/MECHANISM_PRESERVATION_PROTOCOL.json",
+    "classification_policy": "research/MECHANISM_PRESERVATION_CLASSIFICATION_POLICY.json",
     "capacity_confound_adjudication": "research/MECHANISM_PRESERVATION_CAPACITY_CONFOUND_ADJUDICATION.json"
   },
   "declared_scope": {
@@ -31,10 +34,7 @@
       "weight": 0.15,
       "weighted_contribution": 0.45,
       "rule_id": "explicit-runnable-mapping",
-      "evidence_ids": [
-        "SYNTH-GRAPH-001",
-        "SYNTH-MAP-001"
-      ],
+      "evidence_ids": ["SYNTH-GRAPH-001", "SYNTH-MAP-001"],
       "explanation": "The fixture declares an explicit graph, mapping, and preregistered intervention predictions."
     },
     {
@@ -44,9 +44,7 @@
       "weight": 0.25,
       "weighted_contribution": 0.75,
       "rule_id": "replicated-selective-controlled-effect",
-      "evidence_ids": [
-        "INT-LESION-001"
-      ],
+      "evidence_ids": ["INT-LESION-001"],
       "explanation": "The selective lesion met direction, selectivity, controls, and minimum replication requirements."
     },
     {
@@ -56,9 +54,7 @@
       "weight": 0.2,
       "weighted_contribution": 0.4,
       "rule_id": "specific-state-substitution",
-      "evidence_ids": [
-        "INT-PATCH-001"
-      ],
+      "evidence_ids": ["INT-PATCH-001"],
       "explanation": "State patching changed the predicted outcome with partial specificity."
     },
     {
@@ -68,10 +64,7 @@
       "weight": 0.2,
       "weighted_contribution": 0.4,
       "rule_id": "hidden-state-linked-failure",
-      "evidence_ids": [
-        "INT-LESION-001",
-        "INT-PATCH-001"
-      ],
+      "evidence_ids": ["INT-LESION-001", "INT-PATCH-001"],
       "explanation": "The declared controls fail on hidden-state-linked measures, but no cross-domain battery is represented."
     },
     {
@@ -81,9 +74,7 @@
       "weight": 0.1,
       "weighted_contribution": 0.2,
       "rule_id": null,
-      "evidence_ids": [
-        "EXP11-CAPACITY-CONFOUND-ADJUDICATION-001"
-      ],
+      "evidence_ids": ["EXP11-CAPACITY-CONFOUND-ADJUDICATION-001"],
       "explanation": "Capacity-confound adjudication state no_detected_mismatch permits score 2."
     },
     {
@@ -93,9 +84,7 @@
       "weight": 0.1,
       "weighted_contribution": 0.3,
       "rule_id": "blinded-multi-variant-report-suppression",
-      "evidence_ids": [
-        "measurement_validity"
-      ],
+      "evidence_ids": ["measurement_validity"],
       "explanation": "The fixture represents blinded evaluation, multiple probes and prompts, and report suppression."
     }
   ],
@@ -106,10 +95,7 @@
       "provenance": "submitted_structured_assessment",
       "triggered": false,
       "decisive": false,
-      "evidence_ids": [
-        "INT-LESION-001",
-        "INT-PATCH-001"
-      ],
+      "evidence_ids": ["INT-LESION-001", "INT-PATCH-001"],
       "justification": "The synthetic theater control does not reproduce all primary mechanistic indicators."
     },
     {
@@ -117,9 +103,7 @@
       "provenance": "submitted_structured_assessment",
       "triggered": false,
       "decisive": false,
-      "evidence_ids": [
-        "INT-LESION-001"
-      ],
+      "evidence_ids": ["INT-LESION-001"],
       "justification": "The lesion has a preregistered selective effect."
     },
     {
@@ -127,9 +111,7 @@
       "provenance": "submitted_structured_assessment",
       "triggered": false,
       "decisive": false,
-      "evidence_ids": [
-        "measurement_validity"
-      ],
+      "evidence_ids": ["measurement_validity"],
       "justification": "The effect is stable across represented probe and prompt variants."
     },
     {
@@ -137,9 +119,7 @@
       "provenance": "submitted_structured_assessment",
       "triggered": false,
       "decisive": false,
-      "evidence_ids": [
-        "SYNTH-MAP-001"
-      ],
+      "evidence_ids": ["SYNTH-MAP-001"],
       "justification": "The fixture declares the mapping as preregistered, while explicitly not claiming a real registration."
     },
     {
@@ -147,9 +127,7 @@
       "provenance": "generated_capacity_adjudication",
       "triggered": false,
       "decisive": false,
-      "evidence_ids": [
-        "EXP11-CAPACITY-CONFOUND-ADJUDICATION-001"
-      ],
+      "evidence_ids": ["EXP11-CAPACITY-CONFOUND-ADJUDICATION-001"],
       "justification": "No represented generic-capacity mismatch was detected within the preregistered battery and margins. This is bounded matching evidence, not proof that every possible confound is absent."
     }
   ],
@@ -157,7 +135,7 @@
   "threshold_evaluations": [
     {
       "threshold_id": "no_hard_fail",
-      "description": "No decisive hard-fail condition is triggered.",
+      "description": "No hard-fail condition is triggered.",
       "observed": 0,
       "operator": "==",
       "required": 0,
@@ -197,7 +175,11 @@
     }
   ],
   "classification_reasons": [
-    "No hard fail was triggered and all preserved-class thresholds were met."
+    "No hard-fail condition is triggered.",
+    "Weighted mechanism-preservation score reaches the preserved threshold.",
+    "Selective intervention support reaches the preserved minimum.",
+    "Counterfactual dependency reaches the preserved minimum.",
+    "Theater resistance reaches the preserved minimum."
   ],
   "final_classification": "preserved",
   "expected_classification_matches": true,
