@@ -16,6 +16,7 @@ const validators = [
   'scripts/validate-generic-capacity-inference.mjs',
   'scripts/validate-capacity-confound-adjudication.mjs',
   'scripts/validate-authoritative-capacity-adjudication.mjs',
+  'scripts/validate-capacity-adjudication-registry-authority.mjs',
   'scripts/validate-mechanism-results.mjs',
   'scripts/validate-mechanism-classification-trace.mjs',
   'scripts/validate-mechanism-classification-trace-suite.mjs',
