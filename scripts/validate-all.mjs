@@ -20,6 +20,7 @@ const validators = [
   'scripts/validate-mechanism-classification-trace.mjs',
   'scripts/validate-mechanism-classification-trace-suite.mjs',
   'scripts/validate-classification-policy-mutations.mjs',
+  'scripts/validate-classification-policy-mutation-report.mjs',
   'scripts/validate-public-review.mjs',
   'scripts/validate-source-crosswalk.mjs'
 ];
