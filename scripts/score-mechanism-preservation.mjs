@@ -38,7 +38,7 @@ function getField(context, field) {
   return field.split('.').reduce((value, key) => value?.[key], context);
 }
 
-function evaluatePredicate(predicate, context) {
+export function evaluatePredicate(predicate, context) {
   if (predicate.operator === 'all_true' || predicate.operator === 'any_true') {
     const evaluations = (predicate.requirements ?? []).map((child) => evaluatePredicate(child, context));
     const passed = predicate.operator === 'all_true'
@@ -65,20 +65,26 @@ function evaluatePredicate(predicate, context) {
   return { ...predicate, observed, passed };
 }
 
-function evaluateClassificationPolicy(policy, context) {
+export function evaluateAllClassificationRules(policy, context) {
   assert(policy.protocol_id === context.protocol_id, `Classification policy protocol_id must equal ${context.protocol_id}.`);
-  const orderedRules = [...policy.outcomes].sort((a, b) => a.priority - b.priority);
-  for (const rule of orderedRules) {
-    const evaluations = (rule.requirements ?? []).map((predicate) => evaluatePredicate(predicate, context));
-    const matched = rule.match === 'any'
-      ? evaluations.some(({ passed }) => passed)
-      : evaluations.every(({ passed }) => passed);
-    if (matched) return { rule, evaluations };
-  }
+  return [...policy.outcomes]
+    .sort((a, b) => a.priority - b.priority)
+    .map((rule) => {
+      const evaluations = (rule.requirements ?? []).map((predicate) => evaluatePredicate(predicate, context));
+      const matched = rule.match === 'any'
+        ? evaluations.some(({ passed }) => passed)
+        : evaluations.every(({ passed }) => passed);
+      return { rule, evaluations, matched };
+    });
+}
+
+export function evaluateClassificationPolicy(policy, context) {
+  const matched = evaluateAllClassificationRules(policy, context).find((entry) => entry.matched);
+  if (matched) return { rule: matched.rule, evaluations: matched.evaluations };
   throw new Error('Classification policy has no matching rule or fallback.');
 }
 
-function resolveCapacityAdjudication(record) {
+export function resolveCapacityAdjudication(record) {
   assert(!Object.hasOwn(record, 'behavioral_matching_adequate'), 'behavioral_matching_adequate is deprecated; supply capacity_confound_adjudication.');
   const adjudication = record.capacity_confound_adjudication;
   assert(adjudication && typeof adjudication === 'object', 'capacity_confound_adjudication is required.');
