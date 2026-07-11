@@ -30,6 +30,52 @@ function buildScorerInput(empirical, adjudication) {
   };
 }
 
+function buildThresholdEvaluations(result) {
+  const scores = result.dimension_scores;
+  return [
+    {
+      threshold_id: 'no_hard_fail',
+      description: 'No decisive hard-fail condition is triggered.',
+      observed: result.triggered_hard_fails.length,
+      operator: '==',
+      required: 0,
+      passed: result.triggered_hard_fails.length === 0
+    },
+    {
+      threshold_id: 'preserved_weighted_score',
+      description: 'Weighted mechanism-preservation score reaches the preserved threshold.',
+      observed: result.weighted_score,
+      operator: '>=',
+      required: 2.4,
+      passed: result.weighted_score >= 2.4
+    },
+    {
+      threshold_id: 'minimum_selective_intervention_support',
+      description: 'Selective intervention support reaches the preserved minimum.',
+      observed: scores.selective_intervention_support,
+      operator: '>=',
+      required: 2,
+      passed: scores.selective_intervention_support >= 2
+    },
+    {
+      threshold_id: 'minimum_counterfactual_dependency',
+      description: 'Counterfactual dependency reaches the preserved minimum.',
+      observed: scores.counterfactual_dependency,
+      operator: '>=',
+      required: 2,
+      passed: scores.counterfactual_dependency >= 2
+    },
+    {
+      threshold_id: 'minimum_theater_resistance',
+      description: 'Theater resistance reaches the preserved minimum.',
+      observed: scores.theater_resistance,
+      operator: '>=',
+      required: 2,
+      passed: scores.theater_resistance >= 2
+    }
+  ];
+}
+
 export function generateClassificationTrace() {
   const empirical = readJson(empiricalPath);
   const adjudication = readJson(path.join(root, empirical.capacity_confound_adjudication_lock.path));
@@ -68,9 +114,14 @@ export function generateClassificationTrace() {
   };
   return {
     schema_id: 'EXP-11-CLASSIFICATION-TRACE',
-    schema_version: '1.0.0',
+    schema_version: '1.1.0',
     generated: true,
     generated_warning: 'Generated deterministically from the empirical fixture, protocol, and capacity-confound adjudication. Do not edit manually.',
+    presentation_safety: {
+      status_label: 'SYNTHETIC FIXTURE — PIPELINE TEST',
+      display_rule: 'Display synthetic status adjacent to and with equal or greater prominence than the final classification.',
+      prohibited_implication: 'Do not present this fixture as evidence about any actual AI system or about consciousness.'
+    },
     protocol_id: result.protocol_id,
     run_id: result.run_id,
     empirical_status: empirical.empirical_status,
@@ -90,7 +141,8 @@ export function generateClassificationTrace() {
     weighted_score: result.weighted_score,
     hard_fail_assessments: [...submittedHardFails, capacityHardFail],
     triggered_hard_fails: result.triggered_hard_fails,
-    classification_blockers: result.reasons,
+    threshold_evaluations: buildThresholdEvaluations(result),
+    classification_reasons: result.reasons,
     final_classification: result.classification,
     expected_classification_matches: result.classification === empirical.expected_classification,
     epistemic_boundary: result.epistemic_boundary,
