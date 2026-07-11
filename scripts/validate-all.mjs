@@ -21,6 +21,7 @@ const validators = [
   'scripts/validate-mechanism-classification-trace-suite.mjs',
   'scripts/validate-classification-policy-mutations.mjs',
   'scripts/validate-classification-policy-mutation-report.mjs',
+  'scripts/validate-classification-policy-structure-report.mjs',
   'scripts/validate-classifier-audit-page.mjs',
   'scripts/validate-public-review.mjs',
   'scripts/validate-source-crosswalk.mjs'
