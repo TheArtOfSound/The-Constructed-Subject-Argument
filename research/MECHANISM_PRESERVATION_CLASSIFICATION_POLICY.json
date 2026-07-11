@@ -1,0 +1,109 @@
+{
+  "schema_id": "EXP-11-CLASSIFICATION-POLICY",
+  "schema_version": "1.0.0",
+  "protocol_id": "EXP-11-MECHANISM-PRESERVATION",
+  "status": "normative_machine_readable_policy",
+  "evaluation_order": [
+    "not_preserved",
+    "underdetermined",
+    "preserved",
+    "partially_preserved",
+    "underdetermined_fallback"
+  ],
+  "operators": ["==", "<", ">=", "between_inclusive_lower_exclusive_upper", "is_false", "is_true", "any_true", "all_true"],
+  "outcomes": [
+    {
+      "rule_id": "not-preserved-decisive-defeat",
+      "outcome": "not_preserved",
+      "priority": 10,
+      "match": "any",
+      "requirements": [
+        {
+          "predicate_id": "decisive_hard_fail_present",
+          "field": "decisive_hard_fail",
+          "operator": "is_true",
+          "description": "A preregistered hard fail directly defeats an essential dependency."
+        },
+        {
+          "predicate_id": "low_score_with_adequate_measurement",
+          "operator": "all_true",
+          "requirements": [
+            { "field": "weighted_score", "operator": "<", "value": 1.0 },
+            { "field": "measurement_adequate", "operator": "is_true" }
+          ],
+          "description": "Weighted score is below 1.00 with adequate measurement power."
+        }
+      ]
+    },
+    {
+      "rule_id": "underdetermined-blocked-or-intermediate",
+      "outcome": "underdetermined",
+      "priority": 20,
+      "match": "any",
+      "requirements": [
+        { "predicate_id": "measurement_inadequate", "field": "measurement_adequate", "operator": "is_false", "description": "Measurement adequacy is not established." },
+        { "predicate_id": "matching_inadequate", "field": "matching_adequate", "operator": "is_false", "description": "Capacity-confound adjudication blocks a positive classification." },
+        { "predicate_id": "conflicting_interventions", "field": "conflicting_interventions", "operator": "is_true", "description": "Interventions produce materially conflicting results." },
+        { "predicate_id": "intermediate_weighted_score", "field": "weighted_score", "operator": "between_inclusive_lower_exclusive_upper", "lower": 1.0, "upper": 1.6, "description": "Weighted score falls in the protocol's underdetermined interval." }
+      ]
+    },
+    {
+      "rule_id": "preserved-thresholds",
+      "outcome": "preserved",
+      "priority": 30,
+      "match": "all",
+      "requirements": [
+        { "predicate_id": "no_hard_fail", "field": "triggered_hard_fail_count", "operator": "==", "value": 0, "description": "No hard-fail condition is triggered." },
+        { "predicate_id": "preserved_weighted_score", "field": "weighted_score", "operator": ">=", "value": 2.4, "description": "Weighted mechanism-preservation score reaches the preserved threshold." },
+        { "predicate_id": "minimum_selective_intervention_support", "field": "dimension_scores.selective_intervention_support", "operator": ">=", "value": 2, "description": "Selective intervention support reaches the preserved minimum." },
+        { "predicate_id": "minimum_counterfactual_dependency", "field": "dimension_scores.counterfactual_dependency", "operator": ">=", "value": 2, "description": "Counterfactual dependency reaches the preserved minimum." },
+        { "predicate_id": "minimum_theater_resistance", "field": "dimension_scores.theater_resistance", "operator": ">=", "value": 2, "description": "Theater resistance reaches the preserved minimum." }
+      ]
+    },
+    {
+      "rule_id": "partially-preserved-thresholds",
+      "outcome": "partially_preserved",
+      "priority": 40,
+      "match": "all",
+      "requirements": [
+        { "predicate_id": "no_hard_fail", "field": "triggered_hard_fail_count", "operator": "==", "value": 0, "description": "No hard-fail condition is triggered." },
+        { "predicate_id": "partial_weighted_score", "field": "weighted_score", "operator": ">=", "value": 1.6, "description": "Weighted score reaches the partial-preservation threshold." },
+        {
+          "predicate_id": "selective_or_counterfactual_support",
+          "operator": "any_true",
+          "requirements": [
+            { "field": "dimension_scores.selective_intervention_support", "operator": ">=", "value": 2 },
+            { "field": "dimension_scores.counterfactual_dependency", "operator": ">=", "value": 2 }
+          ],
+          "description": "At least one of selective intervention support or counterfactual dependency reaches 2."
+        }
+      ]
+    },
+    {
+      "rule_id": "underdetermined-fallback",
+      "outcome": "underdetermined",
+      "priority": 50,
+      "match": "all",
+      "requirements": [],
+      "description": "The record does not satisfy a more decisive protocol classification."
+    }
+  ],
+  "presentation_contract": {
+    "synthetic_fixture_label": "SYNTHETIC FIXTURE — PIPELINE TEST",
+    "synthetic_label_prominence": "Display synthetic status adjacent to and with equal or greater prominence than the final classification.",
+    "prohibited_implication": "Do not present a synthetic fixture as evidence about any actual AI system or about consciousness."
+  },
+  "epistemic_boundary": {
+    "supports": "A bounded claim about preservation of the declared mechanism at the preregistered abstraction level.",
+    "does_not_support": [
+      "Whether the system is phenomenally conscious",
+      "Whether the system is sentient",
+      "Whether the system has personhood or moral status",
+      "Whether a consciousness theory is globally correct",
+      "The system is conscious.",
+      "The system is not conscious.",
+      "The theory is proven.",
+      "Mechanism preservation establishes sentience, personhood, identity, or moral status."
+    ]
+  }
+}
