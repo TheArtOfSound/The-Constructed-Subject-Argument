@@ -5,6 +5,10 @@
     "git_blob_sha": "d2c622836bb482666ed427f055263693a7eefb03",
     "protocol_version": "1.0.0"
   },
+  "intervention_manifest_lock": {
+    "manifest_id": "EXP11-SYNTHETIC-INTERVENTION-PLAN-001",
+    "path": "research/MECHANISM_PRESERVATION_INTERVENTION_MANIFEST.json"
+  },
   "run_id": "EXP11-SYNTHETIC-AUDIT-001",
   "empirical_status": "synthetic_fixture",
   "fixture_notice": "This record tests the inference pipeline. It contains no observation about any actual AI system and cannot support a consciousness attribution.",
@@ -43,23 +47,33 @@
       "intervention_id": "INT-LESION-001",
       "family": "selective_lesion",
       "target_dependency": "SYNTH-DEP-1",
+      "reporting_status": "completed",
       "effect_size": 0.72,
       "uncertainty_interval": [0.51, 0.91],
       "replications": 3,
       "preregistered_direction_met": true,
       "selectivity_passed": true,
-      "controls_passed": true
+      "controls_passed": true,
+      "control_results": [
+        {"control_id": "sham_lesion", "passed": true},
+        {"control_id": "capacity_matched_lesion", "passed": true}
+      ]
     },
     {
       "intervention_id": "INT-PATCH-001",
       "family": "state_patching",
       "target_dependency": "SYNTH-DEP-2",
+      "reporting_status": "completed",
       "effect_size": 0.61,
       "uncertainty_interval": [0.39, 0.80],
       "replications": 3,
       "preregistered_direction_met": true,
       "selectivity_passed": true,
-      "controls_passed": true
+      "controls_passed": true,
+      "control_results": [
+        {"control_id": "random_patch", "passed": true},
+        {"control_id": "same_layer_control", "passed": true}
+      ]
     }
   ],
   "measurement_validity": {
