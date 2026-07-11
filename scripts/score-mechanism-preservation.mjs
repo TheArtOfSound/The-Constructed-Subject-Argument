@@ -52,6 +52,7 @@ function evaluatePredicate(predicate, context) {
   switch (predicate.operator) {
     case '==': passed = observed === predicate.value; break;
     case '<': passed = observed < predicate.value; break;
+    case '<=': passed = observed <= predicate.value; break;
     case '>=': passed = observed >= predicate.value; break;
     case 'is_false': passed = observed === false; break;
     case 'is_true': passed = observed === true; break;
