@@ -1,12 +1,12 @@
 {
-  "schema_version": "1.5.0",
+  "schema_version": "1.6.0",
   "schema_id": "EXP-11-EMPIRICAL-RESULT",
   "protocol_id": "EXP-11-MECHANISM-PRESERVATION",
   "derivation_rule_registry": "research/MECHANISM_SCORE_DERIVATION_RULES.json",
   "intervention_manifest_schema": "research/MECHANISM_PRESERVATION_INTERVENTION_MANIFEST.json",
   "capacity_confound_adjudication_schema": "research/MECHANISM_PRESERVATION_CAPACITY_CONFOUND_ADJUDICATION.json",
   "status": "research_data_contract",
-  "purpose": "Bind mechanism-preservation classifications to preregistered observations rather than unsupported ordinal judgments, selectively reported interventions, or duplicate confound decisions.",
+  "purpose": "Bind mechanism-preservation classifications to preregistered observations and generated causal-confound authority without synchronized decision copies.",
   "epistemic_boundary": {
     "supports": "Auditable evidence about preservation of a declared mechanism at a specified abstraction level.",
     "does_not_support": [
@@ -43,16 +43,24 @@
   },
   "capacity_confound_adjudication_lock": {
     "required_fields": ["adjudication_id", "path", "adjudication_state"],
-    "rule": "The generated causal-confound adjudication is the sole authoritative scorer input for the generic-capacity score ceiling, hard-fail state, and whether unresolved or partial confounding blocks a positive mechanism classification. Callers must not reconstruct those values as scorer inputs."
+    "rule": "The generated causal-confound adjudication is the sole stored authority for the generic-capacity score, capacity hard-fail state, and whether unresolved or partial confounding blocks a positive classification."
   },
   "scorer_input_contract": {
     "required_authoritative_field": "capacity_confound_adjudication",
-    "derived_fields": [
-      "behavioral_matching_adequate",
-      "dimension_scores.generic_capacity_exclusion",
-      "triggered_hard_fails.generic_capacity_control_explains_primary_effect"
+    "submitted_dimension_ids": [
+      "mapping_specificity",
+      "selective_intervention_support",
+      "counterfactual_dependency",
+      "theater_resistance",
+      "measurement_robustness"
     ],
-    "rule": "Derived capacity-confound fields are forbidden as scorer inputs. Legacy copies may remain temporarily in archival empirical fixtures only when validators prove exact agreement with the generated adjudication; they have no decision authority."
+    "generated_dimension_id": "generic_capacity_exclusion",
+    "forbidden_stored_fields": [
+      "behavioral_matching.behavioral_matching_adequate",
+      "dimension_derivations.generic_capacity_exclusion",
+      "hard_fail_assessments.generic_capacity_control_explains_primary_effect"
+    ],
+    "rule": "The empirical record submits exactly five non-capacity dimensions. Generic-capacity score and hard-fail authority are joined from the generated adjudication artifact at validation and scoring time; synchronized copies are forbidden."
   },
   "preregistration": {
     "required_fields": [
@@ -75,7 +83,7 @@
     "required_fields": ["metric_id", "primary", "standardized_difference", "tolerance", "passed"],
     "coverage_rule": "Every metric named by protocol.behavioral_equivalence.required_metrics must be reported exactly once.",
     "derivation_rule": "passed must equal abs(standardized_difference) <= tolerance.",
-    "aggregate_rule": "The generated matching and causal-confound adjudication artifacts, not a manually entered Boolean, determine downstream matching adequacy. Any aggregate Boolean retained in a fixture is archival duplication only."
+    "aggregate_rule": "No aggregate matching Boolean may be stored in the empirical record. Generated matching and causal-confound artifacts determine downstream matching authority."
   },
   "intervention_result": {
     "required_fields": [
@@ -100,11 +108,13 @@
   "dimension_derivation": {
     "required_fields": ["dimension_id", "score", "evidence_ids", "rule_id", "explanation"],
     "allowed_scores": [0, 1, 2, 3],
-    "rule": "Every ordinal score must cite resolvable evidence identifiers and a rule from the canonical derivation registry whose dimension, score, evidence kinds, and predicates all pass. A retained generic-capacity derivation is an archival mirror only and must equal the authoritative adjudication ceiling; it must be removed before scorer invocation."
+    "submitted_count": 5,
+    "rule": "Only the five non-capacity dimensions may be stored. Each must cite resolvable evidence and a canonical rule whose dimension, score, evidence kinds, and predicates pass. Generic-capacity exclusion is generated, not submitted."
   },
   "hard_fail_assessment": {
     "required_fields": ["condition_id", "triggered", "decisive", "evidence_ids", "justification"],
-    "rule": "A hard fail can be decisive only when its justification identifies the essential declared dependency defeated by the evidence. A retained generic-capacity hard-fail assessment is an archival mirror only and must equal the generated causal-confound adjudication; it must be removed before scorer invocation."
+    "submitted_count": 4,
+    "rule": "Only non-capacity hard fails may be stored. A submitted hard fail can be decisive only when its justification identifies the essential declared dependency defeated by the evidence. Generic-capacity hard-fail authority is generated, not submitted."
   },
   "empirical_status_values": ["synthetic_fixture", "pilot", "completed", "retracted"],
   "required_for_public_claim": [
@@ -114,10 +124,11 @@
     "cryptographic frozen intervention manifest match",
     "complete protocol matching battery",
     "authoritative causal-confound adjudication",
-    "scorer-native adjudication with no duplicate decision inputs",
+    "zero duplicate capacity decision fields",
     "all planned interventions and controls reported",
     "all exclusions and deviations disclosed",
-    "dimension scores derived through canonical rules",
+    "five submitted dimensions derived through canonical rules",
+    "generated capacity dimension joined at scoring time",
     "all evidence identifiers resolved",
     "forbidden conclusions preserved"
   ]
