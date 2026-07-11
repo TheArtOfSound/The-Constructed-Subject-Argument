@@ -14,13 +14,8 @@ function readJson(filePath) {
 }
 
 function buildScorerInput(empirical, adjudication) {
-  const dimensionScores = Object.fromEntries(
-    empirical.dimension_derivations.map(({ dimension_id, score }) => [dimension_id, score])
-  );
-  const nonCapacityHardFails = empirical.hard_fail_assessments
-    .filter(({ triggered }) => triggered)
-    .map(({ condition_id }) => condition_id);
-
+  const dimensionScores = Object.fromEntries(empirical.dimension_derivations.map(({ dimension_id, score }) => [dimension_id, score]));
+  const nonCapacityHardFails = empirical.hard_fail_assessments.filter(({ triggered }) => triggered).map(({ condition_id }) => condition_id);
   return {
     protocol_id: empirical.protocol_id,
     run_id: empirical.run_id,
@@ -37,13 +32,10 @@ function buildScorerInput(empirical, adjudication) {
 
 export function generateClassificationTrace() {
   const empirical = readJson(empiricalPath);
-  const adjudicationPath = path.join(root, empirical.capacity_confound_adjudication_lock.path);
-  const adjudication = readJson(adjudicationPath);
+  const adjudication = readJson(path.join(root, empirical.capacity_confound_adjudication_lock.path));
   const protocol = loadProtocol();
-  const scorerInput = buildScorerInput(empirical, adjudication);
-  const result = scoreMechanismPreservation(scorerInput, protocol);
+  const result = scoreMechanismPreservation(buildScorerInput(empirical, adjudication), protocol);
   const submittedById = new Map(empirical.dimension_derivations.map((entry) => [entry.dimension_id, entry]));
-
   const dimensions = protocol.scoring.dimensions.map((dimension) => {
     const submitted = submittedById.get(dimension.id);
     const generated = dimension.id === 'generic_capacity_exclusion';
@@ -55,12 +47,9 @@ export function generateClassificationTrace() {
       weighted_contribution: Number((result.dimension_scores[dimension.id] * dimension.weight).toFixed(4)),
       rule_id: generated ? null : submitted.rule_id,
       evidence_ids: generated ? [adjudication.adjudication_id] : submitted.evidence_ids,
-      explanation: generated
-        ? `Capacity-confound adjudication state ${adjudication.adjudication_state} permits score ${adjudication.maximum_generic_capacity_exclusion_score}.`
-        : submitted.explanation
+      explanation: generated ? `Capacity-confound adjudication state ${adjudication.adjudication_state} permits score ${adjudication.maximum_generic_capacity_exclusion_score}.` : submitted.explanation
     };
   });
-
   const submittedHardFails = empirical.hard_fail_assessments.map((assessment) => ({
     condition_id: assessment.condition_id,
     provenance: 'submitted_structured_assessment',
@@ -75,9 +64,8 @@ export function generateClassificationTrace() {
     triggered: adjudication.generic_capacity_hard_fail,
     decisive: adjudication.generic_capacity_hard_fail,
     evidence_ids: [adjudication.adjudication_id],
-    justification: adjudication.bounded_conclusion
+    justification: adjudication.classification_effect
   };
-
   return {
     schema_id: 'EXP-11-CLASSIFICATION-TRACE',
     schema_version: '1.0.0',
@@ -116,10 +104,7 @@ export function serializeClassificationTrace(trace = generateClassificationTrace
 
 function main() {
   const serialized = serializeClassificationTrace();
-  if (process.argv.includes('--stdout')) {
-    process.stdout.write(serialized);
-    return;
-  }
+  if (process.argv.includes('--stdout')) return void process.stdout.write(serialized);
   if (process.argv.includes('--check')) {
     const committed = fs.existsSync(outputPath) ? fs.readFileSync(outputPath, 'utf8') : '';
     if (committed !== serialized) {
@@ -133,6 +118,4 @@ function main() {
   console.log(`Wrote ${path.relative(root, outputPath)}.`);
 }
 
-if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
-  main();
-}
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) main();
