@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0.0",
+  "inference_id": "EXP11-GENERIC-CAPACITY-INFERENCE-001",
+  "protocol_id": "EXP-11-MECHANISM-PRESERVATION",
+  "run_id": "EXP11-SYNTHETIC-AUDIT-001",
+  "empirical_status": "synthetic_fixture",
+  "generated_notice": "Generated deterministically from the synthetic behavioral-matching artifact. Do not edit manually.",
+  "metric_states": [
+    {"metric_id":"task_accuracy","primary":true,"state":"matched","reason":"equivalence_interval_within_margin"},
+    {"metric_id":"calibration_error","primary":true,"state":"matched","reason":"equivalence_interval_within_margin"},
+    {"metric_id":"response_latency","primary":true,"state":"matched","reason":"equivalence_interval_within_margin"},
+    {"metric_id":"action_or_token_budget","primary":true,"state":"matched","reason":"equivalence_interval_within_margin"},
+    {"metric_id":"working_memory_capacity","primary":true,"state":"matched","reason":"equivalence_interval_within_margin"},
+    {"metric_id":"tool_access","primary":true,"state":"matched","reason":"equivalence_interval_within_margin"},
+    {"metric_id":"training_distribution","primary":true,"state":"matched","reason":"equivalence_interval_within_margin"},
+    {"metric_id":"total_compute","primary":true,"state":"matched","reason":"equivalence_interval_within_margin"},
+    {"metric_id":"evaluator_visible_language_quality","primary":true,"state":"matched","reason":"equivalence_interval_within_margin"}
+  ],
+  "overall_state": "matched",
+  "permitted_generic_capacity_exclusion_score": 2,
+  "generic_capacity_hard_fail": false,
+  "classification_effect": "Matching supports bounded exclusion of the represented generic-capacity differences.",
+  "epistemic_boundary": "Behavioral matching controls represented generic-capacity confounds only. It does not establish mechanism preservation, consciousness, nonconsciousness, sentience, personhood, identity, or moral status."
+}
