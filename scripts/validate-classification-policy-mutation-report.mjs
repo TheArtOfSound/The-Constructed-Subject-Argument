@@ -1,14 +1,13 @@
 #!/usr/bin/env node
 import fs from 'node:fs';
 import path from 'node:path';
-import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
+import { generateMutationReport } from './generate-classification-policy-mutation-report.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, '..');
 const reportPath = path.join(root, 'research', 'MECHANISM_PRESERVATION_CLASSIFICATION_MUTATION_REPORT.json');
 const registryPath = path.join(root, 'research', 'MECHANISM_PRESERVATION_CLASSIFICATION_POLICY_MUTATIONS.json');
-const generatorPath = path.join(root, 'scripts', 'generate-classification-policy-mutation-report.mjs');
 
 function readJson(filePath) {
   return JSON.parse(fs.readFileSync(filePath, 'utf8'));
@@ -19,11 +18,14 @@ function assert(condition, message) {
 }
 
 function main() {
-  execFileSync(process.execPath, [generatorPath, '--check'], { cwd: root, stdio: 'inherit' });
-
   const report = readJson(reportPath);
+  const regenerated = generateMutationReport();
   const registry = readJson(registryPath);
 
+  assert(
+    JSON.stringify(report) === JSON.stringify(regenerated),
+    'Committed classification mutation report differs from deterministic semantic regeneration.'
+  );
   assert(report.schema_id === 'EXP-11-CLASSIFICATION-MUTATION-REPORT', 'Unexpected mutation-report schema_id.');
   assert(report.status === 'generated_synthetic_mutation_analysis', 'Mutation report must remain explicitly generated and synthetic.');
   assert(report.protocol_id === registry.protocol_id, 'Mutation report protocol_id must match the mutation registry.');
