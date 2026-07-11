@@ -209,8 +209,8 @@ const epistemicFiles = [
 ].filter((file) => fs.existsSync(path.join(root, file)));
 
 const prohibitedPatterns = [
-  { pattern: /\bcurrent (?:AI|language models?|LLMs?) (?:is|are) conscious\b/gi, reason: 'unsupported present-tense consciousness declaration' },
-  { pattern: /\bproves? (?:that )?(?:an? )?(?:AI|language model|LLM) (?:is|are) conscious\b/gi, reason: 'single-result proof language' },
+  { pattern: /\bcurrent (?:AI|language models?|LLMs?) (?:is|are) conscious\b/gi, reason: 'unsupported present-tense consciousness declaration', allowNegation: true },
+  { pattern: /\bproves? (?:that )?(?:an? )?(?:AI|language model|LLM) (?:is|are) conscious\b/gi, reason: 'single-result proof language', allowNegation: true },
   { pattern: /\bconsciousness detector\b/gi, reason: 'detector framing without a validated theory-neutral test', allowNegation: true },
   { pattern: /\bprediction error is pain\b/gi, reason: 'collapses computational error and phenomenal valence', allowNegation: true },
   { pattern: /\breward (?:is|equals) suffering\b/gi, reason: 'collapses optimization and phenomenal suffering', allowNegation: true }

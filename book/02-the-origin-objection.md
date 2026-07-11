@@ -498,7 +498,7 @@ The permissive conclusion must remain equally constrained.
 
 The failure of the origin objection does not establish that:
 
-- present-day AI is already conscious;
+- current AI is conscious;
 - computation alone is sufficient;
 - behavioral equivalence guarantees experience;
 - any self-model creates a self;
