@@ -6,6 +6,7 @@ import { fileURLToPath } from 'node:url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, '..');
 const protocolPath = path.join(root, 'research', 'MECHANISM_PRESERVATION_PROTOCOL.json');
+const classificationPolicyPath = path.join(root, 'research', 'MECHANISM_PRESERVATION_CLASSIFICATION_POLICY.json');
 
 const CAPACITY_HARD_FAIL = 'generic_capacity_control_explains_primary_effect';
 const CAPACITY_POLICIES = Object.freeze({
@@ -20,6 +21,10 @@ export function loadProtocol() {
   return JSON.parse(fs.readFileSync(protocolPath, 'utf8'));
 }
 
+export function loadClassificationPolicy() {
+  return JSON.parse(fs.readFileSync(classificationPolicyPath, 'utf8'));
+}
+
 function assert(condition, message) {
   if (!condition) throw new Error(message);
 }
@@ -27,6 +32,49 @@ function assert(condition, message) {
 function round(value, places = 4) {
   const factor = 10 ** places;
   return Math.round((value + Number.EPSILON) * factor) / factor;
+}
+
+function getField(context, field) {
+  return field.split('.').reduce((value, key) => value?.[key], context);
+}
+
+function evaluatePredicate(predicate, context) {
+  if (predicate.operator === 'all_true' || predicate.operator === 'any_true') {
+    const evaluations = (predicate.requirements ?? []).map((child) => evaluatePredicate(child, context));
+    const passed = predicate.operator === 'all_true'
+      ? evaluations.every(({ passed: childPassed }) => childPassed)
+      : evaluations.some(({ passed: childPassed }) => childPassed);
+    return { ...predicate, observed: evaluations.map(({ observed }) => observed), passed, evaluations };
+  }
+
+  const observed = getField(context, predicate.field);
+  let passed;
+  switch (predicate.operator) {
+    case '==': passed = observed === predicate.value; break;
+    case '<': passed = observed < predicate.value; break;
+    case '>=': passed = observed >= predicate.value; break;
+    case 'is_false': passed = observed === false; break;
+    case 'is_true': passed = observed === true; break;
+    case 'between_inclusive_lower_exclusive_upper':
+      passed = observed >= predicate.lower && observed < predicate.upper;
+      break;
+    default:
+      throw new Error(`Unsupported classification-policy operator: ${predicate.operator}.`);
+  }
+  return { ...predicate, observed, passed };
+}
+
+function evaluateClassificationPolicy(policy, context) {
+  assert(policy.protocol_id === context.protocol_id, `Classification policy protocol_id must equal ${context.protocol_id}.`);
+  const orderedRules = [...policy.outcomes].sort((a, b) => a.priority - b.priority);
+  for (const rule of orderedRules) {
+    const evaluations = (rule.requirements ?? []).map((predicate) => evaluatePredicate(predicate, context));
+    const matched = rule.match === 'any'
+      ? evaluations.some(({ passed }) => passed)
+      : evaluations.every(({ passed }) => passed);
+    if (matched) return { rule, evaluations };
+  }
+  throw new Error('Classification policy has no matching rule or fallback.');
 }
 
 function resolveCapacityAdjudication(record) {
@@ -46,7 +94,7 @@ function resolveCapacityAdjudication(record) {
   return { adjudication, policy };
 }
 
-export function scoreMechanismPreservation(record, protocol = loadProtocol()) {
+export function scoreMechanismPreservation(record, protocol = loadProtocol(), classificationPolicy = loadClassificationPolicy()) {
   assert(record && typeof record === 'object', 'Result record must be an object.');
   assert(record.protocol_id === protocol.protocol_id, `protocol_id must equal ${protocol.protocol_id}.`);
   assert(typeof record.run_id === 'string' && record.run_id.trim(), 'run_id is required.');
@@ -62,9 +110,7 @@ export function scoreMechanismPreservation(record, protocol = loadProtocol()) {
   const submittedIds = Object.keys(submittedScores);
 
   assert(submittedIds.length === dimensions.length, 'Every non-derived scoring dimension must be supplied exactly once.');
-  for (const id of submittedIds) {
-    assert(allowedDimensionIds.has(id), `Unknown scoring dimension: ${id}.`);
-  }
+  for (const id of submittedIds) assert(allowedDimensionIds.has(id), `Unknown scoring dimension: ${id}.`);
 
   let weightedScore = 0;
   const normalizedScores = {};
@@ -79,9 +125,7 @@ export function scoreMechanismPreservation(record, protocol = loadProtocol()) {
   const knownHardFails = new Set(protocol.scoring.hard_fail_conditions);
   const callerHardFails = [...new Set(record.triggered_hard_fails ?? [])];
   assert(!callerHardFails.includes(CAPACITY_HARD_FAIL), `${CAPACITY_HARD_FAIL} is derived from capacity_confound_adjudication and must not be supplied manually.`);
-  for (const hardFail of callerHardFails) {
-    assert(knownHardFails.has(hardFail), `Unknown hard-fail condition: ${hardFail}.`);
-  }
+  for (const hardFail of callerHardFails) assert(knownHardFails.has(hardFail), `Unknown hard-fail condition: ${hardFail}.`);
   const triggeredHardFails = [...callerHardFails];
   if (capacityPolicy.hardFail) triggeredHardFails.push(CAPACITY_HARD_FAIL);
 
@@ -90,37 +134,28 @@ export function scoreMechanismPreservation(record, protocol = loadProtocol()) {
   const conflictingInterventions = record.conflicting_interventions === true;
   const otherDecisiveHardFail = record.decisive_hard_fail === true && callerHardFails.length > 0;
   const decisiveHardFail = capacityPolicy.hardFail || otherDecisiveHardFail;
-  const selective = normalizedScores.selective_intervention_support;
-  const counterfactual = normalizedScores.counterfactual_dependency;
-  const theater = normalizedScores.theater_resistance;
-
-  let outcome;
-  const reasons = [];
-
-  if (decisiveHardFail || (weightedScore < 1.0 && measurementAdequate)) {
-    outcome = 'not_preserved';
-    if (capacityPolicy.hardFail) reasons.push('A sufficiently explanatory generic-capacity mismatch defeated the primary mechanism inference.');
-    else if (otherDecisiveHardFail) reasons.push('A preregistered hard fail directly defeated an essential dependency.');
-    if (weightedScore < 1.0 && measurementAdequate) reasons.push('Weighted score was below 1.00 with adequate measurement power.');
-  } else if (!measurementAdequate || !matchingAdequate || conflictingInterventions || (weightedScore >= 1.0 && weightedScore < 1.6)) {
-    outcome = 'underdetermined';
-    if (!measurementAdequate) reasons.push('Measurement adequacy was not established.');
-    if (!matchingAdequate) reasons.push(`Capacity-confound adjudication state ${adjudication.adjudication_state} blocks a positive mechanism classification.`);
-    if (conflictingInterventions) reasons.push('Interventions produced materially conflicting results.');
-    if (weightedScore >= 1.0 && weightedScore < 1.6) reasons.push('Weighted score fell in the protocol’s underdetermined interval.');
-  } else if (triggeredHardFails.length === 0 && weightedScore >= 2.4 && selective >= 2 && counterfactual >= 2 && theater >= 2) {
-    outcome = 'preserved';
-    reasons.push('No hard fail was triggered and all preserved-class thresholds were met.');
-  } else if (triggeredHardFails.length === 0 && weightedScore >= 1.6 && (selective >= 2 || counterfactual >= 2)) {
-    outcome = 'partially_preserved';
-    reasons.push('No hard fail was triggered and the partial-preservation threshold was met.');
-  } else {
-    outcome = 'underdetermined';
-    reasons.push('The record did not meet a decisive protocol classification.');
-  }
+  const context = {
+    protocol_id: protocol.protocol_id,
+    weighted_score: weightedScore,
+    dimension_scores: normalizedScores,
+    triggered_hard_fail_count: triggeredHardFails.length,
+    decisive_hard_fail: decisiveHardFail,
+    measurement_adequate: measurementAdequate,
+    matching_adequate: matchingAdequate,
+    conflicting_interventions: conflictingInterventions
+  };
+  const { rule, evaluations } = evaluateClassificationPolicy(classificationPolicy, context);
+  const reasons = evaluations
+    .filter(({ passed }) => passed)
+    .map(({ description, predicate_id }) => description ?? predicate_id)
+    .filter(Boolean);
+  if (reasons.length === 0) reasons.push(rule.description ?? 'The record did not satisfy a more decisive protocol classification.');
+  if (capacityPolicy.hardFail) reasons.unshift('A sufficiently explanatory generic-capacity mismatch defeated the primary mechanism inference.');
 
   return {
     protocol_id: protocol.protocol_id,
+    classification_policy_id: classificationPolicy.schema_id,
+    classification_rule_id: rule.rule_id,
     run_id: record.run_id,
     theory_family: record.theory_family,
     implementation_level: record.implementation_level,
@@ -128,12 +163,10 @@ export function scoreMechanismPreservation(record, protocol = loadProtocol()) {
     dimension_scores: normalizedScores,
     capacity_confound_adjudication_state: adjudication.adjudication_state,
     triggered_hard_fails: triggeredHardFails,
-    classification: outcome,
+    classification: rule.outcome,
     reasons,
-    epistemic_boundary: {
-      supports: 'A bounded claim about preservation of the declared mechanism at the preregistered abstraction level.',
-      does_not_support: [...protocol.epistemic_boundary.does_not_test, ...protocol.interpretation_contract.forbidden]
-    }
+    classification_predicate_evaluations: evaluations,
+    epistemic_boundary: classificationPolicy.epistemic_boundary
   };
 }
 
@@ -154,6 +187,4 @@ function main() {
   }
 }
 
-if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
-  main();
-}
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) main();
