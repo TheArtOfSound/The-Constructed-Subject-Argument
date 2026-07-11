@@ -11,6 +11,10 @@
     "git_blob_sha": "800f511309e9003872d403f6e1760f99f8116648",
     "sha256": "6487867c8998fbfaeb8933bdb25c0cde707e9923779577406ebf5d142698b9ce"
   },
+  "raw_artifact_lock": {
+    "manifest_id": "EXP11-SYNTHETIC-RAW-MANIFEST-001",
+    "path": "research/MECHANISM_PRESERVATION_RAW_ARTIFACT_MANIFEST.json"
+  },
   "run_id": "EXP11-SYNTHETIC-AUDIT-001",
   "empirical_status": "synthetic_fixture",
   "fixture_notice": "This record tests the inference pipeline. It contains no observation about any actual AI system and cannot support a consciousness attribution.",
@@ -25,7 +29,7 @@
     "candidate_mapping_id": "SYNTH-MAP-001",
     "primary_outcomes": ["dependency_recovery", "selective_effect"],
     "matching_tolerances": {"default_standardized_difference": 0.10},
-    "analysis_plan": "Derive ordinal dimensions only from the evidence and deterministic rules declared in this record.",
+    "analysis_plan": "Derive ordinal dimensions only from immutable raw evidence and deterministic rules declared in this record.",
     "confidence_lowering_result": "Behavioral theater reproduces the primary hidden-state-linked indicators or selective lesions fail under matched controls."
   },
   "behavioral_matching": {
@@ -51,7 +55,7 @@
       "target_dependency": "SYNTH-DEP-1",
       "reporting_status": "completed",
       "effect_size": 0.72,
-      "uncertainty_interval": [0.51, 0.91],
+      "uncertainty_interval": [0.6747, 0.7653],
       "replications": 3,
       "preregistered_direction_met": true,
       "selectivity_passed": true,
@@ -67,7 +71,7 @@
       "target_dependency": "SYNTH-DEP-2",
       "reporting_status": "completed",
       "effect_size": 0.61,
-      "uncertainty_interval": [0.39, 0.80],
+      "uncertainty_interval": [0.5534, 0.6666],
       "replications": 3,
       "preregistered_direction_met": true,
       "selectivity_passed": true,
