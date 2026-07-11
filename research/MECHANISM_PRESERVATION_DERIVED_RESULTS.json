@@ -12,10 +12,21 @@
       "direction": "reference_minus_candidate",
       "replications": 3,
       "effect_size": 0.72,
-      "uncertainty_interval": [0.6747, 0.7653],
+      "uncertainty_interval": [
+        0.6747,
+        0.7653
+      ],
       "controls": [
-        {"control_id": "capacity_matched_lesion", "mean_paired_difference": 0.0433, "passed": true},
-        {"control_id": "sham_lesion", "mean_paired_difference": 0.0233, "passed": true}
+        {
+          "control_id": "capacity_matched_lesion",
+          "mean_paired_difference": 0.0433,
+          "passed": true
+        },
+        {
+          "control_id": "sham_lesion",
+          "mean_paired_difference": 0.0233,
+          "passed": true
+        }
       ],
       "controls_passed": true
     },
@@ -25,10 +36,21 @@
       "direction": "candidate_minus_reference",
       "replications": 3,
       "effect_size": 0.61,
-      "uncertainty_interval": [0.5534, 0.6666],
+      "uncertainty_interval": [
+        0.5534,
+        0.6666
+      ],
       "controls": [
-        {"control_id": "random_patch", "mean_paired_difference": 0.0233, "passed": true},
-        {"control_id": "same_layer_control", "mean_paired_difference": 0.0333, "passed": true}
+        {
+          "control_id": "random_patch",
+          "mean_paired_difference": 0.0233,
+          "passed": true
+        },
+        {
+          "control_id": "same_layer_control",
+          "mean_paired_difference": 0.0333,
+          "passed": true
+        }
       ],
       "controls_passed": true
     }
