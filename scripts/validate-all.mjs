@@ -14,6 +14,7 @@ const validators = [
   'scripts/validate-derived-mechanism-results.mjs',
   'scripts/validate-mechanism-matching-results.mjs',
   'scripts/validate-generic-capacity-inference.mjs',
+  'scripts/validate-capacity-confound-adjudication.mjs',
   'scripts/validate-mechanism-results.mjs',
   'scripts/validate-public-review.mjs',
   'scripts/validate-source-crosswalk.mjs'
