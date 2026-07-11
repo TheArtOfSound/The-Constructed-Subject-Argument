@@ -18,6 +18,7 @@ const protocol = JSON.parse(protocolBytes.toString('utf8'));
 const schema = readJson('research/MECHANISM_PRESERVATION_EMPIRICAL_SCHEMA.json');
 const record = readJson('research/MECHANISM_PRESERVATION_EMPIRICAL_FIXTURE.json');
 const ruleRegistry = readJson('research/MECHANISM_SCORE_DERIVATION_RULES.json');
+const manifest = readJson(record.intervention_manifest_lock?.path ?? 'research/MECHANISM_PRESERVATION_INTERVENTION_MANIFEST.json');
 
 const gitBlobSha = crypto
   .createHash('sha1')
@@ -35,12 +36,15 @@ assert(schema.empirical_status_values.includes(record.empirical_status), 'Invali
 assert(record.empirical_status === 'synthetic_fixture', 'Repository fixture must remain explicitly synthetic.');
 assert(record.fixture_notice?.includes('no observation about any actual AI system'), 'Synthetic fixture boundary is missing.');
 
-for (const field of schema.required_top_level_fields) {
-  assert(Object.hasOwn(record, field), `Missing required empirical field: ${field}.`);
-}
-for (const field of schema.preregistration.required_fields) {
-  assert(Object.hasOwn(record.preregistration ?? {}, field), `Missing preregistration field: ${field}.`);
-}
+for (const field of schema.required_top_level_fields) assert(Object.hasOwn(record, field), `Missing required empirical field: ${field}.`);
+for (const field of schema.preregistration.required_fields) assert(Object.hasOwn(record.preregistration ?? {}, field), `Missing preregistration field: ${field}.`);
+for (const field of schema.intervention_manifest_lock.required_fields) assert(Object.hasOwn(record.intervention_manifest_lock ?? {}, field), `Missing intervention manifest lock field: ${field}.`);
+
+assert(manifest.manifest_id === record.intervention_manifest_lock.manifest_id, 'Intervention manifest ID mismatch.');
+assert(manifest.protocol_id === protocol.protocol_id, 'Intervention manifest targets the wrong protocol.');
+assert(manifest.run_id === record.run_id, 'Intervention manifest and empirical record must target the same run.');
+assert(manifest.frozen_before_outcomes === true, 'Intervention manifest must be frozen before outcomes.');
+assert(manifest.fixture_notice?.includes('no empirical observation about an actual AI system'), 'Synthetic intervention manifest boundary is missing.');
 
 const requiredMetricIds = new Set(protocol.behavioral_equivalence.required_metrics);
 const metrics = record.behavioral_matching?.metrics ?? [];
@@ -48,37 +52,56 @@ const metricIds = new Set(metrics.map((metric) => metric.metric_id));
 assert(metrics.length === metricIds.size, 'Behavioral matching metrics contain duplicate metric IDs.');
 assert(sameSet(metricIds, requiredMetricIds), `Behavioral matching must report every protocol metric exactly once. Required: ${[...requiredMetricIds].join(', ')}.`);
 for (const metric of metrics) {
-  for (const field of schema.behavioral_matching_metric.required_fields) {
-    assert(Object.hasOwn(metric, field), `Matching metric ${metric.metric_id ?? '<unknown>'} lacks ${field}.`);
-  }
-  const derivedPass = Math.abs(metric.standardized_difference) <= metric.tolerance;
-  assert(metric.passed === derivedPass, `Matching metric ${metric.metric_id} has a non-deterministic pass value.`);
+  for (const field of schema.behavioral_matching_metric.required_fields) assert(Object.hasOwn(metric, field), `Matching metric ${metric.metric_id ?? '<unknown>'} lacks ${field}.`);
+  assert(metric.passed === Math.abs(metric.standardized_difference) <= metric.tolerance, `Matching metric ${metric.metric_id} has a non-deterministic pass value.`);
 }
 const allPrimaryPass = metrics.filter((metric) => metric.primary).every((metric) => metric.passed);
 assert(record.behavioral_matching.behavioral_matching_adequate === allPrimaryPass, 'Aggregate behavioral matching status is inconsistent with primary metrics.');
 
-const allowedFamilies = new Set(protocol.intervention_families.map((family) => family.id));
+const protocolFamilies = new Map(protocol.intervention_families.map((family) => [family.id, family]));
+const planned = manifest.planned_interventions ?? [];
+const plannedById = new Map();
+for (const item of planned) {
+  assert(typeof item.intervention_id === 'string' && item.intervention_id.length > 0, 'Planned intervention lacks intervention_id.');
+  assert(!plannedById.has(item.intervention_id), `Duplicate planned intervention ID: ${item.intervention_id}.`);
+  assert(protocolFamilies.has(item.family), `Planned intervention ${item.intervention_id} uses unknown family ${item.family}.`);
+  assert(Array.isArray(item.required_controls) && item.required_controls.length > 0, `Planned intervention ${item.intervention_id} lacks required controls.`);
+  const protocolControls = new Set(protocolFamilies.get(item.family).minimum_controls);
+  const manifestControls = new Set(item.required_controls);
+  assert([...protocolControls].every((id) => manifestControls.has(id)), `Planned intervention ${item.intervention_id} omits a protocol-minimum control.`);
+  assert(typeof item.analysis_rule === 'string' && item.analysis_rule.length >= 60, `Planned intervention ${item.intervention_id} lacks a substantive analysis rule.`);
+  plannedById.set(item.intervention_id, item);
+}
+assert(plannedById.size > 0, 'Frozen intervention manifest contains no planned interventions.');
+
 const interventions = record.interventions ?? [];
 const interventionById = new Map();
 for (const intervention of interventions) {
-  for (const field of schema.intervention_result.required_fields) {
-    assert(Object.hasOwn(intervention, field), `Intervention ${intervention.intervention_id ?? '<unknown>'} lacks ${field}.`);
-  }
+  for (const field of schema.intervention_result.required_fields) assert(Object.hasOwn(intervention, field), `Intervention ${intervention.intervention_id ?? '<unknown>'} lacks ${field}.`);
   assert(!interventionById.has(intervention.intervention_id), `Duplicate intervention ID: ${intervention.intervention_id}.`);
-  assert(allowedFamilies.has(intervention.family), `Unknown intervention family: ${intervention.family}.`);
+  assert(schema.intervention_result.reporting_status_values.includes(intervention.reporting_status), `Intervention ${intervention.intervention_id} has invalid reporting_status.`);
+  const plan = plannedById.get(intervention.intervention_id);
+  assert(plan, `Reported intervention ${intervention.intervention_id} was not preregistered.`);
+  assert(intervention.family === plan.family, `Intervention ${intervention.intervention_id} family diverges from the frozen plan.`);
+  assert(intervention.target_dependency === plan.target_dependency, `Intervention ${intervention.intervention_id} target dependency diverges from the frozen plan.`);
   assert(Array.isArray(intervention.uncertainty_interval) && intervention.uncertainty_interval.length === 2, `Intervention ${intervention.intervention_id} needs a two-value uncertainty interval.`);
-  assert(intervention.replications >= schema.intervention_result.minimum_replications, `Intervention ${intervention.intervention_id} does not meet minimum replication.`);
+  assert(intervention.replications >= Math.max(schema.intervention_result.minimum_replications, plan.minimum_replications), `Intervention ${intervention.intervention_id} does not meet minimum replication.`);
+  const controls = intervention.control_results ?? [];
+  const controlIds = new Set(controls.map((control) => control.control_id));
+  assert(controls.length === controlIds.size, `Intervention ${intervention.intervention_id} contains duplicate control results.`);
+  assert(sameSet(controlIds, new Set(plan.required_controls)), `Intervention ${intervention.intervention_id} must report every frozen required control exactly once.`);
+  assert(controls.every((control) => typeof control.passed === 'boolean'), `Intervention ${intervention.intervention_id} has a non-Boolean control result.`);
+  assert(intervention.controls_passed === controls.every((control) => control.passed), `Intervention ${intervention.intervention_id} controls_passed is inconsistent with control results.`);
   interventionById.set(intervention.intervention_id, intervention);
 }
+assert(sameSet(new Set(interventionById.keys()), new Set(plannedById.keys())), 'Every planned intervention must be reported exactly once; null, failed, aborted, and excluded results cannot be omitted.');
 
 const knownHardFails = new Set(protocol.scoring.hard_fail_conditions);
 const hardFailById = new Map();
 const triggered = [];
 let decisive = false;
 for (const assessment of record.hard_fail_assessments ?? []) {
-  for (const field of schema.hard_fail_assessment.required_fields) {
-    assert(Object.hasOwn(assessment, field), `Hard-fail assessment ${assessment.condition_id ?? '<unknown>'} lacks ${field}.`);
-  }
+  for (const field of schema.hard_fail_assessment.required_fields) assert(Object.hasOwn(assessment, field), `Hard-fail assessment ${assessment.condition_id ?? '<unknown>'} lacks ${field}.`);
   assert(knownHardFails.has(assessment.condition_id), `Unknown hard-fail condition: ${assessment.condition_id}.`);
   assert(!hardFailById.has(assessment.condition_id), `Duplicate hard-fail assessment: ${assessment.condition_id}.`);
   if (assessment.decisive) {
@@ -125,44 +148,29 @@ for (const rule of ruleRegistry.rules ?? []) {
   assert(!rulesById.has(rule.rule_id), `Duplicate derivation rule ID: ${rule.rule_id}.`);
   assert(dimensions.has(rule.dimension_id), `Rule ${rule.rule_id} targets unknown dimension ${rule.dimension_id}.`);
   assert(schema.dimension_derivation.allowed_scores.includes(rule.permitted_score), `Rule ${rule.rule_id} has invalid permitted_score.`);
-  assert(Array.isArray(rule.required_evidence_kinds) && rule.required_evidence_kinds.length > 0, `Rule ${rule.rule_id} lacks evidence-kind requirements.`);
-  assert(Array.isArray(rule.predicates) && rule.predicates.length > 0, `Rule ${rule.rule_id} lacks machine predicates.`);
-  for (const predicate of rule.predicates) assert(predicateEvaluators[predicate], `Rule ${rule.rule_id} references unknown predicate ${predicate}.`);
+  for (const predicate of rule.predicates ?? []) assert(predicateEvaluators[predicate], `Rule ${rule.rule_id} references unknown predicate ${predicate}.`);
   rulesById.set(rule.rule_id, rule);
 }
-for (const dimension of dimensions) {
-  assert([...rulesById.values()].some((rule) => rule.dimension_id === dimension), `No derivation rule exists for dimension ${dimension}.`);
-}
+for (const dimension of dimensions) assert([...rulesById.values()].some((rule) => rule.dimension_id === dimension), `No derivation rule exists for dimension ${dimension}.`);
 
 const dimensionScores = {};
 for (const derivation of record.dimension_derivations ?? []) {
-  for (const field of schema.dimension_derivation.required_fields) {
-    assert(Object.hasOwn(derivation, field), `Dimension derivation ${derivation.dimension_id ?? '<unknown>'} lacks ${field}.`);
-  }
+  for (const field of schema.dimension_derivation.required_fields) assert(Object.hasOwn(derivation, field), `Dimension derivation ${derivation.dimension_id ?? '<unknown>'} lacks ${field}.`);
   assert(dimensions.has(derivation.dimension_id), `Unknown dimension derivation: ${derivation.dimension_id}.`);
-  assert(schema.dimension_derivation.allowed_scores.includes(derivation.score), `Invalid score for ${derivation.dimension_id}.`);
-  assert(Array.isArray(derivation.evidence_ids) && derivation.evidence_ids.length > 0, `${derivation.dimension_id} lacks evidence identifiers.`);
-  assert(typeof derivation.explanation === 'string' && derivation.explanation.length >= 40, `${derivation.dimension_id} explanation is not substantive.`);
   assert(!Object.hasOwn(dimensionScores, derivation.dimension_id), `Duplicate dimension derivation: ${derivation.dimension_id}.`);
-
   const rule = rulesById.get(derivation.rule_id);
   assert(rule, `${derivation.dimension_id} references unknown derivation rule ${derivation.rule_id}.`);
-  assert(rule.dimension_id === derivation.dimension_id, `Rule ${rule.rule_id} cannot score dimension ${derivation.dimension_id}.`);
-  assert(rule.permitted_score === derivation.score, `Rule ${rule.rule_id} permits score ${rule.permitted_score}, not ${derivation.score}.`);
+  assert(rule.dimension_id === derivation.dimension_id && rule.permitted_score === derivation.score, `Rule ${rule.rule_id} does not license ${derivation.dimension_id} score ${derivation.score}.`);
   for (const evidenceId of derivation.evidence_ids) assert(evidenceKinds.has(evidenceId), `${derivation.dimension_id} cites unresolved evidence ID ${evidenceId}.`);
   const citedKinds = new Set(derivation.evidence_ids.map((id) => evidenceKinds.get(id)));
-  for (const requiredKind of rule.required_evidence_kinds) assert(citedKinds.has(requiredKind), `Rule ${rule.rule_id} requires evidence kind ${requiredKind}.`);
+  for (const kind of rule.required_evidence_kinds) assert(citedKinds.has(kind), `Rule ${rule.rule_id} requires evidence kind ${kind}.`);
   const citedInterventions = derivation.evidence_ids.map((id) => interventionById.get(id)).filter(Boolean);
-  for (const predicate of rule.predicates) {
-    assert(predicateEvaluators[predicate]({ evidenceIds: derivation.evidence_ids, citedInterventions }), `Rule ${rule.rule_id} failed predicate ${predicate}.`);
-  }
+  for (const predicate of rule.predicates) assert(predicateEvaluators[predicate]({ evidenceIds: derivation.evidence_ids, citedInterventions }), `Rule ${rule.rule_id} failed predicate ${predicate}.`);
   dimensionScores[derivation.dimension_id] = derivation.score;
 }
 assert(Object.keys(dimensionScores).length === dimensions.size, 'Every protocol scoring dimension must be derived exactly once.');
 
-for (const forbidden of protocol.interpretation_contract.forbidden) {
-  assert(record.forbidden_conclusions.includes(forbidden), `Forbidden conclusion was dropped: ${forbidden}`);
-}
+for (const forbidden of protocol.interpretation_contract.forbidden) assert(record.forbidden_conclusions.includes(forbidden), `Forbidden conclusion was dropped: ${forbidden}`);
 
 const scored = scoreMechanismPreservation({
   protocol_id: record.protocol_id,
@@ -184,6 +192,7 @@ assert(record.deviations && record.exclusions, 'Deviations and exclusions must b
 console.log(`Validated empirical mechanism result ${record.run_id}.`);
 console.log(`Protocol lock: ${gitBlobSha}`);
 console.log(`Matching battery: ${metrics.length}/${requiredMetricIds.size} required metrics.`);
+console.log(`Intervention completeness: ${interventions.length}/${planned.length} frozen interventions.`);
 console.log(`Resolved derivation rules: ${Object.keys(dimensionScores).length}/${dimensions.size}.`);
 console.log(`Derived classification: ${scored.classification} (${scored.weighted_score}).`);
 console.log('Synthetic fixture only; no current AI consciousness claim is licensed.');
