@@ -3,6 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
+  loadCapacityAdjudicationRules,
   loadClassificationPolicy,
   loadProtocol,
   scoreMechanismPreservation
@@ -10,18 +11,10 @@ import {
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, '..');
-const capacityRulesPath = path.join(root, 'research', 'GENERIC_CAPACITY_CONFOUND_ADJUDICATION_RULES.json');
 const outputPath = path.join(root, 'research', 'MECHANISM_PRESERVATION_CLASSIFICATION_POLICY_TRANSITION_REPORT.json');
 const NON_CAPACITY_HARD_FAIL = 'behavioral_theater_control_reproduces_all_primary_mechanistic_indicators';
 const HARD_FAIL_MODES = ['none', 'triggered_nondecisive', 'triggered_decisive'];
 const OUTCOME_RANK = Object.freeze({ not_preserved: 0, underdetermined: 1, partially_preserved: 2, preserved: 3 });
-const CAPACITY_REPAIRS = [
-  ['mismatch_sufficiently_explanatory', 'mismatch_partially_explanatory', 'remove_sufficient_explanation'],
-  ['explanatory_role_underdetermined', 'mismatch_partially_explanatory', 'resolve_role_partial'],
-  ['explanatory_role_underdetermined', 'mismatch_nonexplanatory', 'resolve_role_nonexplanatory'],
-  ['mismatch_partially_explanatory', 'mismatch_nonexplanatory', 'reduce_explanatory_strength'],
-  ['mismatch_nonexplanatory', 'no_detected_mismatch', 'remove_detected_mismatch']
-];
 
 function combinations(values, length, prefix = []) {
   if (prefix.length === length) return [prefix];
@@ -38,6 +31,22 @@ function capacityAdjudications(registry) {
     maximum_generic_capacity_exclusion_score: entry.maximum_generic_capacity_exclusion_score,
     generic_capacity_hard_fail: entry.hard_fail
   }]));
+}
+
+function capacityRepairs(registry) {
+  if (!Array.isArray(registry.repair_edges) || registry.repair_edges.length === 0) {
+    throw new Error('Capacity adjudication registry must declare at least one repair edge.');
+  }
+  const knownStates = new Set(registry.outcomes.map(({ state }) => state));
+  const edgeIds = new Set();
+  return registry.repair_edges.map((edge) => {
+    if (!edge.edge_id || edgeIds.has(edge.edge_id)) throw new Error(`Capacity repair edge_id must be unique: ${edge.edge_id}.`);
+    if (!knownStates.has(edge.from) || !knownStates.has(edge.to)) throw new Error(`Capacity repair edge ${edge.edge_id} references an unknown state.`);
+    if (edge.from === edge.to) throw new Error(`Capacity repair edge ${edge.edge_id} must change state.`);
+    if (!edge.epistemic_direction) throw new Error(`Capacity repair edge ${edge.edge_id} must declare epistemic_direction.`);
+    edgeIds.add(edge.edge_id);
+    return edge;
+  });
 }
 
 function makeRecord(protocol, dimensionIds, scores, adjudication, measurementAdequate, conflictingInterventions, hardFailMode, runId) {
@@ -80,8 +89,9 @@ function transitionFamily(type) {
 export function generateTransitionReport() {
   const protocol = loadProtocol();
   const policy = loadClassificationPolicy();
-  const capacityRegistry = JSON.parse(fs.readFileSync(capacityRulesPath, 'utf8'));
+  const capacityRegistry = loadCapacityAdjudicationRules();
   const adjudications = capacityAdjudications(capacityRegistry);
+  const repairEdges = capacityRepairs(capacityRegistry);
   const dimensionIds = protocol.scoring.dimensions.map(({ id }) => id).filter((id) => id !== 'generic_capacity_exclusion');
   const scoreVectors = combinations([0, 1, 2, 3], dimensionIds.length);
   const states = [];
@@ -96,7 +106,7 @@ export function generateTransitionReport() {
             const key = stateKey(state);
             const record = makeRecord(protocol, dimensionIds, scores, adjudications[capacityState], measurementAdequate, conflictingInterventions, hardFailMode, `TRANSITION-${states.length}`);
             states.push(state);
-            results.set(key, scoreMechanismPreservation(record, protocol, policy));
+            results.set(key, scoreMechanismPreservation(record, protocol, policy, capacityRegistry));
           }
         }
       }
@@ -112,7 +122,7 @@ export function generateTransitionReport() {
   function observe(source, target, type) {
     const sourceResult = results.get(stateKey(source));
     const targetRecord = makeRecord(protocol, dimensionIds, target.scores, adjudications[target.capacityState], target.measurementAdequate, target.conflictingInterventions, target.hardFailMode, `TARGET-${totalTransitions}`);
-    const targetResult = scoreMechanismPreservation(targetRecord, protocol, policy);
+    const targetResult = scoreMechanismPreservation(targetRecord, protocol, policy, capacityRegistry);
     const category = classifyTransition(sourceResult, targetResult, type);
     increment(categoryCounts, category);
     typeCounts[type] ??= {};
@@ -139,8 +149,8 @@ export function generateTransitionReport() {
     }
     if (!state.measurementAdequate) observe(state, { ...state, measurementAdequate: true }, 'measurement_repair');
     if (state.conflictingInterventions) observe(state, { ...state, conflictingInterventions: false }, 'intervention_conflict_repair');
-    for (const [from, to, label] of CAPACITY_REPAIRS) {
-      if (state.capacityState === from) observe(state, { ...state, capacityState: to }, `capacity_repair:${label}`);
+    for (const edge of repairEdges) {
+      if (state.capacityState === edge.from) observe(state, { ...state, capacityState: edge.to }, `capacity_repair:${edge.edge_id}`);
     }
     if (state.hardFailMode === 'triggered_decisive') observe(state, { ...state, hardFailMode: 'triggered_nondecisive' }, 'hard_fail_demotion');
     else if (state.hardFailMode === 'triggered_nondecisive') observe(state, { ...state, hardFailMode: 'none' }, 'hard_fail_removal');
@@ -181,7 +191,7 @@ export function generateTransitionReport() {
       valid_source_state_count: states.length,
       submitted_dimension_ids: dimensionIds,
       submitted_dimension_values: [0, 1, 2, 3],
-      capacity_repair_edges: CAPACITY_REPAIRS.map(([from, to, id]) => ({ id, from, to })),
+      capacity_repair_edges: repairEdges.map(({ edge_id: id, from, to }) => ({ id, from, to })),
       total_one_step_transitions: totalTransitions
     },
     summary: {
