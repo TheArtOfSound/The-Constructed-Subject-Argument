@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.2.0",
+  "schema_version": "1.3.0",
   "schema_id": "EXP-11-EMPIRICAL-RESULT",
   "protocol_id": "EXP-11-MECHANISM-PRESERVATION",
   "derivation_rule_registry": "research/MECHANISM_SCORE_DERIVATION_RULES.json",
@@ -36,8 +36,8 @@
     "rule": "The result must name the exact Git blob SHA and schema version of the protocol used before outcomes were observed."
   },
   "intervention_manifest_lock": {
-    "required_fields": ["manifest_id", "path"],
-    "rule": "The result must resolve to a frozen intervention manifest for the same protocol and run. Every planned intervention must appear exactly once in reported results regardless of outcome."
+    "required_fields": ["manifest_id", "path", "git_blob_sha", "sha256"],
+    "rule": "The result must resolve to a frozen intervention manifest for the same protocol and run, and both the Git blob SHA and SHA-256 digest must match the exact manifest bytes. Every planned intervention must appear exactly once in reported results regardless of outcome."
   },
   "preregistration": {
     "required_fields": [
@@ -96,7 +96,7 @@
     "completed empirical status",
     "resolvable preregistration hash",
     "protocol lock match",
-    "frozen intervention manifest match",
+    "cryptographic frozen intervention manifest match",
     "complete protocol matching battery",
     "all planned interventions and controls reported",
     "all exclusions and deviations disclosed",
