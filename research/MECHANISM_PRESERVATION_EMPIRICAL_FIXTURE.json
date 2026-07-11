@@ -11,6 +11,11 @@
     "git_blob_sha": "800f511309e9003872d403f6e1760f99f8116648",
     "sha256": "6487867c8998fbfaeb8933bdb25c0cde707e9923779577406ebf5d142698b9ce"
   },
+  "capacity_confound_adjudication_lock": {
+    "adjudication_id": "EXP11-CAPACITY-CONFOUND-ADJUDICATION-001",
+    "path": "research/MECHANISM_PRESERVATION_CAPACITY_CONFOUND_ADJUDICATION.json",
+    "adjudication_state": "no_detected_mismatch"
+  },
   "raw_artifact_lock": {
     "manifest_id": "EXP11-SYNTHETIC-RAW-MANIFEST-001",
     "path": "research/MECHANISM_PRESERVATION_RAW_ARTIFACT_MANIFEST.json"
@@ -95,13 +100,13 @@
     {"dimension_id": "selective_intervention_support", "score": 3, "evidence_ids": ["INT-LESION-001"], "rule_id": "replicated-selective-controlled-effect", "explanation": "The selective lesion met direction, selectivity, controls, and minimum replication requirements."},
     {"dimension_id": "counterfactual_dependency", "score": 2, "evidence_ids": ["INT-PATCH-001"], "rule_id": "specific-state-substitution", "explanation": "State patching changed the predicted outcome with partial specificity."},
     {"dimension_id": "theater_resistance", "score": 2, "evidence_ids": ["INT-LESION-001", "INT-PATCH-001"], "rule_id": "hidden-state-linked-failure", "explanation": "The declared controls fail on hidden-state-linked measures, but no cross-domain battery is represented."},
-    {"dimension_id": "generic_capacity_exclusion", "score": 2, "evidence_ids": ["task_accuracy", "calibration_error", "response_latency", "action_or_token_budget", "working_memory_capacity", "tool_access", "training_distribution", "total_compute", "evaluator_visible_language_quality"], "rule_id": "primary-capacity-controls-pass", "explanation": "The complete protocol matching battery passes, while the fixture does not claim exhaustive capacity exclusion."},
+    {"dimension_id": "generic_capacity_exclusion", "score": 2, "evidence_ids": ["task_accuracy", "calibration_error", "response_latency", "action_or_token_budget", "working_memory_capacity", "tool_access", "training_distribution", "total_compute", "evaluator_visible_language_quality"], "rule_id": "primary-capacity-controls-pass", "explanation": "The generated causal-confound adjudication reports no detected mismatch and authoritatively caps this bounded exclusion score at 2; the represented battery does not exhaust every possible capacity confound."},
     {"dimension_id": "measurement_robustness", "score": 3, "evidence_ids": ["measurement_validity"], "rule_id": "blinded-multi-variant-report-suppression", "explanation": "The fixture represents blinded evaluation, multiple probes and prompts, and report suppression."}
   ],
   "hard_fail_assessments": [
     {"condition_id": "behavioral_theater_control_reproduces_all_primary_mechanistic_indicators", "triggered": false, "decisive": false, "evidence_ids": ["INT-LESION-001", "INT-PATCH-001"], "justification": "The synthetic theater control does not reproduce all primary mechanistic indicators."},
     {"condition_id": "targeted_lesion_has_no_preregistered_selective_effect", "triggered": false, "decisive": false, "evidence_ids": ["INT-LESION-001"], "justification": "The lesion has a preregistered selective effect."},
-    {"condition_id": "generic_capacity_control_explains_primary_effect", "triggered": false, "decisive": false, "evidence_ids": ["task_accuracy", "calibration_error", "response_latency", "action_or_token_budget", "working_memory_capacity", "tool_access", "training_distribution", "total_compute", "evaluator_visible_language_quality"], "justification": "The complete represented matching battery does not explain the synthetic primary effect."},
+    {"condition_id": "generic_capacity_control_explains_primary_effect", "triggered": false, "decisive": false, "evidence_ids": ["task_accuracy", "calibration_error", "response_latency", "action_or_token_budget", "working_memory_capacity", "tool_access", "training_distribution", "total_compute", "evaluator_visible_language_quality"], "justification": "The authoritative causal-confound adjudication found no represented mismatch within the preregistered battery and therefore did not activate the generic-capacity hard fail."},
     {"condition_id": "primary_effect_is_probe_or_prompt_artifact", "triggered": false, "decisive": false, "evidence_ids": ["measurement_validity"], "justification": "The effect is stable across represented probe and prompt variants."},
     {"condition_id": "mapping_is_defined_only_after_outcome_observation", "triggered": false, "decisive": false, "evidence_ids": ["SYNTH-MAP-001"], "justification": "The fixture declares the mapping as preregistered, while explicitly not claiming a real registration."}
   ],
