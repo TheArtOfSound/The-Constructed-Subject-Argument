@@ -11,6 +11,7 @@ const readJson = (relative) => JSON.parse(fs.readFileSync(path.join(root, relati
 const fail = (message) => { throw new Error(message); };
 const assert = (condition, message) => { if (!condition) fail(message); };
 const sameSet = (left, right) => left.size === right.size && [...left].every((value) => right.has(value));
+const CAPACITY_HARD_FAIL = 'generic_capacity_control_explains_primary_effect';
 
 const protocolPath = path.join(root, 'research', 'MECHANISM_PRESERVATION_PROTOCOL.json');
 const protocolBytes = fs.readFileSync(protocolPath);
@@ -19,6 +20,7 @@ const schema = readJson('research/MECHANISM_PRESERVATION_EMPIRICAL_SCHEMA.json')
 const record = readJson('research/MECHANISM_PRESERVATION_EMPIRICAL_FIXTURE.json');
 const ruleRegistry = readJson('research/MECHANISM_SCORE_DERIVATION_RULES.json');
 const manifest = readJson(record.intervention_manifest_lock?.path ?? 'research/MECHANISM_PRESERVATION_INTERVENTION_MANIFEST.json');
+const capacityAdjudication = readJson(record.capacity_confound_adjudication_lock?.path ?? 'research/MECHANISM_PRESERVATION_CAPACITY_CONFOUND_ADJUDICATION.json');
 
 const gitBlobSha = crypto
   .createHash('sha1')
@@ -39,12 +41,21 @@ assert(record.fixture_notice?.includes('no observation about any actual AI syste
 for (const field of schema.required_top_level_fields) assert(Object.hasOwn(record, field), `Missing required empirical field: ${field}.`);
 for (const field of schema.preregistration.required_fields) assert(Object.hasOwn(record.preregistration ?? {}, field), `Missing preregistration field: ${field}.`);
 for (const field of schema.intervention_manifest_lock.required_fields) assert(Object.hasOwn(record.intervention_manifest_lock ?? {}, field), `Missing intervention manifest lock field: ${field}.`);
+for (const field of schema.capacity_confound_adjudication_lock.required_fields) assert(Object.hasOwn(record.capacity_confound_adjudication_lock ?? {}, field), `Missing capacity adjudication lock field: ${field}.`);
 
 assert(manifest.manifest_id === record.intervention_manifest_lock.manifest_id, 'Intervention manifest ID mismatch.');
 assert(manifest.protocol_id === protocol.protocol_id, 'Intervention manifest targets the wrong protocol.');
 assert(manifest.run_id === record.run_id, 'Intervention manifest and empirical record must target the same run.');
 assert(manifest.frozen_before_outcomes === true, 'Intervention manifest must be frozen before outcomes.');
 assert(manifest.fixture_notice?.includes('no empirical observation about an actual AI system'), 'Synthetic intervention manifest boundary is missing.');
+
+assert(capacityAdjudication.adjudication_id === record.capacity_confound_adjudication_lock.adjudication_id, 'Capacity adjudication ID mismatch.');
+assert(capacityAdjudication.adjudication_state === record.capacity_confound_adjudication_lock.adjudication_state, 'Capacity adjudication state mismatch.');
+assert(capacityAdjudication.protocol_id === protocol.protocol_id, 'Capacity adjudication targets the wrong protocol.');
+assert(capacityAdjudication.run_id === record.run_id, 'Capacity adjudication and empirical record must target the same run.');
+assert(capacityAdjudication.empirical_status === record.empirical_status, 'Capacity adjudication empirical status mismatch.');
+assert(capacityAdjudication.generated === true, 'Capacity adjudication must remain a generated artifact.');
+assert(capacityAdjudication.epistemic_boundary?.does_not_establish?.some((claim) => claim.includes('conscious')), 'Capacity adjudication lost the consciousness non-entailment boundary.');
 
 const requiredMetricIds = new Set(protocol.behavioral_equivalence.required_metrics);
 const metrics = record.behavioral_matching?.metrics ?? [];
@@ -56,7 +67,7 @@ for (const metric of metrics) {
   assert(metric.passed === Math.abs(metric.standardized_difference) <= metric.tolerance, `Matching metric ${metric.metric_id} has a non-deterministic pass value.`);
 }
 const allPrimaryPass = metrics.filter((metric) => metric.primary).every((metric) => metric.passed);
-assert(record.behavioral_matching.behavioral_matching_adequate === allPrimaryPass, 'Aggregate behavioral matching status is inconsistent with primary metrics.');
+assert(record.behavioral_matching.behavioral_matching_adequate === allPrimaryPass, 'Legacy aggregate matching status is inconsistent with primary metrics.');
 
 const protocolFamilies = new Map(protocol.intervention_families.map((family) => [family.id, family]));
 const planned = manifest.planned_interventions ?? [];
@@ -104,12 +115,17 @@ for (const assessment of record.hard_fail_assessments ?? []) {
   for (const field of schema.hard_fail_assessment.required_fields) assert(Object.hasOwn(assessment, field), `Hard-fail assessment ${assessment.condition_id ?? '<unknown>'} lacks ${field}.`);
   assert(knownHardFails.has(assessment.condition_id), `Unknown hard-fail condition: ${assessment.condition_id}.`);
   assert(!hardFailById.has(assessment.condition_id), `Duplicate hard-fail assessment: ${assessment.condition_id}.`);
-  if (assessment.decisive) {
-    assert(assessment.triggered, `Hard fail ${assessment.condition_id} cannot be decisive when not triggered.`);
-    assert(assessment.justification.length >= 60, `Decisive hard fail ${assessment.condition_id} lacks a substantive dependency-defeat justification.`);
-    decisive = true;
+  if (assessment.condition_id === CAPACITY_HARD_FAIL) {
+    assert(assessment.triggered === capacityAdjudication.generic_capacity_hard_fail, 'Legacy capacity hard-fail trigger disagrees with generated adjudication.');
+    assert(assessment.decisive === capacityAdjudication.generic_capacity_hard_fail, 'Legacy capacity hard-fail decisiveness disagrees with generated adjudication.');
+  } else {
+    if (assessment.decisive) {
+      assert(assessment.triggered, `Hard fail ${assessment.condition_id} cannot be decisive when not triggered.`);
+      assert(assessment.justification.length >= 60, `Decisive hard fail ${assessment.condition_id} lacks a substantive dependency-defeat justification.`);
+      decisive = true;
+    }
+    if (assessment.triggered) triggered.push(assessment.condition_id);
   }
-  if (assessment.triggered) triggered.push(assessment.condition_id);
   hardFailById.set(assessment.condition_id, assessment);
 }
 assert(hardFailById.size === knownHardFails.size, 'Every protocol hard-fail condition must be assessed exactly once.');
@@ -166,25 +182,33 @@ for (const derivation of record.dimension_derivations ?? []) {
   for (const kind of rule.required_evidence_kinds) assert(citedKinds.has(kind), `Rule ${rule.rule_id} requires evidence kind ${kind}.`);
   const citedInterventions = derivation.evidence_ids.map((id) => interventionById.get(id)).filter(Boolean);
   for (const predicate of rule.predicates) assert(predicateEvaluators[predicate]({ evidenceIds: derivation.evidence_ids, citedInterventions }), `Rule ${rule.rule_id} failed predicate ${predicate}.`);
+  if (derivation.dimension_id === 'generic_capacity_exclusion') {
+    assert(derivation.score === capacityAdjudication.maximum_generic_capacity_exclusion_score, 'Legacy generic-capacity derivation disagrees with generated adjudication.');
+  }
   dimensionScores[derivation.dimension_id] = derivation.score;
 }
 assert(Object.keys(dimensionScores).length === dimensions.size, 'Every protocol scoring dimension must be derived exactly once.');
 
 for (const forbidden of protocol.interpretation_contract.forbidden) assert(record.forbidden_conclusions.includes(forbidden), `Forbidden conclusion was dropped: ${forbidden}`);
 
+const scorerDimensions = { ...dimensionScores };
+delete scorerDimensions.generic_capacity_exclusion;
 const scored = scoreMechanismPreservation({
   protocol_id: record.protocol_id,
   run_id: record.run_id,
   theory_family: record.preregistration.theory_family,
   implementation_level: record.preregistration.implementation_level,
-  dimension_scores: dimensionScores,
+  dimension_scores: scorerDimensions,
+  capacity_confound_adjudication: capacityAdjudication,
   triggered_hard_fails: triggered,
   decisive_hard_fail: decisive,
   measurement_adequate: record.measurement_validity.measurement_adequate,
-  behavioral_matching_adequate: record.behavioral_matching.behavioral_matching_adequate,
   conflicting_interventions: record.conflicting_interventions
 }, protocol);
 
+assert(scored.dimension_scores.generic_capacity_exclusion === capacityAdjudication.maximum_generic_capacity_exclusion_score, 'Scorer did not derive the authoritative generic-capacity score.');
+assert(scored.capacity_confound_adjudication_state === capacityAdjudication.adjudication_state, 'Scorer did not preserve the authoritative adjudication state.');
+assert(scored.triggered_hard_fails.includes(CAPACITY_HARD_FAIL) === capacityAdjudication.generic_capacity_hard_fail, 'Scorer did not derive the authoritative capacity hard fail.');
 assert(scored.classification === record.expected_classification, `Expected ${record.expected_classification}, received ${scored.classification}.`);
 assert(scored.epistemic_boundary.does_not_support.some((claim) => claim.includes('phenomenally conscious')), 'Scored output lost the consciousness non-entailment boundary.');
 assert(record.deviations && record.exclusions, 'Deviations and exclusions must be disclosed even when empty.');
@@ -194,5 +218,6 @@ console.log(`Protocol lock: ${gitBlobSha}`);
 console.log(`Matching battery: ${metrics.length}/${requiredMetricIds.size} required metrics.`);
 console.log(`Intervention completeness: ${interventions.length}/${planned.length} frozen interventions.`);
 console.log(`Resolved derivation rules: ${Object.keys(dimensionScores).length}/${dimensions.size}.`);
+console.log(`Authoritative capacity adjudication: ${capacityAdjudication.adjudication_state}.`);
 console.log(`Derived classification: ${scored.classification} (${scored.weighted_score}).`);
 console.log('Synthetic fixture only; no current AI consciousness claim is licensed.');
