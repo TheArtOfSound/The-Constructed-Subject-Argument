@@ -7,15 +7,9 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, '..');
 const protocolPath = path.join(root, 'research', 'MECHANISM_PRESERVATION_PROTOCOL.json');
 const classificationPolicyPath = path.join(root, 'research', 'MECHANISM_PRESERVATION_CLASSIFICATION_POLICY.json');
+const capacityAdjudicationRulesPath = path.join(root, 'research', 'GENERIC_CAPACITY_CONFOUND_ADJUDICATION_RULES.json');
 
 const CAPACITY_HARD_FAIL = 'generic_capacity_control_explains_primary_effect';
-const CAPACITY_POLICIES = Object.freeze({
-  no_detected_mismatch: { matchingAdequate: true, maximumScore: 2, hardFail: false },
-  mismatch_nonexplanatory: { matchingAdequate: true, maximumScore: 1, hardFail: false },
-  mismatch_partially_explanatory: { matchingAdequate: false, maximumScore: 0, hardFail: false },
-  mismatch_sufficiently_explanatory: { matchingAdequate: false, maximumScore: 0, hardFail: true },
-  explanatory_role_underdetermined: { matchingAdequate: false, maximumScore: 0, hardFail: false }
-});
 
 export function loadProtocol() {
   return JSON.parse(fs.readFileSync(protocolPath, 'utf8'));
@@ -23,6 +17,10 @@ export function loadProtocol() {
 
 export function loadClassificationPolicy() {
   return JSON.parse(fs.readFileSync(classificationPolicyPath, 'utf8'));
+}
+
+export function loadCapacityAdjudicationRules() {
+  return JSON.parse(fs.readFileSync(capacityAdjudicationRulesPath, 'utf8'));
 }
 
 function assert(condition, message) {
@@ -84,36 +82,40 @@ export function evaluateClassificationPolicy(policy, context) {
   throw new Error('Classification policy has no matching rule or fallback.');
 }
 
-export function resolveCapacityAdjudication(record) {
+export function resolveCapacityAdjudication(record, registry = loadCapacityAdjudicationRules()) {
   assert(!Object.hasOwn(record, 'behavioral_matching_adequate'), 'behavioral_matching_adequate is deprecated; supply capacity_confound_adjudication.');
+  assert(registry.protocol_id === record.protocol_id, `Capacity adjudication registry protocol_id must equal ${record.protocol_id}.`);
   const adjudication = record.capacity_confound_adjudication;
   assert(adjudication && typeof adjudication === 'object', 'capacity_confound_adjudication is required.');
-  const policy = CAPACITY_POLICIES[adjudication.adjudication_state];
+  const policy = registry.outcomes.find(({ state }) => state === adjudication.adjudication_state);
   assert(policy, `Unknown capacity-confound adjudication state: ${adjudication.adjudication_state}.`);
+  assert(typeof policy.matching_adequate === 'boolean', `Capacity adjudication state ${policy.state} must declare matching_adequate.`);
+  assert(Number.isInteger(policy.maximum_generic_capacity_exclusion_score), `Capacity adjudication state ${policy.state} must declare an integer score ceiling.`);
+  assert(typeof policy.hard_fail === 'boolean', `Capacity adjudication state ${policy.state} must declare hard_fail.`);
   assert(
-    adjudication.maximum_generic_capacity_exclusion_score === policy.maximumScore,
-    `Adjudication state ${adjudication.adjudication_state} permits generic_capacity_exclusion score ${policy.maximumScore}.`
+    adjudication.maximum_generic_capacity_exclusion_score === policy.maximum_generic_capacity_exclusion_score,
+    `Adjudication state ${adjudication.adjudication_state} permits generic_capacity_exclusion score ${policy.maximum_generic_capacity_exclusion_score}.`
   );
   assert(
-    adjudication.generic_capacity_hard_fail === policy.hardFail,
-    `Adjudication state ${adjudication.adjudication_state} requires generic_capacity_hard_fail=${policy.hardFail}.`
+    adjudication.generic_capacity_hard_fail === policy.hard_fail,
+    `Adjudication state ${adjudication.adjudication_state} requires generic_capacity_hard_fail=${policy.hard_fail}.`
   );
   return { adjudication, policy };
 }
 
-export function scoreMechanismPreservation(record, protocol = loadProtocol(), classificationPolicy = loadClassificationPolicy()) {
+export function scoreMechanismPreservation(record, protocol = loadProtocol(), classificationPolicy = loadClassificationPolicy(), capacityRegistry = loadCapacityAdjudicationRules()) {
   assert(record && typeof record === 'object', 'Result record must be an object.');
   assert(record.protocol_id === protocol.protocol_id, `protocol_id must equal ${protocol.protocol_id}.`);
   assert(typeof record.run_id === 'string' && record.run_id.trim(), 'run_id is required.');
   assert(typeof record.theory_family === 'string' && record.theory_family.trim(), 'theory_family is required.');
   assert(typeof record.implementation_level === 'string' && record.implementation_level.trim(), 'implementation_level is required.');
 
-  const { adjudication, policy: capacityPolicy } = resolveCapacityAdjudication(record);
+  const { adjudication, policy: capacityPolicy } = resolveCapacityAdjudication(record, capacityRegistry);
   const dimensions = protocol.scoring.dimensions;
   const allowedDimensionIds = new Set(dimensions.map((dimension) => dimension.id));
   const submittedScores = { ...(record.dimension_scores ?? {}) };
   assert(!Object.hasOwn(submittedScores, 'generic_capacity_exclusion'), 'generic_capacity_exclusion is derived from capacity_confound_adjudication and must not be supplied manually.');
-  submittedScores.generic_capacity_exclusion = capacityPolicy.maximumScore;
+  submittedScores.generic_capacity_exclusion = capacityPolicy.maximum_generic_capacity_exclusion_score;
   const submittedIds = Object.keys(submittedScores);
 
   assert(submittedIds.length === dimensions.length, 'Every non-derived scoring dimension must be supplied exactly once.');
@@ -134,13 +136,13 @@ export function scoreMechanismPreservation(record, protocol = loadProtocol(), cl
   assert(!callerHardFails.includes(CAPACITY_HARD_FAIL), `${CAPACITY_HARD_FAIL} is derived from capacity_confound_adjudication and must not be supplied manually.`);
   for (const hardFail of callerHardFails) assert(knownHardFails.has(hardFail), `Unknown hard-fail condition: ${hardFail}.`);
   const triggeredHardFails = [...callerHardFails];
-  if (capacityPolicy.hardFail) triggeredHardFails.push(CAPACITY_HARD_FAIL);
+  if (capacityPolicy.hard_fail) triggeredHardFails.push(CAPACITY_HARD_FAIL);
 
   const measurementAdequate = record.measurement_adequate === true;
-  const matchingAdequate = capacityPolicy.matchingAdequate;
+  const matchingAdequate = capacityPolicy.matching_adequate;
   const conflictingInterventions = record.conflicting_interventions === true;
   const otherDecisiveHardFail = record.decisive_hard_fail === true && callerHardFails.length > 0;
-  const decisiveHardFail = capacityPolicy.hardFail || otherDecisiveHardFail;
+  const decisiveHardFail = capacityPolicy.hard_fail || otherDecisiveHardFail;
   const context = {
     protocol_id: protocol.protocol_id,
     weighted_score: weightedScore,
@@ -157,7 +159,7 @@ export function scoreMechanismPreservation(record, protocol = loadProtocol(), cl
     .map(({ description, predicate_id }) => description ?? predicate_id)
     .filter(Boolean);
   if (reasons.length === 0) reasons.push(rule.description ?? 'The record did not satisfy a more decisive protocol classification.');
-  if (capacityPolicy.hardFail) reasons.unshift('A sufficiently explanatory generic-capacity mismatch defeated the primary mechanism inference.');
+  if (capacityPolicy.hard_fail) reasons.unshift('A sufficiently explanatory generic-capacity mismatch defeated the primary mechanism inference.');
 
   return {
     protocol_id: protocol.protocol_id,
