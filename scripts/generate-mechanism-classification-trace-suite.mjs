@@ -9,6 +9,19 @@ const root = path.resolve(__dirname, '..');
 const fixturePath = path.join(root, 'research', 'MECHANISM_PRESERVATION_CLASSIFICATION_TRACE_FIXTURES.json');
 const outputPath = path.join(root, 'research', 'MECHANISM_PRESERVATION_CLASSIFICATION_TRACE_SUITE.json');
 
+function compactPredicate(evaluation) {
+  const compact = {
+    ...(evaluation.predicate_id ? { predicate_id: evaluation.predicate_id } : {}),
+    operator: evaluation.operator,
+    observed: evaluation.observed,
+    passed: evaluation.passed
+  };
+  if (evaluation.evaluations) {
+    compact.evaluations = evaluation.evaluations.map(compactPredicate);
+  }
+  return compact;
+}
+
 export function generateClassificationTraceSuite() {
   const fixtures = JSON.parse(fs.readFileSync(fixturePath, 'utf8'));
   const policy = loadClassificationPolicy();
@@ -26,7 +39,7 @@ export function generateClassificationTraceSuite() {
       capacity_confound_adjudication_state: result.capacity_confound_adjudication_state,
       triggered_hard_fails: result.triggered_hard_fails,
       classification_reasons: result.reasons,
-      classification_predicate_evaluations: result.classification_predicate_evaluations,
+      predicate_results: result.classification_predicate_evaluations.map(compactPredicate),
       expectation_matches:
         result.classification === fixture.expected_classification &&
         result.classification_rule_id === fixture.expected_rule_id
