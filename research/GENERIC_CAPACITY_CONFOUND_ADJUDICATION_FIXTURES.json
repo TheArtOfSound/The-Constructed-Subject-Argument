@@ -1,0 +1,106 @@
+{
+  "schema_version": "1.0.0",
+  "fixture_ledger_id": "EXP11-GENERIC-CAPACITY-CONFOUND-FIXTURES-001",
+  "protocol_id": "EXP-11-MECHANISM-PRESERVATION",
+  "empirical_status": "synthetic_fixture",
+  "notice": "These cases test inference logic only. They are not observations about any actual AI system and do not support consciousness attribution or denial.",
+  "cases": [
+    {
+      "case_id": "CONF-CASE-NO-MISMATCH",
+      "expected_state": "no_detected_mismatch",
+      "matching_overall_state": "matched",
+      "evidence": null
+    },
+    {
+      "case_id": "CONF-CASE-NONEXPLANATORY",
+      "expected_state": "mismatch_nonexplanatory",
+      "matching_overall_state": "not_matched",
+      "evidence": {
+        "metric_id": "total_compute",
+        "matching_state": "not_matched",
+        "primary_outcome_id": "OUT-LESION-SELECTIVITY-001",
+        "causal_pathway_preregistered": true,
+        "unadjusted_primary_effect": 0.72,
+        "adjusted_primary_effect": 0.66,
+        "mediation_fraction": 0.0833,
+        "adjusted_interval": [0.57, 0.75],
+        "model_diagnostics_pass": true,
+        "analysis_status": "complete"
+      }
+    },
+    {
+      "case_id": "CONF-CASE-PARTIAL",
+      "expected_state": "mismatch_partially_explanatory",
+      "matching_overall_state": "not_matched",
+      "evidence": {
+        "metric_id": "response_latency",
+        "matching_state": "not_matched",
+        "primary_outcome_id": "OUT-PATCH-RESTORATION-001",
+        "causal_pathway_preregistered": true,
+        "unadjusted_primary_effect": 0.61,
+        "adjusted_primary_effect": 0.31,
+        "mediation_fraction": 0.4918,
+        "adjusted_interval": [0.18, 0.44],
+        "model_diagnostics_pass": true,
+        "analysis_status": "complete"
+      }
+    },
+    {
+      "case_id": "CONF-CASE-SUFFICIENT",
+      "expected_state": "mismatch_sufficiently_explanatory",
+      "matching_overall_state": "not_matched",
+      "evidence": {
+        "metric_id": "working_memory_capacity",
+        "matching_state": "not_matched",
+        "primary_outcome_id": "OUT-LESION-SELECTIVITY-001",
+        "causal_pathway_preregistered": true,
+        "unadjusted_primary_effect": 0.72,
+        "adjusted_primary_effect": 0.06,
+        "mediation_fraction": 0.9167,
+        "adjusted_interval": [-0.03, 0.09],
+        "model_diagnostics_pass": true,
+        "analysis_status": "complete"
+      }
+    },
+    {
+      "case_id": "CONF-CASE-UNDERDETERMINED-NO-PATH",
+      "expected_state": "explanatory_role_underdetermined",
+      "matching_overall_state": "not_matched",
+      "evidence": {
+        "metric_id": "training_distribution",
+        "matching_state": "not_matched",
+        "primary_outcome_id": "OUT-PATCH-RESTORATION-001",
+        "causal_pathway_preregistered": false,
+        "unadjusted_primary_effect": 0.61,
+        "adjusted_primary_effect": 0.20,
+        "mediation_fraction": 0.6721,
+        "adjusted_interval": [0.07, 0.33],
+        "model_diagnostics_pass": true,
+        "analysis_status": "complete"
+      }
+    },
+    {
+      "case_id": "CONF-CASE-UNDERDETERMINED-DIAGNOSTICS",
+      "expected_state": "explanatory_role_underdetermined",
+      "matching_overall_state": "not_matched",
+      "evidence": {
+        "metric_id": "total_compute",
+        "matching_state": "not_matched",
+        "primary_outcome_id": "OUT-LESION-SELECTIVITY-001",
+        "causal_pathway_preregistered": true,
+        "unadjusted_primary_effect": 0.72,
+        "adjusted_primary_effect": 0.04,
+        "mediation_fraction": 0.9444,
+        "adjusted_interval": [-0.04, 0.10],
+        "model_diagnostics_pass": false,
+        "analysis_status": "complete"
+      }
+    },
+    {
+      "case_id": "CONF-CASE-UNDERDETERMINED-MATCHING",
+      "expected_state": "explanatory_role_underdetermined",
+      "matching_overall_state": "underdetermined",
+      "evidence": null
+    }
+  ]
+}
