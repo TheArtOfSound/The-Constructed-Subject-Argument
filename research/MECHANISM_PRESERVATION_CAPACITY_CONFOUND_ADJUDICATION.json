@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0.0",
+  "adjudication_id": "EXP11-CAPACITY-CONFOUND-ADJUDICATION-001",
+  "protocol_id": "EXP-11-MECHANISM-PRESERVATION",
+  "run_id": "EXP11-SYNTHETIC-AUDIT-001",
+  "empirical_status": "synthetic_fixture",
+  "generated_notice": "Generated deterministically from matching state, registered adjudication rules, and any supplied synthetic confound evidence. Do not edit manually.",
+  "matching_overall_state": "matched",
+  "metric_id": null,
+  "primary_outcome_id": null,
+  "adjudication_state": "no_detected_mismatch",
+  "generic_capacity_hard_fail": false,
+  "maximum_generic_capacity_exclusion_score": 2,
+  "rationale": "All represented primary matching metrics satisfied their preregistered equivalence criteria.",
+  "classification_effect": "No represented generic-capacity mismatch was detected within the preregistered battery and margins. This is bounded matching evidence, not proof that every possible confound is absent.",
+  "epistemic_boundary": "A mismatch is not automatically a causal explanation. These rules adjudicate represented confounds only and do not establish mechanism preservation, consciousness, nonconsciousness, sentience, personhood, identity, or moral status."
+}
