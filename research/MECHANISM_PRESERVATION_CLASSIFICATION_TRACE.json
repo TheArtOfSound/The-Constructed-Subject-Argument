@@ -1,8 +1,13 @@
 {
   "schema_id": "EXP-11-CLASSIFICATION-TRACE",
-  "schema_version": "1.0.0",
+  "schema_version": "1.1.0",
   "generated": true,
   "generated_warning": "Generated deterministically from the empirical fixture, protocol, and capacity-confound adjudication. Do not edit manually.",
+  "presentation_safety": {
+    "status_label": "SYNTHETIC FIXTURE — PIPELINE TEST",
+    "display_rule": "Display synthetic status adjacent to and with equal or greater prominence than the final classification.",
+    "prohibited_implication": "Do not present this fixture as evidence about any actual AI system or about consciousness."
+  },
   "protocol_id": "EXP-11-MECHANISM-PRESERVATION",
   "run_id": "EXP11-SYNTHETIC-AUDIT-001",
   "empirical_status": "synthetic_fixture",
@@ -149,7 +154,49 @@
     }
   ],
   "triggered_hard_fails": [],
-  "classification_blockers": [
+  "threshold_evaluations": [
+    {
+      "threshold_id": "no_hard_fail",
+      "description": "No decisive hard-fail condition is triggered.",
+      "observed": 0,
+      "operator": "==",
+      "required": 0,
+      "passed": true
+    },
+    {
+      "threshold_id": "preserved_weighted_score",
+      "description": "Weighted mechanism-preservation score reaches the preserved threshold.",
+      "observed": 2.5,
+      "operator": ">=",
+      "required": 2.4,
+      "passed": true
+    },
+    {
+      "threshold_id": "minimum_selective_intervention_support",
+      "description": "Selective intervention support reaches the preserved minimum.",
+      "observed": 3,
+      "operator": ">=",
+      "required": 2,
+      "passed": true
+    },
+    {
+      "threshold_id": "minimum_counterfactual_dependency",
+      "description": "Counterfactual dependency reaches the preserved minimum.",
+      "observed": 2,
+      "operator": ">=",
+      "required": 2,
+      "passed": true
+    },
+    {
+      "threshold_id": "minimum_theater_resistance",
+      "description": "Theater resistance reaches the preserved minimum.",
+      "observed": 2,
+      "operator": ">=",
+      "required": 2,
+      "passed": true
+    }
+  ],
+  "classification_reasons": [
     "No hard fail was triggered and all preserved-class thresholds were met."
   ],
   "final_classification": "preserved",
