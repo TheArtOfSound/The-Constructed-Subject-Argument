@@ -1,0 +1,13 @@
+{
+  "schema_version": "1.0.0",
+  "lock_id": "EXP11-SYNTHETIC-PREREGISTRATION-LOCK-001",
+  "bundle_id": "EXP11-SYNTHETIC-PREREGISTRATION-BUNDLE-001",
+  "bundle_path": "research/MECHANISM_PRESERVATION_PREREGISTRATION_BUNDLE.json",
+  "bundle_git_blob_sha": "5cf1c257b7a6e52c28f726c8b2ad40b663578d4e",
+  "bundle_sha256": "4610f3a9f49680231d9c81a03c7c916facd07237facc289b15f66d83202fe933",
+  "empirical_record_path": "research/MECHANISM_PRESERVATION_EMPIRICAL_FIXTURE.json",
+  "run_id": "EXP11-SYNTHETIC-AUDIT-001",
+  "status": "synthetic_fixture_lock",
+  "chronology_claim": "Repository history records this bundle before this lock, but no external timestamp authority is claimed.",
+  "epistemic_boundary": "This lock proves repository-internal byte identity and cross-file consistency only. It does not prove external chronology, empirical validity, mechanism preservation in a real system, or consciousness."
+}
