@@ -30,10 +30,10 @@ export function generateClassificationTraceSuite() {
   });
   return {
     schema_id: 'EXP-11-CLASSIFICATION-TRACE-SUITE',
-    schema_version: '1.0.0',
+    schema_version: '1.1.0',
     protocol_id: fixtures.protocol_id,
     status: 'generated_synthetic_adversarial_trace_suite',
-    purpose: 'Exercise every classification-policy branch and precedence interaction with synthetic records. This suite is a logic audit, not evidence about any actual AI system.',
+    purpose: 'Exercise every classification-policy branch, exact threshold boundary, and precedence interaction with synthetic records. This suite is a logic audit, not evidence about any actual AI system.',
     presentation_safety: policy.presentation_contract,
     cases,
     epistemic_boundary: policy.epistemic_boundary
