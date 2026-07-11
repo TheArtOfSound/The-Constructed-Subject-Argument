@@ -10,6 +10,7 @@ const validators = [
   'scripts/validate-mechanism-scorer.mjs',
   'scripts/validate-intervention-manifest-lock.mjs',
   'scripts/validate-preregistration-bundle.mjs',
+  'scripts/validate-raw-mechanism-artifacts.mjs',
   'scripts/validate-mechanism-results.mjs',
   'scripts/validate-public-review.mjs',
   'scripts/validate-source-crosswalk.mjs'
