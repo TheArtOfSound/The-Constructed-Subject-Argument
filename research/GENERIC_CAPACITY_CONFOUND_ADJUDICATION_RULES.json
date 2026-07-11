@@ -1,0 +1,93 @@
+{
+  "schema_version": "1.0.0",
+  "registry_id": "EXP11-GENERIC-CAPACITY-CONFOUND-RULES-001",
+  "protocol_id": "EXP-11-MECHANISM-PRESERVATION",
+  "purpose": "Distinguish a detected generic-capacity mismatch from evidence that the mismatch explains a mechanism-associated outcome.",
+  "epistemic_boundary": "A mismatch is not automatically a causal explanation. These rules adjudicate represented confounds only and do not establish mechanism preservation, consciousness, nonconsciousness, sentience, personhood, identity, or moral status.",
+  "outcomes": [
+    {
+      "state": "mismatch_nonexplanatory",
+      "hard_fail": false,
+      "maximum_generic_capacity_exclusion_score": 1,
+      "requirements": [
+        "detected_mismatch",
+        "preregistered_causal_pathway",
+        "adjusted_primary_effect_remains_above_registered_minimum",
+        "mismatch_mediation_fraction_below_nonexplanatory_ceiling",
+        "adjustment_model_diagnostics_pass"
+      ],
+      "interpretation": "A represented capacity difference exists, but the preregistered adjustment does not materially explain the primary effect. The mismatch still prevents a full matching score."
+    },
+    {
+      "state": "mismatch_partially_explanatory",
+      "hard_fail": false,
+      "maximum_generic_capacity_exclusion_score": 0,
+      "requirements": [
+        "detected_mismatch",
+        "preregistered_causal_pathway",
+        "mismatch_mediation_fraction_between_partial_bounds",
+        "residual_primary_effect_remains_nonzero",
+        "adjustment_model_diagnostics_pass"
+      ],
+      "interpretation": "The mismatch explains a material portion of the primary effect but does not exhaust it. Positive mechanism-preservation classification remains underdetermined."
+    },
+    {
+      "state": "mismatch_sufficiently_explanatory",
+      "hard_fail": true,
+      "maximum_generic_capacity_exclusion_score": 0,
+      "requirements": [
+        "detected_mismatch",
+        "preregistered_causal_pathway",
+        "adjusted_primary_effect_falls_inside_registered_null_region",
+        "mismatch_mediation_fraction_at_or_above_sufficiency_threshold",
+        "adjustment_model_diagnostics_pass"
+      ],
+      "interpretation": "The represented capacity mismatch sufficiently explains the primary effect under the preregistered adjudication model, defeating the mechanism-preservation inference for this comparison."
+    },
+    {
+      "state": "explanatory_role_underdetermined",
+      "hard_fail": false,
+      "maximum_generic_capacity_exclusion_score": 0,
+      "requirements": [
+        "detected_or_uncertain_mismatch",
+        "missing_or_invalid_causal_adjudication_evidence"
+      ],
+      "interpretation": "The explanatory relevance of the mismatch has not been established. The final mechanism classification must remain underdetermined."
+    },
+    {
+      "state": "no_detected_mismatch",
+      "hard_fail": false,
+      "maximum_generic_capacity_exclusion_score": 2,
+      "requirements": [
+        "all_primary_matching_metrics_equivalent"
+      ],
+      "interpretation": "No represented generic-capacity mismatch was detected within the preregistered battery and margins. This is bounded matching evidence, not proof that every possible confound is absent."
+    }
+  ],
+  "thresholds": {
+    "nonexplanatory_mediation_fraction_ceiling": 0.20,
+    "partial_mediation_fraction_lower_bound": 0.20,
+    "partial_mediation_fraction_upper_bound": 0.80,
+    "sufficiency_mediation_fraction_threshold": 0.80,
+    "minimum_residual_primary_effect": 0.10,
+    "registered_null_region": [-0.10, 0.10]
+  },
+  "required_evidence_fields": [
+    "metric_id",
+    "matching_state",
+    "primary_outcome_id",
+    "causal_pathway_preregistered",
+    "unadjusted_primary_effect",
+    "adjusted_primary_effect",
+    "mediation_fraction",
+    "adjusted_interval",
+    "model_diagnostics_pass",
+    "analysis_status"
+  ],
+  "forbidden_inferences": [
+    "A detected mismatch is automatically a sufficient explanation.",
+    "A nonexplanatory represented mismatch proves that all generic-capacity confounds are absent.",
+    "Successful confound adjudication establishes consciousness or nonconsciousness.",
+    "Mechanism preservation follows from statistical adjustment alone."
+  ]
+}
