@@ -1,0 +1,80 @@
+{
+  "schema_id": "EXP-11-CLASSIFICATION-POLICY-STRUCTURE-REPORT",
+  "schema_version": "1.0.0",
+  "protocol_id": "EXP-11-MECHANISM-PRESERVATION",
+  "status": "generated_synthetic_policy_structure_analysis",
+  "policy_id": "EXP-11-CLASSIFICATION-POLICY",
+  "source_artifacts": {
+    "policy": "research/MECHANISM_PRESERVATION_CLASSIFICATION_POLICY.json",
+    "trace_suite": "research/MECHANISM_PRESERVATION_CLASSIFICATION_TRACE_SUITE.json"
+  },
+  "summary": {
+    "rule_count": 5,
+    "predicate_count": 18,
+    "reached_rule_count": 5,
+    "structural_checks_passed": 10,
+    "structural_check_count": 10,
+    "overall_pass": true
+  },
+  "ordered_rules": [
+    {
+      "rule_id": "not-preserved-decisive-defeat",
+      "outcome": "not_preserved",
+      "priority": 10,
+      "match": "any"
+    },
+    {
+      "rule_id": "underdetermined-blocked-or-intermediate",
+      "outcome": "underdetermined",
+      "priority": 20,
+      "match": "any"
+    },
+    {
+      "rule_id": "preserved-thresholds",
+      "outcome": "preserved",
+      "priority": 30,
+      "match": "all"
+    },
+    {
+      "rule_id": "partially-preserved-thresholds",
+      "outcome": "partially_preserved",
+      "priority": 40,
+      "match": "all"
+    },
+    {
+      "rule_id": "underdetermined-fallback",
+      "outcome": "underdetermined",
+      "priority": 50,
+      "match": "all"
+    }
+  ],
+  "checks": {
+    "unique_rule_ids": true,
+    "unique_priorities": true,
+    "evaluation_order_matches_priority_order": true,
+    "priorities_strictly_increase": true,
+    "fallback_is_last": true,
+    "fallback_is_unconditional": true,
+    "all_predicate_fields_allowed": true,
+    "all_operators_declared": true,
+    "every_rule_reached_by_canonical_suite": true,
+    "no_duplicate_rule_signatures": true
+  },
+  "findings": {
+    "duplicate_rule_ids": [],
+    "duplicate_priorities": [],
+    "invalid_predicate_fields": [],
+    "invalid_operators": [],
+    "unreachable_rule_ids": [],
+    "duplicate_rule_signatures": []
+  },
+  "interpretation_boundary": {
+    "supports": "Structural consistency of the encoded classification policy and demonstrated reachability under the canonical synthetic trace suite.",
+    "does_not_support": [
+      "That the policy thresholds are scientifically optimal",
+      "That the policy ontology is uniquely correct",
+      "That all possible semantic shadowing has been mathematically excluded",
+      "Any claim about whether an actual AI system is conscious, nonconscious, sentient, a person, or morally considerable"
+    ]
+  }
+}
