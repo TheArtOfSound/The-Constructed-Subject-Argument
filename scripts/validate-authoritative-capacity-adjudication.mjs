@@ -27,20 +27,15 @@ assert(adjudication.protocol_id === record.protocol_id, 'Adjudication and empiri
 assert(adjudication.run_id === record.run_id, 'Adjudication and empirical record target different runs.');
 assert(adjudication.empirical_status === record.empirical_status, 'Adjudication and empirical record disagree on empirical status.');
 assert(adjudication.generated_notice?.includes('Do not edit manually'), 'Adjudication must remain explicitly generated.');
-assert(adjudication.epistemic_boundary?.includes('does not establish mechanism preservation'), 'Adjudication lost its mechanism-preservation non-entailment boundary.');
+assert(/\b(?:does|do) not establish mechanism preservation\b/i.test(adjudication.epistemic_boundary ?? ''), 'Adjudication lost its mechanism-preservation non-entailment boundary.');
 assert(adjudication.epistemic_boundary?.includes('consciousness'), 'Adjudication lost its consciousness non-entailment boundary.');
 
 const capacityDimension = record.dimension_derivations.find((item) => item.dimension_id === 'generic_capacity_exclusion');
-assert(capacityDimension, 'Empirical record lacks generic_capacity_exclusion derivation.');
-assert(capacityDimension.score === adjudication.maximum_generic_capacity_exclusion_score, 'Generic-capacity dimension score must equal the authoritative adjudication ceiling.');
-assert(capacityDimension.explanation?.includes('generated causal-confound adjudication'), 'Generic-capacity derivation must disclose its generated adjudication authority.');
+assert(!capacityDimension, 'Empirical record must not duplicate the scorer-derived generic_capacity_exclusion dimension.');
 
 const capacityHardFailId = 'generic_capacity_control_explains_primary_effect';
 const capacityHardFail = record.hard_fail_assessments.find((item) => item.condition_id === capacityHardFailId);
-assert(capacityHardFail, 'Empirical record lacks the generic-capacity hard-fail assessment.');
-assert(capacityHardFail.triggered === adjudication.generic_capacity_hard_fail, 'Generic-capacity hard-fail trigger must equal the authoritative adjudication.');
-assert(capacityHardFail.decisive === adjudication.generic_capacity_hard_fail, 'A sufficiently explanatory generic-capacity confound must be decisive; all other states must remain nondecisive.');
-assert(capacityHardFail.justification?.includes('authoritative causal-confound adjudication'), 'Generic-capacity hard-fail justification must identify the authoritative adjudication.');
+assert(!capacityHardFail, 'Empirical record must not duplicate the scorer-derived generic-capacity hard fail.');
 
 function scoreUnderAdjudication(candidate) {
   const dimensions = Object.fromEntries(
