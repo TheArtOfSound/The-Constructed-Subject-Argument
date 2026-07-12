@@ -47,6 +47,6 @@ for (const metric of committed.metrics) {
 
 const derivedAdequate = committed.metrics.filter(metric => metric.primary).every(metric => metric.passed);
 if (committed.behavioral_matching_adequate !== derivedAdequate) fail('Generated aggregate matching state is inconsistent with primary metric decisions.');
-if (empirical.behavioral_matching.behavioral_matching_adequate !== committed.behavioral_matching_adequate) fail('Empirical aggregate matching state differs from generated results.');
+if (Object.hasOwn(empirical.behavioral_matching, 'behavioral_matching_adequate')) fail('Empirical fixture must not store derived aggregate matching authority.');
 
-console.log('Behavioral-matching results are complete, equivalence-based, synthetic-bounded, and byte-identical to regeneration.');
+console.log('Behavioral-matching results are complete, equivalence-based, synthetic-bounded, byte-identical to regeneration, and authoritative only in the generated artifact.');
