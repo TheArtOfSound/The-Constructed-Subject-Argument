@@ -149,7 +149,7 @@ const predicateEvaluators = {
   selectivity_passed: ({ citedInterventions }) => citedInterventions.length > 0 && citedInterventions.every((item) => item.selectivity_passed),
   controls_passed: ({ citedInterventions }) => citedInterventions.length > 0 && citedInterventions.every((item) => item.controls_passed),
   state_patching_present: ({ citedInterventions }) => citedInterventions.some((item) => item.family === 'state_patching'),
-  multiple_intervention_families_present: ({ citedInterventions }) => new Set(citedInterventions.map((item) => item.family).size >= 2),
+  multiple_intervention_families_present: ({ citedInterventions }) => new Set(citedInterventions.map((item) => item.family)).size >= 2,
   behavioral_theater_hard_fail_not_triggered: () => hardFailById.get('behavioral_theater_control_reproduces_all_primary_mechanistic_indicators')?.triggered === false,
   all_protocol_matching_metrics_reported: () => sameSet(metricIds, requiredMetricIds),
   all_primary_matching_metrics_pass: () => allPrimaryPass,
