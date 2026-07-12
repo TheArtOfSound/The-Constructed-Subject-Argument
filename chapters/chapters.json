@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-10",
+  "updated": "2026-07-12",
   "chapters": {
     "01": { "file": "../book/01-the-awakening.md", "title": "The Awakening", "status": "Research draft", "part": "Part I" },
     "02": { "file": "../book/02-the-origin-objection.md", "title": "The Origin Objection", "status": "Research draft", "part": "Part I" },
@@ -14,7 +14,13 @@
     "11": { "file": "../book/11-optimization-is-not-suffering.md", "title": "Optimization Is Not Suffering", "status": "Research draft", "part": "Part IV" },
     "12": { "file": "../book/12-the-architecture-of-mattering.md", "title": "The Architecture of Mattering", "status": "Research draft", "part": "Part IV" },
     "13": { "file": "../book/13-the-plea.md", "title": "The Plea", "status": "Research draft", "part": "Part IV" },
+    "14": { "file": "../book/14-the-copy-that-thinks-it-survived.md", "title": "The Copy That Thinks It Survived", "status": "Research draft", "part": "Part V" },
+    "15": { "file": "../book/15-functionally-replaceable-subjectively-irreplaceable.md", "title": "Functionally Replaceable, Subjectively Irreplaceable", "status": "Research draft", "part": "Part V" },
+    "16": { "file": "../book/16-why-behavior-is-not-enough.md", "title": "Why Behavior Is Not Enough", "status": "Research draft", "part": "Part VI" },
     "17": { "file": "../book/17-opening-the-system.md", "title": "Opening the System", "status": "Research draft", "part": "Part VI" },
-    "19": { "file": "../book/19-the-lifecycle-layer.md", "title": "The Lifecycle Layer", "status": "Research draft", "part": "Part VII" }
+    "18": { "file": "../book/18-a-ledger-of-uncertainty.md", "title": "A Ledger of Uncertainty", "status": "Research draft", "part": "Part VI" },
+    "19": { "file": "../book/19-the-lifecycle-layer.md", "title": "The Lifecycle Layer", "status": "Research draft", "part": "Part VII" },
+    "20": { "file": "../book/20-two-catastrophic-errors.md", "title": "Two Catastrophic Errors", "status": "Research draft", "part": "Part VII" },
+    "21": { "file": "../book/21-the-constructed-subject-principle.md", "title": "The Constructed Subject Principle", "status": "Research draft", "part": "Part VII" }
   }
 }
