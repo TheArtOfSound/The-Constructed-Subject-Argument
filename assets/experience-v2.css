@@ -427,3 +427,48 @@ textarea:focus { outline: 2px solid var(--warm); outline-offset: 2px; }
   *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
   .instrument .trace-path { stroke-dashoffset: 0; }
 }
+
+/* =========================================================================
+   Scholarly layer — abstract, positioning, engagement, citation
+   ========================================================================= */
+.section-num.cool { color: var(--cool); }
+.section-num.violet { color: var(--violet); }
+.micro-label.violet { color: var(--violet); }
+
+.byline { max-width: 52ch; margin: 1.8rem 0 0; padding-top: 1.4rem; border-top: 1px solid var(--line); color: var(--muted); font-size: .92rem; }
+.byline strong { color: var(--text); }
+
+/* abstract */
+.abstract { padding: clamp(1.6rem, 4vw, 2.8rem); box-shadow: var(--shadow); }
+.abstract .abstract-lead { margin: 0 0 1.2rem; font-family: var(--serif); font-size: clamp(1.4rem, 2.6vw, 2rem); line-height: 1.28; color: var(--text); }
+.abstract .abstract-lead em { color: var(--warm); font-style: italic; }
+.abstract p { max-width: 74ch; margin: 0 0 1rem; color: var(--muted); font-size: 1.02rem; }
+.abstract p b { color: var(--text); }
+.abstract p em { color: var(--text); font-style: italic; }
+.abstract-meta { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; margin: 1.6rem 0 0; border: 1px solid var(--line); border-radius: var(--radius-sm); overflow: hidden; background: var(--line); }
+.abstract-meta > div { padding: 1rem 1.15rem; background: var(--surface); }
+.abstract-meta dt { margin: 0 0 .3rem; font-family: var(--mono); font-size: .64rem; letter-spacing: .12em; text-transform: uppercase; color: var(--warm); }
+.abstract-meta dd { margin: 0; color: var(--text); font-size: .92rem; }
+
+/* contribution callout + subhead */
+.contribution { padding: 1.4rem 1.6rem; border-left: 3px solid var(--warm); box-shadow: var(--shadow); }
+.contribution .label { font-family: var(--mono); font-size: .66rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--warm); }
+.contribution p { margin: .7rem 0 0; color: var(--muted); font-size: 1.02rem; max-width: 76ch; }
+.contribution p b { color: var(--text); }
+.contribution p em { color: var(--warm); font-style: normal; }
+.subhead { margin: 2.4rem 0 1rem; font-family: var(--mono); font-size: .68rem; letter-spacing: .16em; text-transform: uppercase; color: var(--faint); }
+
+.rival-label { font-family: var(--mono); font-size: .64rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--red); margin: 0; }
+
+.engage-grid strong { display: block; }
+
+/* citation */
+.cite-card { padding: clamp(1.4rem, 3vw, 2rem); }
+.cite-plain { margin: 0 0 1.2rem; color: var(--muted); font-size: .96rem; max-width: 80ch; }
+.cite-plain em { color: var(--text); font-style: italic; }
+.cite-bibtex { margin: 0; padding: 1.1rem 1.3rem; border: 1px solid var(--line); border-radius: var(--radius-sm); background: color-mix(in srgb, var(--surface) 55%, transparent); overflow-x: auto; }
+.cite-bibtex code { font-family: var(--mono); font-size: .82rem; line-height: 1.6; color: var(--text); white-space: pre; }
+
+@media (max-width: 640px) {
+  .abstract-meta { grid-template-columns: 1fr; }
+}

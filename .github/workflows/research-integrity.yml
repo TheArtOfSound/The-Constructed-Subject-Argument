@@ -1,0 +1,30 @@
+name: Research integrity checks
+
+# Full validation of the research pipeline (manuscript/site controls, argument
+# graph, adversarial reviews, and the mechanism/capacity generated-artifact
+# chain). This runs the complete `validate-all.mjs` suite for signal, but it is
+# intentionally SEPARATE from the Pages deploy: an in-progress generated-artifact
+# migration should surface here without blocking publication of the website.
+# See .github/workflows/pages.yml for the deploy gate.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-all:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Run full validation suite
+        run: node scripts/validate-all.mjs

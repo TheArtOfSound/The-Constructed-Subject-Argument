@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://theartofsound.github.io/The-Constructed-Subject-Argument/sitemap.xml

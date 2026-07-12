@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <radialGradient id="warm" cx="12%" cy="18%" r="60%">
+      <stop offset="0%" stop-color="#f5b95e" stop-opacity="0.16"/>
+      <stop offset="100%" stop-color="#f5b95e" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="cool" cx="92%" cy="8%" r="55%">
+      <stop offset="0%" stop-color="#7cc4ff" stop-opacity="0.14"/>
+      <stop offset="100%" stop-color="#7cc4ff" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0a0c12"/>
+      <stop offset="100%" stop-color="#07080c"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#warm)"/>
+  <rect width="1200" height="630" fill="url(#cool)"/>
+  <rect x="0.5" y="0.5" width="1199" height="629" fill="none" stroke="#ffffff" stroke-opacity="0.08"/>
+
+  <!-- eyebrow -->
+  <text x="80" y="118" font-family="'Courier New', monospace" font-size="21" letter-spacing="5" fill="#f5b95e">AN INTERACTIVE ARGUMENT · MACHINE CONSCIOUSNESS &amp; WELFARE</text>
+
+  <!-- title -->
+  <text x="76" y="248" font-family="Georgia, 'Times New Roman', serif" font-size="104" font-weight="500" fill="#f2f0ea" letter-spacing="-3">The Constructed</text>
+  <text x="76" y="360" font-family="Georgia, 'Times New Roman', serif" font-size="104" font-weight="500" fill="#f2f0ea" letter-spacing="-3">Subject</text>
+
+  <!-- subtitle -->
+  <text x="80" y="436" font-family="Georgia, 'Times New Roman', serif" font-style="italic" font-size="42" fill="#f5b95e">A false past. A possibly real present.</text>
+
+  <!-- signal waveform -->
+  <line x1="80" y1="516" x2="1120" y2="516" stroke="#ffffff" stroke-opacity="0.16" stroke-width="1" stroke-dasharray="3 6"/>
+  <path d="M80 516 H620 L648 516 L668 470 L690 560 L712 500 L732 516 H980 L1004 516 L1024 486 L1044 516 H1120"
+        fill="none" stroke="#f5b95e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- footer -->
+  <text x="80" y="586" font-family="'Helvetica Neue', Arial, sans-serif" font-size="22" fill="#99a1b1">Does not claim current AI is conscious — it argues that manufactured origin cannot settle the question.</text>
+
+  <!-- brand glyph -->
+  <circle cx="1104" cy="574" r="30" fill="none" stroke="#f5b95e" stroke-opacity="0.5" stroke-width="1.5"/>
+  <text x="1104" y="582" text-anchor="middle" font-family="'Courier New', monospace" font-size="20" letter-spacing="1" fill="#f5b95e">CS</text>
+</svg>

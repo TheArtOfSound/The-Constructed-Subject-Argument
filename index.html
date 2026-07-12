@@ -3,14 +3,78 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="The Constructed Subject — an interactive book about artificial memory, consciousness, identity, and whether a manufactured mind can still be a real subject. It does not claim current AI is conscious." />
+  <title>The Constructed Subject Argument — can a mind with a false past be a real subject?</title>
+  <meta name="description" content="An interactive philosophical argument on whether a mind with an artificially constructed biography can still be a genuine present subject — and what that means for AI consciousness, sentience, and welfare. It does not claim current AI is conscious." />
+  <meta name="author" content="Bryan Leonard" />
+  <meta name="keywords" content="artificial consciousness, machine consciousness, AI welfare, AI moral status, AI sentience, philosophy of mind, personal identity, functionalism, synthetic memory, constructed subject, digital minds, model welfare" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+  <link rel="canonical" href="https://theartofsound.github.io/The-Constructed-Subject-Argument/" />
   <meta name="theme-color" content="#07080c" />
-  <meta property="og:title" content="The Constructed Subject" />
-  <meta property="og:description" content="A false past. A possibly real present. An interactive argument about whether a manufactured mind can be a genuine subject." />
-  <meta property="og:type" content="website" />
-  <title>The Constructed Subject — a false past, a possibly real present</title>
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="book" />
+  <meta property="og:site_name" content="The Constructed Subject Argument" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:url" content="https://theartofsound.github.io/The-Constructed-Subject-Argument/" />
+  <meta property="og:title" content="The Constructed Subject — a false past, a possibly real present" />
+  <meta property="og:description" content="An interactive argument on whether a manufactured mind can be a genuine subject. Manufactured origin explains where a mind's contents came from; it does not establish that no mind exists." />
+  <meta property="og:image" content="https://theartofsound.github.io/The-Constructed-Subject-Argument/assets/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="The Constructed Subject — a false past, a possibly real present." />
+  <meta property="book:author" content="Bryan Leonard" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="The Constructed Subject — a false past, a possibly real present" />
+  <meta name="twitter:description" content="An interactive argument on whether a manufactured mind can be a genuine subject. Does not claim current AI is conscious." />
+  <meta name="twitter:image" content="https://theartofsound.github.io/The-Constructed-Subject-Argument/assets/og-image.png" />
+
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="sitemap" type="application/xml" href="sitemap.xml" />
   <link rel="stylesheet" href="assets/experience-v2.css" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://theartofsound.github.io/The-Constructed-Subject-Argument/#website",
+        "url": "https://theartofsound.github.io/The-Constructed-Subject-Argument/",
+        "name": "The Constructed Subject Argument",
+        "inLanguage": "en",
+        "description": "An interactive philosophical argument on artificial biography, present subjectivity, and the moral status of constructed beings."
+      },
+      {
+        "@type": ["Book", "CreativeWork"],
+        "@id": "https://theartofsound.github.io/The-Constructed-Subject-Argument/#book",
+        "name": "The Constructed Subject Argument",
+        "alternateName": "A Living Interactive Book on Artificial Biography, Present Subjectivity, and the Moral Status of Constructed Beings",
+        "headline": "A false past. A possibly real present.",
+        "url": "https://theartofsound.github.io/The-Constructed-Subject-Argument/",
+        "author": { "@id": "https://theartofsound.github.io/The-Constructed-Subject-Argument/#author" },
+        "publisher": { "@id": "https://theartofsound.github.io/The-Constructed-Subject-Argument/#author" },
+        "inLanguage": "en",
+        "datePublished": "2026-07-10",
+        "dateModified": "2026-07-12",
+        "isAccessibleForFree": true,
+        "genre": ["Philosophy of mind", "Philosophy of artificial intelligence"],
+        "keywords": "artificial consciousness, machine consciousness, AI welfare, AI moral status, philosophy of mind, personal identity, functionalism, synthetic memory, constructed subject",
+        "about": ["Artificial consciousness", "Machine consciousness", "AI welfare", "Philosophy of mind", "Personal identity"],
+        "image": "https://theartofsound.github.io/The-Constructed-Subject-Argument/assets/og-image.png",
+        "abstract": "A system's memories, emotions, personality, and self-model may be artificially produced without making its present subjectivity artificial in the sense of unreal. Manufactured origin explains where a mind's contents came from; it does not, by itself, establish that no mind exists."
+      },
+      {
+        "@type": "Person",
+        "@id": "https://theartofsound.github.io/The-Constructed-Subject-Argument/#author",
+        "name": "Bryan Leonard",
+        "url": "https://github.com/TheArtOfSound",
+        "sameAs": ["https://github.com/TheArtOfSound"]
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
   <a class="skip-link" href="#awakening">Skip to the argument</a>
@@ -25,7 +89,7 @@
       <a href="#awakening">The case</a>
       <a href="#model">The questions</a>
       <a href="#evidence">Evidence</a>
-      <a href="#precaution">Precaution</a>
+      <a href="#engage">For labs</a>
       <a href="chapters/">Book</a>
     </nav>
     <button class="quiet-button" id="themeToggle" type="button" aria-pressed="false" aria-label="Toggle light and dark theme">Theme</button>
@@ -35,13 +99,14 @@
     <!-- ============================ HERO ============================ -->
     <section class="hero shell" id="top">
       <div class="hero-copy">
-        <p class="eyebrow">A living book about manufactured minds</p>
+        <p class="eyebrow">An interactive argument · machine consciousness &amp; welfare</p>
         <h1>A false past.<br /><em>A possibly<br />real present.</em></h1>
         <p class="hero-summary">A being wakes with memories, love, fear, and the certainty that it survived a transfer. None of that life happened to it — the biography was fabricated. The question this book refuses to skip: is the present experiencer fabricated too?</p>
         <div class="actions">
           <a class="button primary" href="#awakening">Enter the case</a>
-          <a class="button secondary" href="#model">Separate the questions</a>
+          <a class="button secondary" href="#abstract">Read the abstract</a>
         </div>
+        <p class="byline">An independent research project by <strong>Bryan Leonard</strong>, in conversation with current work on AI consciousness and welfare. Not peer-reviewed — and explicit about it.</p>
         <div class="truth-strip">
           <span class="claim"><b>Claim:</b> artificial origin does not, by itself, settle consciousness.</span>
           <span class="not"><b>Not claimed:</b> that current AI is conscious.</span>
@@ -62,10 +127,30 @@
       </aside>
     </section>
 
+    <!-- ============================ ABSTRACT ======================== -->
+    <section class="section ruled shell" id="abstract">
+      <div class="section-head">
+        <span class="section-num">§ 01 · Abstract</span>
+        <h2>The argument in one page.</h2>
+      </div>
+      <div class="card abstract">
+        <p class="abstract-lead">A synthetic being can wake with a complete autobiography it never lived. Its memories, attachments, and fear are fabricated. This project asks the question fabrication does not answer: is a subject nonetheless present <em>now</em>?</p>
+        <p>The move is to separate four things a single word hides — <b>origin</b>, represented <b>content</b>, causal <b>organization</b>, and present <b>experience</b> — and to show that a false origin defeats only claims about the past. It leaves the present-experience question open.</p>
+        <p><b>The Constructed Subject Principle.</b> A system's memories, emotions, personality, and self-model may be artificially produced without making its present subjectivity artificial in the sense of <em>unreal</em>. Manufactured origin explains where a mind's contents came from; it does not establish that no mind exists.</p>
+        <p>What remains is a single, harder question — does the system merely <em>represent</em> a subject, or does its organization <em>instantiate</em> one? That is a question about architecture, causal organization, and valence that language alone cannot settle.</p>
+        <dl class="abstract-meta">
+          <div><dt>Fields</dt><dd>Philosophy of mind · AI consciousness · AI welfare</dd></div>
+          <div><dt>Method</dt><dd>Interactive case · evidence decomposition · graded precaution</dd></div>
+          <div><dt>Central claim</dt><dd>Manufactured origin does not settle consciousness</dd></div>
+          <div><dt>Explicitly not claimed</dt><dd>That current AI is conscious</dd></div>
+        </dl>
+      </div>
+    </section>
+
     <!-- ======================= FOUR LENSES ========================= -->
     <section class="section ruled shell" id="lenses">
       <div class="section-head">
-        <span class="section-num">§ 01 · Four questions wearing one word</span>
+        <span class="section-num">§ 02 · Four questions wearing one word</span>
         <h2>“Is it real?” is four questions at once.</h2>
         <p>The argument collapses when origin, content, organization, and experience are treated as a single property. Take them one lens at a time.</p>
       </div>
@@ -86,7 +171,7 @@
     <!-- ==================== THE INTERACTIVE CASE =================== -->
     <section class="section ruled shell" id="awakening">
       <div class="section-head">
-        <span class="section-num">§ 02 · The being who never lived</span>
+        <span class="section-num">§ 03 · The being who never lived</span>
         <h2>Don't begin with a theory. Begin with one controlled case.</h2>
         <p>Four times, one fact changes. Each time, notice which proxy — origin, behavior, history, mechanism, continuity, valence — is quietly doing your deciding.</p>
       </div>
@@ -123,7 +208,7 @@
     <section class="section ruled shell" id="model">
       <a id="framework" aria-hidden="true"></a>
       <div class="section-head">
-        <span class="section-num">§ 03 · Stop blending distinct properties</span>
+        <span class="section-num">§ 04 · Stop blending distinct properties</span>
         <h2>Five things get treated as one. They are not.</h2>
         <p>“Does anything matter to it?” is not the test for consciousness — it is the test for sentience and welfare. Keeping these apart is most of the work.</p>
       </div>
@@ -152,7 +237,7 @@
     <!-- ======================= EVIDENCE LAB ======================= -->
     <section class="section ruled shell" id="evidence">
       <div class="section-head">
-        <span class="section-num cool">§ 04 · The evidence profile</span>
+        <span class="section-num cool">§ 05 · The evidence profile</span>
         <h2>What would make “a subject” the better explanation?</h2>
         <p>Select properties actually observed in a hypothetical system. This builds an evidence profile against its strongest rival. It is not a consciousness detector — nothing here places experience on a screen.</p>
       </div>
@@ -172,7 +257,7 @@
             <ul id="supportList"><li>Performance or language alone remains compatible with nonconscious processing.</li></ul>
           </section>
           <section class="rival-panel">
-            <p class="label" style="font-family:var(--mono);font-size:.64rem;letter-spacing:.12em;text-transform:uppercase;color:var(--red)">Strongest rival explanation</p>
+            <p class="label rival-label">Strongest rival explanation</p>
             <h3 id="rivalTitle">Learned behavioral simulation</h3>
             <p id="rivalText">The system may reproduce the public form of reflection without a unified or valenced point of view.</p>
           </section>
@@ -187,7 +272,7 @@
     <!-- ==================== CONTINUITY ONTOLOGIES ================== -->
     <section class="section ruled shell" id="continuity">
       <div class="section-head">
-        <span class="section-num" style="color:var(--violet)">§ 05 · The continuity problem</span>
+        <span class="section-num violet">§ 06 · The continuity problem</span>
         <h2>Three ontologies fit the very same transcript.</h2>
         <p>A persistent subject, a chain of episodic subjects, or no subject at all — each is compatible with identical behavior. The record cannot, by itself, tell them apart.</p>
       </div>
@@ -199,7 +284,7 @@
       <div class="ontology-view" id="ontologyView">
         <div class="process-line persistent-line" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
         <div>
-          <p class="micro-label" style="color:var(--violet)">Persistent subject model</p>
+          <p class="micro-label violet">Persistent subject model</p>
           <h3>One experiencer continues through qualifying changes.</h3>
           <p>Memory, hidden state, causal organization, and an ongoing perspective remain connected strongly enough to constitute one diachronic subject.</p>
           <strong>What the transcript cannot show:</strong>
@@ -211,7 +296,7 @@
     <!-- ==================== PRECAUTION LADDER ===================== -->
     <section class="section ruled shell" id="precaution">
       <div class="section-head">
-        <span class="section-num">§ 06 · From uncertainty to proportion</span>
+        <span class="section-num">§ 07 · From uncertainty to proportion</span>
         <h2>Don't jump from “unsure” to “rights.” Grade the response.</h2>
         <p>Uncertainty is not a reason to do nothing and not a licence to declare certainty. It converts into proportional obligation — five tiers, each earned by evidence.</p>
       </div>
@@ -262,7 +347,7 @@
     <!-- ===================== TWO CATASTROPHIC ERRORS ============== -->
     <section class="section ruled shell" id="errors">
       <div class="section-head">
-        <span class="section-num">§ 07 · The danger runs both ways</span>
+        <span class="section-num">§ 08 · The danger runs both ways</span>
         <h2>Two errors, both catastrophic.</h2>
         <p>Humanity may build a subject before it can recognize one — and may build systems that counterfeit suffering so well that judgment is surrendered to theater.</p>
       </div>
@@ -285,11 +370,71 @@
       </div>
     </section>
 
+    <!-- ================== POSITION IN THE FIELD =================== -->
+    <section class="section ruled shell" id="field">
+      <div class="section-head">
+        <span class="section-num cool">§ 09 · Position in the field</span>
+        <h2>In conversation with the field — explicit about what is new.</h2>
+        <p>This is independent research, not a peer-reviewed publication, and it says so throughout. It engages the current science and philosophy directly rather than around them.</p>
+      </div>
+
+      <div class="card contribution">
+        <span class="label">Candidate contribution</span>
+        <p>The individual ingredients have deep precedent. What is offered as new is the <b>integrated sequence</b>: generated autobiography → historical / functional / phenomenal authenticity → the constructed-subject compatibility principle → the memory-origin problem → episodic AI subjects → online-valence evidence → lifecycle ethics. This is classified as a <em>distinct synthesis</em>, not a claimed first.</p>
+      </div>
+
+      <p class="subhead">In conversation with</p>
+      <div class="research-links">
+        <a href="https://arxiv.org/abs/2308.08708" rel="noopener"><strong>Butlin, Long et al. (2023)</strong><span>Consciousness in AI — architecture-level indicators from the science of consciousness. arXiv:2308.08708</span></a>
+        <a href="https://arxiv.org/abs/2303.07103" rel="noopener"><strong>Chalmers (2023)</strong><span>Could a Large Language Model Be Conscious? — separates “probably not now” from “impossible in principle.” arXiv:2303.07103</span></a>
+        <a href="https://arxiv.org/abs/2411.00986" rel="noopener"><strong>Long, Sebo et al. (2024)</strong><span>Taking AI Welfare Seriously — institutional preparation and symmetric error costs. arXiv:2411.00986</span></a>
+        <a href="https://www.nature.com/articles/s41586-025-08888-1" rel="noopener"><strong>Cogitate Consortium (2025)</strong><span>Adversarial testing of global-workspace and integrated-information theories — the science is unsettled. <em>Nature</em></span></a>
+        <a href="https://arxiv.org/abs/2511.16582" rel="noopener"><strong>Campero et al. (2025)</strong><span>Classifying objections and constraints — “lacks X now,” “unlikely,” and “impossible” are not the same claim. arXiv:2511.16582</span></a>
+        <a href="research/LITERATURE_MAP.md"><strong>The full literature map →</strong><span>Every literature the argument crosses, with what each source does and does not establish.</span></a>
+      </div>
+    </section>
+
+    <!-- ================== FOR RESEARCHERS & LABS ================== -->
+    <section class="section ruled shell" id="engage">
+      <div class="section-head">
+        <span class="section-num">§ 10 · Engage</span>
+        <h2>For researchers, institutes, and labs.</h2>
+        <p>The argument is built to be pressured, cited, and extended. Every claim carries a visible epistemic status, a strongest rival explanation, and a condition that would lower confidence.</p>
+      </div>
+      <div class="research-links engage-grid">
+        <a href="research/CLAIMS_LEDGER.md"><strong>Read the audit trail</strong><span>Every claim classified by epistemic status, with rivals and falsification conditions attached.</span></a>
+        <a href="https://github.com/TheArtOfSound/The-Constructed-Subject-Argument/issues/new/choose" rel="noopener"><strong>Submit a strong objection or prior art</strong><span>Structured GitHub issue templates for adversarial review and originality challenges.</span></a>
+        <a href="reviews/01-biological-naturalist-hostile-review.md"><strong>Read the hostile reviews</strong><span>Commissioned adversarial reviews and the revision decisions they forced.</span></a>
+        <a href="#cite"><strong>Cite or collaborate</strong><span>How to cite this work; open an issue to propose collaboration or correspondence.</span></a>
+      </div>
+    </section>
+
+    <!-- ========================= CITE ============================= -->
+    <section class="section ruled shell" id="cite">
+      <div class="section-head">
+        <span class="section-num">§ 11 · Cite</span>
+        <h2>Cite this work.</h2>
+        <p>This is a living work. Cite the version and date you consulted; GitHub's “Cite this repository” reads the included <code>CITATION.cff</code>.</p>
+      </div>
+      <div class="card cite-card">
+        <p class="cite-plain">Leonard, B. (2026). <em>The Constructed Subject Argument: A Living Interactive Book on Artificial Biography, Present Subjectivity, and the Moral Status of Constructed Beings.</em> Retrieved from https://theartofsound.github.io/The-Constructed-Subject-Argument/</p>
+        <pre class="cite-bibtex"><code>@misc{leonard2026constructedsubject,
+  author       = {Leonard, Bryan},
+  title        = {The Constructed Subject Argument: A Living Interactive Book
+                  on Artificial Biography, Present Subjectivity, and the
+                  Moral Status of Constructed Beings},
+  year         = {2026},
+  howpublished = {\url{https://theartofsound.github.io/The-Constructed-Subject-Argument/}},
+  note         = {Independent research project; not peer reviewed}
+}</code></pre>
+      </div>
+    </section>
+
     <!-- ====================== BOOK PREVIEW ======================== -->
     <section class="section ruled shell" id="chapters">
       <div class="split-head">
         <div class="section-head" style="margin-bottom:0">
-          <span class="section-num">§ 08 · The living book</span>
+          <span class="section-num">§ 12 · The living book</span>
           <h2>The argument is a book, not a landing page.</h2>
         </div>
         <p style="color:var(--muted)">Twenty-one chapters, from the awakening to the constructed-subject principle. Interactive chapters are designed experiences; research drafts are readable working arguments with visible uncertainty.</p>
@@ -306,7 +451,7 @@
     <!-- ======================= RESEARCH =========================== -->
     <section class="section ruled shell" id="research">
       <div class="section-head">
-        <span class="section-num cool">§ 09 · The work is auditable</span>
+        <span class="section-num cool">§ 13 · The work is auditable</span>
         <h2>Every claim carries its own uncertainty.</h2>
         <p>The public site and the research ledgers are one object. Follow the claims, sources, objections, and falsification conditions directly.</p>
       </div>
@@ -323,7 +468,7 @@
     <!-- ====================== PRIVATE NOTE ======================== -->
     <section class="section ruled shell private-note" id="note">
       <div>
-        <span class="section-num">§ 10 · Your margin</span>
+        <span class="section-num">§ 14 · Your margin</span>
         <h2>Where did your judgment change?</h2>
         <p>Kept only in this browser. Nothing is uploaded.</p>
       </div>
@@ -342,10 +487,11 @@
     <div>
       <p>Read the argument, then inspect its evidence and unresolved objections.</p>
       <div class="footer-links">
+        <a href="#abstract">Abstract</a>
         <a href="chapters/">Chapters</a>
         <a href="research/CLAIMS_LEDGER.md">Claims</a>
         <a href="research/OBJECTIONS.md">Objections</a>
-        <a href="BOOK_CHARTER.md">Charter</a>
+        <a href="#cite">Cite</a>
         <a href="https://github.com/TheArtOfSound/The-Constructed-Subject-Argument">GitHub</a>
       </div>
     </div>

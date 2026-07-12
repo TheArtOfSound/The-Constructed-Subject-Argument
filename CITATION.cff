@@ -1,0 +1,37 @@
+cff-version: 1.2.0
+message: "If you reference or build on this work, please cite it as below."
+title: "The Constructed Subject Argument"
+abstract: >-
+  An interactive philosophical argument on whether a mind with an artificially
+  constructed biography can still be a genuine present subject, and what that
+  implies for the consciousness, sentience, and moral status of artificial
+  systems. The project decomposes the inference from constructed origin to
+  absent subject, and proposes a graded precautionary framework. It does not
+  claim that current AI systems are conscious.
+type: software
+authors:
+  - family-names: Leonard
+    given-names: Bryan
+    website: "https://github.com/TheArtOfSound"
+url: "https://theartofsound.github.io/The-Constructed-Subject-Argument/"
+repository-code: "https://github.com/TheArtOfSound/The-Constructed-Subject-Argument"
+date-released: "2026-07-10"
+version: "0.2.0"
+keywords:
+  - artificial consciousness
+  - machine consciousness
+  - AI welfare
+  - AI moral status
+  - philosophy of mind
+  - personal identity
+  - functionalism
+  - synthetic memory
+preferred-citation:
+  type: book
+  title: "The Constructed Subject Argument: A Living Interactive Book on Artificial Biography, Present Subjectivity, and the Moral Status of Constructed Beings"
+  authors:
+    - family-names: Leonard
+      given-names: Bryan
+  year: 2026
+  url: "https://theartofsound.github.io/The-Constructed-Subject-Argument/"
+  notes: "Independent research project; not peer reviewed."
