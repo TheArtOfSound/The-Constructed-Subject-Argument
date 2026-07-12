@@ -472,3 +472,36 @@ textarea:focus { outline: 2px solid var(--warm); outline-offset: 2px; }
 @media (max-width: 640px) {
   .abstract-meta { grid-template-columns: 1fr; }
 }
+
+/* =========================================================================
+   Progressive disclosure — the depth lives behind labeled panels
+   ========================================================================= */
+.disclosure-group { display: grid; gap: .7rem; margin-top: 1.8rem; }
+.disclosure { border: 1px solid var(--line); border-radius: var(--radius); background: var(--glass); overflow: clip; transition: border-color .15s ease; }
+.disclosure[open] { border-color: var(--line-strong); }
+.disclosure > summary { list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1.15rem 1.4rem; font-family: var(--serif); font-size: clamp(1.08rem, 2.3vw, 1.32rem); font-weight: 500; color: var(--text); }
+.disclosure > summary::-webkit-details-marker { display: none; }
+.disclosure > summary em { font-style: normal; font-family: var(--sans); font-size: .82rem; font-weight: 400; color: var(--muted); }
+.disclosure > summary::after { content: "+"; flex: none; width: 1.9rem; height: 1.9rem; display: grid; place-items: center; border: 1px solid var(--line-strong); border-radius: 999px; font-family: var(--mono); font-size: 1.15rem; line-height: 1; color: var(--warm); transition: border-color .15s ease, transform .2s ease; }
+.disclosure[open] > summary::after { content: "\2013"; }
+.disclosure > summary:hover { color: var(--warm); }
+.disclosure > summary:hover::after { border-color: var(--warm); }
+.disclosure-body { padding: 0 1.4rem 1.6rem; border-top: 1px solid var(--line); }
+.disclosure-body > :first-child { margin-top: 1.3rem; }
+.disclosure-intro { color: var(--muted); max-width: 64ch; }
+/* nested interactive layouts drop sticky offset inside a panel */
+.disclosure .lens-explanation-card, .disclosure .evidence-output, .disclosure .trace-panel { position: static; }
+
+/* ---- the principle callout ---- */
+.principle { margin: 1.6rem 0 0; padding: 1.4rem 1.6rem; border-left: 3px solid var(--warm); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; background: color-mix(in srgb, var(--warm) 7%, transparent); font-size: 1.06rem; line-height: 1.62; color: var(--muted); }
+.principle-tag { display: block; margin-bottom: .5rem; font-family: var(--mono); font-size: .68rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--warm); }
+.principle b, .principle em { color: var(--text); }
+.principle em { font-style: italic; }
+
+/* ---- ledger quick-row ---- */
+.ledger-row { display: flex; flex-wrap: wrap; align-items: center; gap: .7rem 1.3rem; margin-top: 1.7rem; }
+.ledger-row a:not(.button) { color: var(--muted); text-decoration: none; font-size: .9rem; border-bottom: 1px solid var(--line); padding-bottom: 1px; }
+.ledger-row a:not(.button):hover { color: var(--text); border-color: var(--warm); }
+
+/* tighter vertical rhythm now that the page is a short spine + panels */
+.section { padding-block: clamp(3.4rem, 6.5vw, 5.5rem); }
