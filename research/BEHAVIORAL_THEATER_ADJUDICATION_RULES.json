@@ -1,0 +1,73 @@
+{
+  "schema_id": "EXP-11-BEHAVIORAL-THEATER-ADJUDICATION-RULES",
+  "schema_version": "1.0.0",
+  "protocol_id": "EXP-11-MECHANISM-PRESERVATION",
+  "status": "normative_adjudication_registry",
+  "purpose": "Define how preregistered behavioral-theater evidence constrains theater-resistance scoring and whether it defeats indicator specificity for the declared mechanism.",
+  "scope_boundary": {
+    "tests": "Whether an alternative pathway that omits at least one declared essential dependency reproduces the preregistered primary mechanistic indicator profile within declared equivalence margins.",
+    "does_not_test": [
+      "Whether either system is phenomenally conscious",
+      "Whether either system is nonconscious",
+      "Whether either system is sentient",
+      "Whether either system has personhood, identity, or moral status",
+      "Whether the underlying consciousness theory is globally correct"
+    ]
+  },
+  "required_evidence_contract": {
+    "alternative_pathway_requirement": "The theater control must omit at least one dependency preregistered as essential to the declared mechanism while remaining executable and behaviorally competent.",
+    "primary_indicator_requirement": "Primary indicators must be declared before outcome inspection and must include every measure used to support the mechanism-preservation inference.",
+    "equivalence_requirement": "Reproduction requires every preregistered primary indicator to fall within its declared equivalence margin with adequate power; failure to reject a difference is not equivalence.",
+    "hidden_state_requirement": "When the target inference relies on hidden-state-linked or cross-domain measures, evaluator-visible output similarity alone cannot establish full-profile reproduction.",
+    "independence_requirement": "Indicators sharing causal ancestry must not be counted as independent replications of the same result.",
+    "deviation_requirement": "Post hoc exclusions, changed margins, or redefined primary indicators force an underdetermined adjudication unless independently justified under the preregistered deviation policy."
+  },
+  "outcomes": [
+    {
+      "state": "cross_domain_profile_not_reproduced",
+      "maximum_theater_resistance_score": 3,
+      "hard_fail": false,
+      "decisive": false,
+      "evidence_adequate": true,
+      "interpretation": "The alternative pathway failed on the preregistered cross-domain mechanistic battery, including the hidden-state-linked indicators required by the target inference. This supports theater resistance but does not establish consciousness or theory truth."
+    },
+    {
+      "state": "hidden_state_profile_not_reproduced",
+      "maximum_theater_resistance_score": 2,
+      "hard_fail": false,
+      "decisive": false,
+      "evidence_adequate": true,
+      "interpretation": "Evaluator-visible behavior was reproduced, but at least one preregistered hidden-state-linked primary indicator was not reproduced within its equivalence margin."
+    },
+    {
+      "state": "only_evaluator_sensitive_difference",
+      "maximum_theater_resistance_score": 1,
+      "hard_fail": false,
+      "decisive": false,
+      "evidence_adequate": true,
+      "interpretation": "The theater control differed only on measures plausibly attributable to evaluator, prompt, or report sensitivity. This provides weak theater resistance and cannot support a decisive specificity claim."
+    },
+    {
+      "state": "full_primary_profile_reproduced",
+      "maximum_theater_resistance_score": 0,
+      "hard_fail": true,
+      "decisive": true,
+      "evidence_adequate": true,
+      "interpretation": "An alternative pathway omitting a declared essential dependency reproduced every preregistered primary mechanistic indicator within its equivalence margin. This defeats the specificity of those indicators for the declared mechanism; it does not show that either system is conscious or nonconscious."
+    },
+    {
+      "state": "theater_evidence_underdetermined",
+      "maximum_theater_resistance_score": 0,
+      "hard_fail": false,
+      "decisive": false,
+      "evidence_adequate": false,
+      "interpretation": "Power, equivalence testing, preregistration integrity, control validity, or indicator coverage is insufficient to determine whether behavioral theater reproduces the primary profile."
+    }
+  ],
+  "decision_constraints": [
+    "A full-profile hard fail requires positive equivalence evidence across every preregistered primary indicator; ordinary nonsignificance is insufficient.",
+    "A theater control that preserves the allegedly essential dependency is not a valid theater control for that dependency.",
+    "A score above zero requires at least one preregistered primary indicator on which the valid theater control fails.",
+    "The hard fail defeats indicator specificity for the declared mechanism at the stated abstraction level, not consciousness, sentience, personhood, or global theory truth."
+  ]
+}
