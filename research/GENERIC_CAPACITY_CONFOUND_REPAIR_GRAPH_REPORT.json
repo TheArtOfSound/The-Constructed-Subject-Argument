@@ -1,0 +1,220 @@
+{
+  "schema_version": "1.0.0",
+  "report_id": "EXP11-GENERIC-CAPACITY-REPAIR-GRAPH-REPORT-001",
+  "generated": true,
+  "analysis_status": "synthetic_normative_graph_analysis",
+  "registry": {
+    "path": "research/GENERIC_CAPACITY_CONFOUND_ADJUDICATION_RULES.json",
+    "registry_id": "EXP11-GENERIC-CAPACITY-CONFOUND-RULES-001",
+    "schema_version": "1.1.0",
+    "protocol_id": "EXP-11-MECHANISM-PRESERVATION"
+  },
+  "scope": {
+    "state_count": 5,
+    "edge_count": 5,
+    "statement": "This report analyzes the internal graph structure declared by the capacity-confound adjudication registry. It does not validate the causal model, thresholds, or scientific completeness of that registry."
+  },
+  "graph": {
+    "roots": [
+      "explanatory_role_underdetermined",
+      "mismatch_sufficiently_explanatory"
+    ],
+    "terminals": [
+      "no_detected_mismatch"
+    ],
+    "cycles": [],
+    "reachability": {
+      "explanatory_role_underdetermined": [
+        "mismatch_nonexplanatory",
+        "mismatch_partially_explanatory",
+        "no_detected_mismatch"
+      ],
+      "mismatch_nonexplanatory": [
+        "no_detected_mismatch"
+      ],
+      "mismatch_partially_explanatory": [
+        "mismatch_nonexplanatory",
+        "no_detected_mismatch"
+      ],
+      "mismatch_sufficiently_explanatory": [
+        "mismatch_nonexplanatory",
+        "mismatch_partially_explanatory",
+        "no_detected_mismatch"
+      ],
+      "no_detected_mismatch": []
+    },
+    "terminal_paths": {
+      "explanatory_role_underdetermined": [
+        [
+          "explanatory_role_underdetermined",
+          "mismatch_nonexplanatory",
+          "no_detected_mismatch"
+        ]
+      ],
+      "mismatch_nonexplanatory": [
+        [
+          "mismatch_nonexplanatory",
+          "no_detected_mismatch"
+        ]
+      ],
+      "mismatch_partially_explanatory": [
+        [
+          "mismatch_partially_explanatory",
+          "mismatch_nonexplanatory",
+          "no_detected_mismatch"
+        ]
+      ],
+      "mismatch_sufficiently_explanatory": [
+        [
+          "mismatch_sufficiently_explanatory",
+          "mismatch_partially_explanatory",
+          "mismatch_nonexplanatory",
+          "no_detected_mismatch"
+        ]
+      ],
+      "no_detected_mismatch": [
+        [
+          "no_detected_mismatch"
+        ]
+      ]
+    },
+    "edge_analysis": [
+      {
+        "edge_id": "remove_sufficient_explanation",
+        "from": "mismatch_sufficiently_explanatory",
+        "to": "mismatch_partially_explanatory",
+        "epistemic_direction": "reduces_explanatory_strength",
+        "changes": {
+          "matching_adequacy": "false->false",
+          "score_ceiling": "0->0",
+          "hard_fail": "true->false"
+        },
+        "support_gain": true,
+        "support_loss": false,
+        "transition_kind": "substantive_support_improvement",
+        "interpretation": "New evidence rules out sufficient explanation while leaving a material partial explanation."
+      },
+      {
+        "edge_id": "resolve_role_partial",
+        "from": "explanatory_role_underdetermined",
+        "to": "mismatch_partially_explanatory",
+        "epistemic_direction": "resolves_uncertainty",
+        "changes": {
+          "matching_adequacy": "false->false",
+          "score_ceiling": "0->0",
+          "hard_fail": "false->false"
+        },
+        "support_gain": false,
+        "support_loss": false,
+        "transition_kind": "uncertainty_resolution_without_support_gain",
+        "interpretation": "Previously unresolved evidence establishes a material but incomplete explanatory role."
+      },
+      {
+        "edge_id": "resolve_role_nonexplanatory",
+        "from": "explanatory_role_underdetermined",
+        "to": "mismatch_nonexplanatory",
+        "epistemic_direction": "resolves_uncertainty",
+        "changes": {
+          "matching_adequacy": "false->true",
+          "score_ceiling": "0->1",
+          "hard_fail": "false->false"
+        },
+        "support_gain": true,
+        "support_loss": false,
+        "transition_kind": "substantive_support_improvement",
+        "interpretation": "Previously unresolved evidence establishes that the represented mismatch is nonexplanatory under the preregistered model."
+      },
+      {
+        "edge_id": "reduce_explanatory_strength",
+        "from": "mismatch_partially_explanatory",
+        "to": "mismatch_nonexplanatory",
+        "epistemic_direction": "reduces_explanatory_strength",
+        "changes": {
+          "matching_adequacy": "false->true",
+          "score_ceiling": "0->1",
+          "hard_fail": "false->false"
+        },
+        "support_gain": true,
+        "support_loss": false,
+        "transition_kind": "substantive_support_improvement",
+        "interpretation": "Additional evidence reduces the represented mismatch from partial explanation to nonexplanation."
+      },
+      {
+        "edge_id": "remove_detected_mismatch",
+        "from": "mismatch_nonexplanatory",
+        "to": "no_detected_mismatch",
+        "epistemic_direction": "improves_matching_evidence",
+        "changes": {
+          "matching_adequacy": "true->true",
+          "score_ceiling": "1->2",
+          "hard_fail": "false->false"
+        },
+        "support_gain": true,
+        "support_loss": false,
+        "transition_kind": "substantive_support_improvement",
+        "interpretation": "Improved matching evidence removes the represented mismatch within the preregistered battery."
+      }
+    ]
+  },
+  "findings": {
+    "duplicate_state_ids": [],
+    "duplicate_edge_ids": [],
+    "invalid_edges": [],
+    "self_loops": [],
+    "states_without_terminal_path": [],
+    "support_regression_edges": [],
+    "uncertainty_resolution_without_support_gain_edges": [
+      "resolve_role_partial"
+    ],
+    "partial_order_note": "The graph is a directed acyclic repair relation, not a total ranking. Its two roots represent different defects: sufficient causal explanation and unresolved explanatory role. They are not treated as interchangeable severities.",
+    "terminal_note": "no_detected_mismatch is the sole terminal state, but reaching it means only that the preregistered represented battery detected no mismatch; it does not establish absence of every generic-capacity confound.",
+    "resolution_note": "resolve_role_partial resolves uncertainty while preserving a zero score ceiling and inadequate matching. It is epistemic resolution, not increased support for mechanism preservation."
+  },
+  "checks": [
+    {
+      "id": "unique_states",
+      "pass": true
+    },
+    {
+      "id": "unique_edges",
+      "pass": true
+    },
+    {
+      "id": "valid_edge_endpoints",
+      "pass": true
+    },
+    {
+      "id": "no_self_loops",
+      "pass": true
+    },
+    {
+      "id": "acyclic",
+      "pass": true
+    },
+    {
+      "id": "terminal_reachability",
+      "pass": true
+    },
+    {
+      "id": "no_substantive_support_regressions",
+      "pass": true
+    },
+    {
+      "id": "epistemic_directions_declared",
+      "pass": true
+    }
+  ],
+  "summary": {
+    "passed_checks": 8,
+    "total_checks": 8,
+    "overall_pass": true,
+    "graph_kind": "directed_acyclic_repair_graph"
+  },
+  "epistemic_boundary": "A mismatch is not automatically a causal explanation. These rules adjudicate represented confounds only and do not establish mechanism preservation, consciousness, nonconsciousness, sentience, personhood, identity, or moral status.",
+  "forbidden_inferences": [
+    "Acyclicity or terminal reachability proves that the repair graph is scientifically complete or uniquely correct.",
+    "Movement toward no_detected_mismatch proves that every possible confound has been eliminated.",
+    "Resolving uncertainty toward a negative or partial state is equivalent to increasing support for mechanism preservation.",
+    "This graph analysis establishes consciousness, nonconsciousness, sentience, personhood, identity, or moral status in any actual AI system."
+  ]
+}
