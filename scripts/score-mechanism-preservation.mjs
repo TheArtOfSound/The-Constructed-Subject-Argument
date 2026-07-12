@@ -8,8 +8,10 @@ const root = path.resolve(__dirname, '..');
 const protocolPath = path.join(root, 'research', 'MECHANISM_PRESERVATION_PROTOCOL.json');
 const classificationPolicyPath = path.join(root, 'research', 'MECHANISM_PRESERVATION_CLASSIFICATION_POLICY.json');
 const capacityAdjudicationRulesPath = path.join(root, 'research', 'GENERIC_CAPACITY_CONFOUND_ADJUDICATION_RULES.json');
+const behavioralTheaterRulesPath = path.join(root, 'research', 'BEHAVIORAL_THEATER_ADJUDICATION_RULES.json');
 
 const CAPACITY_HARD_FAIL = 'generic_capacity_control_explains_primary_effect';
+const THEATER_HARD_FAIL = 'behavioral_theater_control_reproduces_all_primary_mechanistic_indicators';
 
 export function loadProtocol() {
   return JSON.parse(fs.readFileSync(protocolPath, 'utf8'));
@@ -21,6 +23,10 @@ export function loadClassificationPolicy() {
 
 export function loadCapacityAdjudicationRules() {
   return JSON.parse(fs.readFileSync(capacityAdjudicationRulesPath, 'utf8'));
+}
+
+export function loadBehavioralTheaterRules() {
+  return JSON.parse(fs.readFileSync(behavioralTheaterRulesPath, 'utf8'));
 }
 
 function assert(condition, message) {
@@ -103,7 +109,34 @@ export function resolveCapacityAdjudication(record, registry = loadCapacityAdjud
   return { adjudication, policy };
 }
 
-export function scoreMechanismPreservation(record, protocol = loadProtocol(), classificationPolicy = loadClassificationPolicy(), capacityRegistry = loadCapacityAdjudicationRules()) {
+export function resolveBehavioralTheaterAdjudication(record, registry = loadBehavioralTheaterRules()) {
+  const adjudication = record.behavioral_theater_adjudication;
+  if (adjudication === undefined) return null;
+  assert(adjudication && typeof adjudication === 'object', 'behavioral_theater_adjudication must be an object when supplied.');
+  assert(registry.protocol_id === record.protocol_id, `Behavioral-theater registry protocol_id must equal ${record.protocol_id}.`);
+  const policy = registry.outcomes.find(({ state }) => state === adjudication.adjudication_state);
+  assert(policy, `Unknown behavioral-theater adjudication state: ${adjudication.adjudication_state}.`);
+  assert(Number.isInteger(policy.maximum_theater_resistance_score), `Behavioral-theater state ${policy.state} must declare an integer theater-resistance score ceiling.`);
+  assert(typeof policy.hard_fail === 'boolean', `Behavioral-theater state ${policy.state} must declare hard_fail.`);
+  assert(typeof policy.decisive === 'boolean', `Behavioral-theater state ${policy.state} must declare decisive.`);
+  assert(
+    adjudication.maximum_theater_resistance_score === policy.maximum_theater_resistance_score,
+    `Behavioral-theater state ${adjudication.adjudication_state} permits theater_resistance score ${policy.maximum_theater_resistance_score}.`
+  );
+  assert(
+    adjudication.behavioral_theater_hard_fail === policy.hard_fail,
+    `Behavioral-theater state ${adjudication.adjudication_state} requires behavioral_theater_hard_fail=${policy.hard_fail}.`
+  );
+  return { adjudication, policy };
+}
+
+export function scoreMechanismPreservation(
+  record,
+  protocol = loadProtocol(),
+  classificationPolicy = loadClassificationPolicy(),
+  capacityRegistry = loadCapacityAdjudicationRules(),
+  behavioralTheaterRegistry = loadBehavioralTheaterRules()
+) {
   assert(record && typeof record === 'object', 'Result record must be an object.');
   assert(record.protocol_id === protocol.protocol_id, `protocol_id must equal ${protocol.protocol_id}.`);
   assert(typeof record.run_id === 'string' && record.run_id.trim(), 'run_id is required.');
@@ -111,11 +144,16 @@ export function scoreMechanismPreservation(record, protocol = loadProtocol(), cl
   assert(typeof record.implementation_level === 'string' && record.implementation_level.trim(), 'implementation_level is required.');
 
   const { adjudication, policy: capacityPolicy } = resolveCapacityAdjudication(record, capacityRegistry);
+  const theaterResolution = resolveBehavioralTheaterAdjudication(record, behavioralTheaterRegistry);
   const dimensions = protocol.scoring.dimensions;
   const allowedDimensionIds = new Set(dimensions.map((dimension) => dimension.id));
   const submittedScores = { ...(record.dimension_scores ?? {}) };
   assert(!Object.hasOwn(submittedScores, 'generic_capacity_exclusion'), 'generic_capacity_exclusion is derived from capacity_confound_adjudication and must not be supplied manually.');
   submittedScores.generic_capacity_exclusion = capacityPolicy.maximum_generic_capacity_exclusion_score;
+  if (theaterResolution) {
+    assert(!Object.hasOwn(submittedScores, 'theater_resistance'), 'theater_resistance is derived from behavioral_theater_adjudication and must not be supplied manually.');
+    submittedScores.theater_resistance = theaterResolution.policy.maximum_theater_resistance_score;
+  }
   const submittedIds = Object.keys(submittedScores);
 
   assert(submittedIds.length === dimensions.length, 'Every non-derived scoring dimension must be supplied exactly once.');
@@ -134,15 +172,26 @@ export function scoreMechanismPreservation(record, protocol = loadProtocol(), cl
   const knownHardFails = new Set(protocol.scoring.hard_fail_conditions);
   const callerHardFails = [...new Set(record.triggered_hard_fails ?? [])];
   assert(!callerHardFails.includes(CAPACITY_HARD_FAIL), `${CAPACITY_HARD_FAIL} is derived from capacity_confound_adjudication and must not be supplied manually.`);
+  if (theaterResolution) {
+    assert(!callerHardFails.includes(THEATER_HARD_FAIL), `${THEATER_HARD_FAIL} is derived from behavioral_theater_adjudication and must not be supplied manually.`);
+  }
   for (const hardFail of callerHardFails) assert(knownHardFails.has(hardFail), `Unknown hard-fail condition: ${hardFail}.`);
   const triggeredHardFails = [...callerHardFails];
   if (capacityPolicy.hard_fail) triggeredHardFails.push(CAPACITY_HARD_FAIL);
+  if (theaterResolution?.policy.hard_fail) triggeredHardFails.push(THEATER_HARD_FAIL);
 
   const measurementAdequate = record.measurement_adequate === true;
   const matchingAdequate = capacityPolicy.matching_adequate;
   const conflictingInterventions = record.conflicting_interventions === true;
-  const otherDecisiveHardFail = record.decisive_hard_fail === true && callerHardFails.length > 0;
-  const decisiveHardFail = capacityPolicy.hard_fail || otherDecisiveHardFail;
+  const otherCallerHardFails = theaterResolution
+    ? callerHardFails
+    : callerHardFails.filter((hardFail) => hardFail !== THEATER_HARD_FAIL);
+  const legacyTheaterDecisive = !theaterResolution && callerHardFails.includes(THEATER_HARD_FAIL) && record.decisive_hard_fail === true;
+  const otherDecisiveHardFail = record.decisive_hard_fail === true && otherCallerHardFails.length > 0;
+  const decisiveHardFail = capacityPolicy.hard_fail
+    || theaterResolution?.policy.decisive === true
+    || legacyTheaterDecisive
+    || otherDecisiveHardFail;
   const context = {
     protocol_id: protocol.protocol_id,
     weighted_score: weightedScore,
@@ -160,6 +209,7 @@ export function scoreMechanismPreservation(record, protocol = loadProtocol(), cl
     .filter(Boolean);
   if (reasons.length === 0) reasons.push(rule.description ?? 'The record did not satisfy a more decisive protocol classification.');
   if (capacityPolicy.hard_fail) reasons.unshift('A sufficiently explanatory generic-capacity mismatch defeated the primary mechanism inference.');
+  if (theaterResolution?.policy.hard_fail) reasons.unshift('A preregistered behavioral-theater control reproduced the full primary mechanistic indicator profile through an alternative pathway, defeating indicator specificity for the declared mechanism.');
 
   return {
     protocol_id: protocol.protocol_id,
@@ -171,6 +221,7 @@ export function scoreMechanismPreservation(record, protocol = loadProtocol(), cl
     weighted_score: weightedScore,
     dimension_scores: normalizedScores,
     capacity_confound_adjudication_state: adjudication.adjudication_state,
+    behavioral_theater_adjudication_state: theaterResolution?.adjudication.adjudication_state ?? null,
     triggered_hard_fails: triggeredHardFails,
     classification: rule.outcome,
     reasons,
