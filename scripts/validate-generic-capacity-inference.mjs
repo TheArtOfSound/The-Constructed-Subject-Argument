@@ -5,6 +5,7 @@ import { buildGenericCapacityInference, serializeGenericCapacityInference } from
 const root = process.cwd();
 const matching = JSON.parse(fs.readFileSync(path.join(root, 'research/MECHANISM_PRESERVATION_MATCHING_DERIVED_RESULTS.json'), 'utf8'));
 const empirical = JSON.parse(fs.readFileSync(path.join(root, 'research/MECHANISM_PRESERVATION_EMPIRICAL_FIXTURE.json'), 'utf8'));
+const adjudication = JSON.parse(fs.readFileSync(path.join(root, 'research/MECHANISM_PRESERVATION_CAPACITY_CONFOUND_ADJUDICATION.json'), 'utf8'));
 const committed = fs.readFileSync(path.join(root, 'research/MECHANISM_PRESERVATION_GENERIC_CAPACITY_INFERENCE.json'), 'utf8');
 const generated = buildGenericCapacityInference(matching);
 
@@ -16,13 +17,14 @@ function fail(message) {
 if (committed !== serializeGenericCapacityInference(generated)) fail('committed artifact differs from deterministic regeneration');
 if (!['matched', 'not_matched', 'underdetermined'].includes(generated.overall_state)) fail('invalid overall state');
 
-const genericDimension = empirical.dimension_derivations.find((entry) => entry.dimension_id === 'generic_capacity_exclusion');
-if (!genericDimension) fail('empirical fixture lacks generic-capacity dimension');
-if (genericDimension.score !== generated.permitted_generic_capacity_exclusion_score) fail('empirical score exceeds or diverges from generated score');
+if (Object.hasOwn(empirical.behavioral_matching ?? {}, 'behavioral_matching_adequate')) fail('empirical fixture stores deprecated aggregate matching authority');
+if ((empirical.dimension_derivations ?? []).some((entry) => entry.dimension_id === 'generic_capacity_exclusion')) fail('empirical fixture stores deprecated generated generic-capacity dimension');
+if ((empirical.hard_fail_assessments ?? []).some((entry) => entry.condition_id === 'generic_capacity_control_explains_primary_effect')) fail('empirical fixture stores deprecated generated capacity hard fail');
 
-const hardFail = empirical.hard_fail_assessments.find((entry) => entry.condition_id === 'generic_capacity_control_explains_primary_effect');
-if (!hardFail) fail('empirical fixture lacks generic-capacity hard-fail assessment');
-if (Boolean(hardFail.triggered) !== generated.generic_capacity_hard_fail) fail('hard-fail state diverges from generated inference');
+if (adjudication.protocol_id !== generated.protocol_id || adjudication.run_id !== generated.run_id) fail('authoritative adjudication targets a different protocol or run');
+if (adjudication.matching_overall_state !== generated.overall_state) fail('authoritative adjudication disagrees with generated matching state');
+if (adjudication.maximum_generic_capacity_exclusion_score !== generated.permitted_generic_capacity_exclusion_score) fail('authoritative adjudication score ceiling diverges from generated inference');
+if (adjudication.generic_capacity_hard_fail !== generated.generic_capacity_hard_fail) fail('authoritative adjudication hard-fail state diverges from generated inference');
 
 const clone = () => JSON.parse(JSON.stringify(matching));
 
@@ -56,4 +58,4 @@ if (!generated.epistemic_boundary.includes('does not establish mechanism preserv
   fail('epistemic boundary was weakened');
 }
 
-console.log('Generic-capacity inference artifact, negative paths, score cap, and hard-fail propagation validated.');
+console.log('Generic-capacity inference artifact, negative paths, authoritative-adjudication agreement, and non-duplication contract validated.');
