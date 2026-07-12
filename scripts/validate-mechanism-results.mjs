@@ -56,8 +56,9 @@ assert(capacityAdjudication.adjudication_state === record.capacity_confound_adju
 assert(capacityAdjudication.protocol_id === protocol.protocol_id, 'Capacity adjudication targets the wrong protocol.');
 assert(capacityAdjudication.run_id === record.run_id, 'Capacity adjudication and empirical record must target the same run.');
 assert(capacityAdjudication.empirical_status === record.empirical_status, 'Capacity adjudication empirical status mismatch.');
-assert(capacityAdjudication.generated === true, 'Capacity adjudication must remain a generated artifact.');
-assert(capacityAdjudication.epistemic_boundary?.does_not_establish?.some((claim) => claim.includes('conscious')), 'Capacity adjudication lost the consciousness non-entailment boundary.');
+assert(capacityAdjudication.generated_notice?.includes('Do not edit manually'), 'Capacity adjudication must remain an explicitly generated artifact.');
+assert(typeof capacityAdjudication.epistemic_boundary === 'string' && capacityAdjudication.epistemic_boundary.includes('consciousness'), 'Capacity adjudication lost the consciousness non-entailment boundary.');
+assert(/\b(?:does|do) not establish mechanism preservation\b/i.test(capacityAdjudication.epistemic_boundary), 'Capacity adjudication lost the mechanism-preservation non-entailment boundary.');
 
 assert(!Object.hasOwn(record.behavioral_matching ?? {}, 'behavioral_matching_adequate'), 'Aggregate matching adequacy must not be stored in the empirical record.');
 assert(!(record.dimension_derivations ?? []).some((item) => item.dimension_id === CAPACITY_DIMENSION), 'Generated generic-capacity dimension must not be stored in the empirical record.');
@@ -148,7 +149,7 @@ const predicateEvaluators = {
   selectivity_passed: ({ citedInterventions }) => citedInterventions.length > 0 && citedInterventions.every((item) => item.selectivity_passed),
   controls_passed: ({ citedInterventions }) => citedInterventions.length > 0 && citedInterventions.every((item) => item.controls_passed),
   state_patching_present: ({ citedInterventions }) => citedInterventions.some((item) => item.family === 'state_patching'),
-  multiple_intervention_families_present: ({ citedInterventions }) => new Set(citedInterventions.map((item) => item.family)).size >= 2,
+  multiple_intervention_families_present: ({ citedInterventions }) => new Set(citedInterventions.map((item) => item.family).size >= 2),
   behavioral_theater_hard_fail_not_triggered: () => hardFailById.get('behavioral_theater_control_reproduces_all_primary_mechanistic_indicators')?.triggered === false,
   all_protocol_matching_metrics_reported: () => sameSet(metricIds, requiredMetricIds),
   all_primary_matching_metrics_pass: () => allPrimaryPass,
