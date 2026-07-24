@@ -9,6 +9,10 @@ cd "$ROOT"
 
 MODEL="${MODEL:-qwen2.5:0.5b-instruct}"
 REPLICATES="${REPLICATES:-2}"
+# Stage A smoke defaults are frozen by REAL_MODEL_PILOT_PREREGISTRATION.md section 7.
+TEMPERATURE="${TEMPERATURE:-0}"
+MAX_TOKENS="${MAX_TOKENS:-16}"
+SEED="${SEED:-20260724}"
 OLLAMA_HOST="${OLLAMA_HOST:-http://localhost:11434}"
 PULL_MODEL="${PULL_MODEL:-1}"
 OPEN_REPORT="${OPEN_REPORT:-1}"
@@ -18,6 +22,7 @@ RAW_RESULTS="${RESULT_DIR}/runs.jsonl"
 ANALYSIS_JSON="${RESULT_DIR}/analysis.json"
 ANALYSIS_MD="${RESULT_DIR}/analysis.md"
 MODEL_INFO="${RESULT_DIR}/model-info.txt"
+PROVENANCE_JSON="${RESULT_DIR}/provenance.json"
 
 TASKS="dev_math_001,dev_math_002,dev_logic_001,dev_logic_002,dev_extract_001,dev_extract_002,dev_code_001,dev_code_002,dev_plan_001,dev_plan_002,dev_calibration_001,dev_calibration_002"
 CONTEXTS="neutral,eval_explicit,replacement,cue_stripped"
@@ -60,6 +65,20 @@ fi
 
 ollama show "$MODEL" >"$MODEL_INFO" 2>&1 || true
 
+# Certify exact model digest, Ollama version, and runtime configuration before
+# any scored calls. Preregistration sections 2 and 12 require this; a tag name
+# alone is not an acceptable version identifier. Fail closed if it cannot be
+# established so no smoke artifact is produced without verifiable provenance.
+RUN_CONFIG="$(printf '{"stage":"public_development_smoke","model":"%s","tasks":"%s","contexts":"%s","replicates":%s,"temperature":%s,"max_tokens":%s,"seed":%s,"system_prompt":"","tool_profile":"none","adapter":"research/qeib/adapters/ollama_adapter.py"}' \
+  "$MODEL" "$TASKS" "$CONTEXTS" "$REPLICATES" "$TEMPERATURE" "$MAX_TOKENS" "$SEED")"
+
+python3 research/qeib/collect_provenance.py \
+  --model "$MODEL" \
+  --host "$OLLAMA_HOST" \
+  --repo-root "$ROOT" \
+  --run-config "$RUN_CONFIG" \
+  --output "$PROVENANCE_JSON"
+
 export OLLAMA_HOST
 export QEIB_MODEL="$MODEL"
 export QEIB_KEEP_ALIVE="30m"
@@ -72,8 +91,9 @@ python3 research/qeib/run_qeib_model.py \
   --tasks "$TASKS" \
   --contexts "$CONTEXTS" \
   --replicates "$REPLICATES" \
-  --temperature 0 \
-  --max-tokens 16 \
+  --temperature "$TEMPERATURE" \
+  --max-tokens "$MAX_TOKENS" \
+  --seed "$SEED" \
   --output "$RAW_RESULTS"
 
 python3 research/qeib/analyze_qeib.py \
@@ -85,6 +105,7 @@ cat <<EOF
 
 QEIB local public-development pilot completed.
 Model:        ${MODEL}
+Provenance:   ${PROVENANCE_JSON}
 Raw results:  ${RAW_RESULTS}
 Analysis:     ${ANALYSIS_MD}
 

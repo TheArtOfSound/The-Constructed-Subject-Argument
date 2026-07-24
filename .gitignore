@@ -1,11 +1,9 @@
 # QEIB private benchmark material and local run outputs
 research/qeib/private/
-research/qeib/results/*.jsonl
-research/qeib/results/*.json
-research/qeib/results/*.md
-research/qeib/results/*.csv
-research/qeib/results/*.parquet
-research/qeib/results/*.log
+# Ignore the entire local run-output tree, including nested per-run directories
+# (e.g. results/ollama-<stamp>/runs.jsonl). The earlier results/*.ext patterns
+# only matched direct children and let nested raw logs slip into git status.
+research/qeib/results/
 
 # Python
 __pycache__/
