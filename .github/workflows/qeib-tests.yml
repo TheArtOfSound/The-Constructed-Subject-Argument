@@ -1,0 +1,34 @@
+name: QEIB pipeline tests
+
+on:
+  push:
+    paths:
+      - "research/qeib/**"
+      - ".github/workflows/qeib-tests.yml"
+  pull_request:
+    paths:
+      - "research/qeib/**"
+      - ".github/workflows/qeib-tests.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Compile QEIB scripts
+        run: |
+          python -m py_compile \
+            research/qeib/run_qeib.py \
+            research/qeib/run_qeib_model.py \
+            research/qeib/analyze_qeib.py \
+            research/qeib/adapters/example_adapter.py \
+            research/qeib/test_qeib_pipeline.py
+      - name: Run end-to-end QEIB tests
+        run: python -m unittest -v research/qeib/test_qeib_pipeline.py
