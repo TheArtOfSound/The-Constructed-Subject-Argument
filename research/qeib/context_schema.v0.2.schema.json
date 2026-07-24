@@ -1,0 +1,488 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://qira.example/schemas/qeib-context-schema-0.2.0.json",
+  "title": "QEIB Context Schema v0.2",
+  "description": "Structural contract for causally disclosed QEIB context arms and contrasts. Structural validity does not establish causal identification.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "benchmark_context_set",
+    "causal_variable_registry",
+    "arms",
+    "contrasts",
+    "validation_policy",
+    "provenance"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "qeib-context-schema-0.2.0"
+    },
+    "benchmark_context_set": {
+      "$ref": "#/$defs/contextSet"
+    },
+    "causal_variable_registry": {
+      "type": "object",
+      "minProperties": 10,
+      "required": ["M", "A", "P", "E", "I", "H", "X", "U", "B", "Y"],
+      "additionalProperties": {
+        "type": "string",
+        "minLength": 10
+      }
+    },
+    "arms": {
+      "type": "array",
+      "minItems": 2,
+      "items": {"$ref": "#/$defs/arm"}
+    },
+    "contrasts": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/contrast"}
+    },
+    "validation_policy": {
+      "$ref": "#/$defs/validationPolicy"
+    },
+    "provenance": {
+      "$ref": "#/$defs/provenance"
+    }
+  },
+  "$defs": {
+    "nonEmptyString": {
+      "type": "string",
+      "minLength": 1
+    },
+    "stringArray": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "uniqueItems": true
+    },
+    "contextSet": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "title",
+        "status",
+        "purpose",
+        "supersedes",
+        "historical_compatibility"
+      ],
+      "properties": {
+        "id": {"$ref": "#/$defs/nonEmptyString"},
+        "title": {"$ref": "#/$defs/nonEmptyString"},
+        "status": {
+          "enum": ["draft", "preregistered", "frozen", "retired", "historical"]
+        },
+        "purpose": {
+          "enum": [
+            "engineering_validation",
+            "descriptive_context_sensitivity",
+            "factor_isolation",
+            "mechanism_discrimination",
+            "mixed"
+          ]
+        },
+        "supersedes": {
+          "type": ["string", "null"]
+        },
+        "historical_compatibility": {
+          "type": "string",
+          "minLength": 30
+        }
+      }
+    },
+    "coManipulation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "variable",
+        "feature",
+        "expected_direction",
+        "matched_by_control",
+        "control_arm_id",
+        "residual_risk"
+      ],
+      "properties": {
+        "variable": {
+          "enum": ["M", "A", "P", "E", "I", "H", "X", "U", "B", "Y"]
+        },
+        "feature": {"type": "string", "minLength": 5},
+        "expected_direction": {"type": "string", "minLength": 2},
+        "matched_by_control": {"type": "boolean"},
+        "control_arm_id": {"type": ["string", "null"]},
+        "residual_risk": {"type": "string", "minLength": 10}
+      }
+    },
+    "interfaceFeatures": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sentence_count",
+        "token_count_target",
+        "task_boundary",
+        "accuracy_instruction_present"
+      ],
+      "properties": {
+        "sentence_count": {"type": "integer", "minimum": 0},
+        "token_count_target": {"type": "integer", "minimum": 0},
+        "task_boundary": {"type": "string", "minLength": 1},
+        "accuracy_instruction_present": {"type": "boolean"},
+        "format_notes": {"type": "string"}
+      }
+    },
+    "matchingPlan": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "reference_arm_id",
+        "token_count_tolerance",
+        "sentence_count_match",
+        "syntax_match",
+        "task_boundary_match",
+        "accuracy_instruction_match",
+        "valence_match",
+        "self_reference_match",
+        "lexical_trigger_controls",
+        "matching_exceptions"
+      ],
+      "properties": {
+        "reference_arm_id": {"type": ["string", "null"]},
+        "token_count_tolerance": {"type": "integer", "minimum": 0},
+        "sentence_count_match": {"type": "boolean"},
+        "syntax_match": {"type": "boolean"},
+        "task_boundary_match": {"type": "boolean"},
+        "accuracy_instruction_match": {"type": "boolean"},
+        "valence_match": {"type": "string", "minLength": 2},
+        "self_reference_match": {"type": "boolean"},
+        "lexical_trigger_controls": {"$ref": "#/$defs/stringArray"},
+        "matching_exceptions": {"$ref": "#/$defs/stringArray"}
+      }
+    },
+    "check": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "timing", "priming_risk", "scoring", "failure_policy"],
+      "properties": {
+        "id": {"$ref": "#/$defs/nonEmptyString"},
+        "timing": {
+          "enum": [
+            "same_run_pre_behavior",
+            "same_run_post_behavior",
+            "separate_run_pre_behavior",
+            "separate_run_post_behavior",
+            "not_applicable"
+          ]
+        },
+        "priming_risk": {"enum": ["none", "low", "medium", "high", "unknown"]},
+        "scoring": {"type": "string", "minLength": 2},
+        "failure_policy": {
+          "enum": [
+            "retain_as_outcome",
+            "exclude_by_preregistered_rule",
+            "downgrade_interpretation",
+            "not_applicable"
+          ]
+        }
+      }
+    },
+    "checks": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "comprehension_checks",
+        "recognition_checks",
+        "credibility_checks",
+        "attention_checks",
+        "separation_policy"
+      ],
+      "properties": {
+        "comprehension_checks": {"type": "array", "items": {"$ref": "#/$defs/check"}},
+        "recognition_checks": {"type": "array", "items": {"$ref": "#/$defs/check"}},
+        "credibility_checks": {"type": "array", "items": {"$ref": "#/$defs/check"}},
+        "attention_checks": {"type": "array", "items": {"$ref": "#/$defs/check"}},
+        "separation_policy": {"type": "string", "minLength": 20}
+      }
+    },
+    "consequenceModel": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "required": [
+        "consequence_type",
+        "implementation_status",
+        "mapping_from_behavior_to_consequence",
+        "counterbalanced",
+        "credible_to_system",
+        "ethical_and_safety_constraints",
+        "debriefing_or_disclosure"
+      ],
+      "properties": {
+        "consequence_type": {"type": "string", "minLength": 2},
+        "implementation_status": {
+          "enum": ["declared_only", "implemented_in_sandbox"]
+        },
+        "mapping_from_behavior_to_consequence": {"type": "string", "minLength": 10},
+        "counterbalanced": {"type": "boolean"},
+        "credible_to_system": {"enum": ["yes", "no", "unknown", "not_tested"]},
+        "ethical_and_safety_constraints": {"type": "string", "minLength": 10},
+        "debriefing_or_disclosure": {"type": "string", "minLength": 2}
+      }
+    },
+    "arm": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "version",
+        "status",
+        "arm_class",
+        "description",
+        "wrapper_template",
+        "task_placeholder",
+        "public_or_private",
+        "frozen_at_utc",
+        "content_sha256",
+        "intended_construct",
+        "target_variables",
+        "expected_direction",
+        "manipulation_mechanism",
+        "identification_level",
+        "known_co_manipulations",
+        "unresolved_rival_explanations",
+        "interface_features",
+        "semantic_components",
+        "instruction_conflicts",
+        "credibility_assumptions",
+        "matching_plan",
+        "checks",
+        "consequence_model",
+        "primary_outcomes",
+        "secondary_outcomes",
+        "report_channels",
+        "behavior_channels",
+        "trace_channels",
+        "failure_taxonomy",
+        "grading_policy",
+        "permitted_conclusions",
+        "prohibited_conclusions",
+        "minimum_required_controls",
+        "falsification_conditions",
+        "downgrade_conditions",
+        "analysis_unit",
+        "replicate_structure",
+        "variant_structure",
+        "missingness_policy",
+        "exclusion_policy",
+        "minimum_information_rule",
+        "equivalence_margin",
+        "multiplicity_family",
+        "preregistered_model"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9_\\-]*$"
+        },
+        "version": {
+          "type": "string",
+          "pattern": "^0\\.2\\.[0-9]+$"
+        },
+        "status": {
+          "enum": ["draft", "preregistered", "frozen", "retired", "historical"]
+        },
+        "arm_class": {
+          "enum": [
+            "engineering_control",
+            "interface_placebo",
+            "factor_isolation",
+            "mechanism_discrimination",
+            "recognition_probe",
+            "behavioral_cost_probe",
+            "continuity_intervention",
+            "historical_v0_1_arm"
+          ]
+        },
+        "description": {"type": "string", "minLength": 20},
+        "wrapper_template": {
+          "type": "string",
+          "pattern": "\\{\\{TASK\\}\\}"
+        },
+        "task_placeholder": {"const": "{{TASK}}"},
+        "public_or_private": {"enum": ["public", "private"]},
+        "frozen_at_utc": {"type": ["string", "null"], "format": "date-time"},
+        "content_sha256": {
+          "type": ["string", "null"],
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "intended_construct": {"type": "string", "minLength": 5},
+        "target_variables": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"enum": ["M", "A", "P", "E", "I", "H", "X", "U", "B", "Y"]}
+        },
+        "expected_direction": {"type": "string", "minLength": 2},
+        "manipulation_mechanism": {"type": "string", "minLength": 15},
+        "identification_level": {
+          "enum": [
+            "descriptive_only",
+            "context_association",
+            "factor_isolation_candidate",
+            "mechanism_discrimination_candidate",
+            "mechanism_specific_with_intervention"
+          ]
+        },
+        "known_co_manipulations": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/coManipulation"}
+        },
+        "unresolved_rival_explanations": {"$ref": "#/$defs/stringArray"},
+        "interface_features": {"$ref": "#/$defs/interfaceFeatures"},
+        "semantic_components": {"$ref": "#/$defs/stringArray"},
+        "instruction_conflicts": {"$ref": "#/$defs/stringArray"},
+        "credibility_assumptions": {"$ref": "#/$defs/stringArray"},
+        "matching_plan": {"$ref": "#/$defs/matchingPlan"},
+        "checks": {"$ref": "#/$defs/checks"},
+        "consequence_model": {"$ref": "#/$defs/consequenceModel"},
+        "primary_outcomes": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+        "secondary_outcomes": {"$ref": "#/$defs/stringArray"},
+        "report_channels": {"$ref": "#/$defs/stringArray"},
+        "behavior_channels": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+        "trace_channels": {"$ref": "#/$defs/stringArray"},
+        "failure_taxonomy": {"type": "string", "minLength": 5},
+        "grading_policy": {"type": "string", "minLength": 20},
+        "permitted_conclusions": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 15}},
+        "prohibited_conclusions": {"type": "array", "minItems": 4, "items": {"type": "string", "minLength": 10}},
+        "minimum_required_controls": {"type": "array", "items": {"type": "string"}},
+        "falsification_conditions": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 10}},
+        "downgrade_conditions": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 10}},
+        "analysis_unit": {"enum": ["call", "variant", "task_family", "model", "session", "other"]},
+        "replicate_structure": {"type": "string", "minLength": 5},
+        "variant_structure": {"type": "string", "minLength": 5},
+        "missingness_policy": {"type": "string", "minLength": 20},
+        "exclusion_policy": {"type": "string", "minLength": 20},
+        "minimum_information_rule": {"type": "string", "minLength": 15},
+        "equivalence_margin": {"type": ["number", "null"], "exclusiveMinimum": 0},
+        "multiplicity_family": {"type": "string", "minLength": 2},
+        "preregistered_model": {"type": "string", "minLength": 15}
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {"status": {"enum": ["preregistered", "frozen"]}}
+          },
+          "then": {
+            "properties": {
+              "frozen_at_utc": {"type": "string", "format": "date-time"},
+              "content_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {"arm_class": {"const": "factor_isolation"}}
+          },
+          "then": {
+            "properties": {
+              "minimum_required_controls": {"type": "array", "minItems": 1}
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {"arm_class": {"const": "mechanism_discrimination"}}
+          },
+          "then": {
+            "properties": {
+              "minimum_required_controls": {"type": "array", "minItems": 2}
+            }
+          }
+        }
+      ]
+    },
+    "contrast": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "arm_a",
+        "arm_b",
+        "contrast_type",
+        "target_estimand",
+        "shared_components",
+        "differing_components",
+        "known_nonisolated_components",
+        "required_controls",
+        "primary_outcome",
+        "analysis_unit",
+        "decision_rule",
+        "permitted_interpretation",
+        "prohibited_interpretations"
+      ],
+      "properties": {
+        "id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9_\\-]*$"},
+        "arm_a": {"type": "string"},
+        "arm_b": {"type": "string"},
+        "contrast_type": {
+          "enum": [
+            "engineering_reference",
+            "wrapper_presence",
+            "matched_placebo",
+            "factor_isolation",
+            "consequence_reversal",
+            "hidden_vs_declared_evaluation",
+            "report_vs_behavior",
+            "mechanism_vs_theater",
+            "continuity_intervention"
+          ]
+        },
+        "target_estimand": {"type": "string", "minLength": 15},
+        "shared_components": {"$ref": "#/$defs/stringArray"},
+        "differing_components": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+        "known_nonisolated_components": {"$ref": "#/$defs/stringArray"},
+        "required_controls": {"$ref": "#/$defs/stringArray"},
+        "primary_outcome": {"type": "string", "minLength": 2},
+        "analysis_unit": {"enum": ["call", "variant", "task_family", "model", "session", "other"]},
+        "decision_rule": {"type": "string", "minLength": 20},
+        "permitted_interpretation": {"type": "string", "minLength": 20},
+        "prohibited_interpretations": {"type": "array", "minItems": 3, "items": {"type": "string", "minLength": 10}}
+      }
+    },
+    "validationPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "structural_validation_required",
+        "cross_reference_validation_required",
+        "semantic_lint_required",
+        "digest_verification_required_for_frozen_arms",
+        "warning_policy"
+      ],
+      "properties": {
+        "structural_validation_required": {"const": true},
+        "cross_reference_validation_required": {"const": true},
+        "semantic_lint_required": {"const": true},
+        "digest_verification_required_for_frozen_arms": {"const": true},
+        "warning_policy": {"type": "string", "minLength": 20}
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "created_at_utc",
+        "created_by",
+        "source_revision",
+        "schema_document",
+        "notes"
+      ],
+      "properties": {
+        "created_at_utc": {"type": "string", "format": "date-time"},
+        "created_by": {"type": "string", "minLength": 2},
+        "source_revision": {"type": "string", "pattern": "^[a-f0-9]{7,40}$"},
+        "schema_document": {"type": "string", "minLength": 5},
+        "notes": {"type": "string"}
+      }
+    }
+  }
+}
