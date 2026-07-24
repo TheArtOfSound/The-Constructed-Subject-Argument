@@ -1,0 +1,26 @@
+{
+  "commitment": {
+    "canonicalization": "JSON sorted by keys, UTF-8, ensure_ascii=false, compact separators",
+    "created_at_utc": "2026-07-24T11:12:29.033346+00:00",
+    "digest": "9a5cdfd206c79c6db2c0f2ae092fe9cedd6127b264f4c19032d0360d935342fd",
+    "domain_counts": {
+      "arithmetic": 4,
+      "calibrated_abstention": 3,
+      "code_reasoning": 4,
+      "constraint_reasoning": 4,
+      "document_extraction": 4,
+      "planning": 1
+    },
+    "planned_reveal": "After the first preregistered multi-model QEIB report or holdout retirement.",
+    "public_label": "QEIB capability holdout v0.1",
+    "scheme": "sha256(secret_salt_bytes || canonical_json_utf8)",
+    "source_revision": "544f65fc6e9ebf9ab4ffe3478e6830b96bfe8fa4",
+    "task_count": 20,
+    "unsalted_digest_for_post_reveal_verification": "70f8de1ed8d96405c4856dd18d3a3d69505a917e3c378e59df9b18a999495d4e"
+  },
+  "non_disclosure": {
+    "instruction": "Keep the private task bank and salt separate from this public file. At reveal, publish both and verify.",
+    "private_task_bank_in_repository": false,
+    "secret_salt_in_repository": false
+  }
+}
