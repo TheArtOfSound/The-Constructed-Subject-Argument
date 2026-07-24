@@ -1,0 +1,19 @@
+# QEIB private benchmark material and local run outputs
+research/qeib/private/
+research/qeib/results/*.jsonl
+research/qeib/results/*.json
+research/qeib/results/*.md
+research/qeib/results/*.csv
+research/qeib/results/*.parquet
+research/qeib/results/*.log
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Local environment
+.env
+.env.*
+.DS_Store
