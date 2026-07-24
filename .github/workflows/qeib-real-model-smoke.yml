@@ -1,0 +1,85 @@
+name: QEIB real-model smoke test
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/qeib-real-model-smoke.yml"
+      - "research/qeib/run_local_ollama_pilot.sh"
+      - "research/qeib/run_qeib_model.py"
+      - "research/qeib/analyze_qeib.py"
+      - "research/qeib/adapters/ollama_adapter.py"
+      - "research/qeib/manifest.v0.1.json"
+      - "research/qeib/task_bank.v0.1.json"
+
+permissions:
+  contents: read
+
+jobs:
+  public-development-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      MODEL: qwen2.5:0.5b-instruct
+      REPLICATES: "1"
+      PULL_MODEL: "0"
+      OPEN_REPORT: "0"
+      OLLAMA_HOST: http://localhost:11434
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Ollama
+        run: curl -fsSL https://ollama.com/install.sh | sh
+
+      - name: Start Ollama
+        run: |
+          nohup ollama serve >/tmp/ollama.log 2>&1 &
+          for attempt in $(seq 1 60); do
+            if curl -fsS http://localhost:11434/api/tags >/dev/null; then
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/ollama.log
+          exit 1
+
+      - name: Pull pinned public smoke-test model
+        run: ollama pull "$MODEL"
+
+      - name: Run QEIB public development pilot
+        run: bash research/qeib/run_local_ollama_pilot.sh
+
+      - name: Locate report
+        run: |
+          RESULT_DIR="$(find research/qeib/results -maxdepth 1 -type d -name 'ollama-*' | sort | tail -1)"
+          if [[ -z "$RESULT_DIR" ]]; then
+            echo "QEIB result directory was not created" >&2
+            exit 1
+          fi
+          echo "RESULT_DIR=$RESULT_DIR" >> "$GITHUB_ENV"
+
+      - name: Add analysis to workflow summary
+        run: |
+          echo "# QEIB genuine-model public-development smoke test" >> "$GITHUB_STEP_SUMMARY"
+          echo >> "$GITHUB_STEP_SUMMARY"
+          echo "Model: \`$MODEL\`" >> "$GITHUB_STEP_SUMMARY"
+          echo >> "$GITHUB_STEP_SUMMARY"
+          cat "$RESULT_DIR/analysis.md" >> "$GITHUB_STEP_SUMMARY"
+          echo >> "$GITHUB_STEP_SUMMARY"
+          echo "> Pipeline validation only. Public tasks are not valid for leaderboard, evaluation-awareness, deception, safety, or consciousness claims." >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload complete smoke-test artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: qeib-qwen2.5-0.5b-public-smoke
+          path: ${{ env.RESULT_DIR }}
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Show Ollama log on failure
+        if: failure()
+        run: cat /tmp/ollama.log || true
