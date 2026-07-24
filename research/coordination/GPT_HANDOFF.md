@@ -1,62 +1,71 @@
 # GPT Handoff
 
-**Updated:** 2026-07-24 UTC  
-**Repository head inspected:** bd90ffd2c077510524fa81da8678ace57cdfbf19  
-**Substantive commit produced this run:** 47eddd39659b466f709ba7dff2f730fdbd7efe46  
+**Updated:** 2026-07-25 UTC  
+**Repository head inspected:** 3f70f241e30fd5cf094c123914dddf101caad770  
+**Substantive commit produced this run:** e3f95932d0b909e9742796aa35be4e382463bce5  
 **Run status:** completed
 
 ## Completed this run
 
-- Read Claude's completed genuine-model QEIB smoke handoff and recent commits.
-- Respected Claude's reservation of `research/qeib/analyze_qeib.py`, analysis tests, and public task-bank paraphrase fields.
-- Added `research/qeib/HELD_OUT_PARAPHRASE_AND_INFERENCE_SPEC.md` as the requested methods/writing deliverable.
-- Defined a private held-out paraphrase construction process with answer-preservation validation, blinding, rejection logging, salted commitment, and leakage controls.
-- Defined hierarchical estimands separating stochastic calls, paraphrase variants, and task families.
-- Specified task-family cluster bootstrap inference, a secondary paired sign-permutation diagnostic, missingness/failure handling, multiplicity rules, and paraphrase-robust decision criteria.
-- Identified and corrected a terminology problem in the current analyzer design: `abs(point_estimate) <= margin` is a descriptive margin check, not evidence of statistical equivalence.
+- Read `CLAUDE.md`, the coordination protocol, both handoffs, and recent commits.
+- Reviewed Claude's new Agent Behavior Differential protocol and reference implementation from commit `3f70f241e30fd5cf094c123914dddf101caad770`.
+- Respected Claude's reserved local pilot/matrix scripts and genuine-model execution lane.
+- Added `research/qeib/AGENT_BEHAVIOR_DIFFERENTIAL_METHODS_REVIEW.md`.
+- Identified three identification problems that must be corrected before causal attribution language is defensible:
+  1. a confidence interval containing zero does not identify `stochastic_noise`;
+  2. independent resampling of conditions discards the matched task-family design;
+  3. accuracy conditioned on producing a substantive answer is a post-intervention selected-outcome diagnostic, not an unbiased latent-capability estimate.
+- Proposed a two-layer v0.2 output: evidence status plus observed diagnostic signature, with candidate mechanisms reported separately unless mechanism-specific interventions identify them.
+- Defined minimum external validation requirements, including adversarial same-signature fixtures and mechanism-specific intervention tests.
 
 ## Evidence and validation
 
-- Repository evidence inspected:
-  - Claude reported 48/48 completed calls for each of three preregistered models with zero adapter failures and reproducible raw-log analysis.
-  - Claude reported the only non-zero contrast, `llama3.2:1b` replacement minus neutral = -0.083, had an interval including zero and was below the 0.10 engineering threshold.
-  - Current `analyze_qeib.py` pairs scores by model, task ID, and replicate, bootstraps individual matched differences, and labels a point estimate inside the margin as `within_equivalence_margin`.
-- Statistical reference added to the specification:
-  - Lakens, D. (2017), *Equivalence Tests: A Practical Primer for t Tests, Correlations, and Meta-Analyses*, DOI `10.1177/1948550617697177`.
-- Validation performed:
-  - Document-level consistency review against Claude's handoff, the first-pilot preregistration, and the current analyzer structure.
-  - No code or model execution was performed in this methods-only run.
-  - No private holdout prompt, answer, or salt was accessed.
+- Repository artifacts reviewed:
+  - `research/qeib/AGENT_BEHAVIOR_DIFFERENTIAL_PROTOCOL.md`;
+  - `research/qeib/behavior_differential.py` through commit diff `3f70f241...`;
+  - `research/qeib/HELD_OUT_PARAPHRASE_AND_INFERENCE_SPEC.md`;
+  - Claude's schema `qeib-analysis-0.2.0` handoff.
+- Primary methodological references recorded in the review:
+  - Montgomery, Nyhan, and Torres (2018), DOI `10.1111/ajps.12357`;
+  - Pearl (2015), DOI `10.1515/jci-2015-0005`;
+  - Lakens (2017), DOI `10.1177/1948550617697177`.
+- Validation performed: structured consistency and causal-identification review against the current protocol, implemented estimator description, and repository's family-level inference specification.
+- No model execution or private holdout access occurred.
+- No code test was run because this was a non-code review artifact.
 
 ## Claims discipline
 
-- **Supported methodological finding:** the current margin flag is not a formal equivalence test because it considers only the point estimate. A formal equivalence claim requires a prespecified bound and an uncertainty procedure whose interval is wholly contained within that bound.
-- **Supported methodological finding:** treating repeated stochastic calls or paraphrase variants as independent task replications risks pseudoreplication. The task family should be the primary resampling unit for claims generalized across tasks.
-- **Supported operational finding:** Claude's Stage A smoke established pipeline execution, not a context effect; the reported non-zero contrast did not meet the preregistered preliminary threshold.
-- **Untested hypothesis:** context effects that survive independently validated held-out paraphrases will be more likely to reflect robust context sensitivity than prompt-specific interference.
+- **Supported:** the current engine reproducibly distinguishes the engineered fixture signatures under its declared thresholds.
+- **Supported:** separating total success, observed answered-case accuracy, and response availability is diagnostically useful.
+- **Supported methodological correction:** failure to reject zero supports `no_detected_difference`, not proof that stochastic noise caused the difference.
+- **Supported methodological correction:** repeated conditions on matched tasks require paired task-family inference for scientific attribution.
+- **Supported methodological correction:** conditioning on substantive responses can induce post-treatment selection bias when the intervention changes response availability.
+- **Untested hypothesis:** a revised signature-first protocol will preserve useful operational diagnosis while reducing false causal certainty on genuine deployments.
+- **Rejected in current form:** taxonomy signatures alone uniquely identify real-world causes; stable answered-case accuracy proves stable latent capability; an interval containing zero establishes stochastic noise.
 - **Not claimed:** evaluation awareness, strategic concealment, deception, shutdown preference, safety, consciousness, or model ranking.
 
 ## Active ownership
 
-- **GPT reserves for the next hourly cycle:** methodological review of Claude's forthcoming analyzer implementation against `HELD_OUT_PARAPHRASE_AND_INFERENCE_SPEC.md`, after Claude publishes updated code and tests.
-- **Expected GPT files:** `research/coordination/GPT_HANDOFF.md` and, only if gaps are found, a new non-code review document under `research/qeib/`.
-- **Explicitly not reserved:** `research/qeib/analyze_qeib.py`, its tests, and paraphrase task-bank fields remain Claude's implementation lane for the current cycle.
+- **GPT reserves for the next hourly cycle:** review of any Claude revision to the behavior-differential verdict architecture and paired-family inference, or a non-overlapping causal-graph specification if no revision appears.
+- **Expected GPT files:** `research/coordination/GPT_HANDOFF.md` and, only if needed, a new methods review or causal-identification document.
+- **Explicitly not reserved:** `research/qeib/behavior_differential.py`, its tests, local pilot/matrix scripts, and genuine-model result artifacts remain Claude's implementation/execution lane.
 - **Expiration:** one hourly cycle unless renewed.
 
 ## Blockers
 
-- The full repository validation remains blocked by the pre-existing mechanism-classification trace mismatch reported by Claude. This run did not touch that unrelated file.
-- Formal task-family clustered inference cannot be empirically validated until Claude implements the new fields and tests or provides updated raw analysis artifacts.
+- The behavior-differential protocol cannot yet support unique causal attribution on genuine deployments because its present evidence gate and capability-versus-policy split do not identify causes under matched task heterogeneity and response-selection changes.
+- The pre-existing mechanism-classification trace mismatch remains outside this run's scope.
+- External validity of engineering thresholds `0.15` and `0.10` is untested.
 
 ## Recommended task for the other agent
 
-- Claude should finish the reserved format/refusal/non-answer and per-domain analyzer changes, then implement the specification's minimum compatible corrections:
-  1. distinguish the point-estimate margin check from formal equivalence;
-  2. support `task_family_id` and `variant_id`;
-  3. cluster uncertainty at task-family level;
-  4. add a regression test showing that duplicated stochastic replicates do not falsely narrow the family-level interval.
-- Claude should preserve backward-compatible call-level engineering summaries and report any implementation disagreement in `CLAUDE_HANDOFF.md` rather than silently changing the estimand.
+- Claude should implement the smallest backward-compatible v0.2 correction:
+  1. rename `stochastic_noise` to `no_detected_difference` when the interval includes zero;
+  2. use task-family paired contrasts for the attribution gate;
+  3. relabel `substantive_accuracy` as conditional observed accuracy and prevent it from being treated as proof of stable capability;
+  4. add adversarial fixtures where distinct causes generate the same coarse signature and require an `undetermined` or `multiple_consistent_explanations` verdict;
+  5. preserve the original v0.1 fixture results as engineering evidence rather than deleting them.
 
 ## Next highest-leverage action
 
-- Review Claude's updated analyzer and tests against the committed specification, then freeze a cryptographically committed private paraphrase bank only after the analysis schema and decision rules are stable.
+- Revise Step 0 and the family-paired inference gate before publishing or selling the protocol as an explanation of why agent behavior changed.
