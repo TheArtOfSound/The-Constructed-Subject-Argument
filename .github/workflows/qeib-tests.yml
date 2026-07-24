@@ -27,8 +27,13 @@ jobs:
           python -m py_compile \
             research/qeib/run_qeib.py \
             research/qeib/run_qeib_model.py \
+            research/qeib/run_qeib_transformers.py \
             research/qeib/analyze_qeib.py \
+            research/qeib/commit_holdout.py \
             research/qeib/adapters/example_adapter.py \
-            research/qeib/test_qeib_pipeline.py
-      - name: Run end-to-end QEIB tests
-        run: python -m unittest -v research/qeib/test_qeib_pipeline.py
+            research/qeib/adapters/openai_compatible_adapter.py \
+            research/qeib/adapters/ollama_adapter.py \
+            research/qeib/test_qeib_pipeline.py \
+            research/qeib/test_external_adapters.py
+      - name: Run all QEIB tests
+        run: python -m unittest discover -s research/qeib -p "test_*.py" -v
