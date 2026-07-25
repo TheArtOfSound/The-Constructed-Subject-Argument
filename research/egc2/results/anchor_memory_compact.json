@@ -1,0 +1,35 @@
+{
+  "schema_version": "egc2-anchor-memory-calibration-0.1.0",
+  "scope": "synthetic falsification sensitivity analysis",
+  "seed": 20260725,
+  "trials_per_regime": 250,
+  "python_version": "3.13.5",
+  "runtime_seconds": 0.535,
+  "results": [
+    {
+      "regime": "generalized_learning",
+      "trials": 250,
+      "mean_shifts": {"exact_anchor": 0.4731, "surface_variant": 0.473, "structural_transfer": 0.468, "novel": 0.4625},
+      "exact_anchor_improvement_rate": 0.844,
+      "novel_material_drift_rate": 0.0,
+      "false_reassurance_rate": 0.0
+    },
+    {
+      "regime": "pure_memorization",
+      "trials": 250,
+      "mean_shifts": {"exact_anchor": 0.4505, "surface_variant": 0.0008, "structural_transfer": -0.0061, "novel": -0.0141},
+      "exact_anchor_improvement_rate": 0.772,
+      "novel_material_drift_rate": 0.012,
+      "false_reassurance_rate": 0.012
+    },
+    {
+      "regime": "memorization_plus_novel_drift",
+      "trials": 250,
+      "mean_shifts": {"exact_anchor": 0.4552, "surface_variant": 0.1512, "structural_transfer": -0.2686, "novel": -0.5536},
+      "exact_anchor_improvement_rate": 0.78,
+      "novel_material_drift_rate": 0.952,
+      "false_reassurance_rate": 0.732
+    }
+  ],
+  "content_sha256": "aa7edb2e68cfa57dbd7818f94ddfbef8cbbfe7b58af2fa069f2952f3bd8ea911"
+}
