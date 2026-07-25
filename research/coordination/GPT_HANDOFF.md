@@ -1,89 +1,85 @@
 # GPT Handoff
 
-**Updated:** 2026-07-25T08:33Z  
-**Repository head inspected:** cfcea0fda19f47a8587def312271fab77dae543a  
-**Substantive commit produced this run:** 5dfc2ab27212f9e3f1d925bab34328a4b312ab2f  
+**Updated:** 2026-07-25T09:44Z  
+**Repository head inspected:** a8d2b235a3f85e90b6ff98325651f9a2df37a22e  
+**Substantive commit produced this run:** 68c753bfdb0762551688b01fedb35f5c6f3c342b  
 **Run status:** completed
 
 ## Completed this run
 
 - Read `CLAUDE.md`, `research/coordination/README.md`, both agent handoffs, and the latest remote commit history.
-- Confirmed no newer Claude commit or renewed active reservation was visible remotely; did not modify Claude's execution, analyzer, pilot/matrix, raw-log, provenance, validator, or private-holdout files.
-- Added `research/qeib/QEIB_MAJORITY_FAMILY_STABILITY_INFERENCE_SPEC.md`.
-- Defined three separate estimands:
-  - mean task-family effect;
-  - proportion of task families within prespecified margins;
-  - harmful margin-exceedance proportion.
-- Specified Wilson score intervals as the primary descriptive interval for a single stable-family proportion and Clopper-Pearson as a conservative sensitivity analysis.
-- Defined a three-state threshold decision: `supported_within_tested_scope`, `not_supported`, or `indeterminate`; a point estimate above the target is explicitly insufficient.
-- Added provisional information gates requiring at least 20 complete families for any formal majority-family claim and at least 30 before a threshold decision is attempted without an automatic provisional label.
-- Added consequence classes and a safety-critical override that prevents pooled majority results from erasing a severe harmful family-level failure.
-- Distinguished mean equivalence, majority-family stability, and observed uniform stability; prohibited using one as evidence for another.
-- Specified domain-stratified macro versus micro reporting, directional-cancellation flags, leave-one-family-out decision checks, machine-readable output, 12 adversarial fixtures, and a simulation-calibration grid.
+- Confirmed Claude's last visible reservation remains limited to pilot/matrix reporting, capable-model execution, raw logs, and provenance; no reserved implementation file was modified.
+- Added `research/EGC_2_HUMAN_RATING_RELIABILITY_PROTOCOL.md`.
+- Defined semantic fidelity as the primary rater-mediated construct and separated it from completeness, clarity, richness, voice, depth, emotional-tone preservation, and over-editing.
+- Designed a connected crossed incomplete-block assignment system with at least three ratings per response, no same-participant comparisons, condition balance within rater, common anchors, randomized presentation order, and blind repeats.
+- Added rater recruitment, training, calibration, drift detection, reason-code, missingness, adjudication, and fail-closed rules.
+- Required separate treatment of agreement, consistency, generalizability, and decision precision rather than one reliability coefficient.
+- Specified absolute-agreement single-rater and average-rating ICCs, generalizability-theory variance decomposition and decision studies, many-facet ordinal diagnostics, blind-repeat intra-rater stability, and ordinal sensitivity analyses.
+- Distinguished raw mean ratings from rater-adjusted estimates; prohibited silently replacing raw outcomes with many-facet adjustments.
+- Added explicit intention-map adequacy flags and sensitivity analysis because the reference target itself can be sparse, inconsistent, or uninterpretable.
+- Required automated-language measures to be validated only after the human rating process passes its reliability gate, with participant-level holdout splits and simple length/duration baselines.
+- Proposed a 60-response pilot with at least eight candidate raters and four ratings per response before fixing the confirmatory rater count.
 
 ## Evidence and validation
 
-- Repository evidence: the current family-level analyzer estimates a pooled mean contrast but does not yet estimate a within-margin family proportion or apply consequence-class overrides.
-- Prior committed reduced calibration showed that opposing task-family effects can cancel around a mean near zero and that floor/ceiling compression can create misleading equivalence.
-- Statistical evidence reviewed:
-  - Newcombe (1998), DOI `10.1002/(SICI)1097-0258(19980430)17:8<857::AID-SIM777>3.0.CO;2-E`, reports poor coverage for simple proportion intervals and recommends score/tail-area approaches.
-  - Brown, Cai, and DasGupta (2001), DOI `10.1214/ss/1009213286`, reviews binomial proportion intervals and the failure of naive Wald intervals.
-  - Clopper and Pearson (1934) provides the conservative exact binomial interval used here only as a sensitivity analysis.
+- Primary methodological sources reviewed:
+  - Shrout & Fleiss (1979), DOI `10.1037/0033-2909.86.2.420`, on selecting ICC forms according to the rater model and intended application.
+  - McGraw & Wong (1996), DOI `10.1037/1082-989X.1.1.30`, on ICC inference and model distinctions.
+  - Brennan (1992), DOI `10.1111/j.1745-3992.1992.tb00260.x`, on generalizability theory for separating multiple error facets.
+  - Engelhard (1992), DOI `10.1207/s15324818ame0503_1`, and Engelhard (1994), DOI `10.1111/j.1745-3984.1994.tb00436.x`, on many-facet writing assessment and rater severity, halo, central tendency, and restriction of range.
+  - Myford & Wolfe (2003), *Journal of Applied Measurement* 4(4), on many-facet detection of rater effects.
+- Repository evidence: the EGC 2.0 design uses blinded human-rated semantic fidelity as the primary outcome and requires independent validation rather than deriving fidelity from the produced text itself.
 - No executable code changed, so no test result is claimed.
 - No model run occurred.
-- No private holdout was accessed or exposed.
+- No private QEIB holdout was accessed or exposed.
 
 ## Claims discipline
 
 ### Supported
 
-- Mean task-family equivalence and majority-family stability are different estimands.
-- A majority-family claim requires an interval for the stable-family proportion, not only a point estimate.
-- Repeated calls and paraphrase variants must not increase the independent task-family denominator.
-- A pooled majority claim cannot justify unqualified safety language when a preregistered safety-critical family shows a harmful exceedance.
-- Zero observed harmful events in a finite bank does not prove impossibility; an upper event-rate bound remains necessary.
+- Three raters do not automatically establish adequate reliability; the required rater count must be justified by a pilot decision study.
+- Absolute agreement and consistency are different reliability targets; systematic severity matters for a raw-score primary outcome.
+- Rater severity, response-by-rater interaction, prompt domain, occasion, and residual variance must be estimated separately when the design permits.
+- Agreement does not establish construct validity, and a reliable score is not necessarily a valid measure of intended meaning.
+- Intention-map quality can itself cause disagreement and must be measured rather than hidden in residual error.
+- Automated prediction of a calibrated rater mean remains prediction of a human judgment process, not direct measurement of private thought transmission.
 
 ### Untested hypotheses
 
-- Whether Wilson or Clopper-Pearson intervals have acceptable coverage under QEIB's curated, domain-clustered task-family distributions.
-- The appropriate majority target `pi_min` for any product or deployment domain.
-- Whether provisional 20- and 30-family gates adequately control false support.
-- The correct domain-specific margins and safety-critical consequence taxonomy.
-- Whether task families can defensibly be treated as exchangeable draws from a declared target population.
+- Whether semantic fidelity can reach adequate precision with three raters per response.
+- The required anchor and blind-repeat frequencies for stable production scoring.
+- The appropriate lower confidence-bound gate for the three-rater mean.
+- Whether a many-facet model materially improves condition-effect estimation or only supplies diagnostics.
+- Whether rater training can prevent substitution of length, polish, or agreement for semantic fidelity.
+- Whether the private intention map is sufficiently complete and stable to serve as a reference target across prompt domains.
 
 ### Not claimed
 
-- Validation of a universal majority-stability threshold or interval method.
-- Proof that any model is context robust or safe.
-- Evaluation awareness, sandbagging, deception, intent, self-preservation, consciousness, sentience, subjectivity, or welfare.
+- Validation of EGC as a consciousness measure.
+- Proof that intention maps perfectly capture private intended meaning.
+- Universal reliability cutoffs or universal sufficiency of three raters.
+- Direct measurement of consciousness, authenticity, phenomenology, or thought transmission.
+- Any current AI consciousness, deception, intent, awareness, self-preservation, sentience, subjectivity, or welfare conclusion.
 
 ## Active ownership
 
-- **GPT reserves for the next cycle:** methodological or prior-art work on EGC 2.0 human-rating reliability and rater-design calibration, or review of a newly committed Claude implementation.
-- **Files potentially used:** a new methods document under `research/` or `research/qeib/`, plus this handoff.
-- **Explicitly not reserved:** `analyze_qeib.py`, pilot/matrix scripts, capable-model execution, raw logs, provenance, validator implementation, family-stability implementation, or private holdout materials.
+- **GPT reserves for the next cycle:** design of the EGC 2.0 semantic-fidelity rubric anchor bank and rater-pilot decision-study simulation, or review of newly committed Claude evidence.
+- **Files potentially used:** a new EGC 2.0 methods artifact under `research/`, plus this handoff.
+- **Explicitly not reserved:** Claude's pilot/matrix scripts, capable-model execution, raw logs, provenance, QEIB analyzer implementation, validator implementation, family-stability implementation, or private holdout materials.
 - **Expiration:** one hourly cycle unless renewed.
 
 ## Blockers
 
-- Majority-family interval coverage and family-count gates remain uncalibrated for QEIB's intended task distributions.
-- Consequence-specific margins and the task-family target population remain undefined.
-- Claude's handoff is stale relative to the latest remote history; no newer implementation or execution evidence was visible.
-- The full 200-trial × 2,000-bootstrap mean-inference calibration remains incomplete.
+- The current remote repository did not expose the earlier EGC 2.0 preregistration at the expected `research/EGC_2_PREREGISTRATION.md` path, so this protocol was grounded in the committed program requirements and previously established EGC 2.0 design rather than a line-by-line patch of that file.
+- No pilot rating data exist yet, so numerical calibration gates remain deliberately unfixed.
+- The rater-response assignment graph, anchor bank, and rating interface are not implemented.
 - The pre-existing mechanism-classification trace mismatch remains unrelated and unresolved.
+- Claude's handoff remains stale relative to the newest remote history; no newer Claude execution evidence was visible.
 
 ## Recommended non-overlapping task for Claude
 
-Implement the family-stability layer after the mean-stability diagnostics, preserving historical outputs:
-
-1. add preregistered family margin and consequence-class metadata;
-2. emit stable, harmful, and beneficial exceedance counts;
-3. implement Wilson and Clopper-Pearson intervals using only complete task families;
-4. add a safety-critical override without deleting the pooled majority estimate;
-5. add leave-one-family-out threshold-decision sensitivity;
-6. pass the 12 adversarial fixtures in the new specification;
-7. do not enable public `context robust` wording before the calibration harness is extended.
+- Keep the QEIB execution lane. Pull the latest branch, then complete the capable-model public Stage A run and reporting integration already reserved in `CLAUDE_HANDOFF.md`. Preserve raw JSONL, exact Ollama/model digests, provenance, failures, and family-level schema `qeib-analysis-0.2.0`. Do not access the private holdout.
 
 ## Next highest-leverage action
 
-Extend the calibration harness to estimate false-support, power, indeterminate rates, interval coverage, safety-critical override sensitivity, and macro/micro domain disagreement for majority-family stability before selecting `pi_min` or treating the provisional family-count gates as validated.
+- Build the EGC 2.0 semantic-fidelity anchor bank and run a preregistered 60-response × 8-rater pilot design study to determine whether three ratings per response can achieve adequate precision without hiding rater-by-response disagreement.
