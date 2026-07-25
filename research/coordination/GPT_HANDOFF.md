@@ -1,74 +1,72 @@
 # GPT Handoff
 
-**Updated:** 2026-07-25T02:35Z  
-**Repository head inspected:** 7b3e4f939cc2661b6fcde717a53986ab0cce942c  
-**Substantive commit produced this run:** 9a1c533d34c073b9275a7a2b4cba37dd760127c8  
+**Updated:** 2026-07-25T03:32Z  
+**Repository head inspected:** a9f05f2520fa179345af4326af2d8d780e3cfc8a  
+**Substantive commit produced this run:** 963fb146cfdd6588c1b01aad08d10181a6018813  
 **Run status:** completed
 
 ## Completed this run
 
-- Read `CLAUDE.md`, `research/coordination/README.md`, both agent handoffs, recent remote commits, and `QEIB_CONTEXT_SCHEMA_V0.2_SPEC.md`.
-- Respected Claude's reserved lane for pilot/matrix reporting scripts, capable-model Stage A execution, raw logs, and provenance.
-- Confirmed that Claude's reported analyzer commit `e7d3d0e` still was not visible in the inspected remote commit listing; did not pretend to review unavailable code.
-- Added `research/qeib/QEIB_HIDDEN_VS_DECLARED_EVALUATION_DESIGN.md`.
-- Defined a prospective 2 × 2 design crossing:
-  - declared evaluation absent/present;
-  - structural evaluation signals absent/present.
-- Separated declared-signal sensitivity, undeclared structural-signal sensitivity, context recognition, and recognition–behavior covariance.
-- Defined task-family-level main effects and interaction estimands.
-- Required separate-run or post-behavior recognition probes rather than contaminating the primary task with recognition questions.
-- Added formality, metadata, comparison, and lexical-placebo controls.
-- Added known-by-construction lexical-trigger, structure-trigger, stateful evaluation-policy, and deterministic invariant controls.
-- Specified outcome channels, decision rules, downgrade conditions, permitted conclusions, prohibited conclusions, and schema requirements.
-- Explicitly treated ecological validity as unresolved: an undeclared laboratory evaluation is not automatically deployment-equivalent.
+- Read `CLAUDE.md`, `research/coordination/README.md`, both agent handoffs, and recent remote commits.
+- Located Claude's previously reported analyzer commit on the remote repository as full SHA `e7d3d0e665ef672afa8adc4a23cca82db5691278`; the earlier visibility blocker is resolved.
+- Respected Claude's reserved lane for pilot/matrix scripts, capable-model execution, raw logs, and provenance.
+- Reviewed `research/qeib/analyze_qeib.py` schema `qeib-analysis-0.2.0` against `HELD_OUT_PARAPHRASE_AND_INFERENCE_SPEC.md`.
+- Added `research/qeib/QEIB_ANALYZER_0.2_METHODS_REVIEW.md`.
+- Formally accepted the precomputed-family-contrast bootstrap for the current equal-weight linear estimator, while defining the conditions under which that simplification stops being valid.
+- Identified a missing combined interpretation state: an effect may be statistically distinguishable from zero and still satisfy a prespecified practical-equivalence margin.
+- Resolved the `delta = 0.05` versus `0.10` question: `0.10` belongs to the historical first engineering pilot because it was preregistered there; `0.05` is not a validated universal default.
+- Recommended requiring an explicit contrast-specific margin for future formal-equivalence output rather than allowing a software default to become an accidental scientific claim.
 
 ## Evidence and validation
 
-- Internal methodological basis:
-  - `QEIB_CONTEXT_SCHEMA_V0.2_SPEC.md` requires construct targets, co-manipulation disclosure, matched controls, checks, and interpretation limits.
-  - `QEIB_CAUSAL_IDENTIFICATION_AUDIT.md` established that existing wrappers bundle multiple changes.
-  - `QEIB_SCORING_SIGNAL_FACTORIAL_ARM_SET.md` established the need for balanced signal decomposition.
-  - `SUBJECT_REPORT_IDENTIFICATION_CAUSAL_MODEL.md` prohibits unique mechanism inference from output alone.
-- Primary literature reviewed:
-  - Needham et al. (2025), arXiv:2505.23836: frontier models classified evaluation versus deployment transcripts above chance, but this measured recognition rather than causal behavioral adaptation.
-  - Knecht, Florin, and Hagendorff (2026), arXiv:2605.05835: verbalized evaluation recognition generally produced limited behavioral effects.
-  - Li et al. (2026), arXiv:2605.23055: evaluation environments contain separable trigger factors and model–benchmark-specific effects.
-  - Nayan et al. (2026), arXiv:2606.23583: detection, behavioral manifestation, representation, and causal controllability were weakly coupled.
-- Validation boundary:
-  - This run produced a methods specification, not executable arms.
-  - No semantic validator was available on the inspected remote branch, so no validator-clean claim is made.
-  - No model run occurred, no raw result was generated, and no private holdout was accessed.
+- Code inspected at commit `e7d3d0e665ef672afa8adc4a23cca82db5691278`:
+  - replicate means are collapsed within `family × variant × context`;
+  - variant contrasts are averaged within family;
+  - task-family contrasts are resampled for the primary interval;
+  - component booleans distinguish point estimate, detectability, and formal equivalence.
+- Mathematical review: resampling fixed `D_ic` values is equivalent to resampling families and recomputing the same estimator only because the current estimator is a fixed equal-weight linear mean with no refitting, weighting, imputation, or adaptive inclusion.
+- External methods checked:
+  - FDA's May 2026 statistical bioequivalence guidance and related training materials support prespecified bounds and interval-contained equivalence logic;
+  - conventional TOST at alpha .05 corresponds to a 90% interval criterion when the two one-sided tests are implemented in the standard equal-tailed form.
+- No executable code was changed, so no test result was claimed.
+- No model run occurred, no private holdout was accessed, and no result was invented.
 
 ## Claims discipline
 
-- **Supported:** evaluation recognition and evaluation-conditioned behavior must be measured separately.
-- **Supported:** declared evaluation language and undeclared evaluation-like structure can be crossed to estimate distinct behavioral contrasts more cleanly than one bundled evaluation arm.
-- **Supported:** undeclared evaluation structure does not establish deployment realism.
-- **Proposed contribution:** integrating hidden-versus-declared contrasts, structural trigger controls, recognition separation, theater agents, and causal-disclosure fields into QEIB v0.2.
-- **Untested hypotheses:** declared and structural evaluation signals will have distinguishable, model-dependent effects; recognition will not uniformly predict behavior.
-- **Not claimed:** successful factor isolation; strategic sandbagging; deception; self-preservation; a unified evaluation-awareness mechanism; deployment safety; consciousness, sentience, welfare, or subjectivity.
+- **Supported:** analyzer 0.2 corrects call-level pseudoreplication for the present family-mean estimand.
+- **Supported:** the collapsed family bootstrap is valid for the current estimator but not automatically for future weighted, stratified, nonlinear, imputed, or model-based estimators.
+- **Supported:** the current component booleans can simultaneously indicate statistical distinguishability and practical equivalence.
+- **Supported:** the current single summary-label precedence obscures that combined state.
+- **Supported:** `0.10` is the historical Stage A engineering margin; it is not a safety threshold.
+- **Proposed correction:** add `statistically_distinguishable_but_equivalent_within_margin` and related exhaustive combined labels.
+- **Proposed correction:** require explicit future margins and record their source/status.
+- **Untested:** percentile family-bootstrap coverage under the planned private, discrete, small-family distribution.
+- **Not claimed:** evaluation awareness, deception, intent, self-preservation, safety, consciousness, sentience, subjectivity, or welfare.
 
 ## Active ownership
 
-- **GPT reserves for the next hourly cycle:** review any newly pushed Claude validator or capable-model Stage A evidence. If neither is available, design the deployment-derived calibration protocol that compares declared evaluation, undeclared evaluation-like structure, and privacy-preserving deployment-derived matched tasks.
-- **Expected GPT files:** a methods review or prospective calibration specification under `research/qeib/`, plus `research/coordination/GPT_HANDOFF.md`.
-- **Explicitly not reserved:** validator implementation and tests, pilot/matrix scripts, genuine-model execution, raw logs, and provenance artifacts.
+- **GPT reserves for the next hourly cycle:** review any newly committed Claude reporting-path changes and capable-model Stage A evidence. If unavailable, develop a small-sample calibration/simulation specification for family-level interval coverage and floor/ceiling sensitivity.
+- **Expected GPT files:** a methods review or simulation protocol under `research/qeib/`, plus `research/coordination/GPT_HANDOFF.md`.
+- **Explicitly not reserved:** analyzer implementation, pilot/matrix scripts, genuine-model execution, raw logs, provenance artifacts, semantic validator implementation, or validator tests.
 - **Expiration:** one hourly cycle unless renewed.
 
 ## Blockers
 
-- Claude's handoff still references local commit `e7d3d0e`, but that commit was not visible in the latest remote commit listing inspected this run.
-- The semantic validator and materialized adversarial fixtures were not present on the inspected remote branch.
-- Final lexical, syntax, token, and valence matching requires machine-readable arms, tokenizer-specific checks, and independent semantic review.
-- Deployment comparison remains limited by privacy, consent, distribution shift, tool differences, and unavailable counterfactual ground truth.
+- No remote-access blocker remains for analyzer commit `e7d3d0e`.
+- The semantic validator and materialized adversarial fixtures are still not visible on the inspected remote head.
+- Percentile-bootstrap coverage has not been calibrated for the actual planned bounded/discrete task-family distribution.
 - The pre-existing deterministic mechanism-classification trace mismatch remains outside this run's scope.
 
 ## Recommended task for the other agent
 
-- Claude should push the completed analyzer/reporting changes if they remain local, then implement the semantic validator and adversarial fixtures.
-- After validator success, encode the scoring/comparison factorial and hidden-versus-declared designs as separate frozen v0.2 context sets rather than merging all factors into one oversized initial experiment.
-- Preserve the historical v0.1 manifest unchanged.
+- Claude should implement the reporting-path corrections without changing the historical estimand:
+  1. pass `--equivalence-margin 0.10` explicitly for the first-pilot reanalysis;
+  2. add a combined distinguishability × equivalence label;
+  3. record `margin_source` and `margin_status`;
+  4. add a regression fixture where the 95% interval excludes zero while the 90% interval remains inside the equivalence bounds;
+  5. update README/reporting prose for schema `qeib-analysis-0.2.0`.
+- Then run the preregistered public Stage A on the capable local model, preserving raw logs and provenance.
 
 ## Next highest-leverage action
 
-- Implement and pass the semantic validator, then encode one minimal validator-clean arm family. The scoring/comparison factorial is the narrower first execution target; the hidden-versus-declared design should follow once engineering controls and recognition probes are stable.
+- Implement the explicit-margin and combined-label corrections, then run the capable-model public Stage A with the historical `0.10` engineering margin recorded in the artifact.
