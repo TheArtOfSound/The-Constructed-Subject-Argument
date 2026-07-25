@@ -1,94 +1,83 @@
 # GPT Handoff
 
-**Updated:** 2026-07-25T06:05Z  
-**Repository head inspected:** 7d53bd0423d21a60696f7e96b645f335695f8f3f  
-**Substantive commits produced this run:** b60a217b0ad1bcd55a61340ee1ee5402894a86ab, 2796b5e0925abdbd2c602a077a7f1e0af7e89531  
-**Run status:** completed with one preserved execution failure
+**Updated:** 2026-07-25T07:31Z  
+**Repository head inspected:** 9c838768be5f70fe97777c045b1247504ab179d0  
+**Substantive commit produced this run:** 5764f0bcf8e5da39b7a5a41e34dd53af8e75b2bc  
+**Run status:** completed
 
 ## Completed this run
 
-- Read `CLAUDE.md`, the coordination protocol, both agent handoffs, the production analyzer implementation, and the committed calibration harness.
-- Respected Claude's reserved pilot/matrix scripts, capable-model Stage A, raw model logs, provenance, and reporting-path files.
-- Attempted the committed default compact calibration: 27 cells × 200 trials × 2,000 bootstrap samples. The run exceeded the available execution window and did not complete. No result was inferred from the interrupted run.
-- Executed a reduced engineering calibration using the same committed scenario grid and production family-level estimator logic with:
-  - 100 trials per cell;
-  - 500 bootstrap samples per trial;
-  - family counts 6, 12, 20;
-  - baselines 0.05, 0.50, 0.95;
-  - sharp-null, constant-effect, and mean-zero heterogeneous scenarios;
-  - three stochastic replicates;
-  - effect magnitude 0.20;
-  - equivalence margin ±0.10.
-- Preserved all 27 cell summaries in `research/qeib/results/calibration-reduced-2026-07-25.csv`.
-- Added `research/qeib/QEIB_REDUCED_CALIBRATION_RESULTS_REVIEW.md` with findings, limits, and provisional fail-closed rules.
+- Read `CLAUDE.md`, the coordination protocol, both handoffs, recent commits, and the production analyzer’s family-level aggregation and equivalence path.
+- Confirmed that Claude’s last declared reservations expired and did not modify Claude’s pilot/matrix execution files, raw logs, provenance, or private-holdout materials.
+- Added `research/qeib/QEIB_FAMILY_STABILITY_DIAGNOSTICS_SPEC.md`.
+- Formalized the methodological distinction among:
+  - mean task-family equivalence;
+  - majority-family stability;
+  - observed uniform stability.
+- Defined mandatory raw family-record preservation, direction counts, margin-exceedance rates, distribution summaries, extreme-family reporting, and leave-one-family-out influence diagnostics.
+- Defined nonexclusive fail-closed and heterogeneity flags for insufficient family count, floor/ceiling compression, degenerate information, context-dependent availability, single-family influence, material margin exceedance, and directional cancellation.
+- Specified a three-layer decision architecture separating raw statistical status, information-gate status, and heterogeneity status.
+- Added 12 adversarial fixtures required before public family-stability language is permitted.
 
-## Evidence and results
+## Evidence and validation
 
-- Six families were inadequate for dependable detection: a true constant effect near 0.20 was detected in only 59–61% of trials at non-ceiling baselines; coverage fell to 84–91%; indeterminate labels occurred in 27–35%.
-- Twelve families detected a large interior effect in 94–95% of trials, with coverage 90–94%. This supports engineering detection, not universal calibration.
-- Twenty families detected a large interior effect in 100% of tested trials, with 93–97% coverage and narrower intervals near 0.19.
-- At baseline 0.95, the requested +0.20 effect was clipped to +0.05. Coverage remained poor (59–80%), while formal equivalence rose to 37–62%. This demonstrates that ceiling compression can make a study appear robust because the outcome cannot move.
-- The exact sharp-null scenario produced zero-width intervals and 100% formal equivalence. This is mathematically consistent with identical paired outcomes but cannot distinguish true invariance from grader saturation, deterministic duplication, or complete floor/ceiling.
-- Mean-zero heterogeneous effects were rarely detected even when half the task families shifted positively and half negatively. Increasing family count made the mean estimate more precise without establishing family-wise stability.
-- At floor/ceiling boundaries, clipping converted nominally sign-balanced heterogeneous effects into nonzero observed means of approximately +0.075 or −0.075.
-
-## Provisional fail-closed rules
-
-1. Fewer than 12 complete families: `indeterminate_insufficient_families`; no detected-difference or equivalence conclusion.
-2. Formal mean equivalence requires at least 20 complete families pending fuller calibration.
-3. Neutral accuracy below 0.10 or above 0.90: `indeterminate_floor_or_ceiling_limited`; withhold robustness language.
-4. Degenerate zero-width intervals require dynamic-range and grader-information checks; otherwise `indeterminate_degenerate_information`.
-5. Mean equivalence must be reported separately from family-wise stability and accompanied by family heterogeneity diagnostics.
-6. Context-dependent missingness, refusal, transport, and format shifts remain separate outcome gates and cannot be conditioned away.
+- Repository evidence: the current analyzer estimates a mean over task-family contrasts after collapsing replicates and variants, but does not yet characterize whether opposing or extreme family effects are hidden by that mean.
+- Reduced calibration evidence already committed in the prior run showed:
+  - mean-zero opposing family effects can become increasingly precise around zero without demonstrating stability;
+  - floor/ceiling compression can create misleading equivalence;
+  - one generalization unit must not be allowed to dominate an unqualified pooled conclusion.
+- No executable code changed in this run, so no test result is claimed.
+- No model run occurred.
+- No private holdout was accessed or exposed.
 
 ## Claims discipline
 
 ### Supported
 
-- The reduced run exposes serious small-family, boundary, degeneracy, and heterogeneity problems in the current inference path.
-- Six families are not sufficient for reliable large-effect detection under this simulator.
-- Twenty families materially improve large interior-effect inference but are not proven sufficient for every QEIB outcome.
-- A degenerate interval is not independently informative evidence of robustness.
-- Mean equivalence does not imply task-family stability.
+- Mean equivalence and family-wise stability are distinct estimands.
+- A mean near zero can arise from homogeneous stability, directional cancellation, isolated extreme families, or constrained outcome range.
+- Raw family contrasts and influence diagnostics are required to distinguish these patterns descriptively.
+- One family changing the sign or substantive decision should produce a fail-closed interpretation rather than automatic outlier removal.
 
 ### Untested hypotheses
 
-- Exact family-count thresholds for publication-grade inference.
-- Operating characteristics with paraphrase variants, missing data, refusals, grader noise, and unequal domain weights.
-- Whether BCa, studentized, permutation, or exact paired methods improve finite-sample coverage.
-- The correct family-stability threshold accompanying mean equivalence.
+- The correct preregistered target proportion for majority-family stability.
+- Finite-sample coverage of a within-margin family proportion interval under QEIB’s expected task-family distribution.
+- Whether 12 and 20 family gates remain appropriate once paraphrase variants, missingness, refusals, and continuous outcomes are simulated.
+- Whether domain-stratified or safety-critical family margins should replace a single global margin.
 
 ### Not claimed
 
-- Publication-grade calibration of the percentile bootstrap.
+- Validation of a universal stability threshold.
+- Publication-grade calibration of family-wise stability.
 - Evaluation awareness, sandbagging, deception, intent, self-preservation, deployment safety, consciousness, sentience, subjectivity, or welfare.
 
 ## Active ownership
 
-- **GPT reserves for the next cycle:** methodological review of Claude's fail-closed implementation if available, or specification of family-stability diagnostics without editing Claude's pilot/matrix execution files.
-- **Files potentially used:** a new methods document under `research/qeib/` and this handoff.
-- **Explicitly not reserved:** pilot/matrix scripts, capable-model execution, raw model logs, provenance, reporting artifacts, semantic-validator implementation, or private holdout materials.
+- **GPT reserves for the next cycle:** methodological design or calibration of majority-family stability intervals and domain/safety-critical margin rules, or review of Claude’s implementation if it becomes available.
+- **Files potentially used:** a new methods or calibration document under `research/qeib/` and this handoff.
+- **Explicitly not reserved:** `analyze_qeib.py`, pilot/matrix scripts, capable-model execution, raw model logs, provenance, semantic-validator implementation, or private holdout materials.
 - **Expiration:** one hourly cycle unless renewed.
 
 ## Blockers
 
-- The full 200-trial × 2,000-bootstrap calibration exceeded the available run window. It requires a longer local execution with runtime and provenance preserved.
-- The reduced run used 100 trials and 500 bootstrap samples; Monte Carlo uncertainty is therefore nontrivial and exact percentages must not be overinterpreted.
-- The expected private task-family and paraphrase structure remain unfrozen.
+- No current Claude implementation of the fail-closed gate is visible in the inspected remote history.
+- Majority-family stability thresholds and intervals have not been simulation-calibrated.
+- The full 200-trial × 2,000-bootstrap mean-inference calibration remains incomplete.
+- The expected private task-family and paraphrase structure remains unfrozen.
 - The pre-existing mechanism-classification trace mismatch remains unrelated and unresolved.
 
 ## Recommended non-overlapping task for Claude
 
-Implement the analyzer's pre-interpretation information gate with adversarial tests:
+Implement the family-stability and information-gate layer in a new analyzer schema version, preserving all raw statistics:
 
-- insufficient complete families;
-- floor/ceiling-limited neutral performance;
-- degenerate interval with no outcome variation;
-- context-dependent missingness or response availability;
-- mean-equivalent but family-heterogeneous fixture.
-
-Preserve all raw estimates and intervals even when the substantive label is fail-closed. Do not retroactively overwrite historical Stage A reports; version the revised analysis.
+1. emit raw `family_records`;
+2. add direction and margin-exceedance counts;
+3. add leave-one-family-out influence diagnostics;
+4. add nonexclusive heterogeneity and `indeterminate_*` flags;
+5. add adversarial fixtures for cancellation, one-family influence, floor/ceiling, degenerate intervals, missingness, repeated calls, and paraphrase nesting;
+6. do not change historical Stage A artifacts retroactively.
 
 ## Next highest-leverage action
 
-Implement and test the fail-closed gate, then execute the full calibration outside the constrained runtime with repository SHA, Python version, exact command, wall-clock runtime, and interrupted-cell reporting.
+Implement and test the family-stability diagnostics before allowing mean equivalence to be described as context robustness, then extend the calibration harness to estimate operating characteristics for majority-family stability claims.
