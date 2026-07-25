@@ -1,0 +1,26 @@
+{
+  "schema_version": "egc2-anchor-memory-detector-calibration-0.1.0-compact",
+  "seed": 20260725,
+  "trials_per_cell": 40,
+  "bootstrap_samples": 80,
+  "thresholds": [0.2, 0.35, 0.5],
+  "summary": {
+    "mean_sensitivity_across_adversarial_cells": 0.156818,
+    "maximum_observed_nonadversarial_supported_rate": 0.0,
+    "mean_indeterminate_rate_across_all_cells": 0.324495
+  },
+  "decision_cells": [
+    {"scenario":"reference","threshold":0.2,"supported":0.475,"rejected":0.0,"indeterminate":0.525},
+    {"scenario":"many_items","threshold":0.2,"supported":0.775,"rejected":0.0,"indeterminate":0.225},
+    {"scenario":"few_items","threshold":0.2,"supported":0.3,"rejected":0.0,"indeterminate":0.7},
+    {"scenario":"strong_recognition","threshold":0.2,"supported":0.775,"rejected":0.0,"indeterminate":0.225},
+    {"scenario":"weak_recognition","threshold":0.2,"supported":0.05,"rejected":0.05,"indeterminate":0.9},
+    {"scenario":"low_noise","threshold":0.2,"supported":0.725,"rejected":0.0,"indeterminate":0.275},
+    {"scenario":"high_noise","threshold":0.2,"supported":0.25,"rejected":0.0,"indeterminate":0.75},
+    {"scenario":"floor_limited","threshold":0.2,"supported":0.075,"rejected":0.05,"indeterminate":0.875},
+    {"scenario":"ceiling_limited","threshold":0.2,"supported":0.075,"rejected":0.0,"indeterminate":0.925},
+    {"scenario":"reference","threshold":0.35,"supported":0.075,"rejected":0.0,"indeterminate":0.925},
+    {"scenario":"reference","threshold":0.5,"supported":0.0,"rejected":0.15,"indeterminate":0.85}
+  ],
+  "scope_note": "Synthetic engineering calibration only. Forty trials per cell and 80 bootstrap samples are insufficient for precise tail-rate claims. The full local 99-cell run informed the methods review; this committed artifact preserves the decision-relevant cells."
+}
