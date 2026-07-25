@@ -1,0 +1,77 @@
+{
+  "schema_version": "egc2-anchor-detector-design-comparison-0.1.0",
+  "scope": "synthetic targeted design comparison",
+  "seed": 20260725,
+  "trials_per_cell": 100,
+  "bootstrap_samples": 100,
+  "threshold": 0.2,
+  "designs": [
+    {"raters": 8, "items_per_class": 18},
+    {"raters": 8, "items_per_class": 36},
+    {"raters": 12, "items_per_class": 18},
+    {"raters": 12, "items_per_class": 36},
+    {"raters": 16, "items_per_class": 18},
+    {"raters": 16, "items_per_class": 36}
+  ],
+  "scenarios": [
+    {"scenario_id": "interior", "baseline_score": 4.0, "noise_sd": 0.45},
+    {"scenario_id": "low_noise", "baseline_score": 4.0, "noise_sd": 0.25},
+    {"scenario_id": "high_noise", "baseline_score": 4.0, "noise_sd": 0.8},
+    {"scenario_id": "floor", "baseline_score": 1.4, "noise_sd": 0.45},
+    {"scenario_id": "ceiling", "baseline_score": 6.6, "noise_sd": 0.45}
+  ],
+  "adversarial_support_rates": {
+    "interior": {
+      "8x18": 0.44, "8x36": 0.71, "12x18": 0.63,
+      "12x36": 0.92, "16x18": 0.76, "16x36": 0.98
+    },
+    "low_noise": {
+      "8x18": 0.73, "8x36": 0.96, "12x18": 0.83,
+      "12x36": 0.99, "16x18": 0.95, "16x36": 1.0
+    },
+    "high_noise": {
+      "8x18": 0.20, "8x36": 0.33, "12x18": 0.24,
+      "12x36": 0.60, "16x18": 0.32, "16x36": 0.69
+    },
+    "floor": {
+      "8x18": 0.12, "8x36": 0.17, "12x18": 0.14,
+      "12x36": 0.31, "16x18": 0.27, "16x36": 0.40
+    },
+    "ceiling": {
+      "8x18": 0.05, "8x36": 0.17, "12x18": 0.10,
+      "12x36": 0.17, "16x18": 0.13, "16x36": 0.24
+    }
+  },
+  "adversarial_indeterminate_rates": {
+    "interior": {
+      "8x18": 0.56, "8x36": 0.29, "12x18": 0.37,
+      "12x36": 0.08, "16x18": 0.24, "16x36": 0.02
+    },
+    "low_noise": {
+      "8x18": 0.27, "8x36": 0.04, "12x18": 0.17,
+      "12x36": 0.01, "16x18": 0.05, "16x36": 0.0
+    },
+    "high_noise": {
+      "8x18": 0.80, "8x36": 0.67, "12x18": 0.76,
+      "12x36": 0.40, "16x18": 0.68, "16x36": 0.31
+    },
+    "floor": {
+      "8x18": 0.86, "8x36": 0.83, "12x18": 0.85,
+      "12x36": 0.69, "16x18": 0.73, "16x36": 0.60
+    },
+    "ceiling": {
+      "8x18": 0.93, "8x36": 0.81, "12x18": 0.90,
+      "12x36": 0.82, "16x18": 0.87, "16x36": 0.76
+    }
+  },
+  "maximum_observed_nonadversarial_supported_rate": 0.01,
+  "runtime_seconds": 26.914,
+  "limitations": [
+    "Engineering-scale calibration; 100 trials and 100 bootstrap draws per cell.",
+    "The committed result is a decision summary rather than every trial-level draw.",
+    "Synthetic parameters are not empirical rater estimates.",
+    "Percentile rater-cluster bootstrap coverage is not established.",
+    "Floor and ceiling regimes compress observable effects."
+  ],
+  "content_sha256": "46b56e91100c1cb831ee66e3d5aa6a2019ff197f6ef3f4393542ccdeca546a53"
+}
