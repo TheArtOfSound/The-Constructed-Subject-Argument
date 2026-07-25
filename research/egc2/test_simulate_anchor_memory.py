@@ -34,4 +34,13 @@ class AnchorMemorySimulatorTests(unittest.TestCase):
         self.assertLess(result["generalized_learning"]["false_reassurance_rate"],.10)
         self.assertGreater(result["memorization_plus_novel_drift"]["false_reassurance_rate"],.50)
 
+    def test_baseline_score_is_validated(self):
+        with self.assertRaises(ValueError): mod.generate_trial(1,"generalized_learning",baseline_score=.9)
+        with self.assertRaises(ValueError): mod.generate_trial(1,"generalized_learning",baseline_score=7.1)
+
+    def test_floor_and_ceiling_regimes_remain_bounded(self):
+        for baseline in (1.2,6.8):
+            rows=mod.generate_trial(2,"memorization_plus_novel_drift",baseline_score=baseline)
+            self.assertTrue(all(1 <= row["score"] <= 7 for row in rows))
+
 if __name__=="__main__": unittest.main()
