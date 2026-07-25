@@ -27,13 +27,17 @@ def class_effect(regime:str,item_class:str,progress:float,learning_gain:float,no
         return -novel_drift*progress
     raise ValueError(f"unknown regime: {regime}")
 
-def generate_trial(seed:int,regime:str,raters:int=8,items_per_class:int=18,learning_gain:float=.6,novel_drift:float=.7,noise_sd:float=.45)->list[dict[str,Any]]:
+def generate_trial(seed:int,regime:str,raters:int=8,items_per_class:int=18,learning_gain:float=.6,novel_drift:float=.7,noise_sd:float=.45,baseline_score:float=4.0)->list[dict[str,Any]]:
+    if raters < 2: raise ValueError("raters must be at least 2")
+    if items_per_class < 4: raise ValueError("items_per_class must be at least 4")
+    if noise_sd < 0: raise ValueError("noise_sd must be non-negative")
+    if not 1 <= baseline_score <= 7: raise ValueError("baseline_score must be in [1, 7]")
     rng=random.Random(seed); rows=[]; severity=[rng.gauss(0,.35) for _ in range(raters)]
     for r in range(raters):
         for item_class in ITEM_CLASSES:
             for i in range(items_per_class):
                 progress=i/max(1,items_per_class-1)
-                latent=4+rng.gauss(0,.25)-severity[r]+class_effect(regime,item_class,progress,learning_gain,novel_drift)+rng.gauss(0,noise_sd)
+                latent=baseline_score+rng.gauss(0,.25)-severity[r]+class_effect(regime,item_class,progress,learning_gain,novel_drift)+rng.gauss(0,noise_sd)
                 score=max(1,min(7,int(math.floor(latent+.5))))
                 rows.append({"rater_id":f"R{r+1:02d}","item_class":item_class,"progress":progress,"score":score})
     return rows
@@ -41,6 +45,7 @@ def generate_trial(seed:int,regime:str,raters:int=8,items_per_class:int=18,learn
 def early_late_shift(rows:list[dict[str,Any]],item_class:str)->float:
     early=[x["score"] for x in rows if x["item_class"]==item_class and x["progress"]<=.25]
     late=[x["score"] for x in rows if x["item_class"]==item_class and x["progress"]>=.75]
+    if not early or not late: raise ValueError(f"insufficient early/late observations for {item_class}")
     return statistics.fmean(late)-statistics.fmean(early)
 
 def summarize_trial(rows:list[dict[str,Any]],material_change:float=.35)->dict[str,Any]:
