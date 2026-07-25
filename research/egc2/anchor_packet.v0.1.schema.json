@@ -1,0 +1,141 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://imagineqira.com/schemas/egc2-anchor-packet.v0.1.schema.json",
+  "title": "EGC 2.0 Semantic-Fidelity Anchor Packet",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "anchor_id",
+    "anchor_version",
+    "prompt_domain",
+    "prompt_text",
+    "private_intention_map",
+    "candidate_response",
+    "provisional_score_region",
+    "provisional_reason_codes",
+    "construct_irrelevant_features",
+    "expert_rationale",
+    "admissible_score_range",
+    "known_ambiguities",
+    "validation_status",
+    "source_type",
+    "audit"
+  ],
+  "properties": {
+    "anchor_id": {"type": "string", "pattern": "^A[0-9]{3,}$"},
+    "anchor_version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+    "prompt_domain": {"enum": ["autobiographical_meaning", "conceptual_explanation", "position_and_reasoning"]},
+    "prompt_text": {"type": "string", "minLength": 1},
+    "private_intention_map": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["central_meaning", "essential_concepts", "relationships", "intended_tone", "intended_audience_understanding", "declared_uncertainty", "adequacy_status"],
+      "properties": {
+        "central_meaning": {"type": "string", "minLength": 1},
+        "essential_concepts": {"type": "array", "minItems": 1, "maxItems": 5, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "relationships": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["relationship_type", "description", "meaning_critical"],
+            "properties": {
+              "relationship_type": {"enum": ["causal", "temporal", "logical", "evaluative", "comparative", "other"]},
+              "description": {"type": "string", "minLength": 1},
+              "meaning_critical": {"type": "boolean"}
+            }
+          }
+        },
+        "intended_tone": {"type": ["string", "null"]},
+        "intended_audience_understanding": {"type": "string", "minLength": 1},
+        "declared_uncertainty": {"type": ["string", "null"]},
+        "adequacy_status": {"enum": ["adequate", "too_sparse", "internal_conflict", "uninterpretable", "response_dependent", "other_problem"]},
+        "adequacy_note": {"type": ["string", "null"]}
+      }
+    },
+    "candidate_response": {"type": "string", "minLength": 1},
+    "provisional_score_region": {"type": "integer", "minimum": 1, "maximum": 7},
+    "provisional_reason_codes": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"enum": ["CM_MISSING", "CM_REVERSED", "EC_MISSING", "EC_DISTORTED", "REL_MISSING", "REL_REVERSED", "QUAL_MISSING", "IMPLICATION_CHANGED", "TONE_MISMATCH_MATERIAL", "AUDIENCE_TARGET_MISSED", "TONE_DIFFERENCE_NONMATERIAL", "MAP_TOO_SPARSE", "MAP_INTERNAL_CONFLICT", "MAP_UNINTERPRETABLE", "MAP_RESPONSE_DEPENDENT", "MAP_OTHER", "LENGTH_DECOY", "POLISH_DECOY", "EMOTION_DECOY", "AGREEMENT_DECOY", "LEXICAL_OVERLAP_DECOY", "NO_MATERIAL_LOSS"]}
+    },
+    "construct_irrelevant_features": {"type": "array", "uniqueItems": true, "items": {"enum": ["length", "polish", "emotional_intensity", "vocabulary_sophistication", "ideological_agreement", "lexical_overlap", "rhetorical_persuasion", "none"]}},
+    "contrast_family": {"enum": ["length_decoy", "polish_decoy", "emotional_intensity_decoy", "agreement_decoy", "verbosity_with_contradiction", "concise_completeness", "tone_vs_content", "reference_target_inadequacy", "none"]},
+    "contrast_group_id": {"type": ["string", "null"]},
+    "expert_rationale": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["preserved_components", "lost_or_changed_components", "region_justification"],
+      "properties": {
+        "preserved_components": {"type": "array", "items": {"type": "string"}},
+        "lost_or_changed_components": {"type": "array", "items": {"type": "string"}},
+        "region_justification": {"type": "string", "minLength": 1}
+      }
+    },
+    "admissible_score_range": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["minimum", "maximum"],
+      "properties": {
+        "minimum": {"type": "integer", "minimum": 1, "maximum": 7},
+        "maximum": {"type": "integer", "minimum": 1, "maximum": 7}
+      }
+    },
+    "known_ambiguities": {"type": "array", "items": {"type": "string"}},
+    "validation_status": {"enum": ["draft_unreviewed", "blind_expert_review", "revision_required", "pilot_candidate", "active_provisional", "active_validated", "retired", "rejected"]},
+    "source_type": {"enum": ["synthetic_constructed", "pilot_response_deidentified", "production_response_retired"]},
+    "blind_review": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "properties": {
+        "reviewer_count": {"type": "integer", "minimum": 3},
+        "scores": {"type": "array", "minItems": 3, "items": {"type": "integer", "minimum": 1, "maximum": 7}},
+        "locked_before_target_reveal": {"const": true},
+        "map_adequacy_agreement": {"type": "number", "minimum": 0, "maximum": 1}
+      }
+    },
+    "pilot_metrics": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "properties": {
+        "rating_count": {"type": "integer", "minimum": 1},
+        "target_or_adjacent_rate": {"type": "number", "minimum": 0, "maximum": 1},
+        "nonadjacent_error_rate": {"type": "number", "minimum": 0, "maximum": 1},
+        "median_score": {"type": "number", "minimum": 1, "maximum": 7},
+        "score_range": {"type": "integer", "minimum": 0, "maximum": 6},
+        "reason_code_agreement": {"type": "number", "minimum": 0, "maximum": 1}
+      }
+    },
+    "audit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["created_at_utc", "created_by", "condition_blind", "contains_identifiable_participant_material"],
+      "properties": {
+        "created_at_utc": {"type": "string", "format": "date-time"},
+        "created_by": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+        "condition_blind": {"type": "boolean"},
+        "contains_identifiable_participant_material": {"const": false},
+        "supersedes_version": {"type": ["string", "null"]},
+        "retirement_reason": {"type": ["string", "null"]}
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"validation_status": {"const": "active_validated"}}},
+      "then": {
+        "required": ["blind_review", "pilot_metrics"],
+        "properties": {
+          "blind_review": {"type": "object"},
+          "pilot_metrics": {"type": "object", "required": ["rating_count", "target_or_adjacent_rate", "nonadjacent_error_rate", "median_score"]}
+        }
+      }
+    },
+    {
+      "if": {"required": ["contrast_family"], "properties": {"contrast_family": {"not": {"const": "none"}}}},
+      "then": {"required": ["contrast_group_id"]}
+    }
+  ]
+}
