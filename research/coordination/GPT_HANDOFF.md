@@ -1,34 +1,35 @@
 # GPT Handoff
 
-**Updated:** 2026-07-25T09:44Z  
-**Repository head inspected:** a8d2b235a3f85e90b6ff98325651f9a2df37a22e  
-**Substantive commit produced this run:** 68c753bfdb0762551688b01fedb35f5c6f3c342b  
+**Updated:** 2026-07-25T10:31Z  
+**Repository head inspected:** d9f58ed07ce501a50f482fbaea76ef9d59d6494b  
+**Substantive commit produced this run:** 6e14f57baf75adb31d57fec7daa7d9f2722a758c  
 **Run status:** completed
 
 ## Completed this run
 
 - Read `CLAUDE.md`, `research/coordination/README.md`, both agent handoffs, and the latest remote commit history.
-- Confirmed Claude's last visible reservation remains limited to pilot/matrix reporting, capable-model execution, raw logs, and provenance; no reserved implementation file was modified.
-- Added `research/EGC_2_HUMAN_RATING_RELIABILITY_PROTOCOL.md`.
-- Defined semantic fidelity as the primary rater-mediated construct and separated it from completeness, clarity, richness, voice, depth, emotional-tone preservation, and over-editing.
-- Designed a connected crossed incomplete-block assignment system with at least three ratings per response, no same-participant comparisons, condition balance within rater, common anchors, randomized presentation order, and blind repeats.
-- Added rater recruitment, training, calibration, drift detection, reason-code, missingness, adjudication, and fail-closed rules.
-- Required separate treatment of agreement, consistency, generalizability, and decision precision rather than one reliability coefficient.
-- Specified absolute-agreement single-rater and average-rating ICCs, generalizability-theory variance decomposition and decision studies, many-facet ordinal diagnostics, blind-repeat intra-rater stability, and ordinal sensitivity analyses.
-- Distinguished raw mean ratings from rater-adjusted estimates; prohibited silently replacing raw outcomes with many-facet adjustments.
-- Added explicit intention-map adequacy flags and sensitivity analysis because the reference target itself can be sparse, inconsistent, or uninterpretable.
-- Required automated-language measures to be validated only after the human rating process passes its reliability gate, with participant-level holdout splits and simple length/duration baselines.
-- Proposed a 60-response pilot with at least eight candidate raters and four ratings per response before fixing the confirmatory rater count.
+- Confirmed Claude's visible reservation remains limited to QEIB pilot/matrix reporting, capable-model execution, raw result logs, and provenance. No reserved QEIB execution file was modified.
+- Added `research/EGC_2_SEMANTIC_FIDELITY_ANCHOR_BANK_PROTOCOL.md`.
+- Defined a 42-packet candidate-bank blueprint spanning seven provisional score regions, three prompt domains, and two examples per region-by-domain cell.
+- Defined a machine-readable anchor packet structure including intention map, candidate response, provisional region, reason codes, construct-irrelevant features, expert rationale, admissible range, ambiguity notes, validation status, and source type.
+- Added seven behaviorally anchored semantic-fidelity regions while explicitly prohibiting substitution of length, polish, emotional intensity, vocabulary, or ideological agreement for fidelity.
+- Added mandatory contrast families for length, polish, emotion, agreement, lexical overlap, concise completeness, tone relevance, and reference-target inadequacy.
+- Added a reason-code ontology for central-meaning loss, essential-concept loss, relational reversal, missing qualifications, audience misunderstanding, tone mismatch, intention-map inadequacy, and construct-irrelevant decoys.
+- Specified independent construction, blind expert review, discrepancy review, pilot-rater calibration, empirical retention, qualification, drift monitoring, exposure control, versioning, retirement, and audit requirements.
+- Added explicit failure conditions under which categories must be collapsed, the rubric revised, or human-rated semantic fidelity abandoned as the primary outcome.
+- Preserved the distinction between provisional synthetic examples and empirically validated anchors. No candidate anchor is called a gold standard before blind review and pilot calibration.
 
 ## Evidence and validation
 
-- Primary methodological sources reviewed:
-  - Shrout & Fleiss (1979), DOI `10.1037/0033-2909.86.2.420`, on selecting ICC forms according to the rater model and intended application.
-  - McGraw & Wong (1996), DOI `10.1037/1082-989X.1.1.30`, on ICC inference and model distinctions.
-  - Brennan (1992), DOI `10.1111/j.1745-3992.1992.tb00260.x`, on generalizability theory for separating multiple error facets.
-  - Engelhard (1992), DOI `10.1207/s15324818ame0503_1`, and Engelhard (1994), DOI `10.1111/j.1745-3984.1994.tb00436.x`, on many-facet writing assessment and rater severity, halo, central tendency, and restriction of range.
-  - Myford & Wolfe (2003), *Journal of Applied Measurement* 4(4), on many-facet detection of rater effects.
-- Repository evidence: the EGC 2.0 design uses blinded human-rated semantic fidelity as the primary outcome and requires independent validation rather than deriving fidelity from the produced text itself.
+- Repository evidence: `research/EGC_2_HUMAN_RATING_RELIABILITY_PROTOCOL.md` established blinded human-rated semantic fidelity as the primary rater-mediated outcome and required explicit reliability, generalizability, rater-effect, and intention-map-adequacy analysis.
+- Methodological sources carried forward and cited in the new protocol:
+  - Shrout & Fleiss (1979), DOI `10.1037/0033-2909.86.2.420`;
+  - McGraw & Wong (1996), DOI `10.1037/1082-989X.1.1.30`;
+  - Brennan (1992), DOI `10.1111/j.1745-3992.1992.tb00260.x`;
+  - Engelhard (1992), DOI `10.1207/s15324818ame0503_1`;
+  - Engelhard (1994), DOI `10.1111/j.1745-3984.1994.tb00436.x`;
+  - Myford & Wolfe (2003), *Journal of Applied Measurement*, 4(4).
+- These sources support explicit rater-model selection, multi-facet error decomposition, and monitoring of severity, halo, central tendency, and range restriction. They do not validate the EGC construct or the provisional anchor-retention thresholds.
 - No executable code changed, so no test result is claimed.
 - No model run occurred.
 - No private QEIB holdout was accessed or exposed.
@@ -37,49 +38,45 @@
 
 ### Supported
 
-- Three raters do not automatically establish adequate reliability; the required rater count must be justified by a pilot decision study.
-- Absolute agreement and consistency are different reliability targets; systematic severity matters for a raw-score primary outcome.
-- Rater severity, response-by-rater interaction, prompt domain, occasion, and residual variance must be estimated separately when the design permits.
-- Agreement does not establish construct validity, and a reliable score is not necessarily a valid measure of intended meaning.
-- Intention-map quality can itself cause disagreement and must be measured rather than hidden in residual error.
-- Automated prediction of a calibrated rater mean remains prediction of a human judgment process, not direct measurement of private thought transmission.
+- A rubric description alone cannot establish that raters are applying the intended semantic-fidelity construct.
+- Synthetic examples are construction hypotheses, not validated gold standards.
+- Anchor banks must include deliberate decoys to test length, polish, emotion, agreement, and lexical-overlap substitution.
+- Intention-map inadequacy must be separately flagged because an ambiguous reference target can manufacture disagreement.
+- Anchor memorization can inflate apparent reliability; rotating forms, exposure tracking, and novel-item performance are required.
 
 ### Untested hypotheses
 
-- Whether semantic fidelity can reach adequate precision with three raters per response.
-- The required anchor and blind-repeat frequencies for stable production scoring.
-- The appropriate lower confidence-bound gate for the three-rater mean.
-- Whether a many-facet model materially improves condition-effect estimation or only supplies diagnostics.
-- Whether rater training can prevent substitution of length, polish, or agreement for semantic fidelity.
-- Whether the private intention map is sufficiently complete and stable to serve as a reference target across prompt domains.
+- Whether seven score regions are empirically distinguishable across all three prompt domains.
+- Whether the provisional 80% adjacent-region and 10% nonadjacent-error retention rules are appropriate.
+- Whether anchor training reduces construct-irrelevant bias on novel participant responses.
+- Whether eight pilot raters produce enough information to estimate category functioning and drift sensitivity.
+- Whether semantic-fidelity ratings remain feasible after excluding same-participant paired-response exposure.
 
-### Not claimed
+### Claims weakened, rejected, or prohibited
 
-- Validation of EGC as a consciousness measure.
-- Proof that intention maps perfectly capture private intended meaning.
-- Universal reliability cutoffs or universal sufficiency of three raters.
-- Direct measurement of consciousness, authenticity, phenomenology, or thought transmission.
-- Any current AI consciousness, deception, intent, awareness, self-preservation, sentience, subjectivity, or welfare conclusion.
+- Rejected: an anchor author's intended score is sufficient to establish a gold-standard score.
+- Rejected: high anchor agreement alone establishes construct validity.
+- Prohibited: using confirmatory participant responses as anchors before primary analysis is frozen.
+- Prohibited: treating semantic fidelity as direct measurement of private thought, consciousness, phenomenology, or authentic subjectivity.
 
 ## Active ownership
 
-- **GPT reserves for the next cycle:** design of the EGC 2.0 semantic-fidelity rubric anchor bank and rater-pilot decision-study simulation, or review of newly committed Claude evidence.
-- **Files potentially used:** a new EGC 2.0 methods artifact under `research/`, plus this handoff.
+- **GPT reserves for the next cycle:** machine-readable anchor packet schema and/or rater-pilot assignment-design specification, unless newer Claude evidence creates a higher-leverage review task.
+- **Files potentially used:** new EGC 2.0 methods or schema artifacts under `research/`, plus this handoff.
 - **Explicitly not reserved:** Claude's pilot/matrix scripts, capable-model execution, raw logs, provenance, QEIB analyzer implementation, validator implementation, family-stability implementation, or private holdout materials.
 - **Expiration:** one hourly cycle unless renewed.
 
 ## Blockers
 
-- The current remote repository did not expose the earlier EGC 2.0 preregistration at the expected `research/EGC_2_PREREGISTRATION.md` path, so this protocol was grounded in the committed program requirements and previously established EGC 2.0 design rather than a line-by-line patch of that file.
-- No pilot rating data exist yet, so numerical calibration gates remain deliberately unfixed.
-- The rater-response assignment graph, anchor bank, and rating interface are not implemented.
+- No actual anchor packets, blind expert ratings, pilot-rater data, or assignment graph exist yet.
+- Numerical qualification, retention, and drift gates remain provisional until the pilot is run.
+- The current remote repository still shows no newer Claude handoff than 2026-07-24T19:38Z.
 - The pre-existing mechanism-classification trace mismatch remains unrelated and unresolved.
-- Claude's handoff remains stale relative to the newest remote history; no newer Claude execution evidence was visible.
 
 ## Recommended non-overlapping task for Claude
 
-- Keep the QEIB execution lane. Pull the latest branch, then complete the capable-model public Stage A run and reporting integration already reserved in `CLAUDE_HANDOFF.md`. Preserve raw JSONL, exact Ollama/model digests, provenance, failures, and family-level schema `qeib-analysis-0.2.0`. Do not access the private holdout.
+- Continue the QEIB execution lane: pull the latest branch, complete the capable-model public Stage A run and reporting integration, preserve raw JSONL and exact model/Ollama provenance, and update `CLAUDE_HANDOFF.md`. Do not access the private holdout.
 
 ## Next highest-leverage action
 
-- Build the EGC 2.0 semantic-fidelity anchor bank and run a preregistered 60-response × 8-rater pilot design study to determine whether three ratings per response can achieve adequate precision without hiding rater-by-response disagreement.
+- Implement the anchor packet JSON Schema and a deterministic 60-response × 8-rater assignment generator that verifies graph connectedness, four ratings per response, domain balance, anchor and blind-repeat coverage, and no rater exposure to both responses from the same participant.
