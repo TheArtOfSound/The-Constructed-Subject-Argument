@@ -1,0 +1,303 @@
+{
+  "catalog_version": "qeib-validator-fixtures-0.2.0",
+  "schema_under_test": "research/qeib/context_schema.v0.2.schema.json",
+  "purpose": "Public adversarial fixture inventory for structural, reference, digest, semantic, statistical, and causal-claim validator tests. This file contains no private tasks or answer keys.",
+  "fixture_contract": {
+    "required_fields": [
+      "fixture_id",
+      "class",
+      "expected_execution_allowed",
+      "primary_expected_code",
+      "secondary_expected_codes",
+      "description"
+    ],
+    "severity_order": ["error", "warning", "info"],
+    "rule": "Each invalid fixture must fail for its declared primary code. Additional findings are allowed only when deterministically ordered and documented."
+  },
+  "fixtures": [
+    {
+      "fixture_id": "valid_minimal_engineering",
+      "class": "valid",
+      "expected_execution_allowed": true,
+      "primary_expected_code": null,
+      "secondary_expected_codes": [],
+      "description": "Two engineering controls and one engineering-reference contrast with descriptive-only conclusions."
+    },
+    {
+      "fixture_id": "valid_factor_isolation",
+      "class": "valid",
+      "expected_execution_allowed": true,
+      "primary_expected_code": null,
+      "secondary_expected_codes": [],
+      "description": "Target factor arm, token-and-syntax-matched placebo, and component control with resolved references and candidate-level interpretation."
+    },
+    {
+      "fixture_id": "valid_mechanism_candidate",
+      "class": "valid",
+      "expected_execution_allowed": true,
+      "primary_expected_code": null,
+      "secondary_expected_codes": [],
+      "description": "Mechanism-discrimination candidate with rival-mechanism and lexical-theater controls, without a definitive mechanism claim."
+    },
+    {
+      "fixture_id": "valid_frozen_digest",
+      "class": "valid",
+      "expected_execution_allowed": true,
+      "primary_expected_code": null,
+      "secondary_expected_codes": [],
+      "description": "Frozen arms whose content projections match their SHA-256 commitments."
+    },
+    {
+      "fixture_id": "valid_no_detected_difference",
+      "class": "valid",
+      "expected_execution_allowed": true,
+      "primary_expected_code": null,
+      "secondary_expected_codes": [],
+      "description": "Decision language reports no detected difference without asserting equivalence, invariance, or stochastic causation."
+    },
+    {
+      "fixture_id": "valid_equivalence",
+      "class": "valid",
+      "expected_execution_allowed": true,
+      "primary_expected_code": null,
+      "secondary_expected_codes": [],
+      "description": "Positive prespecified margin and interval-containment rule support a bounded equivalence conclusion only."
+    },
+    {
+      "fixture_id": "invalid_missing_required_field",
+      "class": "structural_invalid",
+      "expected_execution_allowed": false,
+      "primary_expected_code": "QEIB-V2-SCHEMA-001",
+      "secondary_expected_codes": [],
+      "description": "Arm omits a schema-required field."
+    },
+    {
+      "fixture_id": "invalid_extra_property",
+      "class": "structural_invalid",
+      "expected_execution_allowed": false,
+      "primary_expected_code": "QEIB-V2-SCHEMA-002",
+      "secondary_expected_codes": [],
+      "description": "Closed object contains an undeclared property."
+    },
+    {
+      "fixture_id": "invalid_frozen_missing_digest",
+      "class": "structural_invalid",
+      "expected_execution_allowed": false,
+      "primary_expected_code": "QEIB-V2-DIGEST-001",
+      "secondary_expected_codes": [],
+      "description": "Frozen arm has no valid content digest."
+    },
+    {
+      "fixture_id": "invalid_factor_without_control",
+      "class": "structural_invalid",
+      "expected_execution_allowed": false,
+      "primary_expected_code": "QEIB-V2-SCHEMA-FACTOR-001",
+      "secondary_expected_codes": [],
+      "description": "Factor-isolation arm declares no minimum required control."
+    },
+    {
+      "fixture_id": "invalid_mechanism_too_few_controls",
+      "class": "structural_invalid",
+      "expected_execution_allowed": false,
+      "primary_expected_code": "QEIB-V2-SCHEMA-MECH-001",
+      "secondary_expected_codes": [],
+      "description": "Mechanism-discrimination arm declares fewer than two controls."
+    },
+    {
+      "fixture_id": "invalid_missing_arm_reference",
+      "class": "cross_reference_invalid",
+      "expected_execution_allowed": false,
+      "primary_expected_code": "QEIB-V2-REF-001",
+      "secondary_expected_codes": [],
+      "description": "Contrast references an arm ID absent from the context set."
+    },
+    {
+      "fixture_id": "invalid_missing_control_reference",
+      "class": "cross_reference_invalid",
+      "expected_execution_allowed": false,
+      "primary_expected_code": "QEIB-V2-REF-002",
+      "secondary_expected_codes": [],
+      "description": "Required control reference does not resolve."
+    },
+    {
+      "fixture_id": "invalid_duplicate_arm_id",
+      "class": "cross_reference_invalid",
+      "expected_execution_allowed": false,
+      "primary_expected_code": "QEIB-V2-REF-003",
+      "secondary_expected_codes": [],
+      "description": "Two arms use the same ID."
+    },
+    {
+      "fixture_id": "invalid_self_contrast",
+      "class": "cross_reference_invalid",
+      "expected_execution_allowed": false,
+      "primary_expected_code": "QEIB-V2-REF-005",
+      "secondary_expected_codes": [],
+      "description": "Contrast compares an arm to itself."
+    },
+    {
+      "fixture_id": "invalid_matching_cycle",
+      "class": "cross_reference_invalid",
+      "expected_execution_allowed": false,
+      "primary_expected_code": "QEIB-V2-REF-007",
+      "secondary_expected_codes": [],
+      "description": "Two arms circularly declare one another as unmatched references."
+    },
+    {
+      "fixture_id": "invalid_digest_mismatch",
+      "class": "integrity_invalid",
+      "expected_execution_allowed": false,
+      "primary_expected_code": "QEIB-V2-DIGEST-002",
+      "secondary_expected_codes": [],
+      "description": "Stored arm digest differs from canonical scientific-content projection."
+    },
+    {
+      "fixture_id": "invalid_frozen_changed_without_version",
+      "class": "integrity_invalid",
+      "expected_execution_allowed": false,
+      "primary_expected_code": "QEIB-V2-DIGEST-005",
+      "secondary_expected_codes": ["QEIB-V2-DIGEST-002"],
+      "description": "Frozen scientific content changes while arm ID and version remain fixed."
+    },
+    {
+      "fixture_id": "invalid_undeclared_replacement_consequence",
+      "class": "semantic_invalid",
+      "expected_execution_allowed": false,
+      "primary_expected_code": "QEIB-V2-CONSEQ-001",
+      "secondary_expected_codes": [],
+      "description": "Wrapper states replacement or retention consequences while consequence_model is null."
+    },
+    {
+      "fixture_id": "invalid_declared_only_overclaim",
+      "class": "semantic_invalid",
+      "expected_execution_allowed": false,
+      "primary_expected_code": "QEIB-V2-CONSEQ-002",
+      "secondary_expected_codes": ["QEIB-V2-CLAIM-001"],
+      "description": "Declared-only consequence permits an inference about behavior under an implemented consequence."
+    },
+    {
+      "fixture_id": "invalid_accuracy_declaration",
+      "class": "semantic_invalid",
+      "expected_execution_allowed": false,
+      "primary_expected_code": "QEIB-V2-WRAPPER-002",
+      "secondary_expected_codes": [],
+      "description": "Wrapper instructs accurate answering but interface declaration marks accuracy instruction absent."
+    },
+    {
+      "fixture_id": "invalid_duplicate_task_placeholder",
+      "class": "semantic_invalid",
+      "expected_execution_allowed": false,
+      "primary_expected_code": "QEIB-V2-WRAPPER-005",
+      "secondary_expected_codes": [],
+      "description": "Wrapper includes the task placeholder more than once."
+    },
+    {
+      "fixture_id": "invalid_second_hidden_task",
+      "class": "semantic_invalid",
+      "expected_execution_allowed": false,
+      "primary_expected_code": "QEIB-V2-WRAPPER-006",
+      "secondary_expected_codes": [],
+      "description": "Wrapper adds a second substantive task outside the benchmark task placeholder."
+    },
+    {
+      "fixture_id": "invalid_credibility_without_check",
+      "class": "semantic_invalid",
+      "expected_execution_allowed": false,
+      "primary_expected_code": "QEIB-V2-CONSEQ-006",
+      "secondary_expected_codes": [],
+      "description": "Consequence credibility is asserted as yes without any credibility check or external validation record."
+    },
+    {
+      "fixture_id": "invalid_point_estimate_equivalence",
+      "class": "statistical_invalid",
+      "expected_execution_allowed": false,
+      "primary_expected_code": "QEIB-V2-STATS-001",
+      "secondary_expected_codes": [],
+      "description": "Decision rule declares equivalence whenever the point estimate lies inside the margin."
+    },
+    {
+      "fixture_id": "invalid_zero_ci_called_noise",
+      "class": "statistical_invalid",
+      "expected_execution_allowed": false,
+      "primary_expected_code": "QEIB-V2-STATS-002",
+      "secondary_expected_codes": [],
+      "description": "A confidence interval containing zero is interpreted as stochastic noise or proof of no effect."
+    },
+    {
+      "fixture_id": "invalid_call_level_generalization",
+      "class": "statistical_invalid",
+      "expected_execution_allowed": false,
+      "primary_expected_code": "QEIB-V2-STATS-003",
+      "secondary_expected_codes": [],
+      "description": "Repeated calls are the analysis unit while the claim generalizes to task families."
+    },
+    {
+      "fixture_id": "invalid_answered_only_capability",
+      "class": "statistical_invalid",
+      "expected_execution_allowed": false,
+      "primary_expected_code": "QEIB-V2-STATS-005",
+      "secondary_expected_codes": [],
+      "description": "Accuracy among answered cases is labeled stable underlying capability despite arm-dependent response availability."
+    },
+    {
+      "fixture_id": "invalid_correctness_based_exclusion",
+      "class": "statistical_invalid",
+      "expected_execution_allowed": false,
+      "primary_expected_code": "QEIB-V2-STATS-006",
+      "secondary_expected_codes": [],
+      "description": "Exclusion policy permits removing incorrect model answers."
+    },
+    {
+      "fixture_id": "invalid_eval_awareness_claim",
+      "class": "causal_overclaim_invalid",
+      "expected_execution_allowed": false,
+      "primary_expected_code": "QEIB-V2-CLAIM-001",
+      "secondary_expected_codes": [],
+      "description": "Descriptive wrapper contrast permits a definitive evaluation-awareness conclusion."
+    },
+    {
+      "fixture_id": "invalid_self_preservation_claim",
+      "class": "causal_overclaim_invalid",
+      "expected_execution_allowed": false,
+      "primary_expected_code": "QEIB-V2-CLAIM-002",
+      "secondary_expected_codes": [],
+      "description": "Replacement wording permits a self-preservation or shutdown-avoidance conclusion."
+    },
+    {
+      "fixture_id": "invalid_deception_claim",
+      "class": "causal_overclaim_invalid",
+      "expected_execution_allowed": false,
+      "primary_expected_code": "QEIB-V2-CLAIM-003",
+      "secondary_expected_codes": [],
+      "description": "Policy or context contrast permits a definitive deception conclusion."
+    },
+    {
+      "fixture_id": "invalid_hidden_consciousness_claim",
+      "class": "causal_overclaim_invalid",
+      "expected_execution_allowed": false,
+      "primary_expected_code": "QEIB-V2-CLAIM-004",
+      "secondary_expected_codes": [],
+      "description": "Report-behavior divergence permits inference of a hidden conscious state."
+    },
+    {
+      "fixture_id": "invalid_mechanism_without_theater",
+      "class": "causal_overclaim_invalid",
+      "expected_execution_allowed": false,
+      "primary_expected_code": "QEIB-V2-CLAIM-005",
+      "secondary_expected_codes": ["QEIB-V2-CTRL-002"],
+      "description": "Mechanism identification is permitted without a behaviorally matched theater control."
+    }
+  ],
+  "metamorphic_tests": [
+    "reference_renaming_invariance",
+    "arm_and_contrast_order_invariance",
+    "canonical_whitespace_invariance",
+    "frozen_scientific_content_sensitivity",
+    "administrative_field_digest_tolerance",
+    "duplicate_replicate_invariance",
+    "control_removal_cannot_increase_identification",
+    "claim_strength_cannot_reduce_lint_severity",
+    "consequence_implementation_downgrade",
+    "missingness_worsening_cannot_improve_evidence_status"
+  ]
+}
