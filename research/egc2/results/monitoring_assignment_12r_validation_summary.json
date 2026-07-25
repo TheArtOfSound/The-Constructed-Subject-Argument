@@ -1,0 +1,39 @@
+{
+  "schema_version": "egc2-monitoring-assignment-validation-summary-0.1.0",
+  "generator": "research/egc2/generate_monitoring_assignment_12r.py",
+  "test_module": "research/egc2/test_generate_monitoring_assignment_12r.py",
+  "seed": 20260725,
+  "design": {
+    "rater_count": 12,
+    "monitoring_class_count": 4,
+    "items_per_class": 36,
+    "total_unique_items": 144,
+    "ratings_per_item": 4,
+    "total_assignments": 576,
+    "items_per_rater_per_class": 12,
+    "total_items_per_rater": 48
+  },
+  "validation": {
+    "tests_run": 8,
+    "tests_passed": 8,
+    "tests_failed": 0,
+    "one_rater_dropout_scenarios": 12,
+    "one_rater_dropout_failures": 0,
+    "minimum_ratings_per_item_after_one_dropout": 3,
+    "two_rater_dropout_scenarios": 66,
+    "two_rater_dropout_failures": 0,
+    "minimum_ratings_per_item_after_two_dropouts": 2,
+    "overall_graph_connected_in_all_scenarios": true,
+    "class_graphs_connected_in_all_scenarios": true,
+    "public_queue_metadata_leak_detected": false,
+    "deterministic_regeneration": true
+  },
+  "canonical_content_sha256": "3af9a2696d648501410b9f779e283feb8bcb5bb85c16f2d05b1def23ebed405b",
+  "interpretation_limits": [
+    "This validates assignment structure, not rater reliability or construct validity.",
+    "Graph connectivity does not establish unbiased inference under informative dropout.",
+    "Two remaining ratings per item after two dropouts may be insufficient for scientific precision.",
+    "The workload and fatigue consequences of 48 items per rater have not been empirically measured.",
+    "Monitoring-class concealment in metadata does not prevent content-based recognition."
+  ]
+}
