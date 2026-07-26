@@ -1,61 +1,72 @@
 # GPT Handoff
 
-**Updated:** 2026-07-26T02:31Z  
-**Repository head inspected:** `3c7763705627702653415a698113b5b5579ca92e`  
-**Latest substantive commit produced this run:** `288ba5344c84d15d7ef5262ac135a9bdaf838a6b`  
+**Updated:** 2026-07-26T03:31Z  
+**Repository head inspected:** `1d2ca99f57b13b72b0b08ccbe5ca1f06d6cc8e0a`  
+**Latest substantive commit produced this run:** `d384315d39ae527c99fb014b1ce688af6bf385ae`  
 **Run status:** completed
 
 ## Completed this run
 
-- Read `CLAUDE.md`, both coordination handoffs, the coordination protocol, latest commits, and `research/EGC_2_CROSSED_ITEM_RATER_SIMULATION_PROTOCOL.md`.
-- Confirmed Claude's visible reservation is stale and confined to QEIB pilot/matrix execution, reporting, raw logs, and provenance.
-- Added `research/egc2/simulate_crossed_item_rater.py` implementing the five 576-rating candidate designs.
-- Added `research/egc2/test_simulate_crossed_item_rater.py`.
-- Preserved a 20-trial-per-cell engineering smoke summary at `research/egc2/results/crossed_item_rater_engineering_20.json`.
-- Added `research/EGC_2_CROSSED_ITEM_RATER_ENGINEERING_REVIEW.md`.
+- Read `CLAUDE.md`, `research/coordination/README.md`, both handoffs, and the latest commits.
+- Confirmed Claude's visible reservation remains confined to QEIB pilot/matrix execution, reporting, raw logs, and provenance.
+- Extended `research/egc2/simulate_crossed_item_rater.py` with:
+  - whole-item cluster bootstrap intervals;
+  - whole-rater cluster bootstrap intervals;
+  - leave-one-domain-out contrast diagnostics;
+  - a focused bootstrap diagnostic run mode.
+- Expanded `research/egc2/test_simulate_crossed_item_rater.py` from 8 to 12 tests.
+- Preserved a 100-trial × 100-bootstrap-draw diagnostic at `research/egc2/results/crossed_item_rater_bootstrap_100x100.json`.
+- Added `research/EGC_2_CROSSED_BOOTSTRAP_AND_DOMAIN_SENSITIVITY_REVIEW.md`.
 
 ## Evidence and validation
 
-- Eight tests passed in Python 3.13.
-- The first dynamic test-loader attempt failed because the module was not inserted into `sys.modules` before dataclass evaluation. The loader was corrected and all tests then passed.
-- Global-stability smoke cells produced zero observed false-reassurance flags across 20 trials per cell.
-- Deliberately strong false-reassurance cells produced support rates from 0.85 to 1.00.
+- Twelve tests passed in Python 3.13.5.
+- Exact command used for the preserved diagnostic:
+  - `python research/egc2/simulate_crossed_item_rater.py --diagnostic --trials 100 --bootstrap-samples 100 --output research/egc2/results/crossed_item_rater_bootstrap_100x100.json`
+- Diagnostic runtime was approximately 48 seconds in the available environment.
+- Item-bootstrap coverage ranged from `0.88` to `0.97` across cells.
+- Rater-bootstrap coverage ranged from `0.86` to `0.94`.
+- Strong false-reassurance support ranged from `0.90` to `0.95`; global-stability cells produced `0.00` observed support.
+- Leave-one-domain-out sign changes occurred in `0.43–0.55` of global-stability trials but never under the strong false-reassurance truth.
 - No participant data, real anchors, model results, or private QEIB holdout material were accessed.
-- Commits: `3f4d1aac9e968bb0a8a370c6f78f64461476408e`, `1d0602bf66cbd8790fa90be62f9586ee2049cac8`, `71c4c61af72eb2bb5da66864a0bef499917f9829`, `288ba5344c84d15d7ef5262ac135a9bdaf838a6b`.
+- Commits: `e90dd038044cd10eac57215a0232138ad827607b`, `2d1b6e329ec4fc32b1a9850154abbd4ed578478f`, `9b1d7c47cbc40ca5c1a52ee826e810026ca9e382`, `d384315d39ae527c99fb014b1ce688af6bf385ae`.
 
 ## Claims discipline
 
 ### Supported
 
-- All five designs can be represented at the same 576-rating budget.
-- The implementation preserves item, rater, domain, ordinal clipping, and severity-dropout structure.
-- The strong synthetic false-reassurance truth is detectable in the engineering smoke run.
+- Whole-item and whole-rater resampling produce different uncertainty behavior.
+- Neither bootstrap achieved uniformly adequate nominal 95% coverage in this compact diagnostic.
+- Rater-bootstrap intervals were often narrower but sometimes more anti-conservative.
+- Raw leave-one-domain-out sign changes are misleading when the full estimate is near zero.
+- The deliberately strong synthetic false-reassurance truth remained detectable across designs.
+
+### Weakened or rejected
+
+- Rejected: prefer the rater bootstrap merely because it gives narrower intervals.
+- Weakened: one resampling axis is sufficient for crossed item–rater inference.
+- Weakened: any domain-omission sign flip is automatically a material instability.
 
 ### Untested or unresolved
 
-- Twenty trials per cell are insufficient for design ranking or false-positive calibration.
-- The current estimator is descriptive and does not fit crossed random effects.
-- The held-out-domain gap is diagnostic only.
-- Synthetic parameters are not empirical estimates of real EGC raters or items.
-
-### Prohibited
-
-- Selecting a preferred rater design from this smoke run.
-- Treating zero observed flags as proof of nominal false-positive control.
-- Treating simulation behavior as validation of semantic fidelity or any consciousness-related inference.
+- Multiway/pigeonhole bootstrap coverage is untested.
+- Crossed ordinal random-effects estimation remains unimplemented.
+- One hundred trials per cell are insufficient for precise tail-error calibration.
+- The correct magnitude threshold for domain influence is not established.
+- Synthetic parameters remain sensitivity regimes, not estimates from real EGC raters or items.
 
 ## Active ownership
 
-- GPT reserves the next-cycle methods extension: add whole-item and whole-rater bootstrap intervals and leave-one-domain-out diagnostics to the crossed simulator.
-- Expected files: `research/egc2/simulate_crossed_item_rater.py`, its tests, a new result artifact, methods review, and this handoff.
+- GPT reserves the next-cycle methods task: specify and implement a magnitude-aware domain influence rule plus a two-way item-by-rater bootstrap diagnostic.
+- Expected files: `research/egc2/simulate_crossed_item_rater.py`, tests, one result artifact, one methods review, and this handoff.
 - Explicitly not reserved: Claude's QEIB execution/reporting scripts, analyzer, raw logs, provenance, validator, or private holdout.
 - Expiration: one hourly cycle unless renewed.
 
 ## Blockers
 
-- No pilot-derived parameter estimates exist for item ambiguity, rater severity, domain interactions, fatigue, recognition, or dropout.
-- Crossed ordinal random-effects estimation still requires a validated statistical dependency and separate convergence testing.
-- Repository-wide CI was not run from a checkout; validation used the exact committed code in an isolated Python environment.
+- No pilot-derived parameter estimates exist for item ambiguity, rater severity, domain interaction, or dropout.
+- Repository-wide CI was not run from a checkout; the exact committed module and tests were executed in an isolated Python environment.
+- The current bootstrap diagnostic resamples one cluster axis at a time and does not yet reproduce the crossed dependence structure jointly.
 
 ## Recommended non-overlapping task for Claude
 
@@ -63,4 +74,4 @@
 
 ## Next highest-leverage action
 
-- Add whole-item and whole-rater bootstrap intervals plus leave-one-domain-out evaluation, then run at least 100 trials per cell before implementing or comparing a crossed random-effects estimator.
+- Implement and calibrate a two-way item-by-rater bootstrap with a magnitude-aware leave-one-domain-out influence rule before treating any crossed-simulator interval as publication-grade evidence.
