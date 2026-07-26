@@ -1,0 +1,89 @@
+{
+  "accelerated_execution": {
+    "method": "cluster sufficient statistics with NumPy vectorized weighted sums",
+    "validation": "20 draw-by-draw comparisons per method against committed row reconstruction; maximum absolute difference <= 1e-12"
+  },
+  "base_seed": 20260726,
+  "bootstrap_draws": 500,
+  "cells": [
+    {
+      "bias": -0.0040610521945405875,
+      "bootstrap_draws": 500,
+      "coverage": 0.924,
+      "effect": 0.1,
+      "mean_estimate": 0.09593894780545942,
+      "mean_interval_width": 0.3050577009158466,
+      "method": "item",
+      "power": 0.252,
+      "trials": 250
+    },
+    {
+      "bias": -0.0040610521945405875,
+      "bootstrap_draws": 500,
+      "coverage": 0.992,
+      "effect": 0.1,
+      "mean_estimate": 0.09593894780545942,
+      "mean_interval_width": 0.5116318821432148,
+      "method": "pigeonhole_multinomial",
+      "power": 0.028,
+      "trials": 250
+    },
+    {
+      "bias": -0.004061565447605525,
+      "bootstrap_draws": 500,
+      "coverage": 0.924,
+      "effect": 0.2,
+      "mean_estimate": 0.19593843455239449,
+      "mean_interval_width": 0.30466168614062933,
+      "method": "item",
+      "power": 0.696,
+      "trials": 250
+    },
+    {
+      "bias": -0.004061565447605525,
+      "bootstrap_draws": 500,
+      "coverage": 0.992,
+      "effect": 0.2,
+      "mean_estimate": 0.19593843455239449,
+      "mean_interval_width": 0.5113589967761643,
+      "method": "pigeonhole_multinomial",
+      "power": 0.252,
+      "trials": 250
+    },
+    {
+      "bias": -0.004062259892049502,
+      "bootstrap_draws": 500,
+      "coverage": 0.924,
+      "effect": 0.3,
+      "mean_estimate": 0.2959377401079505,
+      "mean_interval_width": 0.30283084302036145,
+      "method": "item",
+      "power": 0.956,
+      "trials": 250
+    },
+    {
+      "bias": -0.004062259892049502,
+      "bootstrap_draws": 500,
+      "coverage": 0.992,
+      "effect": 0.3,
+      "mean_estimate": 0.2959377401079505,
+      "mean_interval_width": 0.5113761254081097,
+      "method": "pigeonhole_multinomial",
+      "power": 0.7,
+      "trials": 250
+    }
+  ],
+  "common_random_numbers": true,
+  "design_id": "complete_8x18_r8",
+  "effect_profile": {
+    "exact_anchor": "effect/2",
+    "novel": "-effect/2",
+    "structural_transfer": "-effect/2",
+    "surface_variant": 0.0
+  },
+  "failed_attempt": "Initial 250x500 row-reconstruction run exceeded the execution window and produced no retained result.",
+  "regime": "N1",
+  "schema_version": "egc-multiway-power-calibration-0.1.0",
+  "status": "engineering_calibration_not_confirmatory",
+  "trials_per_cell": 250
+}
