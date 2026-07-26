@@ -1,0 +1,56 @@
+{
+  "bootstrap_dgp_cluster_dimension": "rater",
+  "bootstrap_weights": "exact enumeration of all rater-level Rademacher sign vectors",
+  "cells": [
+    {
+      "defined_trials": 986,
+      "effect": 0.0,
+      "exact_binomial_ci95_rejection_among_all_trials": [
+        0.0408233511256307,
+        0.06987400557706733
+      ],
+      "max_undefined_pattern_rate": 0.3671875,
+      "mean_negative_variance_patterns": 4.109533468559838,
+      "mean_p_value_among_defined_trials": 0.49651938944444646,
+      "mean_undefined_pattern_rate": 0.016052865111561867,
+      "method": "restricted_rater_wild_cluster_bootstrap_t_exact_rademacher_two_way_cgm",
+      "minimum_defined_patterns": 162,
+      "rejection_or_power_among_all_trials": 0.054,
+      "rejection_or_power_among_defined_trials": 0.05476673427991886,
+      "rejections": 54,
+      "runtime_seconds": 8.691256046295166,
+      "trials": 1000,
+      "undefined_trial_rate": 0.014,
+      "undefined_trials": 14
+    },
+    {
+      "defined_trials": 248,
+      "effect": 0.2,
+      "exact_binomial_ci95_rejection_among_all_trials": [
+        0.42056596753862396,
+        0.5478178345650578
+      ],
+      "max_undefined_pattern_rate": 0.3671875,
+      "mean_negative_variance_patterns": 4.846774193548387,
+      "mean_p_value_among_defined_trials": 0.10541098579903428,
+      "mean_undefined_pattern_rate": 0.018932711693548387,
+      "method": "restricted_rater_wild_cluster_bootstrap_t_exact_rademacher_two_way_cgm",
+      "minimum_defined_patterns": 162,
+      "rejection_or_power_among_all_trials": 0.484,
+      "rejection_or_power_among_defined_trials": 0.4879032258064516,
+      "rejections": 121,
+      "runtime_seconds": 2.194202184677124,
+      "trials": 250,
+      "undefined_trial_rate": 0.008,
+      "undefined_trials": 2
+    }
+  ],
+  "design_id": "complete_8x18_r8",
+  "null_imposition": "minimum-norm projection of class means onto the scalar contrast null",
+  "optimization": "algebraically equivalent precomputed linear and quadratic forms in the rater sign vector; exact sign patterns, null, frozen seeds, and studentization unchanged",
+  "regime": "N1",
+  "schema_version": "egc-restricted-wild-cluster-calibration-0.2.0",
+  "seed": 20260726,
+  "status": "engineering_calibration_not_confirmatory",
+  "studentization": "two-way CGM item + rater - item-by-rater CRVE"
+}
