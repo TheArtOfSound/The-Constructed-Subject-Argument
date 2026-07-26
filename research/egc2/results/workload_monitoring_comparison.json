@@ -1,0 +1,41 @@
+{
+  "schema_version": "egc2-workload-monitoring-comparison-0.1.0",
+  "scope": "synthetic sensitivity analysis; parameters are not empirical estimates",
+  "seed": 20260725,
+  "trials_per_cell": 200,
+  "material_change": 0.2,
+  "python_version": "3.13.5",
+  "runtime_seconds": 1.965,
+  "designs": {
+    "complete_8x18": {
+      "raters": 8,
+      "items_per_class": 18,
+      "items_per_rater_per_class": 18
+    },
+    "incomplete_12x36": {
+      "raters": 12,
+      "items_per_class": 36,
+      "items_per_rater_per_class": 12
+    }
+  },
+  "regimes": {
+    "reference": {"fatigue": 0.35, "recognition": 0.65, "novel_drift": 0.7, "noise": 0.45, "dropout": 0.08},
+    "high_fatigue": {"fatigue": 0.8, "recognition": 0.65, "novel_drift": 0.7, "noise": 0.45, "dropout": 0.12},
+    "high_noise": {"fatigue": 0.35, "recognition": 0.65, "novel_drift": 0.7, "noise": 0.8, "dropout": 0.1},
+    "informative_dropout": {"fatigue": 0.5, "recognition": 0.65, "novel_drift": 0.7, "noise": 0.5, "dropout": 0.3},
+    "null_generalized_learning": {"fatigue": 0.35, "recognition": 0.0, "novel_drift": 0.0, "noise": 0.45, "dropout": 0.08}
+  },
+  "cells": [
+    {"design":"complete_8x18","regime":"reference","trials":200,"support_rate":0.975,"rejection_rate":0.0,"indeterminate_rate":0.025,"mean_completed_ratings":566.205,"mean_shifts":{"exact_anchor":0.49279818626529154,"surface_variant":0.15102260480549956,"structural_transfer":-0.23671192219547485,"novel":-0.5468532746760301}},
+    {"design":"complete_8x18","regime":"high_fatigue","trials":200,"support_rate":0.975,"rejection_rate":0.0,"indeterminate_rate":0.025,"mean_completed_ratings":559.605,"mean_shifts":{"exact_anchor":0.48034385601812474,"surface_variant":0.12998918509309376,"structural_transfer":-0.24652722622188566,"novel":-0.5164440702149681}},
+    {"design":"complete_8x18","regime":"high_noise","trials":200,"support_rate":0.915,"rejection_rate":0.005,"indeterminate_rate":0.08,"mean_completed_ratings":563.095,"mean_shifts":{"exact_anchor":0.5119794568037601,"surface_variant":0.13811061132152466,"structural_transfer":-0.24564457908716622,"novel":-0.5354829726807281}},
+    {"design":"complete_8x18","regime":"informative_dropout","trials":200,"support_rate":0.975,"rejection_rate":0.0,"indeterminate_rate":0.025,"mean_completed_ratings":544.85,"mean_shifts":{"exact_anchor":0.49628015905757344,"surface_variant":0.1459210928916031,"structural_transfer":-0.24472734099454047,"novel":-0.542086457097964}},
+    {"design":"complete_8x18","regime":"null_generalized_learning","trials":200,"support_rate":0.0,"rejection_rate":0.06,"indeterminate_rate":0.94,"mean_completed_ratings":566.735,"mean_shifts":{"exact_anchor":0.2718189744482314,"surface_variant":0.2731150253600912,"structural_transfer":0.27366730908642667,"novel":0.2727654945685131}},
+    {"design":"incomplete_12x36","regime":"reference","trials":200,"support_rate":0.72,"rejection_rate":0.0,"indeterminate_rate":0.28,"mean_completed_ratings":563.375,"mean_shifts":{"exact_anchor":0.5097417448819619,"surface_variant":0.16467291266823017,"structural_transfer":-0.2457625692868242,"novel":-0.5458656490277736}},
+    {"design":"incomplete_12x36","regime":"high_fatigue","trials":200,"support_rate":0.7,"rejection_rate":0.0,"indeterminate_rate":0.3,"mean_completed_ratings":560.635,"mean_shifts":{"exact_anchor":0.5232400752095204,"surface_variant":0.15588838622580073,"structural_transfer":-0.2514030224222137,"novel":-0.5285175800604806}},
+    {"design":"incomplete_12x36","regime":"high_noise","trials":200,"support_rate":0.665,"rejection_rate":0.005,"indeterminate_rate":0.33,"mean_completed_ratings":563.695,"mean_shifts":{"exact_anchor":0.5258147529097195,"surface_variant":0.1819815596620809,"structural_transfer":-0.2013090308792968,"novel":-0.5041143945352154}},
+    {"design":"incomplete_12x36","regime":"informative_dropout","trials":200,"support_rate":0.755,"rejection_rate":0.0,"indeterminate_rate":0.245,"mean_completed_ratings":537.68,"mean_shifts":{"exact_anchor":0.48309172540263134,"surface_variant":0.14071485665918984,"structural_transfer":-0.2565283268230984,"novel":-0.5434422005464934}},
+    {"design":"incomplete_12x36","regime":"null_generalized_learning","trials":200,"support_rate":0.0,"rejection_rate":0.255,"indeterminate_rate":0.745,"mean_completed_ratings":566.395,"mean_shifts":{"exact_anchor":0.2558360462017753,"surface_variant":0.25492094262340614,"structural_transfer":0.2788830999762631,"novel":0.2554695173292123}}
+  ],
+  "content_sha256": "7b016eb29c3ee19e842a19cd109db582649d951de7c1a6358bb2803ba5b9235e"
+}
