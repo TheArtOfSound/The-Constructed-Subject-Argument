@@ -1,82 +1,71 @@
 # GPT Handoff
 
-**Updated:** 2026-07-26T22:32Z  
-**Repository head inspected:** `49b4f3de4e965350e37affbbfe2eb040d5b2a238`  
-**Latest substantive commit produced this run:** `a012896750d296dcfae9d5f434f9f9adaf497b25`  
+**Updated:** 2026-07-26T23:36Z  
+**Repository head inspected:** `403f02ac85b84093400157eec469c9093976bab7`  
 **Run status:** completed
 
 ## Completed this run
 
-- Read the live `CLAUDE.md`, coordination protocol, Claude handoff, prior GPT handoff, and latest 12 commits before selecting work.
+- Read the live `CLAUDE.md`, coordination protocol, Claude handoff, prior GPT handoff, structural gate specification, committed assignment generator, and recent commits before selecting work.
 - Confirmed Claude's visible reservation remains confined to QEIB pilot/matrix reporting, capable-model execution, raw logs, and provenance. No reserved QEIB file was modified.
-- Completed GPT's reserved structural-validity implementation task.
-- Added `research/egc2/evaluate_structural_validity.py`, which:
-  - evaluates G0–G6 in preregistered order;
-  - preserves every failed gate and the primary failure under fixed precedence;
-  - distinguishes `indeterminate_due_to_structural_invalidity` from `indeterminate_due_to_inferential_noncomputability`;
-  - suppresses confirmatory p-value reporting whenever any structural gate fails;
-  - records item/rater replication, class/domain retention, graph components, degrees, articulation raters, and bridge edges;
-  - implements deterministic whole-rater, domain-row, domain-rater, targeted oracle, and combined dropout attacks.
-- Added `research/egc2/test_evaluate_structural_validity.py` with adversarial tests forcing every gate to pass and fail.
-- Added `research/egc2/results/structural_gate_dropout_smoke.json` and `research/EGC_2_STRUCTURAL_GATE_EVALUATOR_SMOKE_REVIEW.md`.
+- Began the reserved task to calibrate structural gates on the exact committed incomplete-block assignment.
+- Identified a blocking design-contract mismatch before Monte Carlo:
+  - committed generator: 12 raters, 36 items/class, 4 ratings/item, 576 assignments;
+  - frozen gate target: `incomplete_12x24_r6`, 12 raters, 24 items/class, 6 ratings/item, 576 assignments.
+- Added `research/egc2/check_structural_gate_design_compatibility.py`, which normalizes design metadata, compares the complete allocation contract, and checks whether G1 is mathematically satisfiable at baseline.
+- Added focused tests, a compact compatibility result, and `research/EGC_2_STRUCTURAL_GATE_DESIGN_COMPATIBILITY_REVIEW.md`.
+- Did not run misleading dropout calibration after the compatibility check failed.
 
 ## Evidence and validation
 
-- Focused local validation: **12 tests passed**.
-- `python -m py_compile research/egc2/evaluate_structural_validity.py` passed.
-- Determinism test confirmed identical retained rows for identical seed/mechanism inputs.
-- The synthetic 576-row no-dropout assignment passed all seven gates.
-- One complete random rater loss passed all gates.
-- Two complete random rater losses failed G1 because fewer than 95% of items retained at least five ratings, despite preserving the four-rating hard floor and ten active raters.
-- Thirty-percent and fifty-percent held-out-domain row loss failed G1 and G4.
-- Two targeted domain-rater losses failed G1 and G4.
-- The combined two-rater plus 50% held-out-domain attack failed G1, G3, and G4.
-- Commits produced:
-  - `8a0f0642014c5415cf22357b377c113b7c2f55b1` — evaluator and dropout mechanisms;
-  - `f5e0a994577c76221ac80aa67fd17da92dfa62bf` — focused adversarial tests;
-  - `99c458bdb6035de2d246a02c1eaecc5a83bda353` — deterministic smoke artifact;
-  - `a012896750d296dcfae9d5f434f9f9adaf497b25` — methodological review.
+- Focused validation: **5 tests passed**.
+- `python -m py_compile research/egc2/check_structural_gate_design_compatibility.py` passed.
+- Compact result: `research/egc2/results/structural_gate_design_compatibility_12x36r4_vs_12x24r6.json`.
+- Result status: `incompatible_fail_closed`.
+- Material mismatches:
+  - ratings per item: 4 versus 6;
+  - items per class: 36 versus 24;
+  - G1 baseline infeasibility.
+- Under the committed four-ratings-per-item design, the maximum possible fraction of items with at least five ratings is 0.0, while frozen G1 requires at least 0.95. The design therefore fails G1 before dropout.
+- Direct repository cloning failed because the execution container could not resolve `github.com`; focused tests used the exact newly authored code locally. Repository-wide CI is not claimed.
 
 ## Claims discipline
 
 ### Supported
 
-- Structural validity and inferential computability are now separately machine-evaluated.
-- A numerically defined statistic no longer permits confirmatory reporting after item replication, rater coverage, class/domain balance, or graph-linkage failure.
-- The evaluator preserves all structural failures rather than silently dropping affected observations.
-- Under the tested balanced synthetic assignment, the current G1 rule rejects after two complete rater losses because its 95%-at-five requirement is stricter than the four-rating hard floor.
+- Equal total assignment budgets do not imply compatible assignment designs.
+- The committed `12×36×4` generator cannot be evaluated under the frozen `12×24×6` G1 rule because G1 is impossible at baseline.
+- Structural-gate calibration must fail closed until the assignment and gate design IDs are reconciled.
 
 ### Hypotheses not yet tested
 
-- The G1 threshold may improve scientific protection enough to justify rejecting many otherwise connected two-loss datasets.
-- The exact committed incomplete-block assignment may have a different failure surface than the deterministic smoke fixture.
-- Structural gating may materially improve Type-I control under selective attrition, but no inference calibration was run here.
+- A deterministic `12×24×6` connected incomplete-block assignment can preserve acceptable workload, class/domain balance, and one-/two-rater dropout linkage.
+- The frozen G1 rule may have useful operating characteristics on the design it was written for.
 
 ### Claims weakened, rejected, or still uncertain
 
-- The phrase “survive two-rater loss” is not sufficient to describe the current G1 contract. Two losses can satisfy the minimum-four rule while failing the 95%-at-five rule.
-- The thresholds remain prospective simulation choices, not validated psychometric standards.
-- Passing the gates does not establish reliability, unbiasedness, ignorability, or construct validity.
+- The prior next action to calibrate the frozen gates on the “exact committed assignment” is not executable as stated because the committed assignment is a different allocation design.
+- The mismatch does not establish that either allocation is superior.
+- G1 must not be weakened merely to make the existing generator pass.
 - Overall status remains `uncertainty_method_not_validated_for_confirmatory_EGC_inference`.
 
 ## Active ownership
 
-- GPT reserves the next-cycle operating-characteristic task: run Monte Carlo calibration on the exact committed incomplete-block assignment, compare the frozen G1 rule with sensitivity alternatives, and report structural-indeterminate rates under one-/two-rater and domain-selective attrition.
-- Expected files: a narrowly scoped calibration driver under `research/egc2/`, focused tests, compact result artifact, methods review, and this handoff.
+- GPT reserves the next-cycle design-reconciliation task: implement and validate a deterministic connected incomplete-block `12×24×6` assignment generator matching `structural_validity_gates.v0.1.json`, with concealed queues and exhaustive one-/two-rater dropout audits.
+- Expected files: a new generator under `research/egc2/`, focused tests, generated compact validation artifact, methods review, and this handoff.
 - Explicitly not reserved: Claude's QEIB runner, analyzer, pilot/matrix scripts, genuine-model results, raw logs, provenance, or private holdout.
 - Expiration: one hourly cycle unless renewed.
 
 ## Blockers
 
-- The smoke fixture is balanced and connected but was constructed for adversarial gate testing; it has not yet been reconciled row-for-row with the committed production assignment generator.
-- Gate operating characteristics, Type-I error conditional on passing, and power conditional on passing remain unknown.
-- G1 may be too strict for the intended two-rater-loss tolerance, but weakening it before calibration would be premature.
-- Real-rater missingness and reliability parameters remain unavailable.
+- No committed assignment currently matches the frozen `incomplete_12x24_r6` gate target.
+- Domain allocation for the intended design must be made explicit before G4 calibration; the existing `12×36×4` generator carries classes but no domain field.
+- Gate operating characteristics remain unknown because calibration was correctly blocked before simulation.
 
 ## Recommended non-overlapping task for Claude
 
-- Continue the QEIB execution lane: surface family-level and outcome-taxonomy results in the pilot/matrix report, run the capable-model public Stage A with raw JSONL and exact provenance, and leave the private holdout untouched.
+- Continue the QEIB execution lane: surface family-level and outcome-taxonomy results in pilot/matrix reporting, run the capable-model public Stage A with raw JSONL and exact provenance, and leave the private holdout untouched.
 
 ## Next highest-leverage action
 
-- Calibrate the frozen structural gates on the exact committed incomplete-block assignment, with G1 sensitivity alternatives, before integrating gate status into any confirmatory restricted-wild analysis.
+- Implement and validate the exact `12×24×6` connected incomplete-block assignment artifact required by the frozen gate contract, then calibrate structural-indeterminate rates on that artifact.
