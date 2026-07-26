@@ -1,0 +1,50 @@
+{
+  "schema_version": "egc-restricted-wild-dropout-0.1.0",
+  "seed": 20260726,
+  "design": {
+    "design_id": "incomplete_12x24_r6",
+    "raters": 12,
+    "items_per_class": 24,
+    "ratings_per_item_planned": 6,
+    "planned_ratings": 576
+  },
+  "regime": "N3",
+  "simulation_parameters": {
+    "item_sd": 0.6,
+    "ambiguity_sd": 0.35,
+    "rater_sd": 1.0,
+    "rater_by_domain_sd": 0.75,
+    "ordinal_scale": [1, 7],
+    "dropout_intercept_logit": -2.2,
+    "severity_z_coefficient": 0.9,
+    "disagreement_z_coefficient": 1.0,
+    "disagreement_definition": "rater mean absolute deviation of observed early-to-late shifts from the complete-data class mean",
+    "important_limit": "disagreement-dependent dropout is a sensitivity mechanism using complete-data disagreement as an oracle selection variable, not a claim about an operationally observable real-time dropout process"
+  },
+  "inference": {
+    "method": "restricted wild cluster bootstrap-t on rater dimension",
+    "rademacher_patterns": 4096,
+    "studentization": "two-way CGM item + rater - item-by-rater",
+    "max_undefined_pattern_rate": 0.1,
+    "observed_nonpositive_variance": "indeterminate",
+    "all_trial_denominator_primary": true
+  },
+  "cells": [
+    {"mechanism":"none","effect":0.0,"trials":500,"defined":491,"indeterminate":9,"rejections":18,"all_trial_rate":0.036,"defined_rate":0.03665987780040733,"exact_binomial_ci95":[0.021472856586093284,0.05630017620179107],"indeterminate_reasons":{"excessive_undefined_pattern_fraction":7,"observed_two_way_variance_nonpositive":2},"mean_dropout_rate":0.0,"mean_rows":576.0,"mean_min_ratings_per_item":6.0,"mean_items_below_4":0.0,"mean_undefined_pattern_rate_defined":0.001702520366598778},
+    {"mechanism":"none","effect":0.2,"trials":250,"defined":246,"indeterminate":4,"rejections":134,"all_trial_rate":0.536,"defined_rate":0.5447154471544715,"exact_binomial_ci95":[0.47207008350068275,0.5990662909047608],"indeterminate_reasons":{"excessive_undefined_pattern_fraction":3,"observed_two_way_variance_nonpositive":1},"mean_dropout_rate":0.0,"mean_rows":576.0,"mean_min_ratings_per_item":6.0,"mean_items_below_4":0.0,"mean_undefined_pattern_rate_defined":0.0017189087906504066},
+    {"mechanism":"severity","effect":0.0,"trials":500,"defined":493,"indeterminate":7,"rejections":19,"all_trial_rate":0.038,"defined_rate":0.038539553752535496,"exact_binomial_ci95":[0.02303077080624761,0.05870729046322855],"indeterminate_reasons":{"excessive_undefined_pattern_fraction":6,"observed_two_way_variance_nonpositive":1},"mean_dropout_rate":0.12996875,"mean_rows":501.138,"mean_min_ratings_per_item":2.85,"mean_items_below_4":2.588,"mean_undefined_pattern_rate_defined":0.0026731665187626776},
+    {"mechanism":"severity","effect":0.2,"trials":250,"defined":248,"indeterminate":2,"rejections":125,"all_trial_rate":0.5,"defined_rate":0.5040322580645161,"exact_binomial_ci95":[0.436342641319338,0.5636573586806619],"indeterminate_reasons":{"excessive_undefined_pattern_fraction":2},"mean_dropout_rate":0.12922916666666664,"mean_rows":501.564,"mean_min_ratings_per_item":2.836,"mean_items_below_4":2.76,"mean_undefined_pattern_rate_defined":0.001899965347782258},
+    {"mechanism":"disagreement","effect":0.0,"trials":500,"defined":494,"indeterminate":6,"rejections":17,"all_trial_rate":0.034,"defined_rate":0.03441295546558704,"exact_binomial_ci95":[0.019928600046206307,0.0538803507360769],"indeterminate_reasons":{"excessive_undefined_pattern_fraction":5,"observed_two_way_variance_nonpositive":1},"mean_dropout_rate":0.13375347222222222,"mean_rows":498.958,"mean_min_ratings_per_item":2.834,"mean_items_below_4":3.012,"mean_undefined_pattern_rate_defined":0.001567639802631579},
+    {"mechanism":"disagreement","effect":0.2,"trials":250,"defined":246,"indeterminate":4,"rejections":134,"all_trial_rate":0.536,"defined_rate":0.5447154471544715,"exact_binomial_ci95":[0.47207008350068275,0.5990662909047608],"indeterminate_reasons":{"excessive_undefined_pattern_fraction":4},"mean_dropout_rate":0.13346527777777778,"mean_rows":499.124,"mean_min_ratings_per_item":2.788,"mean_items_below_4":2.996,"mean_undefined_pattern_rate_defined":0.0019451854674796749},
+    {"mechanism":"combined","effect":0.0,"trials":500,"defined":494,"indeterminate":6,"rejections":21,"all_trial_rate":0.042,"defined_rate":0.04251012145748988,"exact_binomial_ci95":[0.026183576776147133,0.06348694053291891],"indeterminate_reasons":{"excessive_undefined_pattern_fraction":6},"mean_dropout_rate":0.1404548611111111,"mean_rows":495.098,"mean_min_ratings_per_item":2.756,"mean_items_below_4":3.422,"mean_undefined_pattern_rate_defined":0.0021429023279352227},
+    {"mechanism":"combined","effect":0.2,"trials":250,"defined":247,"indeterminate":3,"rejections":119,"all_trial_rate":0.476,"defined_rate":0.4817813765182186,"exact_binomial_ci95":[0.4127012293172646,0.539874488342984],"indeterminate_reasons":{"excessive_undefined_pattern_fraction":3},"mean_dropout_rate":0.13966666666666666,"mean_rows":495.552,"mean_min_ratings_per_item":2.764,"mean_items_below_4":3.38,"mean_undefined_pattern_rate_defined":0.003016668775303644}
+  ],
+  "validation": {
+    "deterministic_repeat": "representative combined-null cell reproduced identical scientific summaries under identical seeds",
+    "rows_per_complete_dataset": 576,
+    "all_rademacher_patterns_enumerated": true,
+    "execution_environment": "isolated algebraically equivalent vectorized harness",
+    "repository_wide_ci_claimed": false
+  },
+  "status": "concentrated_informative_dropout_falsification_not_confirmatory"
+}
