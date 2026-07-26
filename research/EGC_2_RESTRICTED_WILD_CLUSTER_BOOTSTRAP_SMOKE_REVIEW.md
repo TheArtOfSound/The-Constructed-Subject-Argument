@@ -1,87 +1,112 @@
-# EGC 2.0 Restricted Wild-Cluster Bootstrap-t Engineering Review
+# EGC 2.0 Restricted Wild-Cluster Bootstrap-t Calibration Review
 
 ## Scope
 
-This run implemented a narrowly scoped restricted wild-cluster bootstrap-t candidate for the frozen `complete_8x18_r8 × N1` calibration cell.
+This run completed the frozen `complete_8x18_r8 × N1` calibration for the exact restricted rater wild-cluster bootstrap-t candidate.
 
-The bootstrap data-generating process clusters on the rater dimension, which has eight clusters, while every bootstrap draw is studentized using the existing two-way CGM item + rater - item-by-rater variance estimator. All `2^8 = 256` rater-level Rademacher sign patterns are enumerated exactly, so bootstrap Monte Carlo error is eliminated for each generated dataset.
+The bootstrap data-generating process clusters on the eight-rater dimension. Every bootstrap draw is studentized using the existing two-way CGM item + rater - item-by-rater variance estimator. All `2^8 = 256` rater-level Rademacher sign patterns are enumerated exactly, eliminating bootstrap Monte Carlo error within each generated dataset.
 
-This follows the class of procedures studied by MacKinnon, Nielsen, and Webb in *Wild Bootstrap and Asymptotic Inference with Multiway Clustering*, where one clustering variable is selected for the bootstrap DGP and inference is based on a multiway-clustered statistic. It is not asserted to be universally valid for arbitrary crossed designs.
+The procedure remains narrowly scoped. It is not asserted to be a universally valid multiway bootstrap for arbitrary crossed designs.
 
-Primary source:
+## Algebraic optimization
 
-- James G. MacKinnon, Morten Ørregaard Nielsen, and Matthew D. Webb, “Wild Bootstrap and Asymptotic Inference with Multiway Clustering,” Journal of Business & Economic Statistics / Queen's Economics Department Working Paper 1415.
+The prior implementation rebuilt 576 row dictionaries and recomputed three cluster-score maps for every one of 256 sign patterns. That implementation was correct but too slow for the planned calibration.
 
-## Null imposition
+The optimized implementation uses the fact that, conditional on one generated dataset:
 
-The repository estimand is the scalar contrast
+1. every null-restricted bootstrap class mean is linear in the rater-sign vector;
+2. every item, rater, and item-by-rater cluster influence score is linear in that vector;
+3. every CGM variance component is therefore a quadratic form in the same vector.
 
-```text
-exact_anchor - 0.5 × structural_transfer - 0.5 × novel.
-```
+The code now precomputes one point coefficient vector and three `8 × 8` score-product matrices. Each exact sign-pattern statistic is then evaluated from those sufficient statistics.
 
-For each dataset, the unrestricted class-mean vector is projected onto the null hyperplane where this contrast equals zero. The projection is the minimum-Euclidean-norm adjustment along the fixed contrast vector. Residuals are centered within unrestricted monitoring class and multiplied by one shared Rademacher sign per rater.
-
-This construction makes the scalar null exact before bootstrap resampling while preserving the observed item/rater assignment structure.
+The optimization does not change the scalar null projection, residuals, sign patterns, data seeds, studentization, undefined-draw rule, or p-value definition.
 
 ## Validation
 
-Six focused tests passed:
+Eight focused tests passed in the execution harness, including comparisons of the optimized calculation against explicit row reconstruction across multiple frozen datasets.
 
-1. null projection yields a contrast of zero to 12 decimal places;
-2. bootstrap reconstruction preserves row count, item IDs, and rater IDs;
-3. exactly 256 sign patterns are enumerated for eight raters;
-4. defined p-values remain in `[0,1]`;
-5. fixed inputs reproduce identical results;
-6. empty data, negative effects, and nonpositive trial counts fail clearly.
+Across seven checked seeds:
 
-`py_compile` also passed for the implementation and test module.
+- exact p-values matched;
+- defined and undefined pattern counts matched;
+- negative-variance pattern counts matched;
+- maximum bootstrap-t difference was below `1e-11`, attributable to floating-point summation order.
 
-## Preserved failed run
+A representative dataset improved from approximately `0.257` seconds to `0.0084` seconds per exact test in the execution environment, about a 30-fold speedup. Runtime is an engineering observation, not a scientific result.
 
-The planned 40-null × 40-power engineering run exceeded the execution environment's hard per-call runtime limit and produced no retained scientific result.
+## High-precision calibration
 
-A smaller 15-null × 15-power smoke run was then completed and committed. This reduction was operational, not a scientific stopping rule.
+Frozen contract:
 
-## Smoke result
+- design: `complete_8x18_r8`;
+- regime: N1 low heterogeneity;
+- seed: `20260726`;
+- null datasets: `1,000`;
+- matched power datasets at true contrast `0.20`: `250`;
+- exact 256-pattern enumeration per defined dataset.
 
-At a true contrast of `0.00`:
+### Null
 
-- two-sided rejection: `1/15 = 0.0667`;
-- undefined observed trials: `0/15`;
-- mean undefined bootstrap-pattern rate: `0.00573`.
+- rejections: `54 / 1,000`;
+- Type-I error among all generated datasets: **5.4%**;
+- exact binomial 95% interval: **4.08%–6.99%**;
+- observed-test undefined datasets: `14 / 1,000 = 1.4%`;
+- rejection among defined datasets: `54 / 986 = 5.48%`;
+- mean undefined bootstrap-pattern rate among defined datasets: `1.61%`;
+- worst observed undefined-pattern rate: `36.72%`;
+- minimum defined patterns in a defined trial: `162 / 256`.
 
-At a true contrast of `0.20`:
+The point estimate is near nominal and its exact binomial interval includes 5%. This is materially better calibrated in N1 than the previously tested item-only bootstrap, analytic CGM/t, CV3J-plus-max, and pigeonhole percentile procedures.
 
-- rejection/power: `11/15 = 0.7333`;
-- undefined observed trials: `0/15`;
-- mean undefined bootstrap-pattern rate: `0.00573`.
+It is not sufficient to call the method validated because 1.4% of observed datasets were undefined and some otherwise defined datasets lost a large fraction of sign patterns to nonpositive CGM variance.
 
-These rates are too imprecise for method selection. In particular, one rejection under the null is compatible with a wide range of true Type-I error rates.
+### Power at true contrast 0.20
 
-## Findings supported
+- rejections: `121 / 250`;
+- power among all generated datasets: **48.4%**;
+- exact binomial 95% interval: **42.06%–54.78%**;
+- observed-test undefined datasets: `2 / 250 = 0.8%`;
+- power among defined datasets: `121 / 248 = 48.79%`;
+- mean undefined bootstrap-pattern rate among defined datasets: `1.89%`.
 
-- Exact enumeration over eight rater clusters is computationally and deterministically feasible.
-- The scalar null can be imposed exactly without changing item/rater assignment metadata.
-- The procedure preserves and reports bootstrap draws with negative or nonpositive two-way variance rather than silently treating them as valid.
-- The implementation can now be run on the same frozen data-seed contract as the existing item-only, pigeonhole, CGM/t, and CV3J calibrations.
+The method's power is higher than the pigeonhole percentile interval's 25.2% and the CV3J-plus-max procedure's 42.4%, but lower than analytic CGM/t at 58.8% and item-only bootstrap at 69.6%. The latter two methods were anti-conservative in the same frozen null cell.
 
-## Hypotheses not yet tested
+## Comparative decision
 
-- The restricted exact wild bootstrap-t may provide a better calibration-power balance than the existing candidates.
-- Exact enumeration may be especially useful with only eight rater clusters because it removes resampling Monte Carlo error.
+| Method | Null rejection | Power at 0.20 | Main failure |
+|---|---:|---:|---|
+| Item-only percentile | 7.0% | 69.6% | anti-conservative |
+| Analytic CGM/t | 9.0% | 58.8% | anti-conservative; negative variances |
+| Exact restricted rater wild bootstrap-t | **5.4%** | **48.4%** | undefined observed tests and sign patterns |
+| CV3J + max repair | 1.6% | 42.4% | conservative; repair active about 78% |
+| Pigeonhole percentile | 0.4% | 25.2% | severely conservative and low power |
+
+Within the single N1 complete-design cell, the exact restricted wild bootstrap-t currently has the best observed calibration-power compromise of the tested candidates.
+
+That is a provisional engineering finding, not a confirmatory-method validation.
+
+## Claims supported
+
+- The quadratic-form implementation is algebraically equivalent to explicit row reconstruction within numerical tolerance.
+- Exact enumeration is computationally practical after optimization.
+- In the frozen N1 complete-design cell, observed null rejection was close to 5% and materially better than prior candidates.
+- At a true contrast of 0.20, the method retained moderate but not high power.
+- Nonpositive two-way variance remains a real failure mode in both observed datasets and bootstrap sign patterns.
 
 ## Claims not supported
 
-The smoke run does not establish:
+This run does not establish:
 
-- nominal Type-I error;
-- adequate power at `0.20`;
-- valid confidence intervals;
-- validity under N2/N3 heterogeneity, incomplete blocks, informative dropout, ordinal boundaries, or real human ratings;
-- that choosing raters rather than items for the bootstrap DGP is optimal.
+- validity under N2/N3 heterogeneity;
+- validity for incomplete-block designs;
+- validity under informative dropout, floor/ceiling compression, or real human-rating data;
+- that rater clustering is the optimal bootstrap-DGP dimension;
+- a valid confidence interval inversion procedure;
+- that undefined sign patterns may be ignored without bias;
+- confirmatory readiness.
 
-The overall status therefore remains:
+The overall status remains:
 
 ```text
 uncertainty_method_not_validated_for_confirmatory_EGC_inference
@@ -89,4 +114,4 @@ uncertainty_method_not_validated_for_confirmatory_EGC_inference
 
 ## Next decision rule
 
-The method should be evaluated on the preregistered 1,000 null datasets and 250 matched `0.20` datasets. Undefined observed trials and undefined sign patterns must remain in the denominator and be reported separately. If runtime remains limiting, the implementation should be algebraically optimized without changing seeds, sign patterns, null projection, or studentization.
+The highest-leverage next step is to run the same exact method on N2 and N3 and on the `incomplete_12x24_r6` design, while preregistering how observed-test undefined cases and high undefined-pattern fractions force an `indeterminate` result. A method that calibrates only in the easiest complete low-heterogeneity cell is not adequate for the planned EGC study.
