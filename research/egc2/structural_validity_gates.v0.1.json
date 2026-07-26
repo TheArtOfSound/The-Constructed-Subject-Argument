@@ -1,0 +1,135 @@
+{
+  "schema_version": "egc-structural-validity-gates-0.1.0",
+  "status": "provisional_simulation_contract_not_empirically_validated",
+  "design_id": "incomplete_12x24_r6",
+  "planned": {
+    "raters": 12,
+    "ratings_per_item": 6,
+    "monitoring_classes": 4,
+    "items_per_class": 24,
+    "total_assignments": 576
+  },
+  "evaluation_order": [
+    "schema_and_identity",
+    "item_replication",
+    "active_rater_coverage",
+    "class_balance",
+    "domain_balance",
+    "graph_identifiability",
+    "inferential_computability"
+  ],
+  "gates": [
+    {
+      "id": "G0_SCHEMA_IDENTITY",
+      "construct": "auditability and assignment identity",
+      "rule": "Every retained rating must map to exactly one planned item, rater, monitoring class, and domain; duplicate rating identities are forbidden.",
+      "threshold": {
+        "unmapped_rows": 0,
+        "duplicate_rating_identities": 0,
+        "unknown_items": 0,
+        "unknown_raters": 0
+      },
+      "failure_status": "indeterminate_due_to_structural_invalidity"
+    },
+    {
+      "id": "G1_ITEM_REPLICATION",
+      "construct": "minimum independent replication per rated object",
+      "rule": "Every analyzed item must retain at least four distinct rater ratings, and at least 95% of items must retain five or more ratings.",
+      "threshold": {
+        "minimum_distinct_raters_per_item": 4,
+        "minimum_fraction_items_with_at_least_5_ratings": 0.95
+      },
+      "rationale": "The design plans six ratings per item. Four is a fail-closed floor chosen to survive two-rater loss by construction; it is not a validated reliability threshold.",
+      "failure_status": "indeterminate_due_to_structural_invalidity"
+    },
+    {
+      "id": "G2_ACTIVE_RATER_COVERAGE",
+      "construct": "coverage of the rater facet used by the bootstrap data-generating process",
+      "rule": "At least ten of twelve raters must remain active overall; every monitoring class and every confirmatory domain must include at least eight active raters.",
+      "threshold": {
+        "minimum_active_raters_overall": 10,
+        "minimum_active_raters_per_class": 8,
+        "minimum_active_raters_per_confirmatory_domain": 8
+      },
+      "rationale": "The gate permits at most two complete rater losses overall while preventing a class or domain from being supported by a narrow rater subset. These values are provisional simulation thresholds.",
+      "failure_status": "indeterminate_due_to_structural_invalidity"
+    },
+    {
+      "id": "G3_CLASS_BALANCE",
+      "construct": "comparability of monitoring-class exposure after missingness",
+      "rule": "Each class must retain at least 80% of its planned assignments, and the largest minus smallest class retention fraction must not exceed 0.10.",
+      "threshold": {
+        "minimum_retention_fraction_per_class": 0.80,
+        "maximum_retention_fraction_range_across_classes": 0.10
+      },
+      "failure_status": "indeterminate_due_to_structural_invalidity"
+    },
+    {
+      "id": "G4_DOMAIN_BALANCE",
+      "construct": "comparability and support across confirmatory content domains",
+      "rule": "Each confirmatory domain must retain at least 75% of planned assignments; within every class, the largest minus smallest domain retention fraction must not exceed 0.15.",
+      "threshold": {
+        "minimum_retention_fraction_per_confirmatory_domain": 0.75,
+        "maximum_domain_retention_fraction_range_within_class": 0.15
+      },
+      "rationale": "This gate is designed to detect domain-selective attrition before a pooled effect is reported. Thresholds require prospective calibration and are not claims of psychometric sufficiency.",
+      "failure_status": "indeterminate_due_to_structural_invalidity"
+    },
+    {
+      "id": "G5_GRAPH_IDENTIFIABILITY",
+      "construct": "linkage of item and rater facets",
+      "rule": "The retained item-rater bipartite graph, overall rater co-rating graph, and every class-specific rater co-rating graph must be connected. No connected component may be silently dropped.",
+      "threshold": {
+        "overall_bipartite_components": 1,
+        "overall_rater_corating_components": 1,
+        "maximum_class_specific_rater_corating_components": 1
+      },
+      "diagnostics_required": [
+        "component_counts",
+        "component_membership",
+        "minimum_rater_degree",
+        "minimum_item_degree",
+        "articulation_raters",
+        "bridge_edges"
+      ],
+      "rationale": "Connectivity is necessary for linkage but does not establish adequate precision, reliability, or absence of selection bias.",
+      "failure_status": "indeterminate_due_to_structural_invalidity"
+    },
+    {
+      "id": "G6_INFERENTIAL_COMPUTABILITY",
+      "construct": "defined restricted-wild test under the retained structure",
+      "rule": "The observed two-way variance must be positive and no more than 10% of exact Rademacher patterns may have nonpositive bootstrap variance.",
+      "threshold": {
+        "observed_variance_must_be_positive": true,
+        "maximum_undefined_pattern_fraction": 0.10
+      },
+      "rationale": "This preserves the current provisional inferential fail-closed rule. The 10% threshold remains unvalidated and must be sensitivity-tested.",
+      "failure_status": "indeterminate_due_to_inferential_noncomputability"
+    }
+  ],
+  "decision_rule": {
+    "report_confirmatory_p_value_only_if_all_gates_pass": true,
+    "preserve_raw_estimate_when_failed": true,
+    "preserve_all_failure_reasons": true,
+    "primary_failure_precedence": "first_gate_in_evaluation_order",
+    "permitted_statuses": [
+      "structurally_valid_inference_defined",
+      "indeterminate_due_to_structural_invalidity",
+      "indeterminate_due_to_inferential_noncomputability"
+    ]
+  },
+  "required_sensitivity_analysis": {
+    "item_replication_floors": [3, 4, 5],
+    "active_rater_floors": [8, 9, 10, 11],
+    "class_minimum_retention": [0.70, 0.80, 0.90],
+    "domain_minimum_retention": [0.60, 0.75, 0.90],
+    "undefined_pattern_thresholds": [0.05, 0.10, 0.20]
+  },
+  "prohibited_interpretations": [
+    "Passing these gates validates the semantic-fidelity construct.",
+    "Graph connectivity proves unbiasedness or adequate reliability.",
+    "A defined p-value makes informative dropout ignorable.",
+    "A failed gate permits deletion of affected items, raters, or domains followed by an unqualified confirmatory analysis.",
+    "These thresholds are empirically validated operating standards."
+  ]
+}
