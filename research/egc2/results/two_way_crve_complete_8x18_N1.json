@@ -1,0 +1,73 @@
+{
+  "schema_version": "egc-two-way-crve-calibration-0.1.0",
+  "design_id": "complete_8x18_r8",
+  "regime": "N1",
+  "seed": 20260726,
+  "common_random_number_data_seeds": true,
+  "estimator": "Cameron-Gelbach-Miller inclusion-exclusion CRVE: item + rater - item-by-rater intersection",
+  "small_sample_reference": "two-sided Student-t with df=min(item clusters, rater clusters)-1",
+  "execution_note": "The repository could not be cloned because the execution container could not resolve github.com. Numerical execution used an isolated harness implementing the exact committed simulator and estimator equations. Repository-wide CI is not claimed.",
+  "cells": [
+    {
+      "effect": 0.0,
+      "method": "two_way_crve_cgm_t_min_clusters",
+      "trials": 1000,
+      "positive_direction_rejection_or_power": 0.041,
+      "negative_direction_rejection": 0.049,
+      "two_sided_rejection_rate": 0.09,
+      "coverage": 0.91,
+      "mean_estimate": 0.00009143724636494083,
+      "bias": 0.00009143724636494083,
+      "mean_interval_width": 0.3505894968390866,
+      "mean_standard_error": 0.07413293936375848,
+      "negative_variance_rate": 0.014,
+      "degrees_of_freedom": 7
+    },
+    {
+      "effect": 0.1,
+      "method": "two_way_crve_cgm_t_min_clusters",
+      "trials": 250,
+      "positive_direction_rejection_or_power": 0.196,
+      "negative_direction_rejection": 0.004,
+      "two_sided_rejection_rate": 0.2,
+      "coverage": 0.908,
+      "mean_estimate": 0.09593894780545942,
+      "bias": -0.0040610521945405875,
+      "mean_interval_width": 0.3511993808421115,
+      "mean_standard_error": 0.07426190071092606,
+      "negative_variance_rate": 0.008,
+      "degrees_of_freedom": 7
+    },
+    {
+      "effect": 0.2,
+      "method": "two_way_crve_cgm_t_min_clusters",
+      "trials": 250,
+      "positive_direction_rejection_or_power": 0.588,
+      "negative_direction_rejection": 0.0,
+      "two_sided_rejection_rate": 0.588,
+      "coverage": 0.908,
+      "mean_estimate": 0.19593843455239449,
+      "bias": -0.004061565447605525,
+      "mean_interval_width": 0.35120094000460866,
+      "mean_standard_error": 0.07426223039935057,
+      "negative_variance_rate": 0.008,
+      "degrees_of_freedom": 7
+    },
+    {
+      "effect": 0.3,
+      "method": "two_way_crve_cgm_t_min_clusters",
+      "trials": 250,
+      "positive_direction_rejection_or_power": 0.908,
+      "negative_direction_rejection": 0.0,
+      "two_sided_rejection_rate": 0.908,
+      "coverage": 0.908,
+      "mean_estimate": 0.2959377401079505,
+      "bias": -0.004062259892049502,
+      "mean_interval_width": 0.3512030528924857,
+      "mean_standard_error": 0.07426267717425479,
+      "negative_variance_rate": 0.008,
+      "degrees_of_freedom": 7
+    }
+  ],
+  "status": "engineering_calibration_not_confirmatory"
+}
