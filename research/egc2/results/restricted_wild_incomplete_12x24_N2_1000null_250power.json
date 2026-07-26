@@ -1,0 +1,71 @@
+{
+  "schema_version": "egc-restricted-wild-transfer-0.2.0",
+  "design_id": "incomplete_12x24_r6",
+  "regime": "N2",
+  "seed": 20260726,
+  "enumerated_rater_patterns": 4096,
+  "fail_closed_rule": {
+    "observed_two_way_variance_nonpositive": "indeterminate",
+    "undefined_pattern_rate_gt": 0.1,
+    "denominator_policy": "Indeterminate trials remain in the all-trial denominator and are also reported separately."
+  },
+  "execution": {
+    "scientific_contract": "Frozen simulator, scalar-null projection, 4096 exact rater-level Rademacher patterns, two-way CGM studentization, stable data seeds, and undefined-pattern accounting from calibrate_restricted_wild_transfer.py.",
+    "optimization": "Algebraically equivalent vectorized quadratic-form evaluation in an isolated harness.",
+    "validation": "Deterministic repeat passed; 576-row design budget verified; direct quadratic-form summation matched vectorized evaluation within 1e-12 on selected patterns.",
+    "repository_wide_ci_claimed": false
+  },
+  "cells": [
+    {
+      "effect": 0.0,
+      "trials": 1000,
+      "defined_trials": 992,
+      "indeterminate_trials": 8,
+      "indeterminate_rate": 0.008,
+      "indeterminate_reasons": {
+        "excessive_undefined_pattern_fraction": 5,
+        "observed_two_way_variance_nonpositive": 3
+      },
+      "rejections": 42,
+      "rejection_rate_all_trials": 0.042,
+      "exact_binomial_ci95_all_trials": [0.030434706263140023, 0.05635029157574473],
+      "rejection_rate_defined_trials": 0.04233870967741935,
+      "exact_binomial_ci95_defined_trials": [0.030681507317105287, 0.05680128426229856],
+      "mean_point_estimate": 0.00000974992972734756,
+      "bias": 0.00000974992972734756,
+      "undefined_pattern_rate": {
+        "mean_across_recorded_trials": 0.0031598702357071213,
+        "median": 0.0,
+        "p95": 0.01513671875,
+        "maximum": 0.314453125
+      },
+      "runtime_seconds_isolated_harness": 7.821810960769653
+    },
+    {
+      "effect": 0.2,
+      "trials": 250,
+      "defined_trials": 248,
+      "indeterminate_trials": 2,
+      "indeterminate_rate": 0.008,
+      "indeterminate_reasons": {
+        "excessive_undefined_pattern_fraction": 1,
+        "observed_two_way_variance_nonpositive": 1
+      },
+      "rejections": 153,
+      "power_all_trials": 0.612,
+      "exact_binomial_ci95_all_trials": [0.5485571336273285, 0.6727535567444933],
+      "power_defined_trials": 0.6169354838709677,
+      "exact_binomial_ci95_defined_trials": [0.5533093261078034, 0.6777305802902169],
+      "mean_point_estimate": 0.2023569054974052,
+      "bias": 0.002356905497405193,
+      "undefined_pattern_rate": {
+        "mean_across_recorded_trials": 0.0020570563504016064,
+        "median": 0.0,
+        "p95": 0.00927734375,
+        "maximum": 0.1064453125
+      },
+      "runtime_seconds_isolated_harness": 1.9460797309875488
+    }
+  ],
+  "status": "engineering_high_precision_transfer_calibration_not_confirmatory"
+}
