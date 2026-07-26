@@ -1,0 +1,46 @@
+{
+  "calibration_permitted": false,
+  "claim_boundary": "Compatibility is an engineering precondition, not evidence that the gates are scientifically valid.",
+  "design": {
+    "design_id": null,
+    "items_per_class": 36,
+    "monitoring_classes": 4,
+    "raters": 12,
+    "ratings_per_item": 4,
+    "total_assignments": 576
+  },
+  "gate_target": {
+    "design_id": "incomplete_12x24_r6",
+    "items_per_class": 24,
+    "monitoring_classes": 4,
+    "raters": 12,
+    "ratings_per_item": 6,
+    "total_assignments": 576
+  },
+  "mismatches": [
+    {
+      "design": 4,
+      "field": "ratings_per_item",
+      "gate_target": 6
+    },
+    {
+      "design": 36,
+      "field": "items_per_class",
+      "gate_target": 24
+    },
+    {
+      "design": {
+        "maximum_fraction_items_with_at_least_5_at_baseline": 0.0,
+        "ratings_per_item": 4
+      },
+      "field": "G1_baseline_feasibility",
+      "gate_target": {
+        "minimum_distinct_raters_per_item": 4,
+        "minimum_fraction_items_with_at_least_5_ratings": 0.95
+      }
+    }
+  ],
+  "required_action": "select_or_generate_the_assignment_matching_the_gate_design_id_before_calibration",
+  "schema_version": "egc-structural-gate-design-compatibility-0.1.0",
+  "status": "incompatible_fail_closed"
+}
