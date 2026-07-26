@@ -1,0 +1,86 @@
+{
+  "note": "engineering smoke only; synthetic deterministic assignment; no inferential calibration",
+  "scenarios": [
+    {
+      "failed_gate_ids": [],
+      "mechanism": "none",
+      "name": "none",
+      "primary_failure_gate": null,
+      "removed_raters": [],
+      "report_confirmatory_p_value": true,
+      "retained_rows": 576,
+      "status": "structurally_valid_inference_defined"
+    },
+    {
+      "failed_gate_ids": [],
+      "mechanism": "random_whole_rater",
+      "name": "random_whole_rater_1",
+      "primary_failure_gate": null,
+      "removed_raters": ["0"],
+      "report_confirmatory_p_value": true,
+      "retained_rows": 528,
+      "status": "structurally_valid_inference_defined"
+    },
+    {
+      "failed_gate_ids": ["G1_ITEM_REPLICATION"],
+      "mechanism": "random_whole_rater",
+      "name": "random_whole_rater_2",
+      "primary_failure_gate": "G1_ITEM_REPLICATION",
+      "removed_raters": ["0", "5"],
+      "report_confirmatory_p_value": false,
+      "retained_rows": 480,
+      "status": "indeterminate_due_to_structural_invalidity"
+    },
+    {
+      "failed_gate_ids": ["G1_ITEM_REPLICATION", "G2_ACTIVE_RATER_COVERAGE", "G3_CLASS_BALANCE", "G4_DOMAIN_BALANCE"],
+      "mechanism": "random_whole_rater",
+      "name": "random_whole_rater_3",
+      "primary_failure_gate": "G1_ITEM_REPLICATION",
+      "removed_raters": ["0", "1", "5"],
+      "report_confirmatory_p_value": false,
+      "retained_rows": 432,
+      "status": "indeterminate_due_to_structural_invalidity"
+    },
+    {
+      "failed_gate_ids": ["G1_ITEM_REPLICATION", "G4_DOMAIN_BALANCE"],
+      "mechanism": "domain_row",
+      "name": "domain_row_30",
+      "primary_failure_gate": "G1_ITEM_REPLICATION",
+      "removed_raters": [],
+      "report_confirmatory_p_value": false,
+      "retained_rows": 533,
+      "status": "indeterminate_due_to_structural_invalidity"
+    },
+    {
+      "failed_gate_ids": ["G1_ITEM_REPLICATION", "G4_DOMAIN_BALANCE"],
+      "mechanism": "domain_row",
+      "name": "domain_row_50",
+      "primary_failure_gate": "G1_ITEM_REPLICATION",
+      "removed_raters": [],
+      "report_confirmatory_p_value": false,
+      "retained_rows": 504,
+      "status": "indeterminate_due_to_structural_invalidity"
+    },
+    {
+      "failed_gate_ids": ["G1_ITEM_REPLICATION", "G4_DOMAIN_BALANCE"],
+      "mechanism": "targeted_domain_rater",
+      "name": "targeted_domain_rater_2",
+      "primary_failure_gate": "G1_ITEM_REPLICATION",
+      "removed_raters": ["11", "10"],
+      "report_confirmatory_p_value": false,
+      "retained_rows": 552,
+      "status": "indeterminate_due_to_structural_invalidity"
+    },
+    {
+      "failed_gate_ids": ["G1_ITEM_REPLICATION", "G3_CLASS_BALANCE", "G4_DOMAIN_BALANCE"],
+      "mechanism": "combined_attack",
+      "name": "combined_attack",
+      "primary_failure_gate": "G1_ITEM_REPLICATION",
+      "removed_raters": ["11", "10"],
+      "report_confirmatory_p_value": false,
+      "retained_rows": 420,
+      "status": "indeterminate_due_to_structural_invalidity"
+    }
+  ],
+  "schema_version": "egc-structural-gate-smoke-0.1.0"
+}
