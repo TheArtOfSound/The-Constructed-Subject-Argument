@@ -108,8 +108,8 @@ def clopper_pearson(k: int, n: int, alpha: float = 0.05) -> list[float]:
     return [lo, hi]
 
 
-def _quantile(values: list[float], p: float) -> float:
-    return sim.percentile(values, p) if values else math.nan
+def _quantile(values: list[float], p: float) -> float | None:
+    return sim.percentile(values, p) if values else None
 
 
 def run_cell(design_id: str, regime: str, method: str, trials: int, max_draws: int,
