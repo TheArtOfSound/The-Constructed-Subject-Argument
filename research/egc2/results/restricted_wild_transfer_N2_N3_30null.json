@@ -1,0 +1,87 @@
+{
+  "cells": [
+    {
+      "defined_trials": 28,
+      "design_id": "complete_8x18_r8",
+      "effect": 0.0,
+      "enumerated_patterns": 256,
+      "indeterminate_rate": 0.06666666666666667,
+      "indeterminate_reasons": {
+        "excessive_undefined_pattern_fraction": 2
+      },
+      "indeterminate_trials": 2,
+      "max_undefined_pattern_rate_defined": 0.0625,
+      "mean_undefined_pattern_rate_defined": 0.010323660714285714,
+      "regime": "N2",
+      "rejection_or_power_among_all_trials": 0.03333333333333333,
+      "rejection_or_power_among_defined_trials": 0.03571428571428571,
+      "rejections": 1,
+      "runtime_seconds": 0.30365736000000254,
+      "trials": 30
+    },
+    {
+      "defined_trials": 28,
+      "design_id": "complete_8x18_r8",
+      "effect": 0.0,
+      "enumerated_patterns": 256,
+      "indeterminate_rate": 0.06666666666666667,
+      "indeterminate_reasons": {
+        "excessive_undefined_pattern_fraction": 2
+      },
+      "indeterminate_trials": 2,
+      "max_undefined_pattern_rate_defined": 0.046875,
+      "mean_undefined_pattern_rate_defined": 0.0078125,
+      "regime": "N3",
+      "rejection_or_power_among_all_trials": 0.03333333333333333,
+      "rejection_or_power_among_defined_trials": 0.03571428571428571,
+      "rejections": 1,
+      "runtime_seconds": 0.3052273380000088,
+      "trials": 30
+    },
+    {
+      "defined_trials": 29,
+      "design_id": "incomplete_12x24_r6",
+      "effect": 0.0,
+      "enumerated_patterns": 4096,
+      "indeterminate_rate": 0.03333333333333333,
+      "indeterminate_reasons": {
+        "excessive_undefined_pattern_fraction": 1
+      },
+      "indeterminate_trials": 1,
+      "max_undefined_pattern_rate_defined": 0.01171875,
+      "mean_undefined_pattern_rate_defined": 0.0009933997844827585,
+      "regime": "N2",
+      "rejection_or_power_among_all_trials": 0.03333333333333333,
+      "rejection_or_power_among_defined_trials": 0.034482758620689655,
+      "rejections": 1,
+      "runtime_seconds": 3.9991071419999997,
+      "trials": 30
+    },
+    {
+      "defined_trials": 30,
+      "design_id": "incomplete_12x24_r6",
+      "effect": 0.0,
+      "enumerated_patterns": 4096,
+      "indeterminate_rate": 0.0,
+      "indeterminate_reasons": {},
+      "indeterminate_trials": 0,
+      "max_undefined_pattern_rate_defined": 0.0615234375,
+      "mean_undefined_pattern_rate_defined": 0.0030110677083333335,
+      "regime": "N3",
+      "rejection_or_power_among_all_trials": 0.0,
+      "rejection_or_power_among_defined_trials": 0.0,
+      "rejections": 0,
+      "runtime_seconds": 4.072794672000015,
+      "trials": 30
+    }
+  ],
+  "effect": 0.0,
+  "fail_closed_rule": {
+    "denominator_policy": "indeterminate trials remain in the all-trial rate and are not silently omitted",
+    "observed_variance_nonpositive": "indeterminate",
+    "undefined_pattern_rate_gt": 0.1
+  },
+  "schema_version": "egc-restricted-wild-transfer-0.1.0",
+  "seed": 20260726,
+  "status": "engineering_transfer_falsification_not_confirmatory"
+}
