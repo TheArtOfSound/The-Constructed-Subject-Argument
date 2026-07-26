@@ -1,0 +1,39 @@
+{
+  "bootstrap_dgp_cluster_dimension": "rater",
+  "bootstrap_weights": "exact enumeration of all rater-level Rademacher sign vectors",
+  "cells": [
+    {
+      "defined_trials": 15,
+      "effect": 0.0,
+      "enumerated_patterns_per_defined_trial": 256,
+      "mean_p_value_among_defined_trials": 0.44612066300852177,
+      "mean_undefined_pattern_rate": 0.005729166666666666,
+      "method": "restricted_rater_wild_cluster_bootstrap_t_exact_rademacher_two_way_cgm",
+      "rejection_or_power_among_all_trials": 0.06666666666666667,
+      "rejection_or_power_among_defined_trials": 0.06666666666666667,
+      "trials": 15,
+      "undefined_trial_rate": 0.0,
+      "undefined_trials": 0
+    },
+    {
+      "defined_trials": 15,
+      "effect": 0.2,
+      "enumerated_patterns_per_defined_trial": 256,
+      "mean_p_value_among_defined_trials": 0.03807810524020518,
+      "mean_undefined_pattern_rate": 0.005729166666666666,
+      "method": "restricted_rater_wild_cluster_bootstrap_t_exact_rademacher_two_way_cgm",
+      "rejection_or_power_among_all_trials": 0.7333333333333333,
+      "rejection_or_power_among_defined_trials": 0.7333333333333333,
+      "trials": 15,
+      "undefined_trial_rate": 0.0,
+      "undefined_trials": 0
+    }
+  ],
+  "design_id": "complete_8x18_r8",
+  "null_imposition": "minimum-norm projection of class means onto the scalar contrast null",
+  "regime": "N1",
+  "schema_version": "egc-restricted-wild-cluster-calibration-0.1.0",
+  "seed": 20260726,
+  "status": "engineering_smoke_only_not_for_method_selection",
+  "studentization": "two-way CGM item + rater - item-by-rater CRVE"
+}
