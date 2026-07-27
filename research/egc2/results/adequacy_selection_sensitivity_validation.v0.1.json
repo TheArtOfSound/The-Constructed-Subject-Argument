@@ -1,0 +1,26 @@
+{
+  "schema_version": "egc2-adequacy-selection-sensitivity-validation-0.1.0",
+  "validated_at_utc": "2026-07-27T06:39:00Z",
+  "commands": [
+    "python -m unittest -v test_analyze_adequacy_selection_sensitivity.py",
+    "python -m py_compile analyze_adequacy_selection_sensitivity.py test_analyze_adequacy_selection_sensitivity.py"
+  ],
+  "focused_tests": {
+    "passed": 10,
+    "failed": 0
+  },
+  "py_compile": "passed",
+  "covered_cases": [
+    "no-suppression point identification",
+    "manual worst-case bound reproduction",
+    "positive complete-case contrast with non-robust sign",
+    "gamma-zero complete-case equivalence",
+    "monotone expansion of gamma intervals",
+    "condition retention-rate difference",
+    "deterministic analysis digest",
+    "impossible observed-sum rejection",
+    "decreasing gamma-grid rejection",
+    "same-condition contrast rejection"
+  ],
+  "claim_limit": "Focused synthetic software validation only. No participant outcomes, reviewer judgments, missingness mechanism, EGC effect, or construct validity was estimated."
+}
