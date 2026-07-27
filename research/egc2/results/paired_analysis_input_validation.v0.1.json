@@ -1,0 +1,31 @@
+{
+  "status": "focused_validation_passed",
+  "executed_at_utc": "2026-07-27T10:32:00Z",
+  "commands": [
+    "python -m unittest -v test_validate_paired_analysis_input.py",
+    "python -m py_compile validate_paired_analysis_input.py test_validate_paired_analysis_input.py"
+  ],
+  "tests_passed": 10,
+  "tests_failed": 0,
+  "py_compile": "passed",
+  "fixture": {
+    "participant_count": 2,
+    "record_count": 4,
+    "retained_record_count": 3,
+    "suppressed_record_count": 1,
+    "unresolved_record_count": 0,
+    "analysis_ready": true,
+    "analysis_input_digest_sha256": "aa4c90bc27ea5f044835c5b198c14d9a2fabeac653607fe86d00a6daf24a6645"
+  },
+  "adversarial_cases": [
+    "duplicate participant-condition record",
+    "missing condition record",
+    "score-disposition mismatch",
+    "record tampering with dataset redigested",
+    "analysis-plan tampering",
+    "unresolved adequacy disposition",
+    "duplicate source-record digest",
+    "record-order invariance"
+  ],
+  "claim_limit": "Software validation only. No participant data, reviewer data, EGC effect, construct validation, or source authentication is established."
+}
