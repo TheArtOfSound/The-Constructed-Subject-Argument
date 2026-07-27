@@ -1,0 +1,28 @@
+{
+  "validation_status": "passed",
+  "software_fixture_only": true,
+  "commands": [
+    "python -m unittest -v test_analyze_paired_adequacy_sensitivity.py",
+    "python -m py_compile analyze_paired_adequacy_sensitivity.py test_analyze_paired_adequacy_sensitivity.py"
+  ],
+  "tests_passed": 13,
+  "tests_failed": 0,
+  "py_compile": "passed",
+  "fixture": {
+    "participants": [
+      {"participant_id": "P1", "condition_a_score": 3, "condition_b_score": 5},
+      {"participant_id": "P2", "condition_a_score": 4, "condition_b_score": null},
+      {"participant_id": "P3", "condition_a_score": null, "condition_b_score": 6},
+      {"participant_id": "P4", "condition_a_score": null, "condition_b_score": null}
+    ]
+  },
+  "fixture_result": {
+    "complete_pair_mean_difference": 2.0,
+    "worst_case_mean_difference_bounds": [-2.0, 4.0],
+    "worst_case_sign_status": "sign_not_robust",
+    "gamma_zero_bounds": [2.0, 2.0],
+    "gamma_two_bounds": [0.0, 3.75],
+    "analysis_digest_sha256": "b3b7c5bc34a6e9d05a7a83a94db23266f6ff496354eda9438d8ecec15d864b28"
+  },
+  "claim_limit": "Software validation only. The fixture is synthetic and is not participant evidence or an EGC effect estimate."
+}
