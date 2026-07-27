@@ -26,5 +26,18 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Prepare validation log directory
+        run: mkdir -p validation-logs
       - name: Run full validation suite
-        run: node scripts/validate-all.mjs
+        shell: bash
+        run: |
+          set -o pipefail
+          node scripts/validate-all.mjs 2>&1 | tee validation-logs/validate-all.log
+      - name: Upload validation log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: research-integrity-validate-all-log
+          path: validation-logs/validate-all.log
+          if-no-files-found: error
+          retention-days: 30
