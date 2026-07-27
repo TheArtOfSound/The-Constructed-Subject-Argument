@@ -4,6 +4,8 @@
 This is the production command-line boundary. It derives the current Git commit and
 working-tree state from Git rather than trusting a caller-supplied commit string.
 A dirty or non-repository execution fails closed before scientific analysis.
+The report target is resolved against the attested repository root so a matching
+path string cannot redirect output through another working directory or symlink.
 """
 from __future__ import annotations
 
@@ -83,6 +85,46 @@ def attest_repository(repository_root: Path) -> dict[str, Any]:
     }
 
 
+def resolve_output_target(
+    repository_root: Path,
+    frozen_report_path: str,
+    requested_output: Path,
+) -> tuple[Path, str]:
+    """Bind the requested output to the frozen repository-relative report path.
+
+    String equality is insufficient because a relative path is interpreted against
+    the process working directory and an existing parent symlink can redirect the
+    write outside the attested repository. Both paths are therefore resolved before
+    comparison, and the canonical runtime value remains the frozen POSIX path.
+    """
+    root = repository_root.resolve()
+    frozen = Path(frozen_report_path)
+    if frozen.is_absolute() or ".." in frozen.parts:
+        raise RunContractViolation(
+            "output_path_mismatch",
+            "frozen report path must be repository-relative and non-traversing",
+        )
+
+    expected_target = (root / frozen).resolve(strict=False)
+    requested_target = requested_output.resolve(strict=False)
+
+    try:
+        expected_target.relative_to(root)
+    except ValueError as exc:
+        raise RunContractViolation(
+            "output_path_mismatch",
+            "frozen report path resolves outside the attested repository",
+        ) from exc
+
+    if requested_target != expected_target:
+        raise RunContractViolation(
+            "output_path_mismatch",
+            "requested output does not resolve to the frozen repository report target",
+        )
+
+    return expected_target, frozen.as_posix()
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("locked_input", type=Path)
@@ -97,12 +139,25 @@ def main(argv: list[str] | None = None) -> int:
         locked_input = json.loads(args.locked_input.read_text(encoding="utf-8"))
         run_manifest = json.loads(args.run_manifest.read_text(encoding="utf-8"))
         attestation = attest_repository(args.repository_root)
-        runtime_output = args.output.as_posix()
-        if args.output.exists():
+
+        output_section = run_manifest.get("output")
+        frozen_report_path = (
+            output_section.get("report_path") if isinstance(output_section, dict) else None
+        )
+        if not isinstance(frozen_report_path, str):
+            raise RunManifestError("run manifest output.report_path is required")
+
+        output_target, runtime_output = resolve_output_target(
+            Path(attestation["repository_root"]),
+            frozen_report_path,
+            args.output,
+        )
+        if output_target.exists():
             raise RunContractViolation(
                 "output_path_mismatch",
                 "frozen output path already exists and overwrite is prohibited",
             )
+
         report = execute_preregistered_run(
             locked_input,
             run_manifest,
@@ -110,13 +165,17 @@ def main(argv: list[str] | None = None) -> int:
             runtime_repository_commit_sha=attestation["repository_commit_sha"],
             runtime_output_path=runtime_output,
         )
-        report["repository_attestation"] = attestation
+        report["repository_attestation"] = {
+            **attestation,
+            "resolved_output_target": output_target.as_posix(),
+            "frozen_output_path": runtime_output,
+        }
         report.pop("analysis_report_digest_sha256", None)
         from analyze_lineage_checked_paired_sensitivity import _canonical_digest
 
         report["analysis_report_digest_sha256"] = _canonical_digest(report)
-        args.output.parent.mkdir(parents=True, exist_ok=True)
-        args.output.write_text(
+        output_target.parent.mkdir(parents=True, exist_ok=True)
+        output_target.write_text(
             json.dumps(report, indent=2, ensure_ascii=False) + "\n",
             encoding="utf-8",
         )
@@ -127,6 +186,7 @@ def main(argv: list[str] | None = None) -> int:
                     "report_digest_sha256": report["analysis_report_digest_sha256"],
                     "repository_commit_sha": attestation["repository_commit_sha"],
                     "working_tree_clean": True,
+                    "resolved_output_target": output_target.as_posix(),
                 },
                 indent=2,
             )
