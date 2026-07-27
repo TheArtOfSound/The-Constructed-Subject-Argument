@@ -1,0 +1,20 @@
+{
+  "valid": true,
+  "scope": "focused isolated validation of preregistered paired-analysis run manifest validator",
+  "commands": [
+    "python -m unittest -v test_validate_paired_analysis_run_manifest.py",
+    "python -m py_compile validate_paired_analysis_run_manifest.py test_validate_paired_analysis_run_manifest.py"
+  ],
+  "tests_passed": 10,
+  "tests_failed": 0,
+  "py_compile": "passed",
+  "covered_failures": [
+    "external expected-manifest digest rejects fully redigested gamma-grid drift",
+    "duplicate or incomplete gamma grid",
+    "software commit mismatch",
+    "output traversal or overwrite",
+    "unknown failure status",
+    "post-lock parameter mutability"
+  ],
+  "claim_limit": "Software and run-freeze validation only. No participant data, EGC effect, score validity, missingness identification, or consciousness inference is established."
+}
