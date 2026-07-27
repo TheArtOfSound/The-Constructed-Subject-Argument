@@ -1,0 +1,28 @@
+{
+  "schema_version": "egc2-paired-analysis-runtime-enforcement-validation-0.1.0",
+  "date_utc": "2026-07-27T13:54:00Z",
+  "scope": "Focused isolated validation of preregistered runtime invariant enforcement. Not repository-wide execution.",
+  "executed_commands": [
+    "python -m unittest -v test_runtime_contract.py",
+    "python -m py_compile analyze_lineage_checked_paired_sensitivity.py test_runtime_contract.py"
+  ],
+  "result": {
+    "tests_passed": 5,
+    "tests_failed": 0,
+    "py_compile": "passed"
+  },
+  "covered_invariants": [
+    "valid frozen runtime acceptance",
+    "repository commit mismatch rejection",
+    "output path mismatch rejection",
+    "gamma grid mismatch rejection",
+    "independently expected run-manifest digest mismatch rejection"
+  ],
+  "limitations": [
+    "The isolated harness used interface-compatible local dependency stubs because the runtime could not resolve github.com.",
+    "The updated committed integration suite was not executed against the complete repository in this run.",
+    "Repository-wide CI and compatibility with every committed dependency version are not claimed.",
+    "No participant data or scientific result was analyzed."
+  ],
+  "claim_limit": "Focused software-contract evidence only; no measurement, construct, EGC, hidden-intention, subjectivity, or consciousness claim is supported."
+}
