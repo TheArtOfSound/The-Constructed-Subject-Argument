@@ -1,0 +1,64 @@
+name: EGC paired analysis CLI contract
+
+on:
+  push:
+    paths:
+      - "research/egc2/analyze_lineage_checked_paired_sensitivity.py"
+      - "research/egc2/analyze_paired_adequacy_sensitivity.py"
+      - "research/egc2/validate_paired_analysis_input.py"
+      - "research/egc2/validate_paired_analysis_run_manifest.py"
+      - "research/egc2/test_analyze_lineage_checked_paired_sensitivity.py"
+      - "research/egc2/test_paired_analysis_cli_contract.py"
+      - ".github/workflows/egc-paired-analysis-cli-contract.yml"
+  pull_request:
+    paths:
+      - "research/egc2/analyze_lineage_checked_paired_sensitivity.py"
+      - "research/egc2/analyze_paired_adequacy_sensitivity.py"
+      - "research/egc2/validate_paired_analysis_input.py"
+      - "research/egc2/validate_paired_analysis_run_manifest.py"
+      - "research/egc2/test_analyze_lineage_checked_paired_sensitivity.py"
+      - "research/egc2/test_paired_analysis_cli_contract.py"
+      - ".github/workflows/egc-paired-analysis-cli-contract.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  paired-analysis-cli-contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Compile paired-analysis modules
+        run: |
+          python -m py_compile \
+            research/egc2/analyze_paired_adequacy_sensitivity.py \
+            research/egc2/validate_paired_analysis_input.py \
+            research/egc2/validate_paired_analysis_run_manifest.py \
+            research/egc2/analyze_lineage_checked_paired_sensitivity.py \
+            research/egc2/test_analyze_lineage_checked_paired_sensitivity.py \
+            research/egc2/test_paired_analysis_cli_contract.py
+
+      - name: Run function-level runtime contract tests
+        working-directory: research/egc2
+        run: python -m unittest -v test_analyze_lineage_checked_paired_sensitivity.py
+
+      - name: Run subprocess CLI contract tests
+        working-directory: research/egc2
+        run: python -m unittest -v test_paired_analysis_cli_contract.py
+
+      - name: Verify no synthetic output leaked into repository
+        run: |
+          if find research/egc2/results -maxdepth 1 -name '.cli-contract-*.json' -print -quit | grep -q .; then
+            echo "Synthetic CLI contract output was not cleaned up" >&2
+            find research/egc2/results -maxdepth 1 -name '.cli-contract-*.json' -print >&2
+            exit 1
+          fi
