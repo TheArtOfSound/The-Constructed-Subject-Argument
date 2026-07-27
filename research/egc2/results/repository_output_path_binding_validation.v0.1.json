@@ -1,0 +1,37 @@
+{
+  "schema_version": "egc2-repository-output-path-binding-validation-0.1.0",
+  "status": "focused_isolated_validation_passed_repository_execution_pending",
+  "validated_at_utc": "2026-07-27T17:35:00Z",
+  "target_file": "research/egc2/run_preregistered_paired_analysis.py",
+  "focused_checks": {
+    "exact_repository_target_accepted": true,
+    "alternate_root_target_rejected": true,
+    "parent_symlink_escape_rejected": true,
+    "isolated_python_compile": "passed"
+  },
+  "committed_test_additions": [
+    "exact resolved repository target passes",
+    "same relative-looking path from another root fails",
+    "absolute frozen path fails",
+    "lexical traversal fails",
+    "existing parent symlink escape fails"
+  ],
+  "repository_native_test_execution": "not_available",
+  "github_actions_status": "unresolved_empty_status_interface",
+  "claims_supported": [
+    "Resolved path equality can bind the requested report destination to the attested repository root.",
+    "A pre-existing parent symlink that redirects the frozen path outside the repository can be rejected before analysis.",
+    "The frozen logical path and resolved physical target can both be preserved in the final report digest."
+  ],
+  "claims_not_supported": [
+    "The complete committed launcher suite passes.",
+    "GitHub Actions passes.",
+    "The check prevents privileged filesystem races after validation.",
+    "Any participant, anchor, semantic-fidelity, EGC, subjectivity, or consciousness claim is validated."
+  ],
+  "claim_status": [
+    "measurement_process_not_yet_empirically_validated",
+    "uncertainty_method_not_validated_for_confirmatory_EGC_inference",
+    "repository_output_path_binding_committed_execution_pending"
+  ]
+}
