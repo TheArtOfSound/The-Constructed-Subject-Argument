@@ -4,6 +4,15 @@
   "warnings": [
     "This 24-packet development bank does not satisfy the full 42-candidate region-by-domain blueprint and cannot be treated as the final anchor bank."
   ],
+  "precommit_failures_preserved": [
+    {
+      "stage": "first focused validation run",
+      "result": "failed",
+      "cause": "Packets A019, A020, A021, and A022 initially contained six essential concepts, exceeding the existing anchor-packet schema maximum of five.",
+      "resolution": "Combined closely related concepts without changing the central meanings, recomputed the canonical packet digest, and reran the complete focused suite.",
+      "claim_limit": "The corrected pass does not erase the initial schema incompatibility; it demonstrates that the validator caught it before commit."
+    }
+  ],
   "packet_count": 24,
   "contrast_group_count": 12,
   "domain_counts": {
