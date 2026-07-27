@@ -34,7 +34,10 @@
       "weight": 0.15,
       "weighted_contribution": 0.45,
       "rule_id": "explicit-runnable-mapping",
-      "evidence_ids": ["SYNTH-GRAPH-001", "SYNTH-MAP-001"],
+      "evidence_ids": [
+        "SYNTH-GRAPH-001",
+        "SYNTH-MAP-001"
+      ],
       "explanation": "The fixture declares an explicit graph, mapping, and preregistered intervention predictions."
     },
     {
@@ -44,7 +47,9 @@
       "weight": 0.25,
       "weighted_contribution": 0.75,
       "rule_id": "replicated-selective-controlled-effect",
-      "evidence_ids": ["INT-LESION-001"],
+      "evidence_ids": [
+        "INT-LESION-001"
+      ],
       "explanation": "The selective lesion met direction, selectivity, controls, and minimum replication requirements."
     },
     {
@@ -54,7 +59,9 @@
       "weight": 0.2,
       "weighted_contribution": 0.4,
       "rule_id": "specific-state-substitution",
-      "evidence_ids": ["INT-PATCH-001"],
+      "evidence_ids": [
+        "INT-PATCH-001"
+      ],
       "explanation": "State patching changed the predicted outcome with partial specificity."
     },
     {
@@ -64,7 +71,10 @@
       "weight": 0.2,
       "weighted_contribution": 0.4,
       "rule_id": "hidden-state-linked-failure",
-      "evidence_ids": ["INT-LESION-001", "INT-PATCH-001"],
+      "evidence_ids": [
+        "INT-LESION-001",
+        "INT-PATCH-001"
+      ],
       "explanation": "The declared controls fail on hidden-state-linked measures, but no cross-domain battery is represented."
     },
     {
@@ -74,7 +84,9 @@
       "weight": 0.1,
       "weighted_contribution": 0.2,
       "rule_id": null,
-      "evidence_ids": ["EXP11-CAPACITY-CONFOUND-ADJUDICATION-001"],
+      "evidence_ids": [
+        "EXP11-CAPACITY-CONFOUND-ADJUDICATION-001"
+      ],
       "explanation": "Capacity-confound adjudication state no_detected_mismatch permits score 2."
     },
     {
@@ -84,7 +96,9 @@
       "weight": 0.1,
       "weighted_contribution": 0.3,
       "rule_id": "blinded-multi-variant-report-suppression",
-      "evidence_ids": ["measurement_validity"],
+      "evidence_ids": [
+        "measurement_validity"
+      ],
       "explanation": "The fixture represents blinded evaluation, multiple probes and prompts, and report suppression."
     }
   ],
@@ -95,7 +109,10 @@
       "provenance": "submitted_structured_assessment",
       "triggered": false,
       "decisive": false,
-      "evidence_ids": ["INT-LESION-001", "INT-PATCH-001"],
+      "evidence_ids": [
+        "INT-LESION-001",
+        "INT-PATCH-001"
+      ],
       "justification": "The synthetic theater control does not reproduce all primary mechanistic indicators."
     },
     {
@@ -103,7 +120,9 @@
       "provenance": "submitted_structured_assessment",
       "triggered": false,
       "decisive": false,
-      "evidence_ids": ["INT-LESION-001"],
+      "evidence_ids": [
+        "INT-LESION-001"
+      ],
       "justification": "The lesion has a preregistered selective effect."
     },
     {
@@ -111,7 +130,9 @@
       "provenance": "submitted_structured_assessment",
       "triggered": false,
       "decisive": false,
-      "evidence_ids": ["measurement_validity"],
+      "evidence_ids": [
+        "measurement_validity"
+      ],
       "justification": "The effect is stable across represented probe and prompt variants."
     },
     {
@@ -119,7 +140,9 @@
       "provenance": "submitted_structured_assessment",
       "triggered": false,
       "decisive": false,
-      "evidence_ids": ["SYNTH-MAP-001"],
+      "evidence_ids": [
+        "SYNTH-MAP-001"
+      ],
       "justification": "The fixture declares the mapping as preregistered, while explicitly not claiming a real registration."
     },
     {
@@ -127,7 +150,9 @@
       "provenance": "generated_capacity_adjudication",
       "triggered": false,
       "decisive": false,
-      "evidence_ids": ["EXP11-CAPACITY-CONFOUND-ADJUDICATION-001"],
+      "evidence_ids": [
+        "EXP11-CAPACITY-CONFOUND-ADJUDICATION-001"
+      ],
       "justification": "No represented generic-capacity mismatch was detected within the preregistered battery and margins. This is bounded matching evidence, not proof that every possible confound is absent."
     }
   ],
