@@ -6,11 +6,15 @@ working-tree state from Git rather than trusting a caller-supplied commit string
 A dirty or non-repository execution fails closed before scientific analysis.
 The report target is resolved against the attested repository root so a matching
 path string cannot redirect output through another working directory or symlink.
+Final report creation uses exclusive, no-overwrite filesystem creation rather than
+a separate existence check followed by an ordinary write.
 """
 from __future__ import annotations
 
 import argparse
+import errno
 import json
+import os
 import subprocess
 from pathlib import Path
 from typing import Any, Sequence
@@ -125,6 +129,69 @@ def resolve_output_target(
     return expected_target, frozen.as_posix()
 
 
+def atomic_write_report(output_target: Path, payload: str) -> None:
+    """Create the final report exactly once and durably flush its contents.
+
+    ``Path.exists()`` followed by ``write_text()`` is vulnerable to a check-then-write
+    race. Exclusive creation makes the existence decision and file creation one
+    kernel operation. ``O_NOFOLLOW`` is used where available so a final-component
+    symlink is rejected. If writing fails after creation, the incomplete file is
+    removed rather than left looking like a valid report.
+
+    This does not eliminate privileged or hostile replacement of ancestor
+    directories during execution; that residual limitation is documented in the
+    corresponding methods audit.
+    """
+    output_target.parent.mkdir(parents=True, exist_ok=True)
+    flags = os.O_WRONLY | os.O_CREAT | os.O_EXCL
+    if hasattr(os, "O_NOFOLLOW"):
+        flags |= os.O_NOFOLLOW
+
+    fd: int | None = None
+    created = False
+    completed = False
+    try:
+        fd = os.open(output_target, flags, 0o600)
+        created = True
+        with os.fdopen(fd, "w", encoding="utf-8", newline="\n") as handle:
+            fd = None
+            handle.write(payload)
+            handle.flush()
+            os.fsync(handle.fileno())
+        completed = True
+
+        # Best-effort directory metadata flush. Some filesystems/platforms reject
+        # fsync on directories; report content durability remains enforced above.
+        try:
+            parent_fd = os.open(output_target.parent, os.O_RDONLY)
+            try:
+                os.fsync(parent_fd)
+            finally:
+                os.close(parent_fd)
+        except OSError:
+            pass
+    except FileExistsError as exc:
+        raise RunContractViolation(
+            "output_path_mismatch",
+            "frozen output path already exists and overwrite is prohibited",
+        ) from exc
+    except OSError as exc:
+        if exc.errno in {errno.EEXIST, errno.ELOOP}:
+            raise RunContractViolation(
+                "output_path_mismatch",
+                "frozen output target is a symlink or already exists",
+            ) from exc
+        raise
+    finally:
+        if fd is not None:
+            os.close(fd)
+        if created and not completed:
+            try:
+                output_target.unlink()
+            except FileNotFoundError:
+                pass
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("locked_input", type=Path)
@@ -152,11 +219,6 @@ def main(argv: list[str] | None = None) -> int:
             frozen_report_path,
             args.output,
         )
-        if output_target.exists():
-            raise RunContractViolation(
-                "output_path_mismatch",
-                "frozen output path already exists and overwrite is prohibited",
-            )
 
         report = execute_preregistered_run(
             locked_input,
@@ -169,15 +231,15 @@ def main(argv: list[str] | None = None) -> int:
             **attestation,
             "resolved_output_target": output_target.as_posix(),
             "frozen_output_path": runtime_output,
+            "report_creation_method": "exclusive-create-no-overwrite",
         }
         report.pop("analysis_report_digest_sha256", None)
         from analyze_lineage_checked_paired_sensitivity import _canonical_digest
 
         report["analysis_report_digest_sha256"] = _canonical_digest(report)
-        output_target.parent.mkdir(parents=True, exist_ok=True)
-        output_target.write_text(
+        atomic_write_report(
+            output_target,
             json.dumps(report, indent=2, ensure_ascii=False) + "\n",
-            encoding="utf-8",
         )
         print(
             json.dumps(
@@ -187,6 +249,7 @@ def main(argv: list[str] | None = None) -> int:
                     "repository_commit_sha": attestation["repository_commit_sha"],
                     "working_tree_clean": True,
                     "resolved_output_target": output_target.as_posix(),
+                    "report_creation_method": "exclusive-create-no-overwrite",
                 },
                 indent=2,
             )
