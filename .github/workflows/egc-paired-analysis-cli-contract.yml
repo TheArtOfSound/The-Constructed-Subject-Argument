@@ -7,8 +7,10 @@ on:
       - "research/egc2/analyze_paired_adequacy_sensitivity.py"
       - "research/egc2/validate_paired_analysis_input.py"
       - "research/egc2/validate_paired_analysis_run_manifest.py"
+      - "research/egc2/run_preregistered_paired_analysis.py"
       - "research/egc2/test_analyze_lineage_checked_paired_sensitivity.py"
       - "research/egc2/test_paired_analysis_cli_contract.py"
+      - "research/egc2/test_run_preregistered_paired_analysis.py"
       - ".github/workflows/egc-paired-analysis-cli-contract.yml"
   pull_request:
     paths:
@@ -16,8 +18,10 @@ on:
       - "research/egc2/analyze_paired_adequacy_sensitivity.py"
       - "research/egc2/validate_paired_analysis_input.py"
       - "research/egc2/validate_paired_analysis_run_manifest.py"
+      - "research/egc2/run_preregistered_paired_analysis.py"
       - "research/egc2/test_analyze_lineage_checked_paired_sensitivity.py"
       - "research/egc2/test_paired_analysis_cli_contract.py"
+      - "research/egc2/test_run_preregistered_paired_analysis.py"
       - ".github/workflows/egc-paired-analysis-cli-contract.yml"
   workflow_dispatch:
 
@@ -44,12 +48,18 @@ jobs:
             research/egc2/validate_paired_analysis_input.py \
             research/egc2/validate_paired_analysis_run_manifest.py \
             research/egc2/analyze_lineage_checked_paired_sensitivity.py \
+            research/egc2/run_preregistered_paired_analysis.py \
             research/egc2/test_analyze_lineage_checked_paired_sensitivity.py \
-            research/egc2/test_paired_analysis_cli_contract.py
+            research/egc2/test_paired_analysis_cli_contract.py \
+            research/egc2/test_run_preregistered_paired_analysis.py
 
       - name: Run function-level runtime contract tests
         working-directory: research/egc2
         run: python -m unittest -v test_analyze_lineage_checked_paired_sensitivity.py
+
+      - name: Run repository-attestation tests
+        working-directory: research/egc2
+        run: python -m unittest -v test_run_preregistered_paired_analysis.py
 
       - name: Run subprocess CLI contract tests
         working-directory: research/egc2
