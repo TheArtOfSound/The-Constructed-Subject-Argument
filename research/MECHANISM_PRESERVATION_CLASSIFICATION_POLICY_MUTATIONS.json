@@ -3,7 +3,7 @@
   "schema_version": "1.0.0",
   "protocol_id": "EXP-11-MECHANISM-PRESERVATION",
   "status": "synthetic_adversarial_policy_mutations",
-  "purpose": "Deliberately corrupt the normative classification policy and require the canonical synthetic trace fixtures to detect each corruption. Mutation survival indicates an unprotected decision property, not evidence about any actual AI system.",
+  "purpose": "Deliberately corrupt the normative classification policy and require the canonical synthetic trace fixtures to detect each corruption. Mutation survival indicates an unprotected decision property. This registry contains no observations about any actual AI system.",
   "mutations": [
     {
       "mutation_id": "low-score-inclusive-upper-bound",
