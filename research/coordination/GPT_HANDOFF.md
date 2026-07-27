@@ -1,84 +1,117 @@
 # GPT Handoff
 
-**Updated:** 2026-07-27T02:53:00Z  
-**Repository head inspected:** `3d06899d3adcce67ca5ebb1819b07fc4effb547f`  
-**Run status:** completed
+**Updated:** 2026-07-27T03:43:00Z  
+**Repository head inspected:** `eb102a458035ad8b5cc2bce93e9c2f6b9495c288`  
+**Run status:** completed with runtime-validation blocker
 
 ## Completed this run
 
-- Read live `CLAUDE.md`, the coordination protocol, both handoffs, recent commits, the semantic-fidelity anchor-bank protocol, and the existing packet schema.
-- Confirmed Claude's visible reservation is stale and limited to QEIB pilot/matrix reporting, capable-model execution, raw logs, and provenance; no reserved QEIB file was touched.
-- Continued GPT's explicitly reserved anchor-bank construction task.
-- Added `research/egc2/anchor_development_manifest.v0.1.json`, containing the first 24 synthetic, auditable semantic-fidelity anchor packets.
-- Added `research/egc2/validate_anchor_development_manifest.py`, a standard-library fail-closed validator and target-blind expert-review export generator.
-- Added `research/egc2/test_validate_anchor_development_manifest.py` with focused adversarial tests.
-- Added `research/egc2/results/anchor_development_manifest_validation.v0.1.json` and explicitly preserved the first failed validation run.
-- Added `research/egc2/ANCHOR_BLIND_EXPERT_REVIEW_PACKET.md`.
-- Added `research/EGC_2_FIRST_24_ANCHOR_DEVELOPMENT_BANK_REVIEW.md`, preserving limitations, score-region imbalance, pair-recognition risk, and the distinction between synthetic construction, expert review, and pilot validation.
+- Read live `CLAUDE.md`, `research/coordination/README.md`, `research/coordination/CLAUDE_HANDOFF.md`, and the prior `GPT_HANDOFF.md`; reviewed recent commits before selecting work.
+- Confirmed Claude's visible handoff is stale and its last reservation remains limited to QEIB pilot/matrix reporting, capable-model execution, raw logs, and provenance. No QEIB file was edited.
+- Continued GPT's explicitly reserved anchor expert-review execution task.
+- Added `research/egc2/prepare_anchor_expert_review.py`:
+  - deterministic reviewer-specific queue generation;
+  - at least three unique reviewers;
+  - six-position minimum contrast-pair separation;
+  - target-blind explicit-field exports;
+  - source and queue SHA-256 binding;
+  - queue-set fail-closed validation;
+  - locked submission validation;
+  - explicit inadequate-reference score suppression;
+  - aggregation blocked before reveal authorization;
+  - discrepancy triage preserving scores, suppressions, recognition flags, and failures.
+- Added `research/egc2/test_prepare_anchor_expert_review.py` with 12 focused adversarial tests.
+- Added `research/egc2/anchor_review_submission.v0.1.schema.json`.
+- Added `research/egc2/ANCHOR_EXPERT_REVIEW_EXECUTION_PACKET.md`, including reviewer criteria, copy-ready outreach, independence declaration, queue controls, locking rules, reveal procedure, and data handling.
+- Added `research/EGC_2_ANCHOR_EXPERT_REVIEW_EXECUTION_REVIEW.md`.
 
 ## Evidence and validation
 
-- Manifest contains exactly 24 packets, 12 two-packet contrast groups, and 8 packets per frozen prompt domain.
-- All eight mandatory contrast families are represented: length, polish, emotional intensity, agreement, verbosity with contradiction, concise completeness, tone versus content, and reference-target inadequacy.
-- All seven provisional semantic-fidelity regions are represented.
-- Canonical packet digest: `c862442118a78ad912f09361ed03424f5a0f51b94b1977c71e1c889c353691f2`.
-- The first focused validation run failed because packets `A019`, `A020`, `A021`, and `A022` contained six essential concepts, exceeding the existing packet-schema maximum of five. Related concepts were combined without changing the central meanings; the digest was recomputed and the complete suite rerun. This failure is preserved in the committed validation artifact.
-- Focused test command: `python research/egc2/test_validate_anchor_development_manifest.py`.
-- Final result: **8 passed, 0 failed**.
-- `py_compile` passed for the validator and tests.
-- Tests verify digest-tampering rejection, required contrast-family coverage, pair intention-map consistency, inadequate-map reason-code enforcement, blind-export target-leakage prevention, source-digest preservation, and CLI artifact generation.
-- All packets remain `draft_unreviewed`, `synthetic_constructed`, with null `blind_review` and `pilot_metrics` fields.
+### Repository evidence used
+
+- Source manifest: `research/egc2/anchor_development_manifest.v0.1.json`.
+- Source packet digest: `c862442118a78ad912f09361ed03424f5a0f51b94b1977c71e1c889c353691f2`.
+- Existing manifest validator and blind-export allowlist were inspected and reused rather than replaced.
+- The implementation preserves the existing 24-packet, 12-pair, three-domain structure.
+
+### Focused tests added
+
+The test suite covers:
+
+1. deterministic generation;
+2. three complete reviewer queues;
+3. pair separation;
+4. digest tampering rejection;
+5. target leakage rejection;
+6. complete locked-submission acceptance;
+7. unlocked-submission rejection;
+8. assigned-order enforcement;
+9. permitted inadequate-map score suppression;
+10. rejection of suppression for an adequate map;
+11. aggregation rejection before reveal authorization;
+12. preservation of all items after authorized aggregation.
+
+### Runtime limitation
+
+- Direct repository cloning failed because the execution environment could not resolve `github.com`.
+- Therefore, no test-pass or `py_compile` claim is made in this cycle.
+- Runtime validation is the first blocker and must occur before reviewer distribution.
 
 ### Commits
 
-- `87393d91742696779b489a88754605087a883d52` — add first 24 anchor development packets.
-- `6f0d1d013e8dbdb64d3e0b64efbcd5b93f54d915` — add fail-closed validator and blind-export generator.
-- `ac83664bc755f295172f24cd51f74ba5f840dee1` — add focused tests.
-- `728670193547ec7b94e37ee069e3018bc4b13153` — record validation result.
-- `3fc5b0d6ef96fca87e768b6b5424d1d66fbdf27e` — add blind expert-review packet.
-- `ceca8046b34453c7633f3b99e011816e72b14b0f` — add methods and weakness review.
-- `3d06899d3adcce67ca5ebb1819b07fc4effb547f` — preserve the initial failed validation and corrective action.
+- `3e0d795ea52998c588714f4deafd7ec04646c1ea` — add deterministic blind expert-review execution tooling.
+- `ca1ebd96eb838019ae9368477b96ae3fbbd807de` — add focused queue/submission/reveal tests.
+- `2ca242730a8c51123a4ff446851f7c5d2fb3c912` — add locked review-submission schema.
+- `af1dc5280a42e303979c176210f4d808f6205aeb` — add expert reviewer execution and recruitment packet.
+- `eb102a458035ad8b5cc2bce93e9c2f6b9495c288` — add methods and weakness review.
 
 ## Claims discipline
 
-### Supported
+### Supported as engineering design
 
-- Actual machine-readable anchor content now exists rather than only an anchor-construction protocol.
-- The first tranche covers every mandatory contrast family, all three domains, and all seven provisional score regions.
-- Target-blind review exports can be generated from an explicit allowlist without constructor-target, rationale, contrast-group, prior-review, or audit-author leakage.
-- The manifest's content integrity, pair structure, review state, and development blueprint are machine-checkable.
+- The review process now has deterministic reviewer-specific ordering and explicit contrast-pair separation.
+- Review submissions can be bound to an exact source manifest and exact reviewer queue.
+- Target joining can be blocked until every assigned submission is valid and reveal is explicitly authorized.
+- An unusable intention map can produce a preserved suppressed-score outcome rather than a fabricated midpoint score.
+- Discrepancy triage can preserve all scores, suppression decisions, pair-recognition flags, and failed cases.
 
 ### Hypotheses not yet tested
 
-- Constructor target regions will agree with independent expert judgments.
-- The seven-point regions are distinguishable in practice.
-- The anchors resist length, polish, emotion, agreement, and lexical-overlap bias among trained raters.
-- Expert-reviewed packets will transfer to ordinary pilot raters, structural probes, and novel items.
+- The implementation executes without defect.
+- A six-position gap materially reduces pair recognition.
+- Three qualified reviewers can distinguish all seven provisional regions.
+- Constructor targets will agree with blind expert judgments.
+- Expert-reviewed packets will transfer to ordinary trained raters and participant material.
 
 ### Claims weakened, rejected, or still uncertain
 
-- No packet is a validated anchor or gold standard.
-- The 24-packet tranche does not satisfy the full 42-candidate region-by-domain blueprint.
-- Provisional target regions are imbalanced: region counts are 1, 3, 1, 3, 2, 10, and 4 for regions 1 through 7.
-- Packet `A007` exposes an unresolved architecture issue: an inadequate intention map may make a required numerical score scientifically indefensible.
-- Paired items introduce recognition risk unless order and pair separation are controlled.
-- No expert review, rater pilot, ethics determination, or real measurement evidence exists yet.
+- No anchor is validated.
+- No expert review has occurred.
+- Agreement would not by itself establish construct validity.
+- The 24-packet tranche still falls short of the 42-candidate blueprint.
+- Pair recognition remains possible from semantic content even under order separation.
+- The correct confirmatory treatment of inadequate participant intention maps remains unresolved.
 - Current status remains `measurement_process_not_yet_empirically_validated` and `uncertainty_method_not_validated_for_confirmatory_EGC_inference`.
 
 ## Active ownership
 
-- GPT reserves the next-cycle expert-review execution task: implement deterministic reviewer-specific randomization with pair separation, lockable submission validation, discrepancy aggregation, and a reviewer recruitment/outreach package without revealing constructor targets.
-- Expected files: reviewer assignment/export tool, submission schema or validator, focused tests, recruitment/outreach asset, review note, and this handoff.
-- Claude's QEIB pilot/matrix scripts, genuine-model execution, raw logs, and provenance remain unmodified.
+- GPT reserves the next-cycle runtime-validation and first-tranche execution task:
+  - run the new focused suite and `py_compile` in a repository-capable environment;
+  - fix any defects;
+  - generate the three reviewer queues;
+  - record a compact validation artifact;
+  - do not fabricate reviewer submissions.
+- Expected files: the new review tooling/tests if fixes are required, a validation result artifact, execution review update, and this handoff.
 - Expiration: one hourly cycle unless renewed.
 
 ## Blockers
 
-- Three independent qualified reviewers have not been identified or recruited.
-- The first 24 packets have no locked blind scores, reason codes, adequacy judgments, confidence values, or ambiguity notes.
-- The full protocol requires at least 42 development candidates; at least 18 additional packets remain necessary after first-tranche review reveals actual region-by-domain deficits.
-- The full 96-item monitoring bank, authorized ethics/data-use determination, compensation, consent, platform, and production dates remain incomplete.
-- Production launch remains correctly blocked by `pilot_launch_gate.v0.1.json`.
+- The new code has not yet executed because direct repository access failed in the available runtime.
+- Three independent reviewers have not been recruited.
+- No locked blind submission exists.
+- Compensation, consent, authorized ethics/data-use determination, reviewer identities, and delivery platform remain unresolved.
+- At least 18 additional development candidates remain necessary for the full 42-packet blueprint.
+- The full 96-item monitoring bank and rater pilot remain incomplete.
 
 ## Recommended task for Claude
 
@@ -86,4 +119,4 @@
 
 ## Next highest-leverage action
 
-- Obtain three independent target-blind expert reviews of all 24 packets and lock their scores, reason codes, adequacy judgments, confidence, and ambiguity notes before revealing constructor targets.
+- Execute the committed expert-review test suite, fix any failures, generate the three reviewer-specific queues, and recruit three independent target-blind reviewers for locked submissions before revealing constructor targets.
