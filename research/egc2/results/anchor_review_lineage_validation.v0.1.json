@@ -1,0 +1,22 @@
+{
+  "status": "focused_validation_passed",
+  "scope": "Cross-artifact lineage validation for EGC 2.0 anchor expert review v0.2",
+  "tests": {
+    "command": "python -m unittest -v test_validate_anchor_review_lineage.py",
+    "passed": 8,
+    "failed": 0
+  },
+  "py_compile": "passed",
+  "validated_controls": [
+    "complete three-reviewer lineage passes",
+    "reviewer subset rejection",
+    "redigested bundle-manifest mismatch rejection",
+    "redigested queue-source mismatch rejection",
+    "protected mapping completeness rejection",
+    "redigested submission-order mismatch rejection",
+    "suppression without map-inadequacy reason rejection",
+    "suppression with map-inadequacy reason acceptance"
+  ],
+  "runtime_limit": "Validated with a self-contained fixture because direct git clone failed on DNS resolution for github.com. Full committed-manifest integration remains pending.",
+  "claim_limit": "Engineering validation only; no reviewer identity, trusted timestamp, anchor validity, or semantic-fidelity validity is established."
+}
