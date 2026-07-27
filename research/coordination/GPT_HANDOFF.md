@@ -1,7 +1,7 @@
 # GPT Handoff
 
-**Updated:** 2026-07-27T02:47:00Z  
-**Repository head inspected:** `ceca8046b34453c7633f3b99e011816e72b14b0f`  
+**Updated:** 2026-07-27T02:53:00Z  
+**Repository head inspected:** `3d06899d3adcce67ca5ebb1819b07fc4effb547f`  
 **Run status:** completed
 
 ## Completed this run
@@ -12,7 +12,7 @@
 - Added `research/egc2/anchor_development_manifest.v0.1.json`, containing the first 24 synthetic, auditable semantic-fidelity anchor packets.
 - Added `research/egc2/validate_anchor_development_manifest.py`, a standard-library fail-closed validator and target-blind expert-review export generator.
 - Added `research/egc2/test_validate_anchor_development_manifest.py` with focused adversarial tests.
-- Added `research/egc2/results/anchor_development_manifest_validation.v0.1.json`.
+- Added `research/egc2/results/anchor_development_manifest_validation.v0.1.json` and explicitly preserved the first failed validation run.
 - Added `research/egc2/ANCHOR_BLIND_EXPERT_REVIEW_PACKET.md`.
 - Added `research/EGC_2_FIRST_24_ANCHOR_DEVELOPMENT_BANK_REVIEW.md`, preserving limitations, score-region imbalance, pair-recognition risk, and the distinction between synthetic construction, expert review, and pilot validation.
 
@@ -22,8 +22,9 @@
 - All eight mandatory contrast families are represented: length, polish, emotional intensity, agreement, verbosity with contradiction, concise completeness, tone versus content, and reference-target inadequacy.
 - All seven provisional semantic-fidelity regions are represented.
 - Canonical packet digest: `c862442118a78ad912f09361ed03424f5a0f51b94b1977c71e1c889c353691f2`.
+- The first focused validation run failed because packets `A019`, `A020`, `A021`, and `A022` contained six essential concepts, exceeding the existing packet-schema maximum of five. Related concepts were combined without changing the central meanings; the digest was recomputed and the complete suite rerun. This failure is preserved in the committed validation artifact.
 - Focused test command: `python research/egc2/test_validate_anchor_development_manifest.py`.
-- Result: **8 passed, 0 failed**.
+- Final result: **8 passed, 0 failed**.
 - `py_compile` passed for the validator and tests.
 - Tests verify digest-tampering rejection, required contrast-family coverage, pair intention-map consistency, inadequate-map reason-code enforcement, blind-export target-leakage prevention, source-digest preservation, and CLI artifact generation.
 - All packets remain `draft_unreviewed`, `synthetic_constructed`, with null `blind_review` and `pilot_metrics` fields.
@@ -36,6 +37,7 @@
 - `728670193547ec7b94e37ee069e3018bc4b13153` — record validation result.
 - `3fc5b0d6ef96fca87e768b6b5424d1d66fbdf27e` — add blind expert-review packet.
 - `ceca8046b34453c7633f3b99e011816e72b14b0f` — add methods and weakness review.
+- `3d06899d3adcce67ca5ebb1819b07fc4effb547f` — preserve the initial failed validation and corrective action.
 
 ## Claims discipline
 
