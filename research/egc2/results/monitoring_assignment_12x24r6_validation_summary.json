@@ -1,0 +1,39 @@
+{
+  "schema_version": "egc2-monitoring-assignment-validation-0.2.0",
+  "design_id": "incomplete_12x24_r6",
+  "seed": 20260726,
+  "rater_count": 12,
+  "monitoring_class_count": 4,
+  "domain_count": 4,
+  "items_per_class": 24,
+  "items_per_class_domain": 6,
+  "ratings_per_item": 6,
+  "total_items": 96,
+  "total_assignments": 576,
+  "items_per_rater": 48,
+  "items_per_rater_per_class": 12,
+  "items_per_rater_per_class_domain": 3,
+  "validation_errors": [],
+  "content_sha256": "3d9012606c5803c6369eea601679cffa298569c8f4f84c48c878f6fc95420cc8",
+  "dropout_audit": {
+    "one_rater": {
+      "scenario_count": 12,
+      "failure_count": 0,
+      "minimum_remaining_ratings_per_item": 5,
+      "minimum_class_graph_degree": 10,
+      "minimum_domain_graph_degree": 10
+    },
+    "two_raters": {
+      "scenario_count": 66,
+      "failure_count": 0,
+      "minimum_remaining_ratings_per_item": 4,
+      "minimum_class_graph_degree": 9,
+      "minimum_domain_graph_degree": 9
+    }
+  },
+  "tests": {
+    "command": "python research/egc2/test_generate_monitoring_assignment_12x24r6.py -v",
+    "passed": 8,
+    "failed": 0
+  }
+}
