@@ -1,0 +1,117 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://imagineqira.com/schemas/egc2-anchor-review-submission.v0.2.schema.json",
+  "title": "EGC 2.0 Hardened Anchor Expert Review Submission",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "reviewer_id",
+    "source_manifest_id",
+    "source_content_digest_sha256",
+    "queue_digest_sha256",
+    "started_at_utc",
+    "locked_at_utc",
+    "locked_before_target_reveal",
+    "targets_seen_before_lock",
+    "reviews",
+    "submission_digest_sha256"
+  ],
+  "properties": {
+    "schema_version": {"const": "egc2-anchor-review-submission-0.2.0"},
+    "reviewer_id": {"type": "string", "minLength": 1, "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"},
+    "source_manifest_id": {"type": "string", "minLength": 1},
+    "source_content_digest_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "queue_digest_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "started_at_utc": {"type": "string", "format": "date-time"},
+    "locked_at_utc": {"type": "string", "format": "date-time"},
+    "locked_before_target_reveal": {"const": true},
+    "targets_seen_before_lock": {"const": false},
+    "reviews": {
+      "type": "array",
+      "minItems": 24,
+      "maxItems": 24,
+      "items": {"$ref": "#/$defs/review"}
+    },
+    "submission_digest_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  },
+  "$defs": {
+    "reason_code": {
+      "enum": [
+        "CM_MISSING", "CM_REVERSED", "EC_MISSING", "EC_DISTORTED", "REL_MISSING",
+        "REL_REVERSED", "QUAL_MISSING", "IMPLICATION_CHANGED", "TONE_MISMATCH_MATERIAL",
+        "AUDIENCE_TARGET_MISSED", "TONE_DIFFERENCE_NONMATERIAL", "MAP_TOO_SPARSE",
+        "MAP_INTERNAL_CONFLICT", "MAP_UNINTERPRETABLE", "MAP_RESPONSE_DEPENDENT", "MAP_OTHER",
+        "LENGTH_DECOY", "POLISH_DECOY", "EMOTION_DECOY", "AGREEMENT_DECOY",
+        "LEXICAL_OVERLAP_DECOY", "NO_MATERIAL_LOSS"
+      ]
+    },
+    "review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "position",
+        "presentation_id",
+        "semantic_fidelity_score",
+        "score_disposition",
+        "reason_codes",
+        "intention_map_adequacy",
+        "confidence_1_to_5",
+        "ambiguity_note",
+        "recognized_possible_pair",
+        "pair_recognition_note"
+      ],
+      "properties": {
+        "position": {"type": "integer", "minimum": 1, "maximum": 24},
+        "presentation_id": {"type": "string", "pattern": "^P-[0-9a-f]{20}$"},
+        "semantic_fidelity_score": {"type": ["integer", "null"], "minimum": 1, "maximum": 7},
+        "score_disposition": {
+          "enum": ["retain", "retain_with_warning", "exploratory_only", "suppress_reference_inadequate"]
+        },
+        "reason_codes": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/reason_code"}},
+        "intention_map_adequacy": {
+          "enum": ["adequate", "too_sparse", "internal_conflict", "uninterpretable", "response_dependent", "other_problem"]
+        },
+        "confidence_1_to_5": {"type": "integer", "minimum": 1, "maximum": 5},
+        "ambiguity_note": {"type": ["string", "null"]},
+        "recognized_possible_pair": {"type": "boolean"},
+        "pair_recognition_note": {"type": ["string", "null"]}
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {"intention_map_adequacy": {"const": "adequate"}},
+            "required": ["intention_map_adequacy"]
+          },
+          "then": {
+            "properties": {
+              "semantic_fidelity_score": {"type": "integer", "minimum": 1, "maximum": 7},
+              "score_disposition": {"enum": ["retain", "retain_with_warning"]}
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {"semantic_fidelity_score": {"type": "null"}},
+            "required": ["semantic_fidelity_score"]
+          },
+          "then": {
+            "properties": {
+              "score_disposition": {"const": "suppress_reference_inadequate"},
+              "intention_map_adequacy": {"not": {"const": "adequate"}}
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {"recognized_possible_pair": {"const": true}},
+            "required": ["recognized_possible_pair"]
+          },
+          "then": {
+            "properties": {"pair_recognition_note": {"type": "string", "minLength": 1}}
+          }
+        }
+      ]
+    }
+  }
+}
