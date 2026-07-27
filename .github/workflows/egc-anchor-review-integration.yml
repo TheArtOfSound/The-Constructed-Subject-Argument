@@ -1,0 +1,43 @@
+name: EGC Anchor Review Integration
+
+on:
+  push:
+    paths:
+      - "research/egc2/anchor_development_manifest.v0.1.json"
+      - "research/egc2/validate_anchor_development_manifest.py"
+      - "research/egc2/harden_anchor_expert_review.py"
+      - "research/egc2/validate_anchor_review_lineage.py"
+      - "research/egc2/test_anchor_review_committed_manifest_integration.py"
+      - ".github/workflows/egc-anchor-review-integration.yml"
+  pull_request:
+    paths:
+      - "research/egc2/anchor_development_manifest.v0.1.json"
+      - "research/egc2/validate_anchor_development_manifest.py"
+      - "research/egc2/harden_anchor_expert_review.py"
+      - "research/egc2/validate_anchor_review_lineage.py"
+      - "research/egc2/test_anchor_review_committed_manifest_integration.py"
+      - ".github/workflows/egc-anchor-review-integration.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  committed-manifest-integration:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Compile integration modules
+        run: |
+          python -m py_compile \
+            research/egc2/validate_anchor_development_manifest.py \
+            research/egc2/harden_anchor_expert_review.py \
+            research/egc2/validate_anchor_review_lineage.py \
+            research/egc2/test_anchor_review_committed_manifest_integration.py
+      - name: Run committed-manifest integration
+        working-directory: research/egc2
+        run: python -m unittest -v test_anchor_review_committed_manifest_integration.py
