@@ -10,6 +10,7 @@ from unittest.mock import patch
 from analyze_lineage_checked_paired_sensitivity import RunContractViolation
 from run_preregistered_paired_analysis import (
     RepositoryAttestationError,
+    atomic_write_report,
     attest_repository,
     resolve_output_target,
 )
@@ -137,6 +138,41 @@ class OutputTargetBindingTests(unittest.TestCase):
             requested = results_parent / "results" / "preregistered-run.json"
             with self.assertRaisesRegex(RunContractViolation, "outside the attested repository"):
                 resolve_output_target(root, self.FROZEN, requested)
+
+
+class AtomicReportWriteTests(unittest.TestCase):
+    def test_exclusive_creation_writes_exact_payload(self):
+        with tempfile.TemporaryDirectory() as directory:
+            target = Path(directory) / "nested" / "report.json"
+            atomic_write_report(target, '{"status":"completed"}\n')
+            self.assertEqual(target.read_text(encoding="utf-8"), '{"status":"completed"}\n')
+
+    def test_existing_target_is_rejected_and_preserved(self):
+        with tempfile.TemporaryDirectory() as directory:
+            target = Path(directory) / "report.json"
+            target.write_text("sentinel\n", encoding="utf-8")
+            with self.assertRaisesRegex(RunContractViolation, "already exists"):
+                atomic_write_report(target, "replacement\n")
+            self.assertEqual(target.read_text(encoding="utf-8"), "sentinel\n")
+
+    def test_final_component_symlink_is_rejected_without_touching_target(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            real_target = root / "real.json"
+            real_target.write_text("sentinel\n", encoding="utf-8")
+            link = root / "report.json"
+            link.symlink_to(real_target)
+            with self.assertRaisesRegex(RunContractViolation, "already exists|symlink"):
+                atomic_write_report(link, "replacement\n")
+            self.assertEqual(real_target.read_text(encoding="utf-8"), "sentinel\n")
+
+    def test_partial_file_is_removed_when_write_fails(self):
+        with tempfile.TemporaryDirectory() as directory:
+            target = Path(directory) / "report.json"
+            with patch("run_preregistered_paired_analysis.os.fsync", side_effect=OSError("disk failure")):
+                with self.assertRaisesRegex(OSError, "disk failure"):
+                    atomic_write_report(target, "partial\n")
+            self.assertFalse(target.exists())
 
 
 if __name__ == "__main__":
