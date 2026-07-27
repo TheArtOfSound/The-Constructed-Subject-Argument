@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://imagineqira.com/schemas/egc2-paired-analysis-run-manifest.v0.1.schema.json",
+  "title": "EGC 2.0 Preregistered Paired Analysis Run Manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version","status","run_id","study_id","analysis_plan_id","expected_input_digest_sha256","gamma_grid","software","output","permitted_failure_statuses","preregistration_lock","manifest_digest_sha256"],
+  "properties": {
+    "schema_version": {"const": "egc2-paired-analysis-run-manifest-0.1.0"},
+    "status": {"const": "preregistered_not_run"},
+    "run_id": {"type":"string","minLength":1},
+    "study_id": {"type":"string","minLength":1},
+    "analysis_plan_id": {"type":"string","minLength":1},
+    "expected_input_digest_sha256": {"type":"string","pattern":"^[a-f0-9]{64}$"},
+    "gamma_grid": {"type":"array","minItems":1,"uniqueItems":true,"items":{"type":"number","minimum":0,"maximum":6}},
+    "software": {"type":"object","additionalProperties":false,"required":["repository_commit_sha","python_version","entrypoint_schema","entrypoint_path"],"properties":{"repository_commit_sha":{"type":"string","pattern":"^[a-f0-9]{40}$"},"python_version":{"type":"string","pattern":"^\\d+\\.\\d+\\.\\d+(?:[-+][A-Za-z0-9.-]+)?$"},"entrypoint_schema":{"const":"egc2-lineage-checked-paired-sensitivity-0.1.0"},"entrypoint_path":{"const":"research/egc2/analyze_lineage_checked_paired_sensitivity.py"}}},
+    "output": {"type":"object","additionalProperties":false,"required":["report_path","overwrite_existing"],"properties":{"report_path":{"type":"string","pattern":"^research/egc2/results/.+\\.json$"},"overwrite_existing":{"const":false}}},
+    "permitted_failure_statuses":{"type":"array","minItems":1,"uniqueItems":true,"items":{"enum":["input_digest_mismatch","input_lineage_invalid","unresolved_adequacy_decision","participant_count_mismatch","record_count_mismatch","gamma_grid_mismatch","software_commit_mismatch","python_version_mismatch","entrypoint_schema_mismatch","output_path_mismatch","analysis_engine_failure","report_digest_failure"]}},
+    "preregistration_lock":{"type":"object","additionalProperties":false,"required":["locked_before_input_access","parameters_mutable_after_lock","locked_at_utc","locked_by"],"properties":{"locked_before_input_access":{"const":true},"parameters_mutable_after_lock":{"const":false},"locked_at_utc":{"type":"string","format":"date-time"},"locked_by":{"type":"string","minLength":1}}},
+    "manifest_digest_sha256":{"type":"string","pattern":"^[a-f0-9]{64}$"}
+  }
+}
