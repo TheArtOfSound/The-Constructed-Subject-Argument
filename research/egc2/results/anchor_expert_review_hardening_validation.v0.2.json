@@ -1,0 +1,39 @@
+{
+  "schema_version": "egc2-anchor-expert-review-hardening-validation-0.2.0",
+  "status": "focused_synthetic_fixture_validation_passed",
+  "validated_against": "self-contained synthetic 24-packet fixture with 12 two-packet groups and four groups per frozen domain",
+  "commands": [
+    "python -m unittest -v test_harden_anchor_expert_review.py",
+    "python -m py_compile harden_anchor_expert_review.py test_harden_anchor_expert_review.py"
+  ],
+  "tests": {
+    "passed": 11,
+    "failed": 0
+  },
+  "properties_verified": [
+    "exact 12-position separation for every designed pair",
+    "four items from each frozen domain in each 12-item queue half",
+    "reviewer-specific opaque presentation identifiers",
+    "no source anchor identifiers or constructor target fields in public queues",
+    "deterministic regeneration with distinct protected anchor orders across reviewers",
+    "minimum three-reviewer enforcement",
+    "queue-content digest verification",
+    "submission-content digest verification",
+    "exact position and presentation-identifier binding",
+    "numeric-score suppression only for an inadequate reference target",
+    "pair-recognition note requirement",
+    "pre-reveal aggregation without constructor targets",
+    "post-reveal constructor-target discrepancy flagging",
+    "protected assignment-key tamper rejection"
+  ],
+  "not_validated": [
+    "execution against the committed 24-packet manifest in the isolated runtime",
+    "repository-wide CI",
+    "reviewer identity authentication",
+    "trusted timestamping",
+    "expert agreement",
+    "anchor validity",
+    "ordinary-rater reliability"
+  ],
+  "claim_limit": "Engineering validation only. No reviewer was recruited and no empirical expert score exists."
+}
