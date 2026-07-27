@@ -1,0 +1,30 @@
+{
+  "schema_version": "egc2-exclusive-report-creation-validation-0.1.0",
+  "status": "focused_isolated_validation_passed_repository_native_execution_pending",
+  "date_utc": "2026-07-27T18:32:00Z",
+  "target": "research/egc2/run_preregistered_paired_analysis.py::atomic_write_report",
+  "defect": "The prior exists-check followed by Path.write_text was a check-then-write race and did not atomically enforce the preregistered no-overwrite rule.",
+  "implementation_controls": [
+    "O_CREAT plus O_EXCL exclusive creation",
+    "O_NOFOLLOW on platforms that expose it",
+    "0600 initial file permissions",
+    "content flush and fsync before success",
+    "best-effort parent-directory fsync",
+    "partial-file unlink after post-creation failure"
+  ],
+  "focused_checks": {
+    "executed": 4,
+    "passed": 4,
+    "failed": 0,
+    "cases": [
+      "new nested target is created with the exact payload",
+      "existing target is rejected and preserved byte-for-byte",
+      "final-component symlink is rejected without modifying its target",
+      "simulated fsync failure removes the incomplete output"
+    ]
+  },
+  "committed_repository_tests_added": 4,
+  "repository_native_suite": "not_run",
+  "github_actions_status": "not_observed",
+  "claim_limit": "Focused engineering evidence only. This does not establish repository-wide compatibility, cross-platform behavior, immunity to privileged ancestor-directory replacement, or any scientific validity claim."
+}
