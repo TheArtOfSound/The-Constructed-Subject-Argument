@@ -1,0 +1,27 @@
+{
+  "schema_version": "egc2-lineage-checked-paired-sensitivity-validation-0.1.0",
+  "validated_at_utc": "2026-07-27T11:33:00Z",
+  "scope": "Focused isolated interface-compatible validation of the new confirmatory consumption boundary.",
+  "commands": [
+    "python -m unittest -v test_analyze_lineage_checked_paired_sensitivity.py",
+    "python -m py_compile analyze_lineage_checked_paired_sensitivity.py test_analyze_lineage_checked_paired_sensitivity.py"
+  ],
+  "result": {
+    "tests_passed": 8,
+    "tests_failed": 0,
+    "py_compile": "passed"
+  },
+  "covered_cases": [
+    "validated input digest is echoed in the final report",
+    "participant and record counts are preserved",
+    "independently expected digest mismatch fails closed",
+    "redigested record substitution still fails the prior expected commitment",
+    "unresolved adequacy decisions block analysis",
+    "final report digest is deterministic",
+    "lower-level sensitivity engine digest is preserved",
+    "source study and analysis-plan identity are preserved",
+    "tampering without redigesting fails validation"
+  ],
+  "runtime_limit": "Direct cloning of the full repository failed because github.com could not be resolved. The focused run used interface-compatible local copies of the two committed dependency APIs. Repository-wide execution and CI are not claimed.",
+  "claim_limit": "Engineering integration evidence only. No participant data, reviewer evidence, semantic-fidelity validity, EGC effect, or consciousness-related inference was produced."
+}
