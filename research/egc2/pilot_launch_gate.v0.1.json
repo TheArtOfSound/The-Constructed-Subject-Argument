@@ -1,0 +1,178 @@
+{
+  "schema_version": "egc2-pilot-launch-gate-0.1.0",
+  "pilot_id": "egc2-rater-process-pilot-v0.1",
+  "purpose": "Prevent recruitment or production scoring before the measurement materials, ethics, analysis, and data-lineage requirements are complete.",
+  "status_values": [
+    "verified",
+    "not_started",
+    "in_progress",
+    "failed",
+    "not_applicable"
+  ],
+  "launch_rule": {
+    "production_may_begin_only_when": "Every required gate has status verified and no unresolved blocking note remains.",
+    "fail_closed": true,
+    "manual_override_permitted": false
+  },
+  "frozen_design": {
+    "status": "verified",
+    "assignment_type": "connected_incomplete_block",
+    "raters": 12,
+    "alternates_target": 2,
+    "monitoring_classes": 4,
+    "domains": 4,
+    "items_per_class": 24,
+    "ratings_per_item": 6,
+    "unique_items": 96,
+    "total_assignments": 576,
+    "items_per_rater": 48,
+    "assignment_digest_sha256": "3d9012606c5803c6369eea601679cffa298569c8f4f84c48c878f6fc95420cc8",
+    "evidence": [
+      "research/egc2/generate_monitoring_assignment_12x24r6.py",
+      "research/egc2/test_generate_monitoring_assignment_12x24r6.py",
+      "research/egc2/results/monitoring_assignment_12x24r6_validation_summary.json",
+      "research/EGC_2_12X24R6_MONITORING_ASSIGNMENT_DESIGN.md"
+    ]
+  },
+  "gates": [
+    {
+      "id": "L0",
+      "name": "Ethics and data-use determination",
+      "required": true,
+      "status": "not_started",
+      "requirements": [
+        "Document whether formal ethics or institutional review is required for the intended use.",
+        "Do not claim exemption without an authorized determination.",
+        "Freeze plain-language consent, withdrawal, confidentiality, compensation, retention, and deletion terms.",
+        "Use synthetic or properly consented and deidentified item material."
+      ],
+      "evidence_paths": []
+    },
+    {
+      "id": "L1",
+      "name": "Item bank complete",
+      "required": true,
+      "status": "not_started",
+      "requirements": [
+        "Exactly 96 item packets exist.",
+        "Exactly 24 packets exist in each monitoring class.",
+        "Exactly 6 packets exist in every class-by-domain cell.",
+        "Every packet includes intention map, response, reason codes, expert rationale, ambiguity notes, source type, version, and digest.",
+        "Protected monitoring metadata is absent from rater-facing exports."
+      ],
+      "evidence_paths": []
+    },
+    {
+      "id": "L2",
+      "name": "Independent expert references",
+      "required": true,
+      "status": "not_started",
+      "requirements": [
+        "At least three independent expert reviews exist for candidate anchors.",
+        "Independent scores and disagreements are preserved.",
+        "Rejected and revised candidates remain auditable.",
+        "Reference distributions are frozen before rater recruitment."
+      ],
+      "evidence_paths": []
+    },
+    {
+      "id": "L3",
+      "name": "Recruitment and screening materials",
+      "required": true,
+      "status": "not_started",
+      "requirements": [
+        "Recruitment copy is frozen.",
+        "Eligibility and conflict-of-interest screener is frozen.",
+        "Compensation and expected workload are stated accurately.",
+        "Automated-assistance prohibition is explicit."
+      ],
+      "evidence_paths": [
+        "research/egc2/RATER_RECRUITMENT_AND_SCREENING_PACKET.md"
+      ]
+    },
+    {
+      "id": "L4",
+      "name": "Training and certification materials",
+      "required": true,
+      "status": "not_started",
+      "requirements": [
+        "Twelve annotated training examples exist.",
+        "Twelve unannotated certification examples exist.",
+        "Construct-violation test exists.",
+        "Certification and second-attempt rules are frozen.",
+        "Rater-facing rubric and reason-code guide are frozen."
+      ],
+      "evidence_paths": [
+        "research/egc2/RATER_TRAINING_AND_CERTIFICATION_PACKET.md",
+        "research/EGC_2_HUMAN_RATING_RELIABILITY_PROTOCOL.md"
+      ]
+    },
+    {
+      "id": "L5",
+      "name": "Interface and export validation",
+      "required": true,
+      "status": "not_started",
+      "requirements": [
+        "All 12 opaque queues import successfully.",
+        "No protected metadata appears in rater-facing payloads.",
+        "All required fields export correctly.",
+        "Transport failures and incomplete submissions are distinguishable.",
+        "A complete dry run reproduces the analysis-ready dataset."
+      ],
+      "evidence_paths": []
+    },
+    {
+      "id": "L6",
+      "name": "Analysis and exclusion freeze",
+      "required": true,
+      "status": "not_started",
+      "requirements": [
+        "Primary and secondary outcomes are frozen.",
+        "Reliability estimands and uncertainty methods are frozen.",
+        "Structural-validity gates are frozen.",
+        "Missingness categories and rater exclusion rules are frozen.",
+        "Stopping, replacement, adjudication, and sensitivity rules are frozen.",
+        "Null and failed-result reporting obligations are frozen."
+      ],
+      "evidence_paths": [
+        "research/EGC_2_HUMAN_RATING_RELIABILITY_PROTOCOL.md",
+        "research/egc2/structural_validity_gates.v0.1.json"
+      ]
+    },
+    {
+      "id": "L7",
+      "name": "Recruitment complete",
+      "required": true,
+      "status": "not_started",
+      "requirements": [
+        "At least 12 production raters pass certification.",
+        "Target of 2 certified alternates is attempted and reported.",
+        "Recruitment flow and every exclusion or failure are preserved.",
+        "No production rater helped create or label the item bank."
+      ],
+      "evidence_paths": []
+    },
+    {
+      "id": "L8",
+      "name": "Preproduction integrity check",
+      "required": true,
+      "status": "not_started",
+      "requirements": [
+        "Assignment digest matches the frozen digest.",
+        "Item-bank digest matches the frozen manifest.",
+        "Rater IDs are separate from contact and payment records.",
+        "Protected metadata access is restricted.",
+        "Backup and incident-recovery procedures are tested.",
+        "No substantive condition labels or participant-effect results have been inspected."
+      ],
+      "evidence_paths": []
+    }
+  ],
+  "current_readiness": {
+    "required_gates_verified": 0,
+    "required_gates_total": 9,
+    "production_launch_permitted": false,
+    "next_blocking_gate": "L0",
+    "next_action": "Complete the ethics/data-use determination and construct the first 24 independently reviewed anchor packets."
+  }
+}
