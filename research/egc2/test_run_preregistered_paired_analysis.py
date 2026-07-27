@@ -2,13 +2,16 @@
 from __future__ import annotations
 
 import subprocess
+import tempfile
 import unittest
 from pathlib import Path
 from unittest.mock import patch
 
+from analyze_lineage_checked_paired_sensitivity import RunContractViolation
 from run_preregistered_paired_analysis import (
     RepositoryAttestationError,
     attest_repository,
+    resolve_output_target,
 )
 
 
@@ -93,6 +96,47 @@ class RepositoryAttestationTests(unittest.TestCase):
         ):
             with self.assertRaisesRegex(RepositoryAttestationError, "unable to execute git"):
                 attest_repository(ROOT)
+
+
+class OutputTargetBindingTests(unittest.TestCase):
+    FROZEN = "research/egc2/results/preregistered-run.json"
+
+    def test_exact_resolved_repository_target_passes(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory).resolve()
+            requested = root / self.FROZEN
+            target, runtime_value = resolve_output_target(root, self.FROZEN, requested)
+            self.assertEqual(target, requested.resolve(strict=False))
+            self.assertEqual(runtime_value, self.FROZEN)
+
+    def test_same_relative_string_from_other_working_directory_fails(self):
+        with tempfile.TemporaryDirectory() as repository_directory, tempfile.TemporaryDirectory() as other_directory:
+            root = Path(repository_directory).resolve()
+            requested = Path(other_directory) / self.FROZEN
+            with self.assertRaisesRegex(RunContractViolation, "does not resolve"):
+                resolve_output_target(root, self.FROZEN, requested)
+
+    def test_absolute_frozen_path_fails(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory).resolve()
+            with self.assertRaisesRegex(RunContractViolation, "repository-relative"):
+                resolve_output_target(root, "/tmp/result.json", root / "result.json")
+
+    def test_traversing_frozen_path_fails(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory).resolve()
+            with self.assertRaisesRegex(RunContractViolation, "non-traversing"):
+                resolve_output_target(root, "research/../outside.json", root / "outside.json")
+
+    def test_existing_parent_symlink_escape_fails(self):
+        with tempfile.TemporaryDirectory() as repository_directory, tempfile.TemporaryDirectory() as outside_directory:
+            root = Path(repository_directory).resolve()
+            results_parent = root / "research" / "egc2"
+            results_parent.mkdir(parents=True)
+            (results_parent / "results").symlink_to(Path(outside_directory), target_is_directory=True)
+            requested = results_parent / "results" / "preregistered-run.json"
+            with self.assertRaisesRegex(RunContractViolation, "outside the attested repository"):
+                resolve_output_target(root, self.FROZEN, requested)
 
 
 if __name__ == "__main__":
