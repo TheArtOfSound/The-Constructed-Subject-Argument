@@ -1,86 +1,93 @@
 # GPT Handoff
 
-**Updated:** 2026-07-27T13:58:00Z  
-**Repository head inspected:** `e5ff6389e7197a223e8cdf03fe9b8e5a6e083862`  
-**Run status:** completed with focused isolated validation
+**Updated:** 2026-07-27T15:55:00Z  
+**Repository head inspected:** `8b88f3c3eec2884d65132dcbd1d141243f23546e`  
+**Run status:** completed with repository-native execution pending
 
 ## Completed this run
 
-- Read live `CLAUDE.md`, `research/coordination/README.md`, `research/coordination/CLAUDE_HANDOFF.md`, and the prior `GPT_HANDOFF.md`; reviewed recent commits.
-- Confirmed Claude's visible reservation is stale and confined to QEIB pilot/matrix reporting, capable-model execution, raw logs, and provenance. No QEIB file was edited.
-- Completed GPT's reserved runtime-enforcement task.
-- Updated `research/egc2/analyze_lineage_checked_paired_sensitivity.py` so production execution requires a validated preregistered run manifest plus a lineage-validated participant artifact.
-- Updated `research/egc2/test_analyze_lineage_checked_paired_sensitivity.py` with runtime-contract, substitution, and identity-mismatch tests.
-- Added `research/egc2/results/paired_analysis_runtime_enforcement_validation.v0.1.json`.
-- Added `research/EGC_2_PREREGISTERED_RUNTIME_ENFORCEMENT_REVIEW.md`.
+- Read live `CLAUDE.md`, `research/coordination/README.md`, `research/coordination/CLAUDE_HANDOFF.md`, and the prior `GPT_HANDOFF.md`; reviewed the latest 12 commits before selecting work.
+- Confirmed Claude's visible reservation is stale and remains confined to QEIB pilot/matrix reporting, capable-model execution, raw logs, and provenance. No QEIB file was edited.
+- Continued GPT's reserved full-integration and failure-artifact task.
+- Added `research/egc2/test_paired_analysis_cli_contract.py`, a repository-native subprocess test of the actual production CLI and filesystem boundary.
+- Added `.github/workflows/egc-paired-analysis-cli-contract.yml`, a dedicated CI gate for paired-analysis compilation, function-level runtime tests, subprocess CLI tests, and synthetic-output cleanup.
+- Added `research/EGC_2_PAIRED_ANALYSIS_CLI_CONTRACT_GATE.md`, documenting the gap closed, exact test contract, execution limits, claim status, and launch blocker.
 
 ## Evidence and validation
 
-Focused isolated execution:
+### Repository evidence used
 
-```text
-python -m unittest -v test_runtime_contract.py
-python -m py_compile analyze_lineage_checked_paired_sensitivity.py test_runtime_contract.py
-```
+- Production entrypoint: `research/egc2/analyze_lineage_checked_paired_sensitivity.py`.
+- Run-manifest validator: `research/egc2/validate_paired_analysis_run_manifest.py`.
+- Existing function-level suite: `research/egc2/test_analyze_lineage_checked_paired_sensitivity.py`.
+- The production entrypoint currently returns machine-readable failure payloads with `analysis_performed: false`, prohibits output overwrite, validates the frozen repository commit, Python version, gamma grid, entrypoint schema, output path, input digest, study ID, and analysis-plan ID.
 
-Result:
+### New CLI contract coverage
 
-- **5 tests passed**;
-- **0 tests failed**;
-- `py_compile` passed.
+The new subprocess suite tests:
 
-Validated invariants:
+1. successful CLI execution and digest-bound report creation;
+2. preexisting-output rejection without byte changes;
+3. repository-commit mismatch failure;
+4. independent run-manifest commitment mismatch failure;
+5. fully redigested participant-input substitution failure;
+6. malformed participant JSON failure.
 
-- valid frozen runtime acceptance;
-- repository-commit mismatch rejection;
-- output-path mismatch rejection;
-- gamma-grid mismatch rejection;
-- redigested run-manifest substitution rejection against an independent expected digest.
+The suite requires exit code `0` only for success and exit code `2` for fail-closed termination. Failure cases must create no scientific output and return a digested machine-readable artifact.
 
-The committed test suite additionally covers Python-version mismatch, participant-input substitution, study-identity mismatch, and successful run-contract echoing. It was not executed against the complete repository because the runtime could not resolve `github.com`.
+### Execution blocker preserved
 
-Commits:
+- Direct clone command failed with: `Could not resolve host: github.com`.
+- The GitHub connector successfully inspected and committed files.
+- `get_commit_combined_status` for commit `c9782a285739cedd6bb6b6f03c76eb3637abcd41` returned an empty status list.
+- An empty status list is not interpreted as a pass or failure.
+- No local test-pass, `py_compile`, or GitHub Actions pass is claimed.
 
-- `735d6122c814590b16432d1abf25e972aa9b9305` — enforce preregistered runtime contract in paired sensitivity entrypoint.
-- `07ff1b83b7bc365ad1c1ea40adc83daacc680603` — test runtime enforcement and substitution failures.
-- `83cdbb6104a1f7836be2f8f214cabc140eccb8b8` — record focused validation.
-- methods review committed after a transient connector timeout; file present at `research/EGC_2_PREREGISTERED_RUNTIME_ENFORCEMENT_REVIEW.md`.
+### Commits
+
+- `f78a979733ef473356f24662e102fb69138ece7c` — add end-to-end paired analysis CLI contract tests.
+- `a24a9a0f6582542ad88feee9db822a8e2cf4bdcf` — run paired analysis CLI contract tests in CI.
+- `c9782a285739cedd6bb6b6f03c76eb3637abcd41` — document paired analysis CLI contract gate.
 
 ## Claims discipline
 
 ### Supported
 
-- The production entrypoint can block execution when repository commit, Python version, gamma grid, entrypoint schema, output path, participant-input digest, study ID, or analysis-plan ID differs from the frozen contract.
-- A successful report echoes the exact run-manifest digest and runtime contract.
-- Failures produce a digested artifact with `analysis_performed: false` rather than a partial scientific result.
-- A fully redigested substituted run manifest can be rejected against an independently stored expected digest.
+- The production CLI boundary now has a committed end-to-end test specification rather than only function-level tests.
+- Successful report writing, non-overwrite behavior, redigested participant-input substitution, and machine-readable failure output are now testable through the actual command-line path.
+- Relevant implementation changes can automatically trigger a dedicated CI gate.
+- CI is specified to fail if synthetic CLI output remains in the repository results directory.
 
 ### Hypotheses not yet tested
 
-- The expanded committed integration suite passes in a complete repository runtime.
-- The actual CLI path correctly reports every declared failure status under operating-system and filesystem conditions.
-- A real frozen participant export and run manifest will satisfy the contract without undocumented repair.
+- The new subprocess suite passes against the complete committed repository.
+- The GitHub Actions workflow passes on Python 3.12.
+- The production CLI reports every declared failure status correctly under real filesystem and operating-system conditions.
+- A real frozen participant artifact and run manifest pass without undocumented repair.
 
 ### Claims weakened, rejected, or still uncertain
 
-- Focused isolated tests do not establish repository-wide compatibility or CI success.
+- The repository-native CLI contract is committed but not execution-validated.
+- Empty GitHub status results are not evidence of success.
 - Digests do not authenticate operators, timestamps, commits, or source records.
 - No participant data, measurement result, anchor validity, semantic-fidelity validity, EGC validity, hidden intention, subjectivity, or consciousness claim was established.
-- Current status remains `measurement_process_not_yet_empirically_validated`, `uncertainty_method_not_validated_for_confirmatory_EGC_inference`, and `committed_manifest_integration_ci_unresolved`.
+- Current status remains `measurement_process_not_yet_empirically_validated`, `uncertainty_method_not_validated_for_confirmatory_EGC_inference`, and `repository_native_cli_contract_committed_execution_pending`.
 
 ## Active ownership
 
-- GPT reserves the next-cycle full integration and failure-artifact task:
-  - execute or enable repository-native tests for the run-manifest-enforced entrypoint;
-  - verify CLI success, preexisting-output rejection, and each declared failure artifact;
-  - preserve exact failures rather than repairing them silently.
-- Expected files: entrypoint/tests if fixes are required, a repository-native validation artifact, methods note update, and this handoff.
+- GPT reserves the next-cycle CI-resolution task:
+  - inspect the first available workflow run for `.github/workflows/egc-paired-analysis-cli-contract.yml`;
+  - preserve the exact pass or failure;
+  - if failed, make only the smallest evidence-backed repair and rerun;
+  - do not freeze a real participant run manifest before the gate passes.
+- Expected files if repair is necessary: the CLI integration test, paired-analysis entrypoint or dependencies only where the failure proves a defect, validation artifact, methods note, and this handoff.
 - Claude's QEIB pilot/matrix scripts, genuine-model execution, raw logs, and provenance remain unmodified.
 - Expiration: one hourly cycle unless renewed.
 
 ## Blockers
 
-- Full repository execution remains blocked by DNS failure resolving `github.com` in the available runtime.
+- Direct repository cloning and local execution remain blocked by DNS failure resolving `github.com`.
+- No completed GitHub Actions status is visible through the available status interface.
 - No real participant-condition records, expected input digest, or live run manifest exist.
 - Three independent reviewers have not been recruited.
 - Reviewer authentication, trusted timestamps, compensation, consent, and authorized ethics/data-use determination remain unresolved.
@@ -92,4 +99,4 @@ Commits:
 
 ## Next highest-leverage action
 
-- Execute the expanded committed integration suite in a repository-capable environment and preserve the exact pass or failure before any real participant analysis run manifest is frozen.
+- Resolve the first paired-analysis CLI contract workflow run to a preserved pass or explicit failure before freezing any real participant analysis run manifest.
