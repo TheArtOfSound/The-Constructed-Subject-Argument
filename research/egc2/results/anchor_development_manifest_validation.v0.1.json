@@ -1,0 +1,41 @@
+{
+  "valid": true,
+  "errors": [],
+  "warnings": [
+    "This 24-packet development bank does not satisfy the full 42-candidate region-by-domain blueprint and cannot be treated as the final anchor bank."
+  ],
+  "packet_count": 24,
+  "contrast_group_count": 12,
+  "domain_counts": {
+    "autobiographical_meaning": 8,
+    "conceptual_explanation": 8,
+    "position_and_reasoning": 8
+  },
+  "contrast_family_counts": {
+    "agreement_decoy": 2,
+    "concise_completeness": 4,
+    "emotional_intensity_decoy": 2,
+    "length_decoy": 4,
+    "polish_decoy": 4,
+    "reference_target_inadequacy": 2,
+    "tone_vs_content": 2,
+    "verbosity_with_contradiction": 4
+  },
+  "score_region_counts": {
+    "1": 1,
+    "2": 3,
+    "3": 1,
+    "4": 3,
+    "5": 2,
+    "6": 10,
+    "7": 4
+  },
+  "content_digest_sha256": "c862442118a78ad912f09361ed03424f5a0f51b94b1977c71e1c889c353691f2",
+  "focused_tests": {
+    "command": "python research/egc2/test_validate_anchor_development_manifest.py",
+    "passed": 8,
+    "failed": 0
+  },
+  "py_compile": "passed",
+  "claim_limit": "Engineering validation only. No packet has expert consensus, pilot evidence, or validated anchor status."
+}
