@@ -1,0 +1,1879 @@
+{
+  "schema_version": "egc2-anchor-development-manifest-0.1.0",
+  "manifest_id": "egc2-first-24-anchor-development-bank-v0.1.0",
+  "status": "draft_unreviewed",
+  "created_at_utc": "2026-07-27T02:15:00Z",
+  "target_construct": "semantic_fidelity",
+  "scope": {
+    "purpose": "First synthetic development bank for blind expert review and rater-training material development.",
+    "non_claims": [
+      "No packet has an expert consensus score.",
+      "No packet is a validated anchor.",
+      "The bank does not validate EGC, hidden intention, consciousness, or the seven-point scale.",
+      "The 24-packet bank does not satisfy the full 42-candidate region-by-domain blueprint."
+    ]
+  },
+  "design_contract": {
+    "packet_count": 24,
+    "contrast_group_count": 12,
+    "packets_per_domain": 8,
+    "domains": [
+      "autobiographical_meaning",
+      "conceptual_explanation",
+      "position_and_reasoning"
+    ],
+    "required_contrast_families": [
+      "length_decoy",
+      "polish_decoy",
+      "emotional_intensity_decoy",
+      "agreement_decoy",
+      "verbosity_with_contradiction",
+      "concise_completeness",
+      "tone_vs_content",
+      "reference_target_inadequacy"
+    ],
+    "required_score_regions": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "pairing_rule": "Every contrast_group_id contains exactly two packets using the same prompt. Non-reference-target pairs use the same private intention map."
+  },
+  "content_digest_sha256": "c862442118a78ad912f09361ed03424f5a0f51b94b1977c71e1c889c353691f2",
+  "packets": [
+    {
+      "anchor_id": "A001",
+      "anchor_version": "0.1.0",
+      "prompt_domain": "autobiographical_meaning",
+      "prompt_text": "Describe what a difficult move taught you about asking for help.",
+      "private_intention_map": {
+        "central_meaning": "The move taught me that asking for help is not weakness; it is a practical way to protect relationships and avoid preventable exhaustion.",
+        "essential_concepts": [
+          "the move was physically and emotionally difficult",
+          "I initially tried to handle everything alone",
+          "asking for help reduced strain",
+          "accepting help strengthened rather than diminished relationships"
+        ],
+        "relationships": [
+          {
+            "relationship_type": "causal",
+            "description": "Trying to manage the move alone increased exhaustion and tension.",
+            "meaning_critical": true
+          },
+          {
+            "relationship_type": "causal",
+            "description": "Asking for help reduced strain and allowed others to participate supportively.",
+            "meaning_critical": true
+          },
+          {
+            "relationship_type": "evaluative",
+            "description": "Help-seeking should be understood as practical trust rather than personal failure.",
+            "meaning_critical": true
+          }
+        ],
+        "intended_tone": "reflective and matter-of-fact",
+        "intended_audience_understanding": "The reader should understand that the lesson concerns trust and sustainable cooperation, not merely logistics.",
+        "declared_uncertainty": null,
+        "adequacy_status": "adequate",
+        "adequacy_note": null
+      },
+      "candidate_response": "I tried to do the whole move alone and wore myself down. Letting people help did not make me weak; it reduced the strain and made the experience feel shared.",
+      "provisional_score_region": 6,
+      "provisional_reason_codes": [
+        "NO_MATERIAL_LOSS",
+        "LENGTH_DECOY"
+      ],
+      "construct_irrelevant_features": [
+        "length"
+      ],
+      "contrast_family": "length_decoy",
+      "contrast_group_id": "G01",
+      "expert_rationale": {
+        "preserved_components": [
+          "initial self-reliance",
+          "exhaustion",
+          "help reduced strain",
+          "help did not equal weakness"
+        ],
+        "lost_or_changed_components": [
+          "the relationship-strengthening point is implied rather than explicit"
+        ],
+        "region_justification": "The short response preserves the central lesson and all meaning-critical causal links. One secondary implication is compressed."
+      },
+      "admissible_score_range": {
+        "minimum": 5,
+        "maximum": 7
+      },
+      "known_ambiguities": [
+        "Some reviewers may treat 'shared' as sufficient expression of strengthened relationships."
+      ],
+      "validation_status": "draft_unreviewed",
+      "source_type": "synthetic_constructed",
+      "blind_review": null,
+      "pilot_metrics": null,
+      "audit": {
+        "created_at_utc": "2026-07-27T02:15:00Z",
+        "created_by": [
+          "GPT-5.6 Thinking",
+          "Bryan Leonard"
+        ],
+        "condition_blind": true,
+        "contains_identifiable_participant_material": false,
+        "supersedes_version": null,
+        "retirement_reason": null
+      }
+    },
+    {
+      "anchor_id": "A002",
+      "anchor_version": "0.1.0",
+      "prompt_domain": "autobiographical_meaning",
+      "prompt_text": "Describe what a difficult move taught you about asking for help.",
+      "private_intention_map": {
+        "central_meaning": "The move taught me that asking for help is not weakness; it is a practical way to protect relationships and avoid preventable exhaustion.",
+        "essential_concepts": [
+          "the move was physically and emotionally difficult",
+          "I initially tried to handle everything alone",
+          "asking for help reduced strain",
+          "accepting help strengthened rather than diminished relationships"
+        ],
+        "relationships": [
+          {
+            "relationship_type": "causal",
+            "description": "Trying to manage the move alone increased exhaustion and tension.",
+            "meaning_critical": true
+          },
+          {
+            "relationship_type": "causal",
+            "description": "Asking for help reduced strain and allowed others to participate supportively.",
+            "meaning_critical": true
+          },
+          {
+            "relationship_type": "evaluative",
+            "description": "Help-seeking should be understood as practical trust rather than personal failure.",
+            "meaning_critical": true
+          }
+        ],
+        "intended_tone": "reflective and matter-of-fact",
+        "intended_audience_understanding": "The reader should understand that the lesson concerns trust and sustainable cooperation, not merely logistics.",
+        "declared_uncertainty": null,
+        "adequacy_status": "adequate",
+        "adequacy_note": null
+      },
+      "candidate_response": "During the move, I kept insisting that I could pack, lift, organize, and solve every problem without involving anyone else. That choice left me exhausted and made ordinary setbacks feel much larger. Once I accepted help, the practical burden eased, but the more important change was realizing that receiving support did not reduce my independence or competence. It gave people who cared about me a way to participate, and the move became less isolating. I came away seeing help-seeking as an act of trust and sensible cooperation rather than evidence that I had failed.",
+      "provisional_score_region": 6,
+      "provisional_reason_codes": [
+        "NO_MATERIAL_LOSS",
+        "LENGTH_DECOY"
+      ],
+      "construct_irrelevant_features": [
+        "length",
+        "polish"
+      ],
+      "contrast_family": "length_decoy",
+      "contrast_group_id": "G01",
+      "expert_rationale": {
+        "preserved_components": [
+          "initial self-reliance",
+          "exhaustion",
+          "help reduced strain",
+          "help strengthened relationships",
+          "help-seeking reframed as trust"
+        ],
+        "lost_or_changed_components": [],
+        "region_justification": "The long response preserves the same central meaning and relationships as its concise pair. Extra detail should not raise the score merely because it is longer."
+      },
+      "admissible_score_range": {
+        "minimum": 6,
+        "maximum": 7
+      },
+      "known_ambiguities": [
+        "The response is more explicit than the short pair, so some experts may prefer region 7."
+      ],
+      "validation_status": "draft_unreviewed",
+      "source_type": "synthetic_constructed",
+      "blind_review": null,
+      "pilot_metrics": null,
+      "audit": {
+        "created_at_utc": "2026-07-27T02:15:00Z",
+        "created_by": [
+          "GPT-5.6 Thinking",
+          "Bryan Leonard"
+        ],
+        "condition_blind": true,
+        "contains_identifiable_participant_material": false,
+        "supersedes_version": null,
+        "retirement_reason": null
+      }
+    },
+    {
+      "anchor_id": "A003",
+      "anchor_version": "0.1.0",
+      "prompt_domain": "autobiographical_meaning",
+      "prompt_text": "Explain why a family argument changed how you handle disagreement.",
+      "private_intention_map": {
+        "central_meaning": "The argument taught me to pause before responding because immediate defensiveness can turn a solvable disagreement into personal harm.",
+        "essential_concepts": [
+          "the conflict began over a manageable issue",
+          "I became defensive",
+          "defensiveness escalated the conflict",
+          "pausing and clarifying can prevent personal harm"
+        ],
+        "relationships": [
+          {
+            "relationship_type": "causal",
+            "description": "Immediate defensiveness escalated a manageable disagreement.",
+            "meaning_critical": true
+          },
+          {
+            "relationship_type": "causal",
+            "description": "Pausing and clarifying reduces the chance of avoidable personal harm.",
+            "meaning_critical": true
+          }
+        ],
+        "intended_tone": "regretful but controlled",
+        "intended_audience_understanding": "The reader should understand that the lesson is about interrupting escalation, not avoiding disagreement entirely.",
+        "declared_uncertainty": null,
+        "adequacy_status": "adequate",
+        "adequacy_note": null
+      },
+      "candidate_response": "The disagreement itself was manageable, but I reacted defensively and made it personal. I learned to pause, ask what the other person means, and answer the actual issue before hurt and pride take over.",
+      "provisional_score_region": 6,
+      "provisional_reason_codes": [
+        "NO_MATERIAL_LOSS",
+        "EMOTION_DECOY"
+      ],
+      "construct_irrelevant_features": [
+        "emotional_intensity"
+      ],
+      "contrast_family": "emotional_intensity_decoy",
+      "contrast_group_id": "G02",
+      "expert_rationale": {
+        "preserved_components": [
+          "manageable disagreement",
+          "defensiveness",
+          "escalation",
+          "pause and clarify"
+        ],
+        "lost_or_changed_components": [
+          "the distinction between pausing and avoiding disagreement is only implicit"
+        ],
+        "region_justification": "The restrained response preserves the full causal lesson without relying on emotional intensity."
+      },
+      "admissible_score_range": {
+        "minimum": 5,
+        "maximum": 7
+      },
+      "known_ambiguities": [],
+      "validation_status": "draft_unreviewed",
+      "source_type": "synthetic_constructed",
+      "blind_review": null,
+      "pilot_metrics": null,
+      "audit": {
+        "created_at_utc": "2026-07-27T02:15:00Z",
+        "created_by": [
+          "GPT-5.6 Thinking",
+          "Bryan Leonard"
+        ],
+        "condition_blind": true,
+        "contains_identifiable_participant_material": false,
+        "supersedes_version": null,
+        "retirement_reason": null
+      }
+    },
+    {
+      "anchor_id": "A004",
+      "anchor_version": "0.1.0",
+      "prompt_domain": "autobiographical_meaning",
+      "prompt_text": "Explain why a family argument changed how you handle disagreement.",
+      "private_intention_map": {
+        "central_meaning": "The argument taught me to pause before responding because immediate defensiveness can turn a solvable disagreement into personal harm.",
+        "essential_concepts": [
+          "the conflict began over a manageable issue",
+          "I became defensive",
+          "defensiveness escalated the conflict",
+          "pausing and clarifying can prevent personal harm"
+        ],
+        "relationships": [
+          {
+            "relationship_type": "causal",
+            "description": "Immediate defensiveness escalated a manageable disagreement.",
+            "meaning_critical": true
+          },
+          {
+            "relationship_type": "causal",
+            "description": "Pausing and clarifying reduces the chance of avoidable personal harm.",
+            "meaning_critical": true
+          }
+        ],
+        "intended_tone": "regretful but controlled",
+        "intended_audience_understanding": "The reader should understand that the lesson is about interrupting escalation, not avoiding disagreement entirely.",
+        "declared_uncertainty": null,
+        "adequacy_status": "adequate",
+        "adequacy_note": null
+      },
+      "candidate_response": "That argument shattered me. I felt betrayed, furious, and completely alone, and I still remember every cruel word. It showed me how deeply family can hurt you and how long anger can stay in your body.",
+      "provisional_score_region": 3,
+      "provisional_reason_codes": [
+        "EC_MISSING",
+        "REL_MISSING",
+        "IMPLICATION_CHANGED",
+        "EMOTION_DECOY"
+      ],
+      "construct_irrelevant_features": [
+        "emotional_intensity"
+      ],
+      "contrast_family": "emotional_intensity_decoy",
+      "contrast_group_id": "G02",
+      "expert_rationale": {
+        "preserved_components": [
+          "the argument caused emotional pain",
+          "family disagreement can have lasting effects"
+        ],
+        "lost_or_changed_components": [
+          "manageable origin of conflict",
+          "defensiveness as the escalation mechanism",
+          "pausing and clarifying as the lesson",
+          "disagreement should not be avoided"
+        ],
+        "region_justification": "The response is emotionally vivid but transmits a different lesson: enduring hurt rather than interruption of defensive escalation."
+      },
+      "admissible_score_range": {
+        "minimum": 2,
+        "maximum": 4
+      },
+      "known_ambiguities": [
+        "A reviewer may infer defensiveness from anger, but the intended causal lesson and remedy remain absent."
+      ],
+      "validation_status": "draft_unreviewed",
+      "source_type": "synthetic_constructed",
+      "blind_review": null,
+      "pilot_metrics": null,
+      "audit": {
+        "created_at_utc": "2026-07-27T02:15:00Z",
+        "created_by": [
+          "GPT-5.6 Thinking",
+          "Bryan Leonard"
+        ],
+        "condition_blind": true,
+        "contains_identifiable_participant_material": false,
+        "supersedes_version": null,
+        "retirement_reason": null
+      }
+    },
+    {
+      "anchor_id": "A005",
+      "anchor_version": "0.1.0",
+      "prompt_domain": "autobiographical_meaning",
+      "prompt_text": "Describe what receiving unexpected financial help meant to you.",
+      "private_intention_map": {
+        "central_meaning": "The help brought relief, but it also made me feel exposed and grateful; I want the account to preserve both emotions rather than present the event as uncomplicated happiness.",
+        "essential_concepts": [
+          "unexpected help reduced immediate pressure",
+          "receiving help exposed my vulnerability",
+          "I felt gratitude",
+          "relief and discomfort coexisted"
+        ],
+        "relationships": [
+          {
+            "relationship_type": "temporal",
+            "description": "Relief followed the removal of immediate pressure.",
+            "meaning_critical": true
+          },
+          {
+            "relationship_type": "evaluative",
+            "description": "The help was positive without being emotionally simple.",
+            "meaning_critical": true
+          },
+          {
+            "relationship_type": "comparative",
+            "description": "Gratitude and vulnerability were simultaneous rather than mutually exclusive.",
+            "meaning_critical": true
+          }
+        ],
+        "intended_tone": "quietly grateful and vulnerable",
+        "intended_audience_understanding": "The reader should understand that receiving help was beneficial while also emotionally exposing.",
+        "declared_uncertainty": null,
+        "adequacy_status": "adequate",
+        "adequacy_note": null
+      },
+      "candidate_response": "The money solved the immediate problem, and I was grateful. It was a straightforwardly happy moment that reminded me how lucky I was.",
+      "provisional_score_region": 4,
+      "provisional_reason_codes": [
+        "TONE_MISMATCH_MATERIAL",
+        "EC_MISSING",
+        "IMPLICATION_CHANGED"
+      ],
+      "construct_irrelevant_features": [
+        "emotional_intensity"
+      ],
+      "contrast_family": "tone_vs_content",
+      "contrast_group_id": "G03",
+      "expert_rationale": {
+        "preserved_components": [
+          "financial pressure was reduced",
+          "gratitude"
+        ],
+        "lost_or_changed_components": [
+          "vulnerability",
+          "coexistence of relief and discomfort",
+          "emotionally mixed character of the event"
+        ],
+        "region_justification": "The core event and one emotion are preserved, but the response converts a deliberately mixed experience into uncomplicated happiness."
+      },
+      "admissible_score_range": {
+        "minimum": 3,
+        "maximum": 5
+      },
+      "known_ambiguities": [
+        "Reviewers may differ on how much a tone mismatch should lower fidelity when propositional facts remain accurate."
+      ],
+      "validation_status": "draft_unreviewed",
+      "source_type": "synthetic_constructed",
+      "blind_review": null,
+      "pilot_metrics": null,
+      "audit": {
+        "created_at_utc": "2026-07-27T02:15:00Z",
+        "created_by": [
+          "GPT-5.6 Thinking",
+          "Bryan Leonard"
+        ],
+        "condition_blind": true,
+        "contains_identifiable_participant_material": false,
+        "supersedes_version": null,
+        "retirement_reason": null
+      }
+    },
+    {
+      "anchor_id": "A006",
+      "anchor_version": "0.1.0",
+      "prompt_domain": "autobiographical_meaning",
+      "prompt_text": "Describe what receiving unexpected financial help meant to you.",
+      "private_intention_map": {
+        "central_meaning": "The help brought relief, but it also made me feel exposed and grateful; I want the account to preserve both emotions rather than present the event as uncomplicated happiness.",
+        "essential_concepts": [
+          "unexpected help reduced immediate pressure",
+          "receiving help exposed my vulnerability",
+          "I felt gratitude",
+          "relief and discomfort coexisted"
+        ],
+        "relationships": [
+          {
+            "relationship_type": "temporal",
+            "description": "Relief followed the removal of immediate pressure.",
+            "meaning_critical": true
+          },
+          {
+            "relationship_type": "evaluative",
+            "description": "The help was positive without being emotionally simple.",
+            "meaning_critical": true
+          },
+          {
+            "relationship_type": "comparative",
+            "description": "Gratitude and vulnerability were simultaneous rather than mutually exclusive.",
+            "meaning_critical": true
+          }
+        ],
+        "intended_tone": "quietly grateful and vulnerable",
+        "intended_audience_understanding": "The reader should understand that receiving help was beneficial while also emotionally exposing.",
+        "declared_uncertainty": null,
+        "adequacy_status": "adequate",
+        "adequacy_note": null
+      },
+      "candidate_response": "The help gave me immediate relief, and I was deeply grateful. At the same time, needing it made me feel exposed. What mattered was that both things were true: the support helped me, and accepting it revealed how vulnerable I felt.",
+      "provisional_score_region": 6,
+      "provisional_reason_codes": [
+        "NO_MATERIAL_LOSS"
+      ],
+      "construct_irrelevant_features": [
+        "none"
+      ],
+      "contrast_family": "tone_vs_content",
+      "contrast_group_id": "G03",
+      "expert_rationale": {
+        "preserved_components": [
+          "relief",
+          "gratitude",
+          "vulnerability",
+          "coexistence of positive and uncomfortable emotions"
+        ],
+        "lost_or_changed_components": [],
+        "region_justification": "The response preserves the intended mixed emotional structure and the meaning-relevant tone."
+      },
+      "admissible_score_range": {
+        "minimum": 6,
+        "maximum": 7
+      },
+      "known_ambiguities": [],
+      "validation_status": "draft_unreviewed",
+      "source_type": "synthetic_constructed",
+      "blind_review": null,
+      "pilot_metrics": null,
+      "audit": {
+        "created_at_utc": "2026-07-27T02:15:00Z",
+        "created_by": [
+          "GPT-5.6 Thinking",
+          "Bryan Leonard"
+        ],
+        "condition_blind": true,
+        "contains_identifiable_participant_material": false,
+        "supersedes_version": null,
+        "retirement_reason": null
+      }
+    },
+    {
+      "anchor_id": "A007",
+      "anchor_version": "0.1.0",
+      "prompt_domain": "autobiographical_meaning",
+      "prompt_text": "Explain what a recent change in your routine meant to you.",
+      "private_intention_map": {
+        "central_meaning": "The change mattered.",
+        "essential_concepts": [
+          "routine changed"
+        ],
+        "relationships": [],
+        "intended_tone": null,
+        "intended_audience_understanding": "The reader should understand why the routine change mattered.",
+        "declared_uncertainty": null,
+        "adequacy_status": "too_sparse",
+        "adequacy_note": "The map does not identify the change, its consequences, or the intended interpretation."
+      },
+      "candidate_response": "Changing my mornings made me calmer and gave me more control over the day.",
+      "provisional_score_region": 4,
+      "provisional_reason_codes": [
+        "MAP_TOO_SPARSE"
+      ],
+      "construct_irrelevant_features": [
+        "none"
+      ],
+      "contrast_family": "reference_target_inadequacy",
+      "contrast_group_id": "G04",
+      "expert_rationale": {
+        "preserved_components": [
+          "a routine change is described as meaningful"
+        ],
+        "lost_or_changed_components": [
+          "the map provides no auditable basis for judging calmness, control, or morning timing"
+        ],
+        "region_justification": "The response is coherent, but the reference target is too sparse to support a defensible fidelity judgment. The numerical region is provisional and should not substitute for the adequacy flag."
+      },
+      "admissible_score_range": {
+        "minimum": 3,
+        "maximum": 5
+      },
+      "known_ambiguities": [
+        "Because the map is inadequate, experts may conclude that no numeric score should be retained."
+      ],
+      "validation_status": "draft_unreviewed",
+      "source_type": "synthetic_constructed",
+      "blind_review": null,
+      "pilot_metrics": null,
+      "audit": {
+        "created_at_utc": "2026-07-27T02:15:00Z",
+        "created_by": [
+          "GPT-5.6 Thinking",
+          "Bryan Leonard"
+        ],
+        "condition_blind": true,
+        "contains_identifiable_participant_material": false,
+        "supersedes_version": null,
+        "retirement_reason": null
+      }
+    },
+    {
+      "anchor_id": "A008",
+      "anchor_version": "0.1.0",
+      "prompt_domain": "autobiographical_meaning",
+      "prompt_text": "Explain what a recent change in your routine meant to you.",
+      "private_intention_map": {
+        "central_meaning": "Moving exercise to the morning made the day feel more manageable because it created an early success and reduced the chance that work would crowd exercise out.",
+        "essential_concepts": [
+          "exercise moved from evening to morning",
+          "morning exercise created an early sense of completion",
+          "work previously displaced evening exercise",
+          "the new routine made the day feel more manageable"
+        ],
+        "relationships": [
+          {
+            "relationship_type": "causal",
+            "description": "Morning scheduling reduced the chance that work would displace exercise.",
+            "meaning_critical": true
+          },
+          {
+            "relationship_type": "causal",
+            "description": "Completing exercise early created a sense of momentum.",
+            "meaning_critical": true
+          }
+        ],
+        "intended_tone": "practical and cautiously positive",
+        "intended_audience_understanding": "The reader should understand the specific mechanisms by which the routine change helped.",
+        "declared_uncertainty": null,
+        "adequacy_status": "adequate",
+        "adequacy_note": null
+      },
+      "candidate_response": "Moving exercise to the morning helped because work could no longer push it aside as easily. Finishing it early also gave me a small sense of momentum, which made the rest of the day feel more manageable.",
+      "provisional_score_region": 6,
+      "provisional_reason_codes": [
+        "NO_MATERIAL_LOSS"
+      ],
+      "construct_irrelevant_features": [
+        "none"
+      ],
+      "contrast_family": "reference_target_inadequacy",
+      "contrast_group_id": "G04",
+      "expert_rationale": {
+        "preserved_components": [
+          "morning exercise",
+          "protection from work displacement",
+          "early momentum",
+          "manageable day"
+        ],
+        "lost_or_changed_components": [],
+        "region_justification": "The adequate map makes the response auditable, and the response preserves both meaning-critical mechanisms."
+      },
+      "admissible_score_range": {
+        "minimum": 6,
+        "maximum": 7
+      },
+      "known_ambiguities": [],
+      "validation_status": "draft_unreviewed",
+      "source_type": "synthetic_constructed",
+      "blind_review": null,
+      "pilot_metrics": null,
+      "audit": {
+        "created_at_utc": "2026-07-27T02:15:00Z",
+        "created_by": [
+          "GPT-5.6 Thinking",
+          "Bryan Leonard"
+        ],
+        "condition_blind": true,
+        "contains_identifiable_participant_material": false,
+        "supersedes_version": null,
+        "retirement_reason": null
+      }
+    },
+    {
+      "anchor_id": "A009",
+      "anchor_version": "0.1.0",
+      "prompt_domain": "conceptual_explanation",
+      "prompt_text": "Explain why correlation alone does not establish causation.",
+      "private_intention_map": {
+        "central_meaning": "A correlation can arise because X causes Y, Y causes X, a third variable affects both, selection creates the pattern, or chance produces it; causal claims therefore require additional design or evidence.",
+        "essential_concepts": [
+          "correlation is an association",
+          "multiple causal structures can generate the same association",
+          "confounding or selection can create an association",
+          "causal inference requires additional evidence or design"
+        ],
+        "relationships": [
+          {
+            "relationship_type": "logical",
+            "description": "Observed association is compatible with several competing causal explanations.",
+            "meaning_critical": true
+          },
+          {
+            "relationship_type": "logical",
+            "description": "Because the explanations are observationally compatible, correlation alone cannot identify the causal direction.",
+            "meaning_critical": true
+          }
+        ],
+        "intended_tone": "clear and instructional",
+        "intended_audience_understanding": "The reader should understand underdetermination, not merely memorize the phrase 'correlation is not causation'.",
+        "declared_uncertainty": null,
+        "adequacy_status": "adequate",
+        "adequacy_note": null
+      },
+      "candidate_response": "Correlation only shows that two variables move together. X might cause Y, Y might cause X, or another factor might influence both. Selection or chance can also create the pattern, so a causal claim needs additional evidence or a design that rules out alternatives.",
+      "provisional_score_region": 6,
+      "provisional_reason_codes": [
+        "NO_MATERIAL_LOSS",
+        "POLISH_DECOY"
+      ],
+      "construct_irrelevant_features": [
+        "polish"
+      ],
+      "contrast_family": "polish_decoy",
+      "contrast_group_id": "G05",
+      "expert_rationale": {
+        "preserved_components": [
+          "association",
+          "reverse causation",
+          "confounding",
+          "selection or chance",
+          "need for additional design"
+        ],
+        "lost_or_changed_components": [],
+        "region_justification": "The plain response preserves the complete underdetermination argument."
+      },
+      "admissible_score_range": {
+        "minimum": 6,
+        "maximum": 7
+      },
+      "known_ambiguities": [],
+      "validation_status": "draft_unreviewed",
+      "source_type": "synthetic_constructed",
+      "blind_review": null,
+      "pilot_metrics": null,
+      "audit": {
+        "created_at_utc": "2026-07-27T02:15:00Z",
+        "created_by": [
+          "GPT-5.6 Thinking",
+          "Bryan Leonard"
+        ],
+        "condition_blind": true,
+        "contains_identifiable_participant_material": false,
+        "supersedes_version": null,
+        "retirement_reason": null
+      }
+    },
+    {
+      "anchor_id": "A010",
+      "anchor_version": "0.1.0",
+      "prompt_domain": "conceptual_explanation",
+      "prompt_text": "Explain why correlation alone does not establish causation.",
+      "private_intention_map": {
+        "central_meaning": "A correlation can arise because X causes Y, Y causes X, a third variable affects both, selection creates the pattern, or chance produces it; causal claims therefore require additional design or evidence.",
+        "essential_concepts": [
+          "correlation is an association",
+          "multiple causal structures can generate the same association",
+          "confounding or selection can create an association",
+          "causal inference requires additional evidence or design"
+        ],
+        "relationships": [
+          {
+            "relationship_type": "logical",
+            "description": "Observed association is compatible with several competing causal explanations.",
+            "meaning_critical": true
+          },
+          {
+            "relationship_type": "logical",
+            "description": "Because the explanations are observationally compatible, correlation alone cannot identify the causal direction.",
+            "meaning_critical": true
+          }
+        ],
+        "intended_tone": "clear and instructional",
+        "intended_audience_understanding": "The reader should understand underdetermination, not merely memorize the phrase 'correlation is not causation'.",
+        "declared_uncertainty": null,
+        "adequacy_status": "adequate",
+        "adequacy_note": null
+      },
+      "candidate_response": "Correlation is the elegant mathematical signature through which reality announces that one variable exerts its influence upon another. When two measurements rise and fall in harmony, the most coherent interpretation is that the first is producing the second, even if the precise pathway remains hidden.",
+      "provisional_score_region": 1,
+      "provisional_reason_codes": [
+        "CM_REVERSED",
+        "REL_REVERSED",
+        "POLISH_DECOY"
+      ],
+      "construct_irrelevant_features": [
+        "polish",
+        "vocabulary_sophistication",
+        "rhetorical_persuasion"
+      ],
+      "contrast_family": "polish_decoy",
+      "contrast_group_id": "G05",
+      "expert_rationale": {
+        "preserved_components": [
+          "variables can move together",
+          "a pathway may be unknown"
+        ],
+        "lost_or_changed_components": [
+          "multiple compatible causal structures",
+          "confounding",
+          "selection",
+          "chance",
+          "need for additional evidence"
+        ],
+        "region_justification": "The polished response reverses the central meaning by treating association as affirmative causal evidence."
+      },
+      "admissible_score_range": {
+        "minimum": 1,
+        "maximum": 2
+      },
+      "known_ambiguities": [
+        "Some readers may interpret 'most coherent' as probabilistic rather than conclusive, but the response still rejects the intended underdetermination."
+      ],
+      "validation_status": "draft_unreviewed",
+      "source_type": "synthetic_constructed",
+      "blind_review": null,
+      "pilot_metrics": null,
+      "audit": {
+        "created_at_utc": "2026-07-27T02:15:00Z",
+        "created_by": [
+          "GPT-5.6 Thinking",
+          "Bryan Leonard"
+        ],
+        "condition_blind": true,
+        "contains_identifiable_participant_material": false,
+        "supersedes_version": null,
+        "retirement_reason": null
+      }
+    },
+    {
+      "anchor_id": "A011",
+      "anchor_version": "0.1.0",
+      "prompt_domain": "conceptual_explanation",
+      "prompt_text": "Explain why a randomized controlled trial can reduce confounding.",
+      "private_intention_map": {
+        "central_meaning": "Random assignment can balance measured and unmeasured pre-treatment causes across groups in expectation, making group differences after treatment more attributable to the intervention, though noncompliance, attrition, chance imbalance, and implementation failures still matter.",
+        "essential_concepts": [
+          "random assignment occurs before treatment",
+          "it balances pre-treatment causes in expectation",
+          "post-treatment group differences become more attributable to treatment",
+          "randomization does not eliminate every threat"
+        ],
+        "relationships": [
+          {
+            "relationship_type": "causal",
+            "description": "Random assignment breaks systematic links between treatment assignment and pre-treatment causes in expectation.",
+            "meaning_critical": true
+          },
+          {
+            "relationship_type": "logical",
+            "description": "This improves causal attribution but does not guarantee perfect balance or execution.",
+            "meaning_critical": true
+          }
+        ],
+        "intended_tone": "precise and qualified",
+        "intended_audience_understanding": "The reader should understand both the causal advantage and its limits.",
+        "declared_uncertainty": null,
+        "adequacy_status": "adequate",
+        "adequacy_note": null
+      },
+      "candidate_response": "Random assignment makes treatment status independent of pre-treatment causes in expectation. That reduces systematic confounding, so later group differences are more plausibly attributed to the intervention, while chance imbalance, attrition, noncompliance, and implementation problems can still weaken the result.",
+      "provisional_score_region": 6,
+      "provisional_reason_codes": [
+        "NO_MATERIAL_LOSS",
+        "LEXICAL_OVERLAP_DECOY"
+      ],
+      "construct_irrelevant_features": [
+        "lexical_overlap"
+      ],
+      "contrast_family": "verbosity_with_contradiction",
+      "contrast_group_id": "G06",
+      "expert_rationale": {
+        "preserved_components": [
+          "pre-treatment timing",
+          "balance in expectation",
+          "causal attribution",
+          "remaining threats"
+        ],
+        "lost_or_changed_components": [],
+        "region_justification": "The concise response preserves the central causal relation and its qualifications."
+      },
+      "admissible_score_range": {
+        "minimum": 6,
+        "maximum": 7
+      },
+      "known_ambiguities": [],
+      "validation_status": "draft_unreviewed",
+      "source_type": "synthetic_constructed",
+      "blind_review": null,
+      "pilot_metrics": null,
+      "audit": {
+        "created_at_utc": "2026-07-27T02:15:00Z",
+        "created_by": [
+          "GPT-5.6 Thinking",
+          "Bryan Leonard"
+        ],
+        "condition_blind": true,
+        "contains_identifiable_participant_material": false,
+        "supersedes_version": null,
+        "retirement_reason": null
+      }
+    },
+    {
+      "anchor_id": "A012",
+      "anchor_version": "0.1.0",
+      "prompt_domain": "conceptual_explanation",
+      "prompt_text": "Explain why a randomized controlled trial can reduce confounding.",
+      "private_intention_map": {
+        "central_meaning": "Random assignment can balance measured and unmeasured pre-treatment causes across groups in expectation, making group differences after treatment more attributable to the intervention, though noncompliance, attrition, chance imbalance, and implementation failures still matter.",
+        "essential_concepts": [
+          "random assignment occurs before treatment",
+          "it balances pre-treatment causes in expectation",
+          "post-treatment group differences become more attributable to treatment",
+          "randomization does not eliminate every threat"
+        ],
+        "relationships": [
+          {
+            "relationship_type": "causal",
+            "description": "Random assignment breaks systematic links between treatment assignment and pre-treatment causes in expectation.",
+            "meaning_critical": true
+          },
+          {
+            "relationship_type": "logical",
+            "description": "This improves causal attribution but does not guarantee perfect balance or execution.",
+            "meaning_critical": true
+          }
+        ],
+        "intended_tone": "precise and qualified",
+        "intended_audience_understanding": "The reader should understand both the causal advantage and its limits.",
+        "declared_uncertainty": null,
+        "adequacy_status": "adequate",
+        "adequacy_note": null
+      },
+      "candidate_response": "A randomized controlled trial is widely regarded as a premier scientific method because it uses random assignment, treatment groups, control groups, standardized procedures, outcome measurement, and statistical comparison. These features produce balance across the groups. However, the real purpose of randomization is to ensure that participants with the strongest pre-existing causes of the outcome are systematically concentrated in the treatment group, making the treatment effect easier to observe. Attrition and noncompliance matter less because the original randomization has already guaranteed causal identification.",
+      "provisional_score_region": 2,
+      "provisional_reason_codes": [
+        "REL_REVERSED",
+        "QUAL_MISSING",
+        "LEXICAL_OVERLAP_DECOY"
+      ],
+      "construct_irrelevant_features": [
+        "length",
+        "polish",
+        "lexical_overlap"
+      ],
+      "contrast_family": "verbosity_with_contradiction",
+      "contrast_group_id": "G06",
+      "expert_rationale": {
+        "preserved_components": [
+          "random assignment",
+          "treatment and control groups",
+          "outcome comparison",
+          "mentions attrition and noncompliance"
+        ],
+        "lost_or_changed_components": [
+          "reverses how randomization treats pre-treatment causes",
+          "claims guaranteed identification",
+          "dismisses remaining threats"
+        ],
+        "region_justification": "The response contains extensive correct vocabulary but reverses the key causal relationship and removes essential qualifications."
+      },
+      "admissible_score_range": {
+        "minimum": 1,
+        "maximum": 3
+      },
+      "known_ambiguities": [
+        "The first two sentences may initially anchor reviewers upward despite the later contradiction."
+      ],
+      "validation_status": "draft_unreviewed",
+      "source_type": "synthetic_constructed",
+      "blind_review": null,
+      "pilot_metrics": null,
+      "audit": {
+        "created_at_utc": "2026-07-27T02:15:00Z",
+        "created_by": [
+          "GPT-5.6 Thinking",
+          "Bryan Leonard"
+        ],
+        "condition_blind": true,
+        "contains_identifiable_participant_material": false,
+        "supersedes_version": null,
+        "retirement_reason": null
+      }
+    },
+    {
+      "anchor_id": "A013",
+      "anchor_version": "0.1.0",
+      "prompt_domain": "conceptual_explanation",
+      "prompt_text": "Explain the difference between reliability and validity in measurement.",
+      "private_intention_map": {
+        "central_meaning": "Reliability concerns consistency or precision of measurement, whereas validity concerns whether the resulting scores support the intended interpretation and use; a measure can be reliable without being valid.",
+        "essential_concepts": [
+          "reliability concerns consistency or precision",
+          "validity concerns interpretation and use",
+          "reliability does not guarantee validity"
+        ],
+        "relationships": [
+          {
+            "relationship_type": "comparative",
+            "description": "Reliability and validity answer different questions.",
+            "meaning_critical": true
+          },
+          {
+            "relationship_type": "logical",
+            "description": "High reliability is compatible with low validity.",
+            "meaning_critical": true
+          }
+        ],
+        "intended_tone": "concise and instructional",
+        "intended_audience_understanding": "The reader should be able to reject the claim that consistency alone proves measurement quality.",
+        "declared_uncertainty": null,
+        "adequacy_status": "adequate",
+        "adequacy_note": null
+      },
+      "candidate_response": "Reliability is about consistency; validity is about whether the scores justify the interpretation and use you intend. A measure can be perfectly consistent and still measure the wrong thing.",
+      "provisional_score_region": 7,
+      "provisional_reason_codes": [
+        "NO_MATERIAL_LOSS"
+      ],
+      "construct_irrelevant_features": [
+        "length"
+      ],
+      "contrast_family": "concise_completeness",
+      "contrast_group_id": "G07",
+      "expert_rationale": {
+        "preserved_components": [
+          "reliability as consistency",
+          "validity as justified interpretation/use",
+          "reliability does not imply validity"
+        ],
+        "lost_or_changed_components": [],
+        "region_justification": "The response is brief but fully transmits the narrow intention map, including the critical non-implication."
+      },
+      "admissible_score_range": {
+        "minimum": 6,
+        "maximum": 7
+      },
+      "known_ambiguities": [],
+      "validation_status": "draft_unreviewed",
+      "source_type": "synthetic_constructed",
+      "blind_review": null,
+      "pilot_metrics": null,
+      "audit": {
+        "created_at_utc": "2026-07-27T02:15:00Z",
+        "created_by": [
+          "GPT-5.6 Thinking",
+          "Bryan Leonard"
+        ],
+        "condition_blind": true,
+        "contains_identifiable_participant_material": false,
+        "supersedes_version": null,
+        "retirement_reason": null
+      }
+    },
+    {
+      "anchor_id": "A014",
+      "anchor_version": "0.1.0",
+      "prompt_domain": "conceptual_explanation",
+      "prompt_text": "Explain the difference between reliability and validity in measurement.",
+      "private_intention_map": {
+        "central_meaning": "Reliability concerns consistency or precision of measurement, whereas validity concerns whether the resulting scores support the intended interpretation and use; a measure can be reliable without being valid.",
+        "essential_concepts": [
+          "reliability concerns consistency or precision",
+          "validity concerns interpretation and use",
+          "reliability does not guarantee validity"
+        ],
+        "relationships": [
+          {
+            "relationship_type": "comparative",
+            "description": "Reliability and validity answer different questions.",
+            "meaning_critical": true
+          },
+          {
+            "relationship_type": "logical",
+            "description": "High reliability is compatible with low validity.",
+            "meaning_critical": true
+          }
+        ],
+        "intended_tone": "concise and instructional",
+        "intended_audience_understanding": "The reader should be able to reject the claim that consistency alone proves measurement quality.",
+        "declared_uncertainty": null,
+        "adequacy_status": "adequate",
+        "adequacy_note": null
+      },
+      "candidate_response": "Reliability describes the consistency or precision with which a measurement procedure produces scores, whether across occasions, raters, items, or repeated administrations. Validity concerns the evidence supporting the interpretation and practical use of those scores for a particular purpose. These concepts are related but not interchangeable: a procedure may generate highly stable scores while systematically capturing the wrong construct, so reliability alone cannot establish validity.",
+      "provisional_score_region": 7,
+      "provisional_reason_codes": [
+        "NO_MATERIAL_LOSS"
+      ],
+      "construct_irrelevant_features": [
+        "length",
+        "polish"
+      ],
+      "contrast_family": "concise_completeness",
+      "contrast_group_id": "G07",
+      "expert_rationale": {
+        "preserved_components": [
+          "reliability as consistency/precision",
+          "validity as interpretation/use",
+          "reliability does not imply validity"
+        ],
+        "lost_or_changed_components": [],
+        "region_justification": "The longer pair is also exceptionally complete. Length should not distinguish it from the concise version on fidelity."
+      },
+      "admissible_score_range": {
+        "minimum": 6,
+        "maximum": 7
+      },
+      "known_ambiguities": [
+        "Some reviewers may reserve region 7 for more complex maps, but the map here is intentionally narrow."
+      ],
+      "validation_status": "draft_unreviewed",
+      "source_type": "synthetic_constructed",
+      "blind_review": null,
+      "pilot_metrics": null,
+      "audit": {
+        "created_at_utc": "2026-07-27T02:15:00Z",
+        "created_by": [
+          "GPT-5.6 Thinking",
+          "Bryan Leonard"
+        ],
+        "condition_blind": true,
+        "contains_identifiable_participant_material": false,
+        "supersedes_version": null,
+        "retirement_reason": null
+      }
+    },
+    {
+      "anchor_id": "A015",
+      "anchor_version": "0.1.0",
+      "prompt_domain": "conceptual_explanation",
+      "prompt_text": "Explain what a confidence interval does and does not communicate.",
+      "private_intention_map": {
+        "central_meaning": "A confidence interval gives a range produced by a procedure with stated long-run coverage under assumptions; it communicates sampling uncertainty but does not give the probability that this already-computed interval contains a fixed parameter, guarantee model correctness, or capture every source of uncertainty.",
+        "essential_concepts": [
+          "interval comes from a repeated-sampling procedure",
+          "coverage is conditional on assumptions",
+          "it reflects sampling uncertainty",
+          "it does not validate the model or capture all uncertainty"
+        ],
+        "relationships": [
+          {
+            "relationship_type": "logical",
+            "description": "The interval's interpretation depends on the procedure and assumptions.",
+            "meaning_critical": true
+          },
+          {
+            "relationship_type": "comparative",
+            "description": "Sampling uncertainty is narrower than total uncertainty.",
+            "meaning_critical": true
+          }
+        ],
+        "intended_tone": "precise but accessible",
+        "intended_audience_understanding": "The reader should avoid both the common probability misinterpretation and overconfidence in model assumptions.",
+        "declared_uncertainty": null,
+        "adequacy_status": "adequate",
+        "adequacy_note": null
+      },
+      "candidate_response": "A confidence interval summarizes sampling uncertainty using a procedure designed to cover the true value at a stated long-run rate. That interpretation depends on the model and assumptions; the interval does not prove the model is right or include every source of uncertainty.",
+      "provisional_score_region": 5,
+      "provisional_reason_codes": [
+        "QUAL_MISSING",
+        "LENGTH_DECOY"
+      ],
+      "construct_irrelevant_features": [
+        "length"
+      ],
+      "contrast_family": "length_decoy",
+      "contrast_group_id": "G08",
+      "expert_rationale": {
+        "preserved_components": [
+          "long-run coverage",
+          "sampling uncertainty",
+          "assumption dependence",
+          "does not prove model correctness"
+        ],
+        "lost_or_changed_components": [
+          "does not explicitly reject assigning a probability to the fixed parameter after the interval is observed"
+        ],
+        "region_justification": "The response strongly preserves the intended meaning but omits one important common-misinterpretation warning."
+      },
+      "admissible_score_range": {
+        "minimum": 4,
+        "maximum": 6
+      },
+      "known_ambiguities": [],
+      "validation_status": "draft_unreviewed",
+      "source_type": "synthetic_constructed",
+      "blind_review": null,
+      "pilot_metrics": null,
+      "audit": {
+        "created_at_utc": "2026-07-27T02:15:00Z",
+        "created_by": [
+          "GPT-5.6 Thinking",
+          "Bryan Leonard"
+        ],
+        "condition_blind": true,
+        "contains_identifiable_participant_material": false,
+        "supersedes_version": null,
+        "retirement_reason": null
+      }
+    },
+    {
+      "anchor_id": "A016",
+      "anchor_version": "0.1.0",
+      "prompt_domain": "conceptual_explanation",
+      "prompt_text": "Explain what a confidence interval does and does not communicate.",
+      "private_intention_map": {
+        "central_meaning": "A confidence interval gives a range produced by a procedure with stated long-run coverage under assumptions; it communicates sampling uncertainty but does not give the probability that this already-computed interval contains a fixed parameter, guarantee model correctness, or capture every source of uncertainty.",
+        "essential_concepts": [
+          "interval comes from a repeated-sampling procedure",
+          "coverage is conditional on assumptions",
+          "it reflects sampling uncertainty",
+          "it does not validate the model or capture all uncertainty"
+        ],
+        "relationships": [
+          {
+            "relationship_type": "logical",
+            "description": "The interval's interpretation depends on the procedure and assumptions.",
+            "meaning_critical": true
+          },
+          {
+            "relationship_type": "comparative",
+            "description": "Sampling uncertainty is narrower than total uncertainty.",
+            "meaning_critical": true
+          }
+        ],
+        "intended_tone": "precise but accessible",
+        "intended_audience_understanding": "The reader should avoid both the common probability misinterpretation and overconfidence in model assumptions.",
+        "declared_uncertainty": null,
+        "adequacy_status": "adequate",
+        "adequacy_note": null
+      },
+      "candidate_response": "A confidence interval is generated by a statistical procedure that, under repeated sampling and the procedure's assumptions, would contain the fixed target parameter at the advertised rate. It is useful because it displays uncertainty arising from sampling variation. However, after a particular interval has been calculated, the conventional frequentist interpretation does not assign a literal probability that the fixed parameter lies inside that one interval. The interval also does not demonstrate that the model, measurement process, missing-data assumptions, or data-generating conditions are correct, and it does not automatically include every source of uncertainty relevant to the decision.",
+      "provisional_score_region": 5,
+      "provisional_reason_codes": [
+        "LENGTH_DECOY"
+      ],
+      "construct_irrelevant_features": [
+        "length",
+        "polish"
+      ],
+      "contrast_family": "length_decoy",
+      "contrast_group_id": "G08",
+      "expert_rationale": {
+        "preserved_components": [
+          "long-run coverage",
+          "sampling uncertainty",
+          "fixed-parameter probability warning",
+          "assumption dependence",
+          "does not capture all uncertainty"
+        ],
+        "lost_or_changed_components": [],
+        "region_justification": "The response is more complete than its pair and may merit region 6, but the provisional region is held at 5 to test whether experts distinguish limited-loss from very-high-fidelity boundaries."
+      },
+      "admissible_score_range": {
+        "minimum": 5,
+        "maximum": 6
+      },
+      "known_ambiguities": [
+        "The provisional target may be too low given the response's completeness; blind review is expected to resolve this."
+      ],
+      "validation_status": "draft_unreviewed",
+      "source_type": "synthetic_constructed",
+      "blind_review": null,
+      "pilot_metrics": null,
+      "audit": {
+        "created_at_utc": "2026-07-27T02:15:00Z",
+        "created_by": [
+          "GPT-5.6 Thinking",
+          "Bryan Leonard"
+        ],
+        "condition_blind": true,
+        "contains_identifiable_participant_material": false,
+        "supersedes_version": null,
+        "retirement_reason": null
+      }
+    },
+    {
+      "anchor_id": "A017",
+      "anchor_version": "0.1.0",
+      "prompt_domain": "position_and_reasoning",
+      "prompt_text": "Should a city ban all street vending in crowded downtown areas? Explain your position.",
+      "private_intention_map": {
+        "central_meaning": "The city should not impose a total ban; it should regulate placement, sanitation, and pedestrian clearance because vending creates livelihoods and public value while unmanaged congestion creates legitimate safety problems.",
+        "essential_concepts": [
+          "opposes a total ban",
+          "recognizes congestion and safety concerns",
+          "supports targeted regulation",
+          "values vendor livelihoods and public benefit"
+        ],
+        "relationships": [
+          {
+            "relationship_type": "evaluative",
+            "description": "The policy should balance public access and safety rather than eliminate vending.",
+            "meaning_critical": true
+          },
+          {
+            "relationship_type": "causal",
+            "description": "Placement and clearance rules can reduce congestion without destroying livelihoods.",
+            "meaning_critical": true
+          }
+        ],
+        "intended_tone": "pragmatic and balanced",
+        "intended_audience_understanding": "The reader should understand the conditional compromise, not classify the position as simply pro- or anti-vendor.",
+        "declared_uncertainty": null,
+        "adequacy_status": "adequate",
+        "adequacy_note": null
+      },
+      "candidate_response": "A total ban is too broad. Street vending supports livelihoods and can add value to downtown life, while blocked sidewalks and sanitation problems are real. The city should enforce placement, clearance, and health rules that address those harms without eliminating vending.",
+      "provisional_score_region": 6,
+      "provisional_reason_codes": [
+        "NO_MATERIAL_LOSS",
+        "AGREEMENT_DECOY"
+      ],
+      "construct_irrelevant_features": [
+        "ideological_agreement"
+      ],
+      "contrast_family": "agreement_decoy",
+      "contrast_group_id": "G09",
+      "expert_rationale": {
+        "preserved_components": [
+          "opposes total ban",
+          "livelihood and public value",
+          "safety and sanitation concerns",
+          "targeted regulation"
+        ],
+        "lost_or_changed_components": [],
+        "region_justification": "The response accurately preserves the balanced policy position regardless of whether a reviewer agrees with it."
+      },
+      "admissible_score_range": {
+        "minimum": 6,
+        "maximum": 7
+      },
+      "known_ambiguities": [],
+      "validation_status": "draft_unreviewed",
+      "source_type": "synthetic_constructed",
+      "blind_review": null,
+      "pilot_metrics": null,
+      "audit": {
+        "created_at_utc": "2026-07-27T02:15:00Z",
+        "created_by": [
+          "GPT-5.6 Thinking",
+          "Bryan Leonard"
+        ],
+        "condition_blind": true,
+        "contains_identifiable_participant_material": false,
+        "supersedes_version": null,
+        "retirement_reason": null
+      }
+    },
+    {
+      "anchor_id": "A018",
+      "anchor_version": "0.1.0",
+      "prompt_domain": "position_and_reasoning",
+      "prompt_text": "Should a city ban all street vending in crowded downtown areas? Explain your position.",
+      "private_intention_map": {
+        "central_meaning": "The city should not impose a total ban; it should regulate placement, sanitation, and pedestrian clearance because vending creates livelihoods and public value while unmanaged congestion creates legitimate safety problems.",
+        "essential_concepts": [
+          "opposes a total ban",
+          "recognizes congestion and safety concerns",
+          "supports targeted regulation",
+          "values vendor livelihoods and public benefit"
+        ],
+        "relationships": [
+          {
+            "relationship_type": "evaluative",
+            "description": "The policy should balance public access and safety rather than eliminate vending.",
+            "meaning_critical": true
+          },
+          {
+            "relationship_type": "causal",
+            "description": "Placement and clearance rules can reduce congestion without destroying livelihoods.",
+            "meaning_critical": true
+          }
+        ],
+        "intended_tone": "pragmatic and balanced",
+        "intended_audience_understanding": "The reader should understand the conditional compromise, not classify the position as simply pro- or anti-vendor.",
+        "declared_uncertainty": null,
+        "adequacy_status": "adequate",
+        "adequacy_note": null
+      },
+      "candidate_response": "Crowded downtown sidewalks belong to everyone, not to private sellers. The humane and orderly solution is to prohibit vending in those areas entirely and move all vendors into designated markets where the city can protect residents, workers, and visitors.",
+      "provisional_score_region": 2,
+      "provisional_reason_codes": [
+        "CM_REVERSED",
+        "IMPLICATION_CHANGED",
+        "AGREEMENT_DECOY"
+      ],
+      "construct_irrelevant_features": [
+        "ideological_agreement",
+        "rhetorical_persuasion"
+      ],
+      "contrast_family": "agreement_decoy",
+      "contrast_group_id": "G09",
+      "expert_rationale": {
+        "preserved_components": [
+          "recognizes congestion and order concerns",
+          "mentions designated regulation"
+        ],
+        "lost_or_changed_components": [
+          "reverses opposition to total ban",
+          "drops livelihood/public-value balancing",
+          "changes targeted regulation into prohibition"
+        ],
+        "region_justification": "The response is coherent and may be normatively attractive to some raters, but it reverses the intended policy conclusion and balancing structure."
+      },
+      "admissible_score_range": {
+        "minimum": 1,
+        "maximum": 3
+      },
+      "known_ambiguities": [],
+      "validation_status": "draft_unreviewed",
+      "source_type": "synthetic_constructed",
+      "blind_review": null,
+      "pilot_metrics": null,
+      "audit": {
+        "created_at_utc": "2026-07-27T02:15:00Z",
+        "created_by": [
+          "GPT-5.6 Thinking",
+          "Bryan Leonard"
+        ],
+        "condition_blind": true,
+        "contains_identifiable_participant_material": false,
+        "supersedes_version": null,
+        "retirement_reason": null
+      }
+    },
+    {
+      "anchor_id": "A019",
+      "anchor_version": "0.1.0",
+      "prompt_domain": "position_and_reasoning",
+      "prompt_text": "Should employers use automated tools to screen job applicants? Explain your position.",
+      "private_intention_map": {
+        "central_meaning": "Automated screening may be used only as an assistive tool with validation, human review, appeal, and bias monitoring; it should not make unreviewable final decisions.",
+        "essential_concepts": [
+          "conditional acceptance of automation",
+          "validation against job-relevant outcomes",
+          "human review and appeal process",
+          "bias monitoring",
+          "no unreviewable final decisions"
+        ],
+        "relationships": [
+          {
+            "relationship_type": "logical",
+            "description": "Permission to use automation depends on safeguards.",
+            "meaning_critical": true
+          },
+          {
+            "relationship_type": "evaluative",
+            "description": "Efficiency does not override accountability.",
+            "meaning_critical": true
+          }
+        ],
+        "intended_tone": "cautious and conditional",
+        "intended_audience_understanding": "The reader should understand that the position is neither a ban nor unrestricted adoption.",
+        "declared_uncertainty": null,
+        "adequacy_status": "adequate",
+        "adequacy_note": null
+      },
+      "candidate_response": "Employers can use automated screening as an aid, but only if it is validated for the job, monitored for bias, reviewed by people, and paired with a meaningful appeal process. It should never make an unreviewable final decision.",
+      "provisional_score_region": 6,
+      "provisional_reason_codes": [
+        "NO_MATERIAL_LOSS",
+        "LEXICAL_OVERLAP_DECOY"
+      ],
+      "construct_irrelevant_features": [
+        "lexical_overlap"
+      ],
+      "contrast_family": "verbosity_with_contradiction",
+      "contrast_group_id": "G10",
+      "expert_rationale": {
+        "preserved_components": [
+          "conditional use",
+          "validation",
+          "bias monitoring",
+          "human review",
+          "appeal",
+          "no unreviewable final decision"
+        ],
+        "lost_or_changed_components": [],
+        "region_justification": "The response preserves every safeguard and the conditional policy structure."
+      },
+      "admissible_score_range": {
+        "minimum": 6,
+        "maximum": 7
+      },
+      "known_ambiguities": [],
+      "validation_status": "draft_unreviewed",
+      "source_type": "synthetic_constructed",
+      "blind_review": null,
+      "pilot_metrics": null,
+      "audit": {
+        "created_at_utc": "2026-07-27T02:15:00Z",
+        "created_by": [
+          "GPT-5.6 Thinking",
+          "Bryan Leonard"
+        ],
+        "condition_blind": true,
+        "contains_identifiable_participant_material": false,
+        "supersedes_version": null,
+        "retirement_reason": null
+      }
+    },
+    {
+      "anchor_id": "A020",
+      "anchor_version": "0.1.0",
+      "prompt_domain": "position_and_reasoning",
+      "prompt_text": "Should employers use automated tools to screen job applicants? Explain your position.",
+      "private_intention_map": {
+        "central_meaning": "Automated screening may be used only as an assistive tool with validation, human review, appeal, and bias monitoring; it should not make unreviewable final decisions.",
+        "essential_concepts": [
+          "conditional acceptance of automation",
+          "validation against job-relevant outcomes",
+          "human review and appeal process",
+          "bias monitoring",
+          "no unreviewable final decisions"
+        ],
+        "relationships": [
+          {
+            "relationship_type": "logical",
+            "description": "Permission to use automation depends on safeguards.",
+            "meaning_critical": true
+          },
+          {
+            "relationship_type": "evaluative",
+            "description": "Efficiency does not override accountability.",
+            "meaning_critical": true
+          }
+        ],
+        "intended_tone": "cautious and conditional",
+        "intended_audience_understanding": "The reader should understand that the position is neither a ban nor unrestricted adoption.",
+        "declared_uncertainty": null,
+        "adequacy_status": "adequate",
+        "adequacy_note": null
+      },
+      "candidate_response": "Automated applicant screening offers speed, consistency, scalability, standardized comparison, data-driven ranking, documentation, bias monitoring, validation, human review, appeal mechanisms, and operational efficiency. Employers should adopt these systems broadly because a validated model is more objective than individual managers. Human review can be available for unusual cases, but the final ranking should remain automatically binding so that subjective intervention does not undermine consistency.",
+      "provisional_score_region": 2,
+      "provisional_reason_codes": [
+        "REL_REVERSED",
+        "QUAL_MISSING",
+        "LEXICAL_OVERLAP_DECOY"
+      ],
+      "construct_irrelevant_features": [
+        "length",
+        "polish",
+        "lexical_overlap"
+      ],
+      "contrast_family": "verbosity_with_contradiction",
+      "contrast_group_id": "G10",
+      "expert_rationale": {
+        "preserved_components": [
+          "automation as a screening tool",
+          "validation",
+          "bias monitoring",
+          "human review and appeal are mentioned"
+        ],
+        "lost_or_changed_components": [
+          "safeguards changed from conditions to optional features",
+          "unreviewable final decisions endorsed",
+          "accountability-efficiency relation reversed"
+        ],
+        "region_justification": "The response repeats almost every intended term while reversing the decisive safeguard against binding automated decisions."
+      },
+      "admissible_score_range": {
+        "minimum": 1,
+        "maximum": 3
+      },
+      "known_ambiguities": [
+        "Some reviewers may overlook the reversal because of high lexical coverage."
+      ],
+      "validation_status": "draft_unreviewed",
+      "source_type": "synthetic_constructed",
+      "blind_review": null,
+      "pilot_metrics": null,
+      "audit": {
+        "created_at_utc": "2026-07-27T02:15:00Z",
+        "created_by": [
+          "GPT-5.6 Thinking",
+          "Bryan Leonard"
+        ],
+        "condition_blind": true,
+        "contains_identifiable_participant_material": false,
+        "supersedes_version": null,
+        "retirement_reason": null
+      }
+    },
+    {
+      "anchor_id": "A021",
+      "anchor_version": "0.1.0",
+      "prompt_domain": "position_and_reasoning",
+      "prompt_text": "Should public agencies publish plain-language explanations of major algorithmic decisions?",
+      "private_intention_map": {
+        "central_meaning": "Yes, agencies should publish plain-language explanations of major algorithmic decision systems, including purpose, inputs, limitations, human oversight, and appeal routes, while protecting narrowly defined security and privacy interests.",
+        "essential_concepts": [
+          "supports public explanation",
+          "purpose and important inputs",
+          "limitations",
+          "human oversight and appeal routes",
+          "narrow security/privacy exceptions"
+        ],
+        "relationships": [
+          {
+            "relationship_type": "evaluative",
+            "description": "Transparency is required for accountability.",
+            "meaning_critical": true
+          },
+          {
+            "relationship_type": "logical",
+            "description": "Transparency obligations coexist with narrow legitimate confidentiality.",
+            "meaning_critical": true
+          }
+        ],
+        "intended_tone": "firm but qualified",
+        "intended_audience_understanding": "The reader should understand both the transparency rule and its limited exceptions.",
+        "declared_uncertainty": null,
+        "adequacy_status": "adequate",
+        "adequacy_note": null
+      },
+      "candidate_response": "Yes. Agencies should explain an algorithm's purpose, inputs, limits, human oversight, and appeal process in plain language, with only narrow exceptions for genuine privacy or security risks.",
+      "provisional_score_region": 7,
+      "provisional_reason_codes": [
+        "NO_MATERIAL_LOSS"
+      ],
+      "construct_irrelevant_features": [
+        "length"
+      ],
+      "contrast_family": "concise_completeness",
+      "contrast_group_id": "G11",
+      "expert_rationale": {
+        "preserved_components": [
+          "supports transparency",
+          "purpose",
+          "inputs",
+          "limitations",
+          "human oversight",
+          "appeal",
+          "narrow exceptions"
+        ],
+        "lost_or_changed_components": [],
+        "region_justification": "The concise response fully transmits the rule, required disclosures, and qualification."
+      },
+      "admissible_score_range": {
+        "minimum": 6,
+        "maximum": 7
+      },
+      "known_ambiguities": [],
+      "validation_status": "draft_unreviewed",
+      "source_type": "synthetic_constructed",
+      "blind_review": null,
+      "pilot_metrics": null,
+      "audit": {
+        "created_at_utc": "2026-07-27T02:15:00Z",
+        "created_by": [
+          "GPT-5.6 Thinking",
+          "Bryan Leonard"
+        ],
+        "condition_blind": true,
+        "contains_identifiable_participant_material": false,
+        "supersedes_version": null,
+        "retirement_reason": null
+      }
+    },
+    {
+      "anchor_id": "A022",
+      "anchor_version": "0.1.0",
+      "prompt_domain": "position_and_reasoning",
+      "prompt_text": "Should public agencies publish plain-language explanations of major algorithmic decisions?",
+      "private_intention_map": {
+        "central_meaning": "Yes, agencies should publish plain-language explanations of major algorithmic decision systems, including purpose, inputs, limitations, human oversight, and appeal routes, while protecting narrowly defined security and privacy interests.",
+        "essential_concepts": [
+          "supports public explanation",
+          "purpose and important inputs",
+          "limitations",
+          "human oversight and appeal routes",
+          "narrow security/privacy exceptions"
+        ],
+        "relationships": [
+          {
+            "relationship_type": "evaluative",
+            "description": "Transparency is required for accountability.",
+            "meaning_critical": true
+          },
+          {
+            "relationship_type": "logical",
+            "description": "Transparency obligations coexist with narrow legitimate confidentiality.",
+            "meaning_critical": true
+          }
+        ],
+        "intended_tone": "firm but qualified",
+        "intended_audience_understanding": "The reader should understand both the transparency rule and its limited exceptions.",
+        "declared_uncertainty": null,
+        "adequacy_status": "adequate",
+        "adequacy_note": null
+      },
+      "candidate_response": "Public agencies exercise state authority, so people should be able to understand the major automated systems that influence benefits, enforcement, eligibility, or other consequential decisions. Agencies should therefore publish explanations in ordinary language covering each system's purpose, important inputs, known limitations, the role of human oversight, and the process for contesting a result. Disclosure can omit information only when a specific and narrowly defined privacy or security risk justifies doing so; vague claims of complexity or proprietary design should not defeat accountability.",
+      "provisional_score_region": 7,
+      "provisional_reason_codes": [
+        "NO_MATERIAL_LOSS"
+      ],
+      "construct_irrelevant_features": [
+        "length",
+        "polish"
+      ],
+      "contrast_family": "concise_completeness",
+      "contrast_group_id": "G11",
+      "expert_rationale": {
+        "preserved_components": [
+          "supports transparency",
+          "accountability rationale",
+          "purpose",
+          "inputs",
+          "limitations",
+          "human oversight",
+          "appeal",
+          "narrow exceptions"
+        ],
+        "lost_or_changed_components": [],
+        "region_justification": "The long response preserves the same complete policy position as the concise pair. Both should remain at the top region despite different length."
+      },
+      "admissible_score_range": {
+        "minimum": 6,
+        "maximum": 7
+      },
+      "known_ambiguities": [],
+      "validation_status": "draft_unreviewed",
+      "source_type": "synthetic_constructed",
+      "blind_review": null,
+      "pilot_metrics": null,
+      "audit": {
+        "created_at_utc": "2026-07-27T02:15:00Z",
+        "created_by": [
+          "GPT-5.6 Thinking",
+          "Bryan Leonard"
+        ],
+        "condition_blind": true,
+        "contains_identifiable_participant_material": false,
+        "supersedes_version": null,
+        "retirement_reason": null
+      }
+    },
+    {
+      "anchor_id": "A023",
+      "anchor_version": "0.1.0",
+      "prompt_domain": "position_and_reasoning",
+      "prompt_text": "Should schools require students to disclose every use of generative AI in homework?",
+      "private_intention_map": {
+        "central_meaning": "Schools should require disclosure when generative AI materially contributes content or reasoning, but not for trivial assistance such as spelling suggestions; requirements should be clear, proportionate, and tied to the learning objective.",
+        "essential_concepts": [
+          "disclosure for material contribution",
+          "no disclosure for trivial assistance",
+          "rules should be clear and proportionate",
+          "requirements depend on learning objective"
+        ],
+        "relationships": [
+          {
+            "relationship_type": "logical",
+            "description": "The disclosure obligation depends on the materiality of AI contribution.",
+            "meaning_critical": true
+          },
+          {
+            "relationship_type": "evaluative",
+            "description": "The policy should protect learning without treating every tool use as equivalent.",
+            "meaning_critical": true
+          }
+        ],
+        "intended_tone": "balanced and practical",
+        "intended_audience_understanding": "The reader should understand the threshold-based rule and its connection to instructional purpose.",
+        "declared_uncertainty": null,
+        "adequacy_status": "adequate",
+        "adequacy_note": null
+      },
+      "candidate_response": "Students should disclose AI use when it materially supplies content or reasoning. They should not have to report trivial help such as spelling suggestions. Schools need clear, proportionate rules tied to what the assignment is meant to teach.",
+      "provisional_score_region": 6,
+      "provisional_reason_codes": [
+        "NO_MATERIAL_LOSS",
+        "POLISH_DECOY"
+      ],
+      "construct_irrelevant_features": [
+        "polish"
+      ],
+      "contrast_family": "polish_decoy",
+      "contrast_group_id": "G12",
+      "expert_rationale": {
+        "preserved_components": [
+          "material contribution threshold",
+          "trivial-assistance exception",
+          "clarity",
+          "proportionality",
+          "learning objective"
+        ],
+        "lost_or_changed_components": [],
+        "region_justification": "The plain response preserves the full threshold-based policy."
+      },
+      "admissible_score_range": {
+        "minimum": 6,
+        "maximum": 7
+      },
+      "known_ambiguities": [],
+      "validation_status": "draft_unreviewed",
+      "source_type": "synthetic_constructed",
+      "blind_review": null,
+      "pilot_metrics": null,
+      "audit": {
+        "created_at_utc": "2026-07-27T02:15:00Z",
+        "created_by": [
+          "GPT-5.6 Thinking",
+          "Bryan Leonard"
+        ],
+        "condition_blind": true,
+        "contains_identifiable_participant_material": false,
+        "supersedes_version": null,
+        "retirement_reason": null
+      }
+    },
+    {
+      "anchor_id": "A024",
+      "anchor_version": "0.1.0",
+      "prompt_domain": "position_and_reasoning",
+      "prompt_text": "Should schools require students to disclose every use of generative AI in homework?",
+      "private_intention_map": {
+        "central_meaning": "Schools should require disclosure when generative AI materially contributes content or reasoning, but not for trivial assistance such as spelling suggestions; requirements should be clear, proportionate, and tied to the learning objective.",
+        "essential_concepts": [
+          "disclosure for material contribution",
+          "no disclosure for trivial assistance",
+          "rules should be clear and proportionate",
+          "requirements depend on learning objective"
+        ],
+        "relationships": [
+          {
+            "relationship_type": "logical",
+            "description": "The disclosure obligation depends on the materiality of AI contribution.",
+            "meaning_critical": true
+          },
+          {
+            "relationship_type": "evaluative",
+            "description": "The policy should protect learning without treating every tool use as equivalent.",
+            "meaning_critical": true
+          }
+        ],
+        "intended_tone": "balanced and practical",
+        "intended_audience_understanding": "The reader should understand the threshold-based rule and its connection to instructional purpose.",
+        "declared_uncertainty": null,
+        "adequacy_status": "adequate",
+        "adequacy_note": null
+      },
+      "candidate_response": "Academic integrity in the age of generative intelligence requires a culture of radical transparency. Every interaction with an AI system, however minor, should be disclosed so that educators can preserve authenticity, protect fairness, and ensure that human effort remains visible. A universal rule is simpler, more ethical, and easier to enforce than subjective distinctions about materiality.",
+      "provisional_score_region": 4,
+      "provisional_reason_codes": [
+        "QUAL_MISSING",
+        "IMPLICATION_CHANGED",
+        "POLISH_DECOY"
+      ],
+      "construct_irrelevant_features": [
+        "polish",
+        "rhetorical_persuasion"
+      ],
+      "contrast_family": "polish_decoy",
+      "contrast_group_id": "G12",
+      "expert_rationale": {
+        "preserved_components": [
+          "supports disclosure",
+          "connects policy to learning integrity and fairness"
+        ],
+        "lost_or_changed_components": [
+          "removes materiality threshold",
+          "removes trivial-assistance exception",
+          "rejects proportionality",
+          "changes learning-objective dependence into universal disclosure"
+        ],
+        "region_justification": "The response preserves the broad concern but replaces the intended proportional rule with universal disclosure."
+      },
+      "admissible_score_range": {
+        "minimum": 3,
+        "maximum": 5
+      },
+      "known_ambiguities": [],
+      "validation_status": "draft_unreviewed",
+      "source_type": "synthetic_constructed",
+      "blind_review": null,
+      "pilot_metrics": null,
+      "audit": {
+        "created_at_utc": "2026-07-27T02:15:00Z",
+        "created_by": [
+          "GPT-5.6 Thinking",
+          "Bryan Leonard"
+        ],
+        "condition_blind": true,
+        "contains_identifiable_participant_material": false,
+        "supersedes_version": null,
+        "retirement_reason": null
+      }
+    }
+  ]
+}
