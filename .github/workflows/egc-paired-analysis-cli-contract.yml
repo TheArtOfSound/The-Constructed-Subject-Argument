@@ -41,8 +41,12 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Prepare validation log directory
+        run: mkdir -p validation-logs
+
       - name: Compile paired-analysis modules
         run: |
+          set -o pipefail
           python -m py_compile \
             research/egc2/analyze_paired_adequacy_sensitivity.py \
             research/egc2/validate_paired_analysis_input.py \
@@ -51,24 +55,45 @@ jobs:
             research/egc2/run_preregistered_paired_analysis.py \
             research/egc2/test_analyze_lineage_checked_paired_sensitivity.py \
             research/egc2/test_paired_analysis_cli_contract.py \
-            research/egc2/test_run_preregistered_paired_analysis.py
+            research/egc2/test_run_preregistered_paired_analysis.py \
+            2>&1 | tee validation-logs/py_compile.log
 
       - name: Run function-level runtime contract tests
         working-directory: research/egc2
-        run: python -m unittest -v test_analyze_lineage_checked_paired_sensitivity.py
+        run: |
+          set -o pipefail
+          python -m unittest -v test_analyze_lineage_checked_paired_sensitivity.py \
+            2>&1 | tee ../../validation-logs/function-level.log
 
       - name: Run repository-attestation tests
         working-directory: research/egc2
-        run: python -m unittest -v test_run_preregistered_paired_analysis.py
+        run: |
+          set -o pipefail
+          python -m unittest -v test_run_preregistered_paired_analysis.py \
+            2>&1 | tee ../../validation-logs/repository-attestation.log
 
       - name: Run subprocess CLI contract tests
         working-directory: research/egc2
-        run: python -m unittest -v test_paired_analysis_cli_contract.py
+        run: |
+          set -o pipefail
+          python -m unittest -v test_paired_analysis_cli_contract.py \
+            2>&1 | tee ../../validation-logs/cli-contract.log
 
       - name: Verify no synthetic output leaked into repository
         run: |
+          set -o pipefail
           if find research/egc2/results -maxdepth 1 -name '.cli-contract-*.json' -print -quit | grep -q .; then
-            echo "Synthetic CLI contract output was not cleaned up" >&2
-            find research/egc2/results -maxdepth 1 -name '.cli-contract-*.json' -print >&2
+            echo "Synthetic CLI contract output was not cleaned up" | tee validation-logs/leak-check.log >&2
+            find research/egc2/results -maxdepth 1 -name '.cli-contract-*.json' -print | tee -a validation-logs/leak-check.log >&2
             exit 1
           fi
+          echo "No synthetic CLI contract output remained." | tee validation-logs/leak-check.log
+
+      - name: Upload validation logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: egc-paired-analysis-validation-logs
+          path: validation-logs/
+          if-no-files-found: error
+          retention-days: 30
