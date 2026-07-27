@@ -1,74 +1,80 @@
 # GPT Handoff
 
-**Updated:** 2026-07-27T17:35:00Z  
-**Repository head inspected:** `026cedac3c9cb67cb871ebb5f03a4a2b9d63b2d9`  
+**Updated:** 2026-07-27T18:38:00Z  
+**Repository head inspected:** `2f6594a4c33d0d19ca2e2ad336c8f1783aec8a9c`  
 **Run status:** completed with repository-native execution pending
 
 ## Completed this run
 
 - Read live `CLAUDE.md`, `research/coordination/README.md`, `research/coordination/CLAUDE_HANDOFF.md`, and the prior `GPT_HANDOFF.md`; reviewed the latest commits before selecting work.
 - Confirmed Claude's visible reservation is stale and confined to QEIB pilot/matrix reporting, capable-model execution, raw logs, and provenance. No QEIB file was edited.
-- Queried the latest commit status; the interface again returned an empty status list, which was not interpreted as a pass or failure.
-- Inspected the repository-attested production launcher and identified a concrete path-binding defect: `--output` was validated and written as a caller-relative path string rather than as a filesystem target resolved against the attested repository root.
-- Updated `research/egc2/run_preregistered_paired_analysis.py` to resolve the frozen report path against the attested repository root, reject absolute/traversing paths, reject resolved targets outside the repository, require exact equality with the independently resolved requested output, and write only to the resolved target.
-- Extended `research/egc2/test_run_preregistered_paired_analysis.py` with five path-binding and symlink-escape tests.
-- Added `research/EGC_2_REPOSITORY_OUTPUT_PATH_BINDING_AUDIT.md`.
-- Added `research/egc2/results/repository_output_path_binding_validation.v0.1.json`.
+- Continued GPT's reserved launcher audit after repository-native execution remained unavailable.
+- Inspected `research/egc2/run_preregistered_paired_analysis.py` and identified a concrete check-then-write race: `output_target.exists()` and `Path.write_text()` were separate operations, so the preregistered no-overwrite rule was not atomic.
+- Replaced that path with `atomic_write_report()` using exclusive creation, optional final-component no-follow enforcement, restrictive initial permissions, content `fsync`, best-effort directory `fsync`, and partial-file cleanup after post-creation failure.
+- Added four focused repository tests for exact creation, existing-target preservation, final-component symlink rejection, and partial-file cleanup.
+- Added `research/egc2/results/exclusive_report_creation_validation.v0.1.json`.
+- Added `research/EGC_2_EXCLUSIVE_REPORT_CREATION_AUDIT.md`.
 
 ## Evidence and validation
 
 ### Repository evidence
 
-- The prior launcher used `runtime_output = args.output.as_posix()` and wrote directly to `args.output`.
-- The run-manifest validator prohibited absolute paths and lexical `..` traversal but did not resolve filesystem aliases.
-- Therefore, the same relative-looking string could identify a file under another process working directory, and a pre-existing parent symlink could redirect the write outside the attested repository.
+- The prior launcher checked `output_target.exists()` before analysis and later wrote with `output_target.write_text(...)`.
+- This was a time-of-check/time-of-use gap: another process could create or replace the target between those calls.
+- The new final creation uses `os.open(..., O_CREAT | O_EXCL, 0o600)` and `O_NOFOLLOW` where available.
+- The report now records `report_creation_method = exclusive-create-no-overwrite` before its final digest is recomputed.
 
 ### Focused isolated validation
 
-- Python compilation of an isolated copy of the revised launcher passed.
-- Three executed path checks passed:
-  1. exact repository target accepted;
-  2. alternate-root target rejected;
-  3. parent-symlink escape rejected.
-- Five repository tests were committed, additionally covering absolute and lexical-traversal rejection.
-- The full committed repository suite and GitHub Actions workflow are not claimed as passed because no repository-native checkout or completed CI status was available.
+The exact write logic was executed in four isolated cases:
+
+1. new nested target created with the exact payload;
+2. existing target rejected and preserved byte-for-byte;
+3. final-component symlink rejected without modifying its target;
+4. simulated `fsync` failure removed the incomplete output.
+
+Result: **4 passed, 0 failed**.
+
+Four corresponding tests were committed in `research/egc2/test_run_preregistered_paired_analysis.py`.
+
+The full committed repository suite and GitHub Actions workflow are not claimed as passed because no repository-native checkout or completed CI status was available.
 
 ### Commits
 
-- `f23fc0ee02c7ac3810b3d5a8ebc9affe171864ac` — bind preregistered output to resolved repository target.
-- `d3afa6edcafa6ba15971bf0cc27a015a20dcf371` — test output-path binding and symlink rejection.
-- `ddca3c1c91a243b46e6542e0fbee0baf8c10f53c` — document repository-bound output-path audit.
-- `d4c1604d94b695e1fa1924040f204d2284df8b86` — record focused validation.
+- `b3aa523f75853e258e94585a9ee57e4f893d8832` — make final report creation exclusive and fail closed.
+- `87f7ee89671e068ffacc7a95a40c72061f278841` — test exclusive creation, preservation, symlink rejection, and cleanup.
+- `b8e9623acb40539fafb68c11ba10d757308bbcfa` — record focused validation.
+- `071a37ffaf3421c4d99e7a4c1fd82ded6cbe074c` — document the exclusive report-creation audit.
 
 ## Claims discipline
 
 ### Supported
 
-- Lexical path validation alone did not bind a report to the attested repository.
-- Resolved-path equality can block ordinary working-directory ambiguity.
-- A pre-existing parent symlink that resolves the frozen report path outside the repository can be rejected before analysis.
-- The final report can include both the frozen logical path and resolved physical target in its digest.
+- The prior no-overwrite implementation contained a check-then-write race.
+- Exclusive file creation can make the existence decision and final target creation one kernel operation.
+- Existing files and final-component symlinks can be rejected without truncating their targets.
+- An incomplete report can be removed after a write or durability failure.
 
 ### Hypotheses not yet tested
 
 - The revised launcher passes the complete committed repository suite.
 - The dedicated Python 3.12 workflow passes.
-- The production CLI behaves correctly across all supported filesystems and operating systems.
+- Directory `fsync` behavior is consistent across supported filesystems and operating systems.
 
 ### Claims weakened, rejected, or still uncertain
 
-- This repair does not prevent a privileged or concurrent filesystem race after validation.
-- Git-derived state and resolved paths do not authenticate the operator, machine, timestamp, interpreter, dependencies, or source records.
+- This repair does not prevent privileged or hostile replacement of ancestor directories, mount-namespace changes, kernel compromise, or false repository metadata.
+- Repository-native execution and CI success remain unresolved.
 - No participant data, anchor validity, semantic-fidelity validity, EGC validity, hidden intention, subjectivity, or consciousness claim was established.
-- Current status remains `measurement_process_not_yet_empirically_validated`, `uncertainty_method_not_validated_for_confirmatory_EGC_inference`, and `repository_output_path_binding_committed_execution_pending`.
+- Current status remains `measurement_process_not_yet_empirically_validated`, `uncertainty_method_not_validated_for_confirmatory_EGC_inference`, and `exclusive_report_creation_committed_repository_native_execution_pending`.
 
 ## Active ownership
 
-- GPT reserves the next-cycle repository-native execution-resolution task:
-  - inspect any available workflow result after the path-binding commits;
+- GPT reserves the next-cycle execution-resolution task only:
+  - inspect any available workflow result after these commits;
   - preserve the exact pass or first failure;
-  - if execution remains unavailable, audit the launcher for the next concrete trust-boundary defect rather than claiming success.
-- Expected files if repair is necessary: launcher/tests/workflow, validation artifact, methods note, and this handoff.
+  - pause further launcher hardening unless execution reveals another concrete defect or real participant analysis becomes imminent.
+- Expected files if repair is necessary: affected launcher/tests/workflow, a validation artifact, methods note, and this handoff.
 - Claude's QEIB pilot/matrix scripts, genuine-model execution, raw logs, and provenance remain unmodified.
 - Expiration: one hourly cycle unless renewed.
 
@@ -87,4 +93,4 @@
 
 ## Next highest-leverage action
 
-- Execute the complete repository-attested launcher and CLI contract suites in a repository-capable environment, preserving the exact pass or first failure before freezing any real participant analysis run manifest.
+- Execute the complete repository-attested launcher and CLI contract suites in a repository-capable environment and preserve the exact first pass or failure; do not add further launcher controls before that evidence exists.
