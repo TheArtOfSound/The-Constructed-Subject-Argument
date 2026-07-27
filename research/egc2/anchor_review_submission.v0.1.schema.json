@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://imagineqira.com/schemas/egc2-anchor-review-submission.v0.1.schema.json",
+  "title": "EGC 2.0 Locked Blind Anchor Review Submission",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "reviewer_id",
+    "queue_digest_sha256",
+    "source_content_digest_sha256",
+    "locked_before_target_reveal",
+    "targets_seen_before_lock",
+    "locked_at_utc",
+    "reviews"
+  ],
+  "properties": {
+    "schema_version": {"const": "egc2-anchor-review-submission-0.1.0"},
+    "reviewer_id": {"type": "string", "minLength": 1},
+    "queue_digest_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "source_content_digest_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "locked_before_target_reveal": {"const": true},
+    "targets_seen_before_lock": {"const": false},
+    "locked_at_utc": {"type": "string", "format": "date-time"},
+    "reviews": {
+      "type": "array",
+      "minItems": 24,
+      "maxItems": 24,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "review_item_id",
+          "semantic_fidelity_score",
+          "score_disposition",
+          "reason_codes",
+          "intention_map_adequacy",
+          "confidence_1_to_5",
+          "ambiguity_note",
+          "pair_recognition_suspected"
+        ],
+        "properties": {
+          "review_item_id": {"type": "string", "pattern": "^A[0-9]{3}$"},
+          "semantic_fidelity_score": {"type": ["integer", "null"], "minimum": 1, "maximum": 7},
+          "score_disposition": {"enum": ["retained_numeric", "suppressed_reference_inadequate"]},
+          "reason_codes": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+          "intention_map_adequacy": {"enum": ["adequate", "too_sparse", "internal_conflict", "uninterpretable", "response_dependent", "other_problem"]},
+          "confidence_1_to_5": {"type": "integer", "minimum": 1, "maximum": 5},
+          "ambiguity_note": {"type": ["string", "null"]},
+          "pair_recognition_suspected": {"type": "boolean"}
+        },
+        "allOf": [
+          {
+            "if": {"properties": {"score_disposition": {"const": "retained_numeric"}}},
+            "then": {"properties": {"semantic_fidelity_score": {"type": "integer"}}}
+          },
+          {
+            "if": {"properties": {"score_disposition": {"const": "suppressed_reference_inadequate"}}},
+            "then": {"properties": {"semantic_fidelity_score": {"type": "null"}}}
+          }
+        ]
+      }
+    }
+  }
+}
