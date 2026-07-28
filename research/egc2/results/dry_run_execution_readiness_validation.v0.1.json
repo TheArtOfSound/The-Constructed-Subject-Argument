@@ -1,0 +1,41 @@
+{
+  "declared_record_digest_sha256": "469045b5b5b45f1de43185b39ab9452884f925c3d3b97f30d3676b21101edae3",
+  "derived_state": {
+    "accepted_operator": false,
+    "all_ownership_roles_assigned": false,
+    "all_preflight_gates_verified": false,
+    "execution_allowed": false,
+    "independent_review_verified": false,
+    "missing_ownership_roles": [
+      "delivery_owner",
+      "submission_lock_owner",
+      "audit_evidence_owner",
+      "private_store_owner",
+      "incident_authority",
+      "target_reveal_authorizer"
+    ],
+    "missing_resource_aliases": [
+      "proton_test_account_alias",
+      "proton_queue_folder_alias",
+      "aws_test_account_alias",
+      "aws_region",
+      "submission_bucket_alias",
+      "audit_bucket_alias",
+      "private_admin_store_alias",
+      "protected_mapping_store_alias",
+      "cloudtrail_alias"
+    ],
+    "prerequisites_complete": false,
+    "resources_complete": false,
+    "status": "blocked"
+  },
+  "error_count": 0,
+  "errors": [],
+  "recomputed_record_digest_sha256": "469045b5b5b45f1de43185b39ab9452884f925c3d3b97f30d3676b21101edae3",
+  "schema_version": "egc2-dry-run-readiness-validation-0.1.0",
+  "status": "passed_readiness_consistency",
+  "valid": true,
+  "validation_report_digest_sha256": "54037ef4ae9f363e566e08d90577a8cee843baaf170f7988573dd4e01575852c",
+  "warning_count": 0,
+  "warnings": []
+}
