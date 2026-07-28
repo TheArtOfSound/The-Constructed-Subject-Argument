@@ -1,0 +1,144 @@
+{
+  "schema_version": "egc2-expert-reviewer-source-registry-0.1.0",
+  "registry_id": "egc2-anchor-reviewer-sources-2026-07-28",
+  "status": "public_source_map_only_no_contact_or_availability_claimed",
+  "created_at_utc": "2026-07-28T01:32:00Z",
+  "target_task": "Recruit at least six candidates to obtain three independent target-blind reviewers for the first 24 synthetic semantic-fidelity anchor packets.",
+  "panel_design": {
+    "required_reviewers": 3,
+    "minimum_candidates_to_source": 6,
+    "preferred_composition": [
+      "one measurement or psychometrics reviewer",
+      "one semantics, pragmatics, discourse, or psycholinguistics reviewer",
+      "one writing, literacy, language-assessment, or qualitative-coding reviewer"
+    ],
+    "anti_capture_rule": "Do not fill all three seats from one institution, one research group, one advisor lineage, or one professional subfield.",
+    "non_claims": [
+      "No listed organization or person has agreed to participate.",
+      "Public membership, faculty, or staff status does not imply availability, independence, or qualification for this tranche.",
+      "The registry contains sourcing routes, not reviewer assignments."
+    ]
+  },
+  "sources": [
+    {
+      "source_id": "SRC-01",
+      "priority": 1,
+      "name": "Arizona State University Quantitative Research Methods faculty",
+      "source_type": "local_academic_program",
+      "disciplinary_lane": "psychometrics_measurement",
+      "official_url": "https://psychology.asu.edu/degrees/graduate/quantitative/faculty",
+      "evidence": "ASU describes the program as advanced training in statistical modeling, measurement, research design, evaluation, and reproducibility.",
+      "outreach_route": "Use the official program or faculty directory to identify one faculty member or advanced doctoral researcher with measurement-model or assessment-design experience.",
+      "selection_filter": "Prefer evidence of measurement theory, model checking, assessment design, inter-rater reliability, or scale validation.",
+      "risk_flags": ["local-network familiarity with Bryan or Qira", "possible prior exposure through ASU outreach"],
+      "verification_date": "2026-07-28"
+    },
+    {
+      "source_id": "SRC-02",
+      "priority": 2,
+      "name": "ASU Linguistics and Applied Linguistics program",
+      "source_type": "local_academic_program",
+      "disciplinary_lane": "semantics_pragmatics_discourse",
+      "official_url": "https://english.asu.edu/academics/areas-of-study/linguistics-and-applied-linguistics",
+      "evidence": "The program explicitly covers semantics, pragmatics, discourse analysis, syntax, language learning, and research methods.",
+      "outreach_route": "Use the official program and faculty pages to identify one faculty member, postdoctoral researcher, or advanced doctoral candidate whose work concerns meaning, discourse, pragmatics, or language assessment.",
+      "selection_filter": "Prefer researchers who can separate propositional meaning, relationship structure, tone, audience inference, and surface fluency.",
+      "risk_flags": ["same-institution dependence if combined with SRC-01", "construct expertise may not imply rating-design expertise"],
+      "verification_date": "2026-07-28"
+    },
+    {
+      "source_id": "SRC-03",
+      "priority": 3,
+      "name": "Psychometric Society",
+      "source_type": "professional_society",
+      "disciplinary_lane": "psychometrics_measurement",
+      "official_url": "https://www.psychometricsociety.org/about-us",
+      "secondary_url": "https://www.psychometricsociety.org/get-involved",
+      "evidence": "The Society is devoted to quantitative measurement practices in psychology, education, and the social sciences and provides member, committee, conference, and editorial communities.",
+      "outreach_route": "Request permission from the Society or use publicly listed professional channels to circulate a fixed-compensation, independent instrument-review opportunity; do not scrape or mass-message members.",
+      "selection_filter": "Prefer early-career or established psychometricians with rating-scale, rater-effect, generalizability, item-response, or assessment-design experience.",
+      "risk_flags": ["society may decline recruitment distribution", "high-demand experts may require higher compensation"],
+      "verification_date": "2026-07-28"
+    },
+    {
+      "source_id": "SRC-04",
+      "priority": 4,
+      "name": "AERA Writing and Literacies SIG",
+      "source_type": "professional_special_interest_group",
+      "disciplinary_lane": "writing_literacy_assessment",
+      "official_url": "https://www.aera.net/SIG137/Writing-and-Literacies-SIG-137",
+      "evidence": "The SIG reports more than 500 members and explicitly covers writing development, literacy research, methodology, pedagogy, and assessment across contexts.",
+      "outreach_route": "Ask the SIG leadership whether a neutral recruitment notice may be shared through an approved newsletter, social channel, or member route.",
+      "selection_filter": "Prefer researchers with writing assessment, discourse analysis, rubric development, qualitative coding, or literacy measurement experience rather than purely pedagogical interests.",
+      "risk_flags": ["writing-quality expertise may encourage polish substitution", "large interdisciplinary pool requires strict screening"],
+      "verification_date": "2026-07-28"
+    },
+    {
+      "source_id": "SRC-05",
+      "priority": 5,
+      "name": "Cognitive Science Society",
+      "source_type": "professional_society",
+      "disciplinary_lane": "cross_disciplinary_cognition_language",
+      "official_url": "https://cognitivesciencesociety.org/about/",
+      "secondary_url": "https://cognitivesciencesociety.org/get-involved/",
+      "evidence": "The Society spans linguistics, psychology, education, philosophy, neuroscience, anthropology, and AI and maintains member, mentorship, outreach, and listserv channels.",
+      "outreach_route": "Seek an approved listserv or outreach posting targeted to researchers in language comprehension, psycholinguistics, communication, or measurement.",
+      "selection_filter": "Prefer candidates with experimental work on meaning representation, language comprehension, communication, or judgment rather than AI-consciousness advocacy.",
+      "risk_flags": ["possible prior exposure to adjacent AI-consciousness debates", "broad membership requires careful role screening"],
+      "verification_date": "2026-07-28"
+    },
+    {
+      "source_id": "SRC-06",
+      "priority": 6,
+      "name": "University of Michigan syntax and semantics research community",
+      "source_type": "academic_research_group",
+      "disciplinary_lane": "semantics_pragmatics_psycholinguistics",
+      "official_url": "https://lsa.umich.edu/linguistics/research/syntax-and-semantics.html",
+      "evidence": "The official page lists faculty and doctoral researchers working in formal semantics, pragmatics, discourse, psycholinguistics, neurolinguistics, and computational semantics.",
+      "outreach_route": "Use the departmental contact or public faculty and graduate researcher pages to send a limited, role-matched invitation to one or two candidates.",
+      "selection_filter": "Prefer researchers capable of distinguishing preserved meaning from lexical overlap and identifying changed causal, temporal, logical, or evaluative relations.",
+      "risk_flags": ["formal-semantic expertise may overemphasize propositional content", "individual outreach must avoid target leakage"],
+      "verification_date": "2026-07-28"
+    },
+    {
+      "source_id": "SRC-07",
+      "priority": 7,
+      "name": "ETS Foundational Psychometric and Statistical Research Center",
+      "source_type": "assessment_research_organization",
+      "disciplinary_lane": "psychometrics_assessment",
+      "official_url": "https://www.cn.ets.org/research/centers/psychometric-statistics.html",
+      "evidence": "ETS identifies the center's work in item response theory, differential item functioning, linking, equating, test security, process data, and large-scale assessment methods.",
+      "outreach_route": "Use an official research or assessment-services inquiry to ask whether an independent researcher may be referred for a small compensated instrument-development review.",
+      "selection_filter": "Prefer experience with constructed-response scoring, rater effects, scoring rubrics, validity arguments, or assessment design.",
+      "risk_flags": ["institutional procurement or conflict rules", "commercial consulting rates may exceed pilot budget"],
+      "verification_date": "2026-07-28"
+    },
+    {
+      "source_id": "SRC-08",
+      "priority": 8,
+      "name": "ASU measurement and statistics expertise directory",
+      "source_type": "local_expertise_directory",
+      "disciplinary_lane": "measurement_statistics_education",
+      "official_url": "https://search.asu.edu/webdir/profiles-in-expertise-areas/3280?page=0",
+      "evidence": "The directory identifies ASU researchers in measurement and statistics in education, including psychometrics, assessment, mixed models, testing, and language-literacy research.",
+      "outreach_route": "Use only as a secondary local sourcing route after checking overlap with SRC-01; contact a maximum of two role-matched candidates.",
+      "selection_filter": "Select for actual measurement or rating expertise and exclude candidates with prior project exposure or dependent relationships.",
+      "risk_flags": ["substantial overlap with SRC-01", "local convenience could undermine panel independence"],
+      "verification_date": "2026-07-28"
+    }
+  ],
+  "candidate_selection_sequence": [
+    "Source two measurement candidates from different organizations.",
+    "Source two semantics, pragmatics, discourse, or psycholinguistics candidates from different organizations.",
+    "Source two writing, literacy-assessment, or qualitative-coding candidates from different organizations.",
+    "Screen all six under the existing governance packet before discussing queue content.",
+    "Select three reviewers spanning all three disciplinary lanes and at least two institutions.",
+    "Retain at least one screened alternate until all three submissions are locked."
+  ],
+  "stop_conditions": [
+    "Fewer than three independent disciplinary lanes remain represented after exclusions.",
+    "Any candidate receives constructor targets, rationales, pair labels, or another reviewer's answers.",
+    "Compensation or review window changes after the first candidate accepts.",
+    "A candidate-source organization requires outcome control, editorial approval of results, or access to protected mappings."
+  ]
+}
