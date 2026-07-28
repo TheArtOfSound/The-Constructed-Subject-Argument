@@ -1,0 +1,85 @@
+name: EGC public evidence contract
+
+on:
+  push:
+    paths:
+      - "research/egc2/build_public_evidence_ci_fixture.py"
+      - "research/egc2/validate_public_dry_run_artifacts.py"
+      - "research/egc2/validate_evidence_reference_closure.py"
+      - "research/egc2/test_validate_public_dry_run_artifacts.py"
+      - "research/egc2/test_validate_evidence_reference_closure.py"
+      - "research/egc2/test_public_evidence_ci_integration.py"
+      - ".github/workflows/egc-public-evidence-contract.yml"
+  pull_request:
+    paths:
+      - "research/egc2/build_public_evidence_ci_fixture.py"
+      - "research/egc2/validate_public_dry_run_artifacts.py"
+      - "research/egc2/validate_evidence_reference_closure.py"
+      - "research/egc2/test_validate_public_dry_run_artifacts.py"
+      - "research/egc2/test_validate_evidence_reference_closure.py"
+      - "research/egc2/test_public_evidence_ci_integration.py"
+      - ".github/workflows/egc-public-evidence-contract.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-public-evidence-contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Compile evidence-gate modules
+        working-directory: research/egc2
+        run: |
+          python -m py_compile \
+            build_public_evidence_ci_fixture.py \
+            validate_public_dry_run_artifacts.py \
+            validate_evidence_reference_closure.py \
+            test_validate_public_dry_run_artifacts.py \
+            test_validate_evidence_reference_closure.py \
+            test_public_evidence_ci_integration.py
+
+      - name: Run focused unit and integration tests
+        working-directory: research/egc2
+        run: |
+          python -m unittest -v \
+            test_validate_public_dry_run_artifacts.py \
+            test_validate_evidence_reference_closure.py \
+            test_public_evidence_ci_integration.py
+
+      - name: Exercise production CLIs on public-safe fixture
+        working-directory: research/egc2
+        shell: bash
+        run: |
+          set -euo pipefail
+          fixture_root="$(mktemp -d)"
+          trap 'rm -rf "$fixture_root"' EXIT
+          python build_public_evidence_ci_fixture.py "$fixture_root"
+          python validate_public_dry_run_artifacts.py \
+            "$fixture_root/evidence" \
+            --report-out "$fixture_root/leakage-report.json"
+          python validate_evidence_reference_closure.py \
+            "$fixture_root/configuration.json" \
+            "$fixture_root/result.json" \
+            "$fixture_root" \
+            --report-out "$fixture_root/closure-report.json"
+          python - <<'PY' "$fixture_root"
+          import json
+          import pathlib
+          import sys
+
+          root = pathlib.Path(sys.argv[1])
+          leakage = json.loads((root / "leakage-report.json").read_text())
+          closure = json.loads((root / "closure-report.json").read_text())
+          assert leakage["status"] == "passed_no_detected_leakage"
+          assert leakage["finding_count"] == 0
+          assert closure["status"] == "passed_evidence_reference_closure"
+          assert closure["errors"] == []
+          PY
