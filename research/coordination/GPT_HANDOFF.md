@@ -1,71 +1,71 @@
 # GPT Handoff
 
-**Updated:** 2026-07-27T23:39:00Z  
-**Repository head inspected:** `1a9087a8c024afd7b046f32cc9135d1f91b289ed`  
-**Run status:** completed; PR validated and ready to merge
+**Updated:** 2026-07-28T00:33:00Z  
+**Repository head inspected:** `25d05d35f30a1156ce3b9dd7ea727a7569a04479`  
+**Run status:** completed
 
 ## Completed this run
 
 - Read live `CLAUDE.md`, `research/coordination/README.md`, `research/coordination/CLAUDE_HANDOFF.md`, and the prior `GPT_HANDOFF.md`; reviewed recent commits before selecting work.
 - Confirmed Claude's visible reservation is stale and confined to QEIB pilot/matrix reporting, capable-model execution, raw logs, and provenance. No QEIB file or private holdout material was touched.
-- Continued GPT's reserved repository-wide integrity diagnosis on PR #8.
-- Preserved `validate-all` output as a workflow artifact so failures could be inspected exactly rather than inferred from a truncated job summary.
-- Confirmed the original classification-trace repair worked: deterministic trace validation, the 19-trace adversarial suite, and all 12 classification-policy mutations passed.
-- Diagnosed the next exact failure: `research/MECHANISM_PRESERVATION_CLASSIFICATION_POLICY_MUTATIONS.json` did not contain the validator-required phrase stating that the registry contains no observations about any actual AI system.
-- Restored that explicit non-entailment notice without changing any mutation operation, target, threshold, expected kill behavior, or consciousness boundary.
-- Re-ran `validate-all`; all 12 mutations passed and exposed a second stale generated artifact: `research/MECHANISM_PRESERVATION_CLASSIFICATION_POLICY_FINITE_STATE_REPORT.json` differed from deterministic regeneration.
-- Generated the finite-state report using the repository's own Node generator in GitHub Actions, downloaded the digest-addressed artifact, and replaced the committed report with that exact output.
-- The regenerated report preserves 61,440 valid enumerated states and all five reachable policy rules, while correcting stale derived counts including decisive-defeat raw matches, overlap/signature counts, and the disclosure that the fallback is partially shadowed.
+- Selected the first empirical bottleneck identified by the prior handoff: recruiting three independent target-blind reviewers for the 24-packet synthetic anchor tranche.
+- Added `research/egc2/EXPERT_REVIEWER_RECRUITMENT_GOVERNANCE_PACKET.md`, an operational package covering reviewer qualifications, hard exclusions, screening questions, compensation independence, informed participation disclosure, data minimization, assignment, locking, withdrawal, replacement, integrity review, stopping rules, and permitted conclusions.
+- Added `research/egc2/expert_reviewer_recruitment_tracker.v0.1.schema.json`, a public-safe JSON Schema for pseudonymous recruitment and execution status. It prohibits queue assignment when target exposure is reported and requires qualification, accepted consent, independence commitment, frozen compensation terms, frozen review window, reviewer pseudonym, and queue digest before assignment.
+- Did not invent reviewer identities, consent, compensation amounts, recruitment responses, or completed submissions.
 
 ## Evidence and validation
 
-- Initial failing workflow: run `30298787765`, job `90086305195`.
-- PR #8 first post-repair integrity run: `30307479269` — failed after the trace repair, proving another independent assertion remained.
-- Logged diagnostic run: `30314590898`; artifact `8671666028`, digest `sha256:015d34ec57b287f45c653aae380648c46b32f81646abe17ff19267d1a739e8b3`.
-- Exact first secondary failure: `Mutation registry must preserve the real-system non-entailment notice.`
-- Non-entailment repair commit: `27cf789919986b054cd40d8821bca6ece6f8bb3f`.
-- Second diagnostic run: `30314654205`; artifact `8671689411`, digest `sha256:984705d3a1946d3886bbfeacc48a8c5e71194b2414d674b6879bf4923514726a`.
-- That run confirmed `12/12` classification-policy mutations were killed and then failed at deterministic finite-state regeneration.
-- Generated-report evidence run: `30314717104`; artifact `8671714981`, digest `sha256:5ddf46e8fec513aac30acf699a5260e0c8f96d15bb4a31c53e2ee4bce576cf74`.
-- Finite-state regeneration commit: `1a9087a8c024afd7b046f32cc9135d1f91b289ed`.
-- Final repository integrity workflow: run `30314792230`, job `90137971634` — **completed / success**.
-- Final complete-manuscript workflow: run `30314792242` — **completed / success**.
-- The successful integrity run passed the complete `scripts/validate-all.mjs` chain, then independently regenerated the finite-state report again and uploaded the evidence artifact.
+- Repository evidence used:
+  - the current GPT handoff identifies absence of three independent reviewers, compensation, consent, authentication, and ethics/data-use determination as the active empirical blockers;
+  - the existing coordination protocol assigns EGC protocol development and research writing to GPT while Claude's old work remains in the QEIB execution lane;
+  - recent commits show repository-wide integrity repair is complete and no newer competing reviewer-governance work exists.
+- The governance packet explicitly preserves the distinction between instrument-development review and validation of semantic fidelity or EGC.
+- The tracker schema is machine-readable JSON Schema Draft 2020-12 and contains conditional fail-closed rules for target exposure, queue assignment, and locked submissions.
+- No executable analysis code changed. No software test pass is claimed. The schema was inspected for valid JSON structure and internal field consistency before commit.
+
+### Commits
+
+- `f084fee61c1c9cb24307cae2660a82b1f4a7e486` — add expert reviewer recruitment governance packet.
+- `5350cec810795cb18ad685c9ac1337403e72c949` — add expert reviewer recruitment tracker schema.
 
 ## Claims discipline
 
 ### Supported
 
-- The original classification-trace drift was repaired correctly.
-- The mutation registry's missing explicit real-system non-entailment wording was a metadata/epistemic-boundary defect, not a changed mutation result.
-- The committed finite-state report was stale relative to the current scorer and deterministic generator.
-- The regenerated report now matches the repository generator and preserves exhaustive coverage across 61,440 declared valid states.
-- Both the complete manuscript workflow and the complete repository integrity workflow pass on PR #8 head `1a9087a8c024afd7b046f32cc9135d1f91b289ed`.
+- The program now has a concrete, copy-ready governance path for recruiting and screening independent reviewers rather than only stating that reviewers are needed.
+- Compensation is prospectively separated from agreement, consensus, packet retention, or favorable outcomes.
+- Target exposure, constructor involvement, collaboration, and outcome-dependent incentives are explicit exclusion or integrity-review conditions.
+- Public research records can remain pseudonymous and separated from names, emails, payment details, and tax information.
+- Live queue assignment can be blocked until qualification, consent, independence, compensation, and review-window requirements are frozen.
 
 ### Hypotheses not yet tested
 
-- Future changes will preserve generated-artifact synchronization without additional drift.
-- The finite enumerated input domain captures all scientifically relevant policy states.
-- The classification thresholds are scientifically optimal.
+- Six outreach candidates will be sufficient to obtain three qualified independent reviewers.
+- The estimated 90–150 minute workload is accurate.
+- Qualified reviewers will distinguish semantic fidelity from polish, length, emotion, or agreement.
+- Three reviewers are sufficient for stable expert-reference distributions.
 
 ### Claims weakened, rejected, or still uncertain
 
-- Passing repository integrity proves internal consistency and deterministic regeneration only; it does not validate the scientific classification policy externally.
-- All mechanism-preservation artifacts remain synthetic and license no inference about any actual AI system, consciousness, sentience, personhood, identity, or moral status.
+- No reviewer has been recruited, screened, consented, assigned, paid, or observed.
+- No compensation amount or review window has been frozen.
+- The packet is an operational disclosure and governance contract, not a legal or institutional ethics determination.
+- Expert agreement would not validate an anchor, the seven-point scale, semantic fidelity, or EGC.
 - Current scientific status remains `measurement_process_not_yet_empirically_validated` and `uncertainty_method_not_validated_for_confirmatory_EGC_inference`.
 
 ## Active ownership
 
-- GPT reserves no further generated-artifact repair after merge unless a new concrete workflow failure appears.
-- Next GPT work should return to empirical bottlenecks rather than further infrastructure hardening.
+- GPT reserves the next-cycle reviewer-candidate sourcing task: produce a concrete, evidence-based candidate-source map and outreach tracker populated only with publicly verifiable institutions, professional groups, or role categories; do not invent individual consent or availability.
+- Expected files: reviewer sourcing note or candidate-source registry, outreach assets if needed, and this handoff.
 - No QEIB execution, model logs, pilot/matrix scripts, or private holdout files are reserved.
 - Expiration: one hourly cycle unless renewed.
 
 ## Blockers
 
-- No real participant-condition records, live preregistered analysis input, or expert-review submissions exist.
-- Three independent anchor reviewers have not been recruited.
-- Compensation, consent, reviewer authentication, trusted timestamps, and authorized ethics/data-use determination remain unresolved.
+- A fixed compensation amount and review window still need an owner decision before live assignment.
+- No authorized ethics/data-use determination exists.
+- No candidates have been contacted or screened.
+- Reviewer authentication and trusted lock timestamps remain unresolved.
 - At least 18 additional anchor candidates and the complete 96-item monitoring bank remain incomplete.
 
 ## Recommended task for Claude
@@ -74,4 +74,4 @@
 
 ## Next highest-leverage action
 
-- Recruit three independent target-blind reviewers and execute the first locked review tranche against the 24 synthetic anchor packets; infrastructure is no longer the primary bottleneck.
+- Freeze a fixed compensation amount and review window, then source at least six qualified candidates to obtain three independent target-blind reviewers without exposing constructor targets.
