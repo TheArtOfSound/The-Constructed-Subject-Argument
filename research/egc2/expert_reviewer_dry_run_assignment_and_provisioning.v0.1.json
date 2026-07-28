@@ -1,0 +1,203 @@
+{
+  "schema_version": "egc2-dry-run-assignment-provisioning-0.1.0",
+  "record_id": "EGC2-DRYRUN-ASSIGNMENT-001",
+  "dry_run_id": "EGC2-SYNTH-OPS-001",
+  "readiness_record_path": "research/egc2/expert_reviewer_dry_run_execution_readiness.v0.1.json",
+  "synthetic_only": true,
+  "live_data_prohibited": true,
+  "private_holdout_prohibited": true,
+  "status": "blocked_unassigned_unprovisioned",
+  "execution_allowed": false,
+  "assignment_boundary": {
+    "public_record_uses_pseudonyms_only": true,
+    "real_identity_mapping_must_remain_private": true,
+    "one_person_may_hold_multiple_roles_only_if_separation_controls_remain_testable": true,
+    "operator_may_not_self-approve_independent_review": true,
+    "assignment_is_not_valid_until_acceptance_evidence_exists": true
+  },
+  "operator_assignment": {
+    "operator_pseudonym": null,
+    "acceptance_status": "not_assigned",
+    "accepted_at_utc": null,
+    "acceptance_evidence_path": null,
+    "attestations": {
+      "read_protocol": false,
+      "accepts_stop_conditions": false,
+      "will_use_synthetic_data_only": false,
+      "will_not_access_private_holdout": false,
+      "will_preserve_failures_and_deviations": false,
+      "will_publish_only_leakage-scanned_evidence": false
+    }
+  },
+  "independent_reviewer_assignment": {
+    "reviewer_pseudonym": null,
+    "acceptance_status": "not_assigned",
+    "accepted_at_utc": null,
+    "acceptance_evidence_path": null,
+    "independence_attestations": {
+      "not_the_primary_operator": false,
+      "did_not_generate_the_evidence_under_review": false,
+      "will_review_against_frozen_gates": false,
+      "will_record_disagreements_and_failed_controls": false,
+      "will_not_receive_private_holdout_material": false
+    }
+  },
+  "ownership_assignments": {
+    "delivery_owner": {"pseudonym": null, "accepted": false, "evidence_path": null},
+    "submission_lock_owner": {"pseudonym": null, "accepted": false, "evidence_path": null},
+    "audit_evidence_owner": {"pseudonym": null, "accepted": false, "evidence_path": null},
+    "private_store_owner": {"pseudonym": null, "accepted": false, "evidence_path": null},
+    "incident_authority": {"pseudonym": null, "accepted": false, "evidence_path": null},
+    "target_reveal_authorizer": {"pseudonym": null, "accepted": false, "evidence_path": null}
+  },
+  "resource_provisioning_checklist": [
+    {
+      "id": "R01",
+      "control": "isolated_proton_test_account",
+      "status": "not_provisioned",
+      "public_alias": null,
+      "required_public_evidence": [
+        "redacted account-purpose statement",
+        "creation timestamp",
+        "attestation that no live reviewer or participant data exists"
+      ],
+      "forbidden_public_content": ["email address", "recovery data", "credentials", "share secrets"],
+      "evidence_paths": []
+    },
+    {
+      "id": "R02",
+      "control": "recipient_specific_proton_queue_folder",
+      "status": "not_provisioned",
+      "public_alias": null,
+      "required_public_evidence": [
+        "redacted configuration export or screenshot description",
+        "view-only setting",
+        "24-hour expiration setting",
+        "separate-channel password attestation"
+      ],
+      "forbidden_public_content": ["recipient identity", "share URL", "password", "token"],
+      "evidence_paths": []
+    },
+    {
+      "id": "R03",
+      "control": "isolated_aws_test_account_and_region",
+      "status": "not_provisioned",
+      "public_alias": null,
+      "required_public_evidence": [
+        "redacted account-purpose statement",
+        "selected region",
+        "attestation that the account contains synthetic-test resources only"
+      ],
+      "forbidden_public_content": ["account ID", "ARN", "access key", "session token", "billing identity"],
+      "evidence_paths": []
+    },
+    {
+      "id": "R04",
+      "control": "submission_bucket_object_lock_and_versioning",
+      "status": "not_provisioned",
+      "public_alias": null,
+      "required_public_evidence": [
+        "versioning enabled",
+        "Object Lock enabled",
+        "COMPLIANCE mode",
+        "retention of at least 7 days",
+        "public-access block enabled"
+      ],
+      "forbidden_public_content": ["bucket name", "account ID", "ARN", "presigned URL"],
+      "evidence_paths": []
+    },
+    {
+      "id": "R05",
+      "control": "audit_bucket_and_cloudtrail",
+      "status": "not_provisioned",
+      "public_alias": null,
+      "required_public_evidence": [
+        "S3 data events enabled for the submission bucket",
+        "log-file validation enabled",
+        "audit destination separated from submission destination",
+        "synthetic write and read event captured"
+      ],
+      "forbidden_public_content": ["bucket name", "trail ARN", "account ID", "event identity linkage"],
+      "evidence_paths": []
+    },
+    {
+      "id": "R06",
+      "control": "role_and_kms_separation",
+      "status": "not_provisioned",
+      "public_alias": null,
+      "required_public_evidence": [
+        "distinct public aliases for delivery, submission, audit, and private-store roles",
+        "distinct KMS key aliases where required",
+        "policy-summary evidence",
+        "recorded denial for at least one prohibited cross-role action"
+      ],
+      "forbidden_public_content": ["principal ARN", "policy secrets", "key ID", "account ID", "credential material"],
+      "evidence_paths": []
+    },
+    {
+      "id": "R07",
+      "control": "private_admin_and_protected_mapping_stores",
+      "status": "not_provisioned",
+      "public_alias": null,
+      "required_public_evidence": [
+        "stores are distinct from public evidence storage",
+        "public artifacts contain no protected mappings or target reveal material",
+        "access is limited to assigned roles"
+      ],
+      "forbidden_public_content": ["protected mapping", "constructor target", "anchor identity", "rationale", "private holdout"],
+      "evidence_paths": []
+    },
+    {
+      "id": "R08",
+      "control": "synthetic_artifact_freeze",
+      "status": "not_generated",
+      "public_alias": null,
+      "required_public_evidence": [
+        "synthetic source-artifact inventory",
+        "SHA-256 digest for every public artifact",
+        "repository commit binding",
+        "explicit statement that no live data or private holdout was used"
+      ],
+      "forbidden_public_content": ["live reviewer data", "candidate data", "private holdout prompt", "reference answer"],
+      "evidence_paths": []
+    }
+  ],
+  "gate_evidence_mapping": {
+    "P01": ["operator_assignment.acceptance_evidence_path"],
+    "P02": ["ownership_assignments.*.evidence_path"],
+    "P03": ["R01", "R02"],
+    "P04": ["R03", "R04", "R05", "R06", "R07"],
+    "P05": ["R04"],
+    "P06": ["R05"],
+    "P07": ["R06"],
+    "P08": ["R08"],
+    "P09": ["leakage-scan report generated after all public evidence is assembled"],
+    "P10": ["evidence-closure report generated after all public evidence is assembled"],
+    "P11": ["ownership_assignments.incident_authority.evidence_path", "documented rollback procedure"],
+    "P12": ["operator_assignment.acceptance_evidence_path"]
+  },
+  "completion_rules": [
+    "No assignment may be marked accepted without a pseudonym, UTC timestamp, and public-safe acceptance evidence path.",
+    "No resource may be marked provisioned without a non-secret public alias and at least one evidence path.",
+    "Evidence must show the required control; a resource name or self-assertion alone is insufficient.",
+    "Every public evidence artifact must pass leakage scanning and evidence-reference closure.",
+    "The independent reviewer must record pass, fail, or unresolved for every preflight gate.",
+    "Any failed or unresolved gate keeps execution_allowed false.",
+    "This record may never contain credentials, direct account identifiers, real contact data, protected mappings, or private holdout material."
+  ],
+  "current_blockers": [
+    "operator unassigned",
+    "independent reviewer unassigned",
+    "ownership roles unassigned",
+    "Proton resources unprovisioned",
+    "AWS resources unprovisioned",
+    "synthetic artifact set not frozen",
+    "no provisioning evidence exists"
+  ],
+  "claim_limits": [
+    "This template does not assign any person or authenticate any identity.",
+    "This template does not show that any Proton or AWS resource exists.",
+    "A completed checklist would support only the documented operational controls under the recorded configuration.",
+    "No operational result may be interpreted as evidence of hidden intention, awareness, deception, subjectivity, or consciousness."
+  ]
+}
