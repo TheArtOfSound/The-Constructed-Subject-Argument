@@ -1,0 +1,270 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://imagineqira.com/schemas/egc2-expert-reviewer-recruitment-tracker.v0.1.schema.json",
+  "title": "EGC 2.0 Expert Reviewer Recruitment Tracker",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "tranche_id",
+    "source_manifest_digest_sha256",
+    "compensation_terms_frozen",
+    "review_window_frozen",
+    "candidates"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "egc2-expert-reviewer-recruitment-tracker-0.1.0"
+    },
+    "tranche_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_manifest_digest_sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "compensation_terms_frozen": {
+      "type": "boolean"
+    },
+    "review_window_frozen": {
+      "type": "boolean"
+    },
+    "administrative_identifiers_excluded": {
+      "const": true
+    },
+    "candidates": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "candidate_pseudonym",
+          "outreach_status",
+          "qualification_status",
+          "expertise_categories",
+          "target_exposure_reported",
+          "conflict_disclosed",
+          "independence_commitment",
+          "consent_status",
+          "queue_assignment_status",
+          "submission_status",
+          "payment_status"
+        ],
+        "properties": {
+          "candidate_pseudonym": {
+            "type": "string",
+            "pattern": "^C-[A-Z0-9]{4,16}$"
+          },
+          "outreach_status": {
+            "enum": [
+              "not_contacted",
+              "contacted",
+              "responded",
+              "declined",
+              "no_response",
+              "screening"
+            ]
+          },
+          "qualification_status": {
+            "enum": [
+              "not_screened",
+              "qualified",
+              "qualified_with_disclosed_relationship",
+              "hold_for_secondary_screen",
+              "excluded"
+            ]
+          },
+          "qualification_rationale": {
+            "type": ["string", "null"]
+          },
+          "expertise_categories": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "enum": [
+                "psychometrics",
+                "assessment_design",
+                "linguistics",
+                "semantics_pragmatics",
+                "qualitative_coding",
+                "cognitive_science",
+                "psychology",
+                "research_methods",
+                "writing_assessment",
+                "editing_rubric_design",
+                "other"
+              ]
+            }
+          },
+          "target_exposure_reported": {
+            "type": "boolean"
+          },
+          "conflict_disclosed": {
+            "type": "boolean"
+          },
+          "conflict_disposition": {
+            "enum": [
+              "none",
+              "non_disqualifying_disclosed_relationship",
+              "disqualifying",
+              "unresolved"
+            ]
+          },
+          "independence_commitment": {
+            "type": "boolean"
+          },
+          "consent_status": {
+            "enum": [
+              "not_sent",
+              "sent",
+              "accepted",
+              "declined",
+              "withdrawn"
+            ]
+          },
+          "consent_timestamp_utc": {
+            "type": ["string", "null"],
+            "format": "date-time"
+          },
+          "queue_assignment_status": {
+            "enum": [
+              "not_assigned",
+              "assigned",
+              "revoked_integrity_issue"
+            ]
+          },
+          "reviewer_pseudonym": {
+            "type": ["string", "null"],
+            "pattern": "^R[0-9]{2,}$"
+          },
+          "queue_digest_sha256": {
+            "type": ["string", "null"],
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "submission_status": {
+            "enum": [
+              "not_started",
+              "in_progress",
+              "locked_valid",
+              "locked_invalid",
+              "withdrawn_before_lock",
+              "integrity_review_required"
+            ]
+          },
+          "submission_digest_sha256": {
+            "type": ["string", "null"],
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "payment_status": {
+            "enum": [
+              "not_applicable",
+              "pending",
+              "approved",
+              "paid",
+              "disputed"
+            ]
+          },
+          "operational_note": {
+            "type": ["string", "null"],
+            "maxLength": 1000
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "target_exposure_reported": {"const": true}
+              }
+            },
+            "then": {
+              "properties": {
+                "qualification_status": {"const": "excluded"},
+                "queue_assignment_status": {"const": "not_assigned"}
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "queue_assignment_status": {"const": "assigned"}
+              }
+            },
+            "then": {
+              "required": [
+                "reviewer_pseudonym",
+                "queue_digest_sha256"
+              ],
+              "properties": {
+                "qualification_status": {
+                  "enum": [
+                    "qualified",
+                    "qualified_with_disclosed_relationship"
+                  ]
+                },
+                "consent_status": {"const": "accepted"},
+                "independence_commitment": {"const": true}
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "submission_status": {"const": "locked_valid"}
+              }
+            },
+            "then": {
+              "required": ["submission_digest_sha256"],
+              "properties": {
+                "queue_assignment_status": {"const": "assigned"}
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "compensation_terms_frozen": {"const": false}
+        }
+      },
+      "then": {
+        "not": {
+          "properties": {
+            "candidates": {
+              "contains": {
+                "properties": {
+                  "queue_assignment_status": {"const": "assigned"}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "review_window_frozen": {"const": false}
+        }
+      },
+      "then": {
+        "not": {
+          "properties": {
+            "candidates": {
+              "contains": {
+                "properties": {
+                  "queue_assignment_status": {"const": "assigned"}
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}
