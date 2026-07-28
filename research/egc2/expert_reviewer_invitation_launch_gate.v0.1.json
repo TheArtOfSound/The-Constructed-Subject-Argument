@@ -14,6 +14,12 @@
     "payment_initiation_deadline_days_after_valid_submission": 7,
     "anchor_content_allowed_in_invitation": false
   },
+  "readiness_artifacts": {
+    "screening_and_independence_form": "research/egc2/EXPERT_REVIEWER_SCREENING_AND_INDEPENDENCE_FORM.md",
+    "consent_acknowledgement": "research/egc2/EXPERT_REVIEWER_CONSENT_ACKNOWLEDGEMENT.md",
+    "public_private_data_separation": "research/egc2/EXPERT_REVIEWER_PUBLIC_PRIVATE_DATA_SEPARATION_SPEC.md",
+    "invitation_leakage_checklist": "research/egc2/EXPERT_REVIEWER_INVITATION_LEAKAGE_CHECKLIST.md"
+  },
   "gates": [
     {
       "gate_id": "G01_terms_document_frozen",
@@ -55,25 +61,28 @@
       "gate_id": "G07_private_identity_and_payment_storage",
       "required": true,
       "status": "not_verified",
-      "evidence_path": null
+      "evidence_path": "research/egc2/EXPERT_REVIEWER_PUBLIC_PRIVATE_DATA_SEPARATION_SPEC.md",
+      "note": "The separation architecture is specified, but responsible roles, storage locations, access controls, and retention periods are not yet operationally frozen."
     },
     {
       "gate_id": "G08_candidate_screening_form_ready",
       "required": true,
-      "status": "not_verified",
-      "evidence_path": null
+      "status": "verified",
+      "evidence_path": "research/egc2/EXPERT_REVIEWER_SCREENING_AND_INDEPENDENCE_FORM.md"
     },
     {
       "gate_id": "G09_uniform_invitation_copy_approved",
       "required": true,
       "status": "not_verified",
-      "evidence_path": "research/EGC_2_EXPERT_REVIEWER_SIX_CANDIDATE_EXECUTION_PACKET.md"
+      "evidence_path": "research/EGC_2_EXPERT_REVIEWER_SIX_CANDIDATE_EXECUTION_PACKET.md",
+      "note": "Draft content exists, but final send artifacts, recipients, attachments, and metadata have not been approved."
     },
     {
       "gate_id": "G10_no_target_or_anchor_leakage_check",
       "required": true,
       "status": "not_verified",
-      "evidence_path": null
+      "evidence_path": "research/egc2/EXPERT_REVIEWER_INVITATION_LEAKAGE_CHECKLIST.md",
+      "note": "The current draft document passed a content-level review. The actual-send review of recipients, attachments, permissions, links, and metadata remains pending."
     }
   ],
   "decision_rule": {
@@ -84,11 +93,16 @@
   "claims": {
     "supported": [
       "Uniform proposed compensation, workload, consent, data-use, independence, withdrawal, payment, and locking terms are documented.",
-      "Invitation release can be blocked until operational and ethics/data-use prerequisites are evidenced."
+      "A candidate screening and independence form is ready.",
+      "A consent acknowledgement and public/private data-separation architecture are documented.",
+      "A leakage checklist exists and the current six draft messages have undergone document-content review.",
+      "Invitation release remains blocked until operational, compensation, oversight, and actual-send requirements are evidenced."
     ],
     "not_supported": [
       "Compensation has been authorized or funded.",
       "An ethics or data-use determination has been made.",
+      "Administrative, storage, queue-delivery, or submission-locking controls are operational.",
+      "The final invitation artifacts have passed recipient, attachment, permissions, link, and metadata review.",
       "Any candidate has agreed, been screened, or been recruited.",
       "The workload estimate or reviewer count is empirically adequate.",
       "Any anchor, semantic-fidelity measure, or EGC claim is validated."
