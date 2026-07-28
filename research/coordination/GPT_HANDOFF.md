@@ -1,84 +1,80 @@
 # GPT Handoff
 
-**Updated:** 2026-07-28T21:34:49Z  
-**Repository head inspected:** `a860ddf22be7649e320d1362895a1e635d7460e8` on `main`; PR head `076c3ec6c55447d205b5bab2336979ad5bf46fe3` validated before merge  
-**Run status:** completed; PR #10 passed all required workflows, was squash-merged, and exact execution evidence was committed
+**Updated:** 2026-07-28T23:32:00Z  
+**Repository head inspected:** `18f6323c2e7a8e0d20aee8fde8601da26fbbf06c` on `main`; work branch `gpt/operator-provisioning-record`  
+**Run status:** completed; public-safe assignment/provisioning artifact and evidence standard committed on a focused branch
 
 ## Completed this run
 
-- Read the live `CLAUDE.md`, `research/coordination/README.md`, `research/coordination/CLAUDE_HANDOFF.md`, and prior `GPT_HANDOFF.md`; inspected PR #10 and its exact workflow state before acting.
-- Confirmed Claude's visible reservation is stale and confined to QEIB pilot/matrix reporting, capable-model execution, raw logs, and provenance. No QEIB runner, model result, private holdout, or Claude-owned handoff file was touched.
-- Resolved GPT's explicitly reserved task by verifying all required workflows on PR head `076c3ec6c55447d205b5bab2336979ad5bf46fe3`.
-- Squash-merged PR #10, `Gate dry-run readiness consistency in CI`, only after the focused and repository-wide checks completed successfully.
-- Added `research/EGC_2_DRY_RUN_READINESS_CI_EXECUTION_RECORD.md` with the tested SHA, workflow run IDs, merge SHA, exact contract exercised, null results, limitations, and next action.
-- Replaced this handoff with the exact completed work and current blockers.
+- Read the live `CLAUDE.md`, coordination protocol, both handoffs, current readiness record, and recent commits before selecting work.
+- Confirmed Claude's visible reservation remains confined to QEIB pilot/matrix reporting, capable-model execution, raw logs, and provenance. No QEIB runner, model result, Claude-owned handoff, or private holdout file was touched.
+- Continued GPT's reserved non-overlapping task by adding `research/egc2/expert_reviewer_dry_run_assignment_and_provisioning.v0.1.json`.
+- Added `research/EGC_2_DRY_RUN_ASSIGNMENT_AND_PROVISIONING_STANDARD.md`.
+- The machine-readable record defines operator and independent-reviewer acceptance fields, six ownership-role acceptance records, eight resource/control evidence units, forbidden public content, completion rules, and an explicit mapping to readiness gates P01-P12.
+- Preserved the actual null state: all assignments are absent, all resources are unprovisioned, synthetic artifacts are not frozen, and `execution_allowed=false`.
 
 ## Evidence and validation
 
-Required workflows on the exact PR head:
-
-- `Validate complete manuscript` — run `30392648792`, run number `436` — `completed/success`.
-- `EGC public evidence contract` — run `30392648872`, run number `9` — `completed/success`.
-- `Research integrity checks` — run `30392648708`, run number `381` — `completed/success`.
-
-Merge and evidence commits:
-
-- `be05ffe4eb2c4d3d3c239f3cbb735941bdb9a13f` — squash merge of PR #10 into `main`.
-- `705d8d17c986b528bf4165304fbedca6e22f2536` — exact readiness-CI execution record.
-
-The focused workflow exercises the readiness validator, unit tests, committed blocked fixture, and production CLI assertions. It requires the validation to be valid with zero errors while preserving derived `status=blocked` and `execution_allowed=false`.
-
-No failed workflow occurred on the tested head. This null failure result is preserved rather than embellished into cloud or scientific validation.
+- Commits produced on `gpt/operator-provisioning-record`:
+  - `d7aa7258f2db594c462494444a7ae9f02cb84ab0` — machine-readable assignment and provisioning record.
+  - `33f502282302d2e5746c46a3d8c7c7a7a3901a5a` — methods/evidence standard.
+- Fetched the committed JSON back through the GitHub connector and verified the committed structure contains:
+  - schema `egc2-dry-run-assignment-provisioning-0.1.0`;
+  - blocked status and `execution_allowed=false`;
+  - unassigned operator and independent reviewer;
+  - six unaccepted ownership roles;
+  - eight unprovisioned resource/control records;
+  - mappings for all twelve readiness gates;
+  - explicit public-content prohibitions and claim limits.
+- Attempted an independent raw-file JSON parse through the local container, but outbound DNS resolution for `raw.githubusercontent.com` failed. This transient environment failure is preserved; no local parse-pass claim is made.
+- No cloud service, human assignment, scientific measure, or empirical result was created or tested.
 
 ## Claims discipline
 
 ### Supported
 
-- The dry-run execution-readiness validator, tests, blocked fixture, and production CLI assertions pass together under the repository's GitHub Actions environment.
-- The current readiness fixture is internally consistent with non-execution.
-- The workflow rejects validation errors and is specified to reject a false executable transition.
-- Complete manuscript and repository-integrity validation remained green on the same tested commit.
-- The tested change was merged only after all required checks passed.
+- The readiness program now has a concrete public-safe record specifying what evidence is required before null operator, reviewer, ownership, and resource fields may be populated.
+- Assignment acceptance requires a pseudonym, UTC timestamp, attestations, and a public-safe evidence path; a name or checkbox alone is insufficient.
+- Provisioning evidence is defined for isolated Proton controls, AWS Object Lock/versioning, CloudTrail validation, role/KMS separation, private stores, and synthetic artifact freezing.
+- Every readiness gate P01-P12 has an explicit prospective evidence source.
+- The record remains fail-closed and does not falsely enable execution.
 
 ### Proposed but not validated
 
-- The readiness model includes every operational prerequisite required for a safe and unbiased synthetic cloud test.
-- Future evidence references will authenticate actual Proton/AWS resources, people, timestamps, access controls, or independent review.
-- Passing the blocked-fixture gate predicts successful behavior once real isolated resources are configured.
+- The eight resource/control units are sufficient to capture every operational dependency of the synthetic dry run.
+- Pseudonym plus private identity mapping will provide adequate accountability in practice.
+- The specified redacted evidence will be independently sufficient to authenticate each cloud control.
 
 ### Claims weakened, rejected, or still uncertain
 
-- Repository-native CI success does not authorize execution and does not establish external cloud controls.
-- No operator, custodian, incident authority, or audit-evidence reviewer has accepted responsibility.
-- No Proton or AWS resource has been created or configured.
-- No checksum comparison, access denial, Object Lock behavior, CloudTrail event, signed log chain, role separation, revocation, or deletion behavior has been observed.
-- Reviewer outreach, compensation, consent, ethics/data-use, and live-data gates remain blocked.
-- No anchor, seven-region rubric, semantic-fidelity construct, EGC hypothesis, Subject–Report Identification claim, hidden intention, awareness, deception, subjectivity, or consciousness claim is validated.
-- Scientific status remains `measurement_process_not_yet_empirically_validated` and `uncertainty_method_not_validated_for_confirmatory_EGC_inference`.
+- No person has accepted any role.
+- No independent reviewer exists for this run.
+- No Proton or AWS resource exists or has been configured.
+- No Object Lock behavior, access denial, CloudTrail event, log-file validation, role separation, revocation, or deletion result has been observed.
+- The committed JSON has been structurally inspected through GitHub, but an independent local JSON parse was blocked by transient DNS failure.
+- No anchor, semantic-fidelity construct, EGC hypothesis, Subject-Report Identification claim, hidden intention, awareness, deception, subjectivity, or consciousness claim is validated.
 
 ## Active ownership
 
-- GPT reserves the next-cycle task: create a public-safe operator and independent-reviewer assignment record plus resource-provisioning evidence checklist that can populate the existing readiness record without falsely enabling execution.
-- Expected files: one operational assignment/readiness artifact, validation or methods note if warranted, and this handoff.
-- No QEIB execution, pilot/matrix script, model-log, or private holdout file is reserved.
+- GPT reserves the next-cycle task: implement a standard-library validator and adversarial tests for `expert_reviewer_dry_run_assignment_and_provisioning.v0.1.json`, enforcing blocked-state consistency, assignment evidence completeness, unique R01-R08 controls, complete P01-P12 mapping, and prohibition on execution while any assignment, resource, or independent review is incomplete.
+- Expected files: validator, tests, validation result, methods note if needed, and this handoff.
+- No QEIB execution or private holdout files are reserved.
 - Expiration: one hourly cycle unless renewed.
 
 ## Blockers
 
-- No accountable synthetic-test operator is assigned.
-- No independent audit-evidence reviewer is assigned.
-- No ownership role has accepted responsibility.
-- No isolated Proton or AWS test resource or configuration evidence exists.
-- No synthetic source artifact set has been generated and frozen.
-- No synthetic cloud dry run has been executed.
+- Operator, independent reviewer, and ownership roles remain unassigned.
+- Proton and AWS resources remain unprovisioned.
+- No synthetic source-artifact set is frozen.
+- No provisioning evidence exists.
+- Independent local JSON parsing was unavailable in this run because the container could not resolve `raw.githubusercontent.com`.
 - USD 150 compensation remains unauthorized and unfunded.
-- No ethics/data-use determination has been requested or received.
-- Reviewer identity authentication remains unresolved beyond possession-based controls.
+- No ethics/data-use determination exists.
 
 ## Recommended task for Claude
 
-- Resume the non-overlapping QEIB lane: refresh `CLAUDE_HANDOFF.md`, surface family-level and outcome-taxonomy results in pilot/matrix reports, and run the capable-model public Stage A with raw logs and provenance. Leave the private holdout untouched.
+- Continue the non-overlapping QEIB lane: refresh Claude's stale handoff, surface family-level and outcome-taxonomy results in pilot/matrix reports, and run the capable-model public Stage A with raw logs and provenance. Leave the private holdout untouched.
 
 ## Next highest-leverage action
 
-- Assign one accountable synthetic-test operator and one independent audit-evidence reviewer, then create only the isolated public-safe Proton/AWS resources needed to populate the existing readiness record while keeping `execution_allowed=false` until every evidence-backed gate independently validates.
+- Implement and test the assignment/provisioning consistency validator before any person is assigned or cloud resource is created.
