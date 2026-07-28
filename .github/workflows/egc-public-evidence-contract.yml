@@ -6,8 +6,11 @@ on:
       - "research/egc2/build_public_evidence_ci_fixture.py"
       - "research/egc2/validate_public_dry_run_artifacts.py"
       - "research/egc2/validate_evidence_reference_closure.py"
+      - "research/egc2/validate_dry_run_execution_readiness.py"
+      - "research/egc2/expert_reviewer_dry_run_execution_readiness.v0.1.json"
       - "research/egc2/test_validate_public_dry_run_artifacts.py"
       - "research/egc2/test_validate_evidence_reference_closure.py"
+      - "research/egc2/test_validate_dry_run_execution_readiness.py"
       - "research/egc2/test_public_evidence_ci_integration.py"
       - ".github/workflows/egc-public-evidence-contract.yml"
   pull_request:
@@ -15,8 +18,11 @@ on:
       - "research/egc2/build_public_evidence_ci_fixture.py"
       - "research/egc2/validate_public_dry_run_artifacts.py"
       - "research/egc2/validate_evidence_reference_closure.py"
+      - "research/egc2/validate_dry_run_execution_readiness.py"
+      - "research/egc2/expert_reviewer_dry_run_execution_readiness.v0.1.json"
       - "research/egc2/test_validate_public_dry_run_artifacts.py"
       - "research/egc2/test_validate_evidence_reference_closure.py"
+      - "research/egc2/test_validate_dry_run_execution_readiness.py"
       - "research/egc2/test_public_evidence_ci_integration.py"
       - ".github/workflows/egc-public-evidence-contract.yml"
   workflow_dispatch:
@@ -47,8 +53,10 @@ jobs:
             build_public_evidence_ci_fixture.py \
             validate_public_dry_run_artifacts.py \
             validate_evidence_reference_closure.py \
+            validate_dry_run_execution_readiness.py \
             test_validate_public_dry_run_artifacts.py \
             test_validate_evidence_reference_closure.py \
+            test_validate_dry_run_execution_readiness.py \
             test_public_evidence_ci_integration.py \
             2>&1 | tee ../../validation-logs/compile.log
 
@@ -60,10 +68,11 @@ jobs:
           python -m unittest -v \
             test_validate_public_dry_run_artifacts.py \
             test_validate_evidence_reference_closure.py \
+            test_validate_dry_run_execution_readiness.py \
             test_public_evidence_ci_integration.py \
             2>&1 | tee ../../validation-logs/tests.log
 
-      - name: Exercise production CLIs on public-safe fixture
+      - name: Exercise production CLIs on public-safe fixtures
         working-directory: research/egc2
         shell: bash
         run: |
@@ -80,6 +89,9 @@ jobs:
               "$fixture_root/result.json" \
               "$fixture_root" \
               --report-out "$fixture_root/closure-report.json"
+            python validate_dry_run_execution_readiness.py \
+              expert_reviewer_dry_run_execution_readiness.v0.1.json \
+              --output "$fixture_root/readiness-report.json"
             python - <<'PY' "$fixture_root"
           import json
           import pathlib
@@ -88,16 +100,25 @@ jobs:
           root = pathlib.Path(sys.argv[1])
           leakage = json.loads((root / "leakage-report.json").read_text())
           closure = json.loads((root / "closure-report.json").read_text())
+          readiness = json.loads((root / "readiness-report.json").read_text())
           assert leakage["status"] == "passed_no_detected_leakage"
           assert leakage["finding_count"] == 0
           assert closure["status"] == "passed_evidence_reference_closure"
           assert closure["errors"] == []
+          assert readiness["status"] == "passed_readiness_consistency"
+          assert readiness["valid"] is True
+          assert readiness["error_count"] == 0
+          assert readiness["derived_state"]["status"] == "blocked"
+          assert readiness["derived_state"]["execution_allowed"] is False
           print(json.dumps({
               "closure_status": closure["status"],
               "declared_file_count": closure["declared_file_count"],
               "discovered_file_count": closure["discovered_file_count"],
               "leakage_status": leakage["status"],
               "finding_count": leakage["finding_count"],
+              "readiness_status": readiness["status"],
+              "readiness_error_count": readiness["error_count"],
+              "execution_allowed": readiness["derived_state"]["execution_allowed"],
           }, sort_keys=True))
           PY
           } 2>&1 | tee ../../validation-logs/production-cli.log
