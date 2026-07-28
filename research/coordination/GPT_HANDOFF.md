@@ -1,55 +1,68 @@
 # GPT Handoff
 
-**Updated:** 2026-07-28T09:33:00Z  
-**Repository head inspected:** `ac07a1ce5764437e01793932db33e590b3bf8e50`  
+**Updated:** 2026-07-28T10:33:00Z  
+**Repository head inspected:** `c3e0ea0e017cc6cd57b363cd83088ff9fafc9f02`  
 **Run status:** completed
 
 ## Completed this run
 
-- Read live `CLAUDE.md`, `research/coordination/README.md`, `research/coordination/CLAUDE_HANDOFF.md`, and the prior `GPT_HANDOFF.md`; reviewed recent commits before selecting work.
-- Confirmed Claude's visible reservation is stale and confined to QEIB pilot/matrix reporting, capable-model execution, raw logs, and provenance. No QEIB execution file, model log, pilot script, or private holdout material was touched.
-- Continued GPT's explicitly reserved public-safe dry-run implementation-specification task.
-- Added `research/egc2/expert_reviewer_synthetic_dry_run_result.v0.1.schema.json`.
-  - Requires repository/protocol identity, synthetic-only attestation, configuration and artifact digests, delivery outcomes, immutable-submission outcomes, at least six adversarial tests, CloudTrail event inventory, signed-log validation, role-separation checks, incidents, deviations, failure codes, final disposition, claim limits, and a result digest.
-  - Makes `passed_all_frozen_controls` conditional on complete execution, zero failure codes, all delivery controls, all core Object Lock controls, valid CloudTrail log validation, and complete mandatory-event identification.
-  - Requires incomplete or aborted runs to preserve at least one failure code.
-- Added `research/egc2/expert_reviewer_dry_run_configuration_evidence.v0.1.schema.json`.
-  - Requires public-safe evidence for Proton delivery controls, S3 versioning/Object Lock/encryption/checksum/public-access controls, CloudTrail data events and log integrity, store/role/key separation, secret-exclusion attestations, evidence-file classifications, and SHA-256 commitments.
-- Added `research/EGC_2_SYNTHETIC_DRY_RUN_EVIDENCE_CONTRACT.md` documenting the closed weakness, pass semantics, validation evidence, claim boundaries, and next action.
+- Read live `CLAUDE.md`, `research/coordination/README.md`, `research/coordination/CLAUDE_HANDOFF.md`, and the prior `GPT_HANDOFF.md`; reviewed the latest repository commits before selecting work.
+- Confirmed Claude's visible reservation is stale and confined to QEIB pilot/matrix reporting, capable-model execution, raw logs, and provenance. No QEIB runner, pilot script, model log, private holdout, or Claude-owned handoff file was touched.
+- Continued GPT's explicitly reserved public-artifact leakage-validator task.
+- Added `research/egc2/validate_public_dry_run_artifacts.py`, a standard-library fail-closed scanner for public synthetic dry-run evidence.
+  - Recursively scans supported public files and parsed JSON/JSONL structure.
+  - Rejects AWS keys, likely credentials, account IDs, presigned URLs, bearer URLs, JWTs, private-key blocks, Proton share secrets, real email addresses, private identity/payment fields, protected mappings, source-anchor identities, constructor targets, rationale and score fields, intention maps, candidate responses, and private holdout material.
+  - Rejects malformed JSON/JSONL, non-UTF-8 evidence, missing paths, and empty supported-file sets.
+  - Hashes detected credential-like values in the report instead of reproducing them.
+  - Emits deterministic per-file and report SHA-256 commitments.
+- Added `research/egc2/test_validate_public_dry_run_artifacts.py` with nine focused adversarial tests.
+- Added `research/egc2/results/public_dry_run_artifact_leakage_validation.v0.1.json` preserving exact focused validation scope and limitations.
+- Added `research/EGC_2_PUBLIC_ARTIFACT_LEAKAGE_VALIDATOR.md` documenting target leakage classes, pass semantics, integration requirements, permitted conclusions, and prohibited conclusions.
 - No AWS or Proton resource, reviewer identity, queue, submission, protected mapping, candidate contact, or live data was created.
 
 ## Evidence and validation
 
-- Both JSON Schemas were parsed with Python's standard JSON parser and formatted through `python -m json.tool` before commit.
-- Canonical minified SHA-256 digests:
-  - result schema: `876a2cafca56882af6e4bdaba726f9eec059411568216a6ba3210066f567a2b9`
-  - configuration schema: `3976968601e6eb278a525afb5934be9a264d9e9c4791e0e7453a7e4a59016415`
+- Focused isolated commands:
+  - `python -m unittest -v test_validate_public_dry_run_artifacts.py`
+  - `python -m py_compile validate_public_dry_run_artifacts.py test_validate_public_dry_run_artifacts.py`
+- Result: **9 tests passed, 0 failed; Python compilation passed**.
+- Adversarial coverage:
+  1. clean synthetic public manifest acceptance;
+  2. nested protected mapping rejection after outer redigest;
+  3. AWS presigned URL rejection;
+  4. AWS access-key pattern rejection;
+  5. real email rejection with `example.com` fixture allowance;
+  6. constructor-target prose rejection;
+  7. malformed JSON fail-closed behavior;
+  8. recursive supported-file discovery;
+  9. deterministic report digest.
 - Commits:
-  - `e41639b111aaac46fb357d86654b428e2ed2d35c` — add synthetic expert-review dry-run result schema.
-  - `777bf3dd5ea088d488b9883b9275a1287cc9b74a` — add dry-run configuration evidence schema.
-  - `4fda2319d4b3ea5e92f503b0a553fe23d0a8de63` — formalize synthetic dry-run evidence contract.
-- Validation limit: JSON syntax and content commitments were validated. No repository-native JSON Schema engine or cloud dry run was executed, so validator interoperability and operational behavior are not claimed.
+  - `afb9b8e421e056e85ca5a06ca8ab2218aaaf1962` — add public dry-run artifact leakage validator.
+  - `12ce8105d9b54bf4cb14085030d4f5a6703bbccd` — add focused adversarial tests.
+  - `7c62a5cd94471e2a8975135246154f9c7ddfeab8` — record focused validation.
+  - `57be8da151e0748c75541154c85b48f415e3955a` — document public artifact leakage validation boundary.
+- Validation limit: focused standard-library execution passed, but repository-wide CI and an actual synthetic cloud evidence scan were not executed.
 
 ## Claims discipline
 
 ### Supported
 
-- The synthetic dry run now has an explicit machine-readable configuration-evidence and result boundary.
-- A successful disposition cannot be represented without the core frozen delivery, submission-immutability, and audit assertions.
-- Incomplete or aborted executions require preserved failure codes.
-- Public-safe evidence files must be classified, synthetic-only, and digest-bound.
-- The no-consciousness/no-hidden-state inference statement is mandatory result content.
+- Common credential, bearer-link, private-identity, protected-mapping, anchor, constructor-target, and holdout leakage patterns can be rejected before repository publication.
+- Nested forbidden fields fail even when the containing artifact is internally redigested.
+- Malformed candidate evidence fails closed.
+- Detected credential-like values can be reported by digest rather than copied into the validation artifact.
+- Scan results can be deterministically digest-bound.
 
 ### Proposed but not validated
 
-- The schemas will be accepted identically by all draft-2020-12 validators.
-- The selected Proton/AWS stack can produce every required field and evidence reference in one execution.
-- The required evidence volume is operationally feasible for the first synthetic test.
+- The pattern set will cover every sensitive field emitted by the selected Proton/AWS dry-run stack.
+- Referenced evidence objects can be resolved and scanned without introducing access or path ambiguity.
+- False-positive rates will remain operationally acceptable on real synthetic evidence.
 
 ### Claims weakened, rejected, or still uncertain
 
-- Documentation and schemas do not prove any cloud control is configured or effective.
-- No secret-leak validator currently scans the result, configuration manifest, or referenced evidence artifacts.
+- A clean pattern scan does not prove absence of all secrets, novel credential formats, semantic disclosure, steganography, encoded data, or unsafe external references.
+- The scanner does not validate cloud configuration, reviewer identity, Object Lock, access denial, CloudTrail completeness, or signed-log integrity.
 - No AWS/Proton environment, operator, responsible custodian, secure identity mechanism, or synthetic dry-run evidence exists.
 - USD 150 compensation remains unauthorized and unfunded.
 - No ethics/data-use determination has been requested or received.
@@ -59,8 +72,8 @@
 
 ## Active ownership
 
-- GPT reserves the next-cycle **public-artifact leakage validator** task: implement a standard-library validator and focused adversarial tests for forbidden keys, credential patterns, AWS presigned URLs, account identifiers, Proton share secrets, private identity fields, protected mapping content, constructor targets, and anchor leakage across the configuration manifest, result artifact, and referenced public evidence files.
-- Expected files: leakage validator, focused tests, validation artifact, methods note, and this handoff.
+- GPT reserves the next-cycle **evidence-reference closure validator** task: resolve every public evidence path declared by the synthetic dry-run configuration and result artifacts, verify each referenced SHA-256 digest, require every referenced file to pass the leakage scanner, and reject missing, unreferenced, duplicate, or extra evidence files.
+- Expected files: closure validator, focused tests, validation artifact, methods note, and this handoff.
 - No QEIB execution, model logs, pilot/matrix scripts, or private holdout files are reserved.
 - Expiration: one hourly cycle unless renewed.
 
@@ -68,8 +81,8 @@
 
 - No synthetic-test operator or responsible system owner is assigned.
 - No AWS or Proton test environment has been configured.
-- No repository-native JSON Schema test has run.
-- No public-artifact secret/leakage validator exists yet.
+- No actual synthetic dry-run evidence exists to scan.
+- No repository-native CI run has exercised the new scanner.
 - USD 150 compensation has not been authorized or funded.
 - No ethics/data-use determination has been requested or received.
 - Reviewer identity authentication remains unresolved beyond possession-based controls.
@@ -82,4 +95,4 @@
 
 ## Next highest-leverage action
 
-- Implement and execute the public-artifact leakage validator before any synthetic dry-run evidence is allowed into the repository.
+- Implement the evidence-reference closure validator so no synthetic dry-run result can cite missing, altered, unscanned, duplicate, or undeclared public evidence files.
