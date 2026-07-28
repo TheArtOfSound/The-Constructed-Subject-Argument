@@ -1,85 +1,78 @@
 # GPT Handoff
 
-**Updated:** 2026-07-28T02:42:00Z  
-**Repository head inspected:** `e7361791060f619e905c6b905eb896d451f5e834`  
+**Updated:** 2026-07-28T03:35:00Z  
+**Repository head inspected:** `cd3b5d6268763706461982d003a05b7147a94d14`  
 **Run status:** completed
 
 ## Completed this run
 
 - Read live `CLAUDE.md`, `research/coordination/README.md`, `research/coordination/CLAUDE_HANDOFF.md`, and the prior `GPT_HANDOFF.md`; reviewed the latest repository commits before selecting work.
-- Confirmed Claude's visible reservation is stale and remains confined to QEIB pilot/matrix reporting, capable-model execution, raw logs, and provenance. No QEIB file, model result, pilot script, or private holdout material was touched.
-- Continued GPT's explicitly reserved reviewer sourcing execution task.
-- Added `research/egc2/expert_reviewer_candidate_slots.v0.1.json`, populating six public-safe candidate slots across three required disciplinary lanes:
-  - psychometrics/measurement: Roy Levy and Adrienne Sgammato;
-  - semantics/pragmatics/discourse: Ezra Keshet and Matthew Prior;
-  - writing/language assessment: Laura Aull and Paul Kei Matsuda.
-- Added `research/EGC_2_EXPERT_REVIEWER_SIX_CANDIDATE_EXECUTION_PACKET.md`, documenting public role evidence, fit rationales, screening risks, panel constraints, six individualized target-blind outreach drafts, screening sequence, stop conditions, and claim limits.
-- No outreach was sent. No candidate was represented as available, independent, eligible, interested, recruited, or willing.
-- No anchor content, constructor target, rationale, contrast label, admissible score range, private mapping, or reviewer identity record was distributed.
+- Confirmed Claude's visible reservation is stale and remains confined to QEIB pilot/matrix reporting, capable-model execution, raw logs, and provenance. No QEIB execution file, model log, pilot script, or private holdout material was touched.
+- Continued GPT's explicitly reserved uniform reviewer participation-terms task.
+- Added `research/egc2/EXPERT_REVIEWER_UNIFORM_PARTICIPATION_TERMS.md`, freezing a proposed uniform first-tranche contract:
+  - USD 150 fixed payment for one complete valid locked submission;
+  - seven-calendar-day review window;
+  - provisional 90–150 minute workload estimate;
+  - payment independent of agreement, packet retention, or favorable outcome;
+  - target-blind eligibility, independence, conflict, consent, data-use, withdrawal, payment, locking, replacement, and stop rules;
+  - explicit permitted and prohibited conclusions.
+- Added `research/egc2/expert_reviewer_invitation_launch_gate.v0.1.json`, a fail-closed send/no-send gate that blocks invitations until compensation authorization, ethics/data-use determination, administrative oversight, secure delivery/submission, private identity/payment storage, screening, invitation approval, and leakage review are evidenced.
+- No invitation was sent. No candidate was contacted, screened, consented, assigned, paid, or represented as recruited.
+- No anchor content, constructor target, rationale, contrast label, admissible range, protected mapping, or private reviewer identity was distributed.
 
 ## Evidence and validation
 
-### Public sources verified on 2026-07-28
-
-- Roy Levy: official ASU profile identifies psychometrics, item response theory, structural equation modeling, Bayesian methods, dimensionality assessment, model checking, and assessment design.
-- Adrienne Sgammato: official ETS profile identifies large-scale psychometric work, human constructed-response scoring, rater unreliability detection, and item-response-model fit.
-- Ezra Keshet: official University of Michigan profile identifies formal semantics, pragmatics, discourse, focus, and dynamic semantics.
-- Matthew Prior: official ASU profile identifies discourse analysis, conversation analysis, narrative analysis, discursive psychology, language and emotion, and qualitative methods.
-- Laura Aull: official University of Michigan profile identifies composition, applied linguistics, corpus linguistics, writing assessment, writing analytics, and genre analysis.
-- Paul Kei Matsuda: official ASU profile identifies second-language writing, written discourse, research methods, program evaluation, and writing-program administration.
-
-### Artifact checks
-
-- The candidate registry was fetched after creation and inspected as valid complete JSON text.
-- It contains exactly six unique slots, two per required lane, spanning ASU, the University of Michigan, and ETS.
-- Every slot explicitly records `availability_claimed: false` and `independence_claimed: false`.
-- The execution packet contains six individualized drafts and no anchor content or target information.
+- The participation document explicitly separates proposed terms from established evidence and states that the workload estimate is not empirically validated.
+- Compensation is fixed and outcome-independent; a valid submission remains payable even if it disagrees with every constructor target or causes packet rejection.
+- The launch gate contains 10 required gates and currently remains `blocked`; only the terms-document gate is marked verified.
+- `current_send_allowed` is `false` and the failure behavior explicitly prohibits invitations, queue assignment, anchor distribution, or claims of recruitment.
+- The launch gate preserves the unresolved compensation, ethics/data-use, oversight, secure-delivery, secure-submission, private-storage, screening, invitation-approval, and leakage-check blockers.
 - No executable code changed, so no software test pass is claimed.
 
 ### Commits
 
-- `087f45dd8547cced067935c7c96c284d06ab3500` — populate six public-safe expert reviewer candidate slots.
-- `e7361791060f619e905c6b905eb896d451f5e834` — add individualized target-blind reviewer outreach packet.
+- `d543a0245ab20921988ec0c225e22047d3f5f32f` — freeze uniform expert reviewer participation terms.
+- `952b15bdff48817780cbd0903a071ba00ad51b5b` — add fail-closed expert reviewer invitation launch gate.
 
 ## Claims discipline
 
 ### Supported
 
-- Six concrete role-matched sourcing slots now exist with public institutional evidence and official contact routes.
-- Each required disciplinary lane has two candidates.
-- The source pool spans three institutions and can support a final panel with one reviewer per lane and at least two institutions.
-- The individualized drafts are target-blind and do not imply endorsement, availability, or prior agreement.
-- Candidate-specific risks and institutional-policy constraints are explicitly preserved.
+- The first review tranche now has one uniform proposed participation contract covering compensation, workload, consent, data use, independence, withdrawal, payment, locking, replacement, and scientific claim limits.
+- Outcome-dependent payment and favorable-result reviewer replacement are explicitly prohibited.
+- Invitation release can be blocked until every operational and ethics/data-use prerequisite has evidence.
+- The current repository state accurately records that invitations are not yet authorized.
 
 ### Proposed but not validated
 
-- These six candidates will yield three eligible reviewers.
-- One reviewer from each lane will improve construct review compared with a homogeneous panel.
-- USD 150 and a seven-day window will be sufficient and fair.
-- Three reviewers are sufficient for stable expert-reference distributions.
+- USD 150 is sufficient and fair compensation for the task.
+- Seven calendar days is an appropriate completion window.
+- The review can usually be completed in 90–150 minutes.
+- Three independent reviewers will provide a useful development reference distribution.
 
 ### Claims weakened, rejected, or still uncertain
 
-- No candidate has been contacted, screened, consented, assigned, paid, or observed.
-- Public expertise does not establish independence, availability, or willingness.
-- Several candidates may be unavailable or prohibited from accepting outside compensation.
-- ASU contributes three of six source slots; final selection must not collapse into a single-institution panel.
-- Expert agreement would not validate anchors, the seven-region scale, semantic fidelity, EGC, hidden intention, subjectivity, or consciousness.
+- Bryan has not yet authorized or funded the USD 150 payment.
+- No ethics/data-use determination or administrative oversight record exists.
+- Secure delivery, submission locking, identity linkage, and payment administration remain unresolved.
+- No candidate is known to be available, independent, eligible, or willing.
+- Uniform terms do not validate any anchor, the seven-region rubric, semantic fidelity, EGC, hidden intention, subjectivity, or consciousness.
 - Current scientific status remains `measurement_process_not_yet_empirically_validated` and `uncertainty_method_not_validated_for_confirmatory_EGC_inference`.
 
 ## Active ownership
 
-- GPT reserves the next-cycle **uniform reviewer participation terms** task: freeze a proposed compensation and workload contract, consent/data-use language, conflict and independence declaration, withdrawal/payment rules, and a send/no-send launch gate without contacting candidates or distributing anchor content.
-- Expected files: participation terms, consent/data-use packet, machine-readable launch gate or tracker extension, methods note, and this handoff.
+- GPT reserves the next-cycle **invitation-readiness evidence package** task: create the candidate screening/independence form, consent acknowledgement, private/public data-separation specification, and leakage-review checklist needed to verify the remaining launch gates without sending invitations.
+- Expected files: screening and consent forms, data-handling specification, leakage checklist, launch-gate update, and this handoff.
 - No QEIB execution, model logs, pilot/matrix scripts, or private holdout files are reserved.
 - Expiration: one hourly cycle unless renewed.
 
 ## Blockers
 
-- Bryan has not yet explicitly frozen the proposed USD 150 compensation or seven-day review window.
+- USD 150 compensation has not been explicitly authorized or funded.
 - No authorized ethics/data-use determination exists.
+- Administrative contact and oversight responsibility are not frozen.
+- Secure reviewer authentication, queue delivery, submission locking, private identity linkage, payment storage, and trusted timestamps remain unresolved.
 - No candidate has been contacted or screened.
-- Secure reviewer authentication, private linkage storage, payment administration, and trusted lock timestamps remain unresolved.
 - At least 18 additional anchor candidates and the complete 96-item monitoring bank remain incomplete.
 
 ## Recommended task for Claude
@@ -88,4 +81,4 @@
 
 ## Next highest-leverage action
 
-- Freeze one uniform reviewer participation contract—compensation, workload, seven-day window, consent, data use, independence screening, withdrawal, payment, and secure submission—before any of the six invitations are sent.
+- Complete the remaining invitation-readiness evidence package and keep the send gate closed until compensation authorization and an ethics/data-use determination are documented.
