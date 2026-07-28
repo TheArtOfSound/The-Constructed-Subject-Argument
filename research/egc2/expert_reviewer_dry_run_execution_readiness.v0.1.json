@@ -1,0 +1,119 @@
+{
+  "schema_version": "egc2-expert-reviewer-dry-run-readiness-0.1.0",
+  "record_id": "EGC2-DRYRUN-READINESS-001",
+  "dry_run_id": "EGC2-SYNTH-OPS-001",
+  "synthetic_only": true,
+  "live_data_prohibited": true,
+  "repository_head_required": "a93d2f1aedc90a4c0fa257c742558f3f14457ead",
+  "protocol_path": "research/egc2/EXPERT_REVIEWER_SYNTHETIC_END_TO_END_DRY_RUN_PROTOCOL.md",
+  "system_selection_path": "research/egc2/EXPERT_REVIEWER_OPERATIONAL_SYSTEM_SELECTION_MATRIX.md",
+  "status": "blocked",
+  "execution_allowed": false,
+  "operator_assignment": {
+    "operator_pseudonym": null,
+    "acceptance_status": "not_assigned",
+    "accepted_at_utc": null,
+    "responsibilities": [
+      "configure isolated synthetic-only Proton and AWS resources",
+      "execute the frozen protocol without live reviewer data",
+      "preserve every pass, failure, incident, and deviation",
+      "stop immediately on any mandatory stop condition",
+      "produce only leakage-scanned public evidence"
+    ]
+  },
+  "ownership_assignments": {
+    "delivery_owner": null,
+    "submission_lock_owner": null,
+    "audit_evidence_owner": null,
+    "private_store_owner": null,
+    "incident_authority": null,
+    "target_reveal_authorizer": null
+  },
+  "resource_inventory": {
+    "proton_test_account_alias": null,
+    "proton_queue_folder_alias": null,
+    "aws_test_account_alias": null,
+    "aws_region": null,
+    "submission_bucket_alias": null,
+    "audit_bucket_alias": null,
+    "private_admin_store_alias": null,
+    "protected_mapping_store_alias": null,
+    "cloudtrail_alias": null,
+    "kms_key_aliases": [],
+    "resource_creation_evidence_paths": []
+  },
+  "frozen_configuration_requirements": {
+    "proton_recipient_specific_share": true,
+    "proton_view_only": true,
+    "proton_expiration_hours": 24,
+    "proton_password_separate_channel": true,
+    "s3_versioning_enabled": true,
+    "s3_object_lock_enabled": true,
+    "s3_object_lock_mode": "COMPLIANCE",
+    "s3_retention_days": 7,
+    "s3_presigned_put_expiry_minutes": 15,
+    "s3_sha256_checksum_required": true,
+    "s3_public_access_blocked": true,
+    "cloudtrail_s3_data_events_enabled": true,
+    "cloudtrail_log_file_validation_enabled": true,
+    "distinct_roles_and_kms_keys": true
+  },
+  "public_evidence_paths": {
+    "configuration_manifest": "research/egc2/results/expert_reviewer_dry_run_configuration_evidence.v0.1.json",
+    "result_manifest": "research/egc2/results/expert_reviewer_synthetic_dry_run_result.v0.1.json",
+    "leakage_scan_report": "research/egc2/results/expert_reviewer_dry_run_leakage_scan.v0.1.json",
+    "closure_report": "research/egc2/results/expert_reviewer_dry_run_evidence_closure.v0.1.json",
+    "evidence_directory": "research/egc2/results/expert_reviewer_dry_run_evidence/"
+  },
+  "preflight_gates": [
+    {"id": "P01", "name": "operator_assigned_and_accepted", "status": "not_verified", "evidence": []},
+    {"id": "P02", "name": "all_ownership_roles_assigned", "status": "not_verified", "evidence": []},
+    {"id": "P03", "name": "isolated_proton_resources_named", "status": "not_verified", "evidence": []},
+    {"id": "P04", "name": "isolated_aws_resources_named", "status": "not_verified", "evidence": []},
+    {"id": "P05", "name": "object_lock_and_versioning_configuration_evidenced", "status": "not_verified", "evidence": []},
+    {"id": "P06", "name": "cloudtrail_data_events_and_log_validation_evidenced", "status": "not_verified", "evidence": []},
+    {"id": "P07", "name": "role_and_kms_separation_evidenced", "status": "not_verified", "evidence": []},
+    {"id": "P08", "name": "synthetic_artifacts_generated_and_digest_frozen", "status": "not_verified", "evidence": []},
+    {"id": "P09", "name": "public_artifact_leakage_scan_passed", "status": "not_verified", "evidence": []},
+    {"id": "P10", "name": "evidence_reference_closure_passed", "status": "not_verified", "evidence": []},
+    {"id": "P11", "name": "rollback_and_incident_contacts_verified", "status": "not_verified", "evidence": []},
+    {"id": "P12", "name": "operator_attests_no_live_data_or_private_holdout", "status": "not_verified", "evidence": []}
+  ],
+  "mandatory_stop_conditions": [
+    "any real reviewer, participant, candidate, payment, tax, or contact data enters the dry run",
+    "any private holdout prompt, reference answer, protected mapping, constructor target, rationale, or anchor identity appears in a public artifact",
+    "repository head differs from the frozen execution commit without a new readiness record",
+    "operator or ownership assignment is missing or unaccepted",
+    "a required resource alias or configuration evidence is missing",
+    "a credential, presigned URL, share password, account identifier, key material, or private identity linkage is detected in public evidence",
+    "queue or submission digest mismatch occurs",
+    "Object Lock is absent, not in compliance mode, or retention is shorter than frozen",
+    "required CloudTrail S3 data events or signed log validation are unavailable",
+    "cross-role access succeeds where denial is required",
+    "a failure, incident, or deviation cannot be preserved immutably",
+    "the leakage scanner or evidence-closure validator does not pass"
+  ],
+  "execution_unlock_rule": {
+    "all_preflight_gates_must_equal": "verified",
+    "operator_acceptance_must_equal": "accepted",
+    "all_ownership_roles_must_be_non_null": true,
+    "resource_aliases_must_be_non_null": true,
+    "execution_allowed_must_be_set_only_after_independent_review": true
+  },
+  "current_blockers": [
+    "no operator has accepted responsibility",
+    "no ownership role is assigned",
+    "no Proton or AWS test resource exists",
+    "no cloud configuration evidence exists",
+    "no synthetic artifact set is frozen",
+    "no dry run has been executed"
+  ],
+  "claim_limits": [
+    "This record does not show that any service is configured.",
+    "This record does not show that any operator accepted responsibility.",
+    "This record does not clear reviewer outreach or live-data gates.",
+    "A successful dry run would support only the tested operational controls under one recorded configuration.",
+    "No result may be interpreted as evidence of hidden intention, awareness, deception, subjectivity, or consciousness."
+  ],
+  "record_digest_sha256": "469045b5b5b45f1de43185b39ab9452884f925c3d3b97f30d3676b21101edae3"
+}
