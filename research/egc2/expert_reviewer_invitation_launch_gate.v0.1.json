@@ -1,0 +1,97 @@
+{
+  "schema_version": "egc2-expert-reviewer-invitation-launch-gate-0.1.0",
+  "status": "blocked",
+  "scope": "First 24-packet target-blind expert-review tranche",
+  "uniform_terms": {
+    "compensation_usd": 150,
+    "review_window_calendar_days": 7,
+    "estimated_workload_minutes": {
+      "minimum": 90,
+      "maximum": 150,
+      "empirically_validated": false
+    },
+    "payment_independent_of_outcome": true,
+    "payment_initiation_deadline_days_after_valid_submission": 7,
+    "anchor_content_allowed_in_invitation": false
+  },
+  "gates": [
+    {
+      "gate_id": "G01_terms_document_frozen",
+      "required": true,
+      "status": "verified",
+      "evidence_path": "research/egc2/EXPERT_REVIEWER_UNIFORM_PARTICIPATION_TERMS.md"
+    },
+    {
+      "gate_id": "G02_compensation_authorized",
+      "required": true,
+      "status": "not_verified",
+      "evidence_path": null
+    },
+    {
+      "gate_id": "G03_ethics_data_use_determination",
+      "required": true,
+      "status": "not_verified",
+      "evidence_path": null
+    },
+    {
+      "gate_id": "G04_administrative_contact_and_oversight",
+      "required": true,
+      "status": "not_verified",
+      "evidence_path": null
+    },
+    {
+      "gate_id": "G05_secure_queue_delivery_path",
+      "required": true,
+      "status": "not_verified",
+      "evidence_path": null
+    },
+    {
+      "gate_id": "G06_secure_submission_and_lock_path",
+      "required": true,
+      "status": "not_verified",
+      "evidence_path": null
+    },
+    {
+      "gate_id": "G07_private_identity_and_payment_storage",
+      "required": true,
+      "status": "not_verified",
+      "evidence_path": null
+    },
+    {
+      "gate_id": "G08_candidate_screening_form_ready",
+      "required": true,
+      "status": "not_verified",
+      "evidence_path": null
+    },
+    {
+      "gate_id": "G09_uniform_invitation_copy_approved",
+      "required": true,
+      "status": "not_verified",
+      "evidence_path": "research/EGC_2_EXPERT_REVIEWER_SIX_CANDIDATE_EXECUTION_PACKET.md"
+    },
+    {
+      "gate_id": "G10_no_target_or_anchor_leakage_check",
+      "required": true,
+      "status": "not_verified",
+      "evidence_path": null
+    }
+  ],
+  "decision_rule": {
+    "send_allowed_only_when": "Every required gate has status verified and has non-null evidence_path.",
+    "current_send_allowed": false,
+    "failure_behavior": "Do not send invitations, distribute anchor content, assign queues, or represent candidates as recruited. Preserve the unresolved gate and evidence gap."
+  },
+  "claims": {
+    "supported": [
+      "Uniform proposed compensation, workload, consent, data-use, independence, withdrawal, payment, and locking terms are documented.",
+      "Invitation release can be blocked until operational and ethics/data-use prerequisites are evidenced."
+    ],
+    "not_supported": [
+      "Compensation has been authorized or funded.",
+      "An ethics or data-use determination has been made.",
+      "Any candidate has agreed, been screened, or been recruited.",
+      "The workload estimate or reviewer count is empirically adequate.",
+      "Any anchor, semantic-fidelity measure, or EGC claim is validated."
+    ]
+  }
+}
