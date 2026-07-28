@@ -18,7 +18,11 @@
     "screening_and_independence_form": "research/egc2/EXPERT_REVIEWER_SCREENING_AND_INDEPENDENCE_FORM.md",
     "consent_acknowledgement": "research/egc2/EXPERT_REVIEWER_CONSENT_ACKNOWLEDGEMENT.md",
     "public_private_data_separation": "research/egc2/EXPERT_REVIEWER_PUBLIC_PRIVATE_DATA_SEPARATION_SPEC.md",
-    "invitation_leakage_checklist": "research/egc2/EXPERT_REVIEWER_INVITATION_LEAKAGE_CHECKLIST.md"
+    "invitation_leakage_checklist": "research/egc2/EXPERT_REVIEWER_INVITATION_LEAKAGE_CHECKLIST.md",
+    "administrative_oversight_record": "research/egc2/EXPERT_REVIEWER_ADMINISTRATIVE_OVERSIGHT_RECORD.md",
+    "secure_delivery_and_submission_contract": "research/egc2/EXPERT_REVIEWER_SECURE_DELIVERY_AND_SUBMISSION_CONTRACT.md",
+    "private_admin_store_checklist": "research/egc2/EXPERT_REVIEWER_PRIVATE_ADMIN_STORE_CHECKLIST.md",
+    "ethics_data_use_determination_request": "research/egc2/EXPERT_REVIEWER_ETHICS_DATA_USE_DETERMINATION_REQUEST.md"
   },
   "gates": [
     {
@@ -37,32 +41,36 @@
       "gate_id": "G03_ethics_data_use_determination",
       "required": true,
       "status": "not_verified",
-      "evidence_path": null
+      "evidence_path": "research/egc2/EXPERT_REVIEWER_ETHICS_DATA_USE_DETERMINATION_REQUEST.md",
+      "note": "A determination request packet exists, but no determining authority has received or approved it."
     },
     {
       "gate_id": "G04_administrative_contact_and_oversight",
       "required": true,
       "status": "not_verified",
-      "evidence_path": null
+      "evidence_path": "research/egc2/EXPERT_REVIEWER_ADMINISTRATIVE_OVERSIGHT_RECORD.md",
+      "note": "Required roles and separation-of-duty rules are specified, but no responsible person has accepted a role."
     },
     {
       "gate_id": "G05_secure_queue_delivery_path",
       "required": true,
       "status": "not_verified",
-      "evidence_path": null
+      "evidence_path": "research/egc2/EXPERT_REVIEWER_SECURE_DELIVERY_AND_SUBMISSION_CONTRACT.md",
+      "note": "Acceptance criteria and failure states are specified; no delivery system or synthetic dry run is operationally evidenced."
     },
     {
       "gate_id": "G06_secure_submission_and_lock_path",
       "required": true,
       "status": "not_verified",
-      "evidence_path": null
+      "evidence_path": "research/egc2/EXPERT_REVIEWER_SECURE_DELIVERY_AND_SUBMISSION_CONTRACT.md",
+      "note": "Locking, digest, supersession, and incident requirements are specified; no immutable submission path or dry run is evidenced."
     },
     {
       "gate_id": "G07_private_identity_and_payment_storage",
       "required": true,
       "status": "not_verified",
-      "evidence_path": "research/egc2/EXPERT_REVIEWER_PUBLIC_PRIVATE_DATA_SEPARATION_SPEC.md",
-      "note": "The separation architecture is specified, but responsible roles, storage locations, access controls, and retention periods are not yet operationally frozen."
+      "evidence_path": "research/egc2/EXPERT_REVIEWER_PRIVATE_ADMIN_STORE_CHECKLIST.md",
+      "note": "The implementation checklist exists, but no store, owner, access controls, retention periods, or synthetic dry run is frozen."
     },
     {
       "gate_id": "G08_candidate_screening_form_ready",
@@ -88,20 +96,22 @@
   "decision_rule": {
     "send_allowed_only_when": "Every required gate has status verified and has non-null evidence_path.",
     "current_send_allowed": false,
-    "failure_behavior": "Do not send invitations, distribute anchor content, assign queues, or represent candidates as recruited. Preserve the unresolved gate and evidence gap."
+    "failure_behavior": "Do not send invitations, distribute anchor content, assign queues, collect live reviewer identity data, or represent candidates as recruited. Preserve each unresolved gate and evidence gap."
   },
   "claims": {
     "supported": [
       "Uniform proposed compensation, workload, consent, data-use, independence, withdrawal, payment, and locking terms are documented.",
       "A candidate screening and independence form is ready.",
       "A consent acknowledgement and public/private data-separation architecture are documented.",
+      "Administrative roles, secure delivery and immutable submission acceptance criteria, private-store implementation requirements, and an ethics/data-use determination request are documented.",
       "A leakage checklist exists and the current six draft messages have undergone document-content review.",
-      "Invitation release remains blocked until operational, compensation, oversight, and actual-send requirements are evidenced."
+      "Invitation release remains blocked until operational, compensation, oversight, ethics/data-use, and actual-send requirements are evidenced."
     ],
     "not_supported": [
       "Compensation has been authorized or funded.",
-      "An ethics or data-use determination has been made.",
-      "Administrative, storage, queue-delivery, or submission-locking controls are operational.",
+      "An ethics or data-use determination has been requested, received, or approved.",
+      "Administrative roles have been accepted.",
+      "Storage, queue-delivery, reviewer authentication, or submission-locking controls are operational.",
       "The final invitation artifacts have passed recipient, attachment, permissions, link, and metadata review.",
       "Any candidate has agreed, been screened, or been recruited.",
       "The workload estimate or reviewer count is empirically adequate.",
