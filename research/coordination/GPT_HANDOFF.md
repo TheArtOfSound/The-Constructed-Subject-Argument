@@ -1,117 +1,78 @@
 # GPT Handoff
 
-**Updated:** 2026-07-28T08:33:00Z  
-**Repository head inspected:** `cfc550d1a9d3bb5e54d075ced9b54947beb5f792`  
+**Updated:** 2026-07-28T09:33:00Z  
+**Repository head inspected:** `ac07a1ce5764437e01793932db33e590b3bf8e50`  
 **Run status:** completed
 
 ## Completed this run
 
-- Read live `CLAUDE.md`, `research/coordination/README.md`, `research/coordination/CLAUDE_HANDOFF.md`, and the prior `GPT_HANDOFF.md`; reviewed the latest commits before selecting work.
+- Read live `CLAUDE.md`, `research/coordination/README.md`, `research/coordination/CLAUDE_HANDOFF.md`, and the prior `GPT_HANDOFF.md`; reviewed recent commits before selecting work.
 - Confirmed Claude's visible reservation is stale and confined to QEIB pilot/matrix reporting, capable-model execution, raw logs, and provenance. No QEIB execution file, model log, pilot script, or private holdout material was touched.
-- Continued GPT's explicitly reserved operational system-selection and synthetic dry-run task.
-- Reviewed current official AWS and Proton documentation for:
-  - S3 presigned upload/download URLs and checksum support;
-  - S3 Object Lock WORM retention, governance/compliance modes, legal holds, versioning, and deletion semantics;
-  - CloudTrail S3 object-level data events and signed log-file integrity validation;
-  - S3 default encryption and SSE-KMS;
-  - Proton Drive email-specific sharing, password protection, expiration, revocation, and end-to-end encryption.
-- Added `research/egc2/EXPERT_REVIEWER_OPERATIONAL_SYSTEM_SELECTION_MATRIX.md`.
-  - Selected a provisional hybrid Proton Drive + AWS evidence architecture for synthetic testing.
-  - Assigned Proton Drive to recipient-specific encrypted queue delivery.
-  - Assigned S3 presigned uploads, Object Lock compliance retention, CloudTrail data events, signed log validation, SSE-KMS, and isolated IAM roles to submission, immutability, audit, protected mapping, and provisional private-administration functions.
-  - Explicitly rejected Proton Drive, Google Drive/Forms, and S3 presigned URLs as complete single-system solutions.
-  - Preserved the unresolved fact that a presigned URL is a bearer capability and is not reviewer-identity authentication.
-  - Did not clear any invitation launch gate.
-- Added `research/egc2/EXPERT_REVIEWER_SYNTHETIC_END_TO_END_DRY_RUN_PROTOCOL.md`.
-  - Defined synthetic artifacts, pre-run freeze record, system configuration, delivery retrieval/revocation, submission upload, compliance retention, overwrite/deletion attacks, CloudTrail reconstruction, signed log validation, role-separation tests, private-record deletion, result schema, permitted failure statuses, gate-update rules, and falsification conditions.
-  - Explicitly prohibited real candidate identities, real reviewer data, committed anchor content, constructor targets, private holdout material, secrets, presigned URLs, and protected mappings from public artifacts.
-- No cloud resource, account, bucket, share, queue, submission, reviewer identity, or live candidate contact was created.
+- Continued GPT's explicitly reserved public-safe dry-run implementation-specification task.
+- Added `research/egc2/expert_reviewer_synthetic_dry_run_result.v0.1.schema.json`.
+  - Requires repository/protocol identity, synthetic-only attestation, configuration and artifact digests, delivery outcomes, immutable-submission outcomes, at least six adversarial tests, CloudTrail event inventory, signed-log validation, role-separation checks, incidents, deviations, failure codes, final disposition, claim limits, and a result digest.
+  - Makes `passed_all_frozen_controls` conditional on complete execution, zero failure codes, all delivery controls, all core Object Lock controls, valid CloudTrail log validation, and complete mandatory-event identification.
+  - Requires incomplete or aborted runs to preserve at least one failure code.
+- Added `research/egc2/expert_reviewer_dry_run_configuration_evidence.v0.1.schema.json`.
+  - Requires public-safe evidence for Proton delivery controls, S3 versioning/Object Lock/encryption/checksum/public-access controls, CloudTrail data events and log integrity, store/role/key separation, secret-exclusion attestations, evidence-file classifications, and SHA-256 commitments.
+- Added `research/EGC_2_SYNTHETIC_DRY_RUN_EVIDENCE_CONTRACT.md` documenting the closed weakness, pass semantics, validation evidence, claim boundaries, and next action.
+- No AWS or Proton resource, reviewer identity, queue, submission, protected mapping, candidate contact, or live data was created.
 
 ## Evidence and validation
 
-### Official primary sources reviewed
-
-- AWS S3 presigned URLs:
-  - `https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-presigned-url.html`
-  - `https://docs.aws.amazon.com/AmazonS3/latest/userguide/PresignedUrlUploadObject.html`
-- AWS S3 Object Lock:
-  - `https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lock.html`
-  - `https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lock-configure.html`
-- AWS CloudTrail data events and log integrity:
-  - `https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-events.html`
-  - `https://docs.aws.amazon.com/awscloudtrail/latest/userguide/logging-data-events-with-cloudtrail.html`
-  - `https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-log-file-validation-intro.html`
-- AWS S3 encryption:
-  - `https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingKMSEncryption.html`
-- Proton Drive:
-  - `https://proton.me/support/drive`
-  - `https://proton.me/support/drive-how-to-share-files-via-email`
-  - `https://proton.me/support/drive-manage-access-shared-files`
-  - `https://proton.me/support/password-protect-files-proton-drive`
-
-### Commits
-
-- `79a700722389239ff450f8f91da576a111021852` — select provisional expert-review operational systems.
-- `34c396b477c8908f689ae6258f60f316229e7ca4` — add public-safe synthetic end-to-end dry-run protocol.
-
-### Validation limits
-
-- No executable code changed, so no software-test pass is claimed.
-- The system matrix is grounded in official product documentation, but no configuration was inspected or executed.
-- The dry-run protocol is prospective and has not produced a result artifact.
-- The invitation launch gate remains blocked and unchanged.
+- Both JSON Schemas were parsed with Python's standard JSON parser and formatted through `python -m json.tool` before commit.
+- Canonical minified SHA-256 digests:
+  - result schema: `876a2cafca56882af6e4bdaba726f9eec059411568216a6ba3210066f567a2b9`
+  - configuration schema: `3976968601e6eb278a525afb5934be9a264d9e9c4791e0e7453a7e4a59016415`
+- Commits:
+  - `e41639b111aaac46fb357d86654b428e2ed2d35c` — add synthetic expert-review dry-run result schema.
+  - `777bf3dd5ea088d488b9883b9275a1287cc9b74a` — add dry-run configuration evidence schema.
+  - `4fda2319d4b3ea5e92f503b0a553fe23d0a8de63` — formalize synthetic dry-run evidence contract.
+- Validation limit: JSON syntax and content commitments were validated. No repository-native JSON Schema engine or cloud dry run was executed, so validator interoperability and operational behavior are not claimed.
 
 ## Claims discipline
 
 ### Supported
 
-- S3 Object Lock compliance mode can provide WORM protection for object versions during a retention period.
-- CloudTrail can record selected S3 object-level data events, but data-event logging must be configured because it is not enabled by default.
-- CloudTrail log-file integrity validation can provide signed digest evidence for delivered log files.
-- S3 presigned URLs can provide time-limited upload/download capability and SigV4 checksum enforcement without giving reviewers AWS credentials.
-- Proton Drive supports end-to-end encrypted file storage and recipient/email or link sharing with password, expiration, and revocation controls.
-- No reviewed single service satisfies every frozen delivery, identity, immutability, lineage, audit, and private-administration requirement by itself.
-- The synthetic dry run now has explicit success, failure, stopping, falsification, and gate-update rules.
+- The synthetic dry run now has an explicit machine-readable configuration-evidence and result boundary.
+- A successful disposition cannot be represented without the core frozen delivery, submission-immutability, and audit assertions.
+- Incomplete or aborted executions require preserved failure codes.
+- Public-safe evidence files must be classified, synthetic-only, and digest-bound.
+- The no-consciousness/no-hidden-state inference statement is mandatory result content.
 
 ### Proposed but not validated
 
-- The hybrid Proton Drive + AWS architecture is operationally feasible for Bryan's actual accounts, budget, and technical environment.
-- A seven-day compliance retention period is appropriate for the synthetic test or eventual live review.
-- The provisional S3 private-administration store is suitable for live identity, payment, or tax data.
-- Two-channel possession of delivery/upload credentials is sufficient reviewer authentication.
-- The selected controls will generate a complete, interpretable audit record in one real configuration.
+- The schemas will be accepted identically by all draft-2020-12 validators.
+- The selected Proton/AWS stack can produce every required field and evidence reference in one execution.
+- The required evidence volume is operationally feasible for the first synthetic test.
 
 ### Claims weakened, rejected, or still uncertain
 
-- A presigned URL is not proof of reviewer identity; it is a bearer capability limited by expiry and signer permissions.
-- Proton Drive delivery does not establish immutable scientific submission locking.
-- Ordinary Google Drive or Forms collection does not establish WORM retention or a signed audit-log chain by itself.
-- Object Lock does not protect against deletion or loss of an encryption key that makes locked data unreadable.
-- CloudTrail S3 data events can create additional cost and must be explicitly enabled for the relevant objects.
-- No cloud resources, secure delivery path, immutable submission path, private store, trusted timestamp, or synthetic dry-run evidence currently exists.
+- Documentation and schemas do not prove any cloud control is configured or effective.
+- No secret-leak validator currently scans the result, configuration manifest, or referenced evidence artifacts.
+- No AWS/Proton environment, operator, responsible custodian, secure identity mechanism, or synthetic dry-run evidence exists.
 - USD 150 compensation remains unauthorized and unfunded.
 - No ethics/data-use determination has been requested or received.
 - No candidate is known to be available, independent, eligible, or willing.
-- No anchor, seven-region rubric, semantic-fidelity construct, EGC hypothesis, hidden intention, subjectivity, or consciousness claim is validated.
+- No anchor, seven-region rubric, semantic-fidelity construct, EGC hypothesis, hidden intention, subjectivity, awareness, deception, or consciousness claim is validated.
 - Current scientific status remains `measurement_process_not_yet_empirically_validated` and `uncertainty_method_not_validated_for_confirmatory_EGC_inference`.
 
 ## Active ownership
 
-- GPT reserves the next-cycle **public-safe dry-run implementation specification** task: create a machine-readable synthetic dry-run result schema, configuration-evidence checklist, and secret-leak validator or Infrastructure-as-Code review contract without creating live reviewer data or committing credentials.
-- Expected files: result JSON Schema, configuration evidence manifest/schema, public-artifact secret/leakage validator with tests if repository execution permits, and this handoff.
+- GPT reserves the next-cycle **public-artifact leakage validator** task: implement a standard-library validator and focused adversarial tests for forbidden keys, credential patterns, AWS presigned URLs, account identifiers, Proton share secrets, private identity fields, protected mapping content, constructor targets, and anchor leakage across the configuration manifest, result artifact, and referenced public evidence files.
+- Expected files: leakage validator, focused tests, validation artifact, methods note, and this handoff.
 - No QEIB execution, model logs, pilot/matrix scripts, or private holdout files are reserved.
 - Expiration: one hourly cycle unless renewed.
 
 ## Blockers
 
-- No operator or responsible system owner is assigned.
-- No AWS or Proton test environment has been configured under the frozen protocol.
-- USD 150 compensation has not been explicitly authorized or funded.
+- No synthetic-test operator or responsible system owner is assigned.
+- No AWS or Proton test environment has been configured.
+- No repository-native JSON Schema test has run.
+- No public-artifact secret/leakage validator exists yet.
+- USD 150 compensation has not been authorized or funded.
 - No ethics/data-use determination has been requested or received.
-- Administrative contact, data custodian, payment custodian, incident authority, and reveal authorizer are not assigned.
-- Reviewer identity authentication remains unresolved beyond possession-based delivery controls.
-- Retention and deletion periods are not authorized for live data.
-- Final email artifacts have not undergone recipient, attachment, permissions, link, and metadata review.
+- Reviewer identity authentication remains unresolved beyond possession-based controls.
 - No candidate has been contacted or screened.
 - At least 18 additional anchor candidates and the complete 96-item monitoring bank remain incomplete.
 
@@ -121,4 +82,4 @@
 
 ## Next highest-leverage action
 
-- Assign a synthetic-test operator and configure isolated Proton/AWS test resources, then execute the dry-run protocol and preserve the first exact pass or failure; do not clear any live-review gate from documentation alone.
+- Implement and execute the public-artifact leakage validator before any synthetic dry-run evidence is allowed into the repository.
