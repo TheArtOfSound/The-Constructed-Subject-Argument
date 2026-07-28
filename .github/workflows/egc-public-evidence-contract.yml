@@ -35,24 +35,33 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Create validation-log directory
+        run: mkdir -p validation-logs
+
       - name: Compile evidence-gate modules
         working-directory: research/egc2
+        shell: bash
         run: |
+          set -o pipefail
           python -m py_compile \
             build_public_evidence_ci_fixture.py \
             validate_public_dry_run_artifacts.py \
             validate_evidence_reference_closure.py \
             test_validate_public_dry_run_artifacts.py \
             test_validate_evidence_reference_closure.py \
-            test_public_evidence_ci_integration.py
+            test_public_evidence_ci_integration.py \
+            2>&1 | tee ../../validation-logs/compile.log
 
       - name: Run focused unit and integration tests
         working-directory: research/egc2
+        shell: bash
         run: |
+          set -o pipefail
           python -m unittest -v \
             test_validate_public_dry_run_artifacts.py \
             test_validate_evidence_reference_closure.py \
-            test_public_evidence_ci_integration.py
+            test_public_evidence_ci_integration.py \
+            2>&1 | tee ../../validation-logs/tests.log
 
       - name: Exercise production CLIs on public-safe fixture
         working-directory: research/egc2
@@ -61,16 +70,17 @@ jobs:
           set -euo pipefail
           fixture_root="$(mktemp -d)"
           trap 'rm -rf "$fixture_root"' EXIT
-          python build_public_evidence_ci_fixture.py "$fixture_root"
-          python validate_public_dry_run_artifacts.py \
-            "$fixture_root/evidence" \
-            --report-out "$fixture_root/leakage-report.json"
-          python validate_evidence_reference_closure.py \
-            "$fixture_root/configuration.json" \
-            "$fixture_root/result.json" \
-            "$fixture_root" \
-            --report-out "$fixture_root/closure-report.json"
-          python - <<'PY' "$fixture_root"
+          {
+            python build_public_evidence_ci_fixture.py "$fixture_root"
+            python validate_public_dry_run_artifacts.py \
+              "$fixture_root/evidence" \
+              --report-out "$fixture_root/leakage-report.json"
+            python validate_evidence_reference_closure.py \
+              "$fixture_root/configuration.json" \
+              "$fixture_root/result.json" \
+              "$fixture_root" \
+              --report-out "$fixture_root/closure-report.json"
+            python - <<'PY' "$fixture_root"
           import json
           import pathlib
           import sys
@@ -82,4 +92,34 @@ jobs:
           assert leakage["finding_count"] == 0
           assert closure["status"] == "passed_evidence_reference_closure"
           assert closure["errors"] == []
+          print(json.dumps({
+              "closure_status": closure["status"],
+              "declared_file_count": closure["declared_file_count"],
+              "discovered_file_count": closure["discovered_file_count"],
+              "leakage_status": leakage["status"],
+              "finding_count": leakage["finding_count"],
+          }, sort_keys=True))
           PY
+          } 2>&1 | tee ../../validation-logs/production-cli.log
+
+      - name: Record workflow provenance
+        if: always()
+        shell: bash
+        run: |
+          {
+            echo "repository=${GITHUB_REPOSITORY}"
+            echo "sha=${GITHUB_SHA}"
+            echo "ref=${GITHUB_REF}"
+            echo "run_id=${GITHUB_RUN_ID}"
+            echo "run_attempt=${GITHUB_RUN_ATTEMPT}"
+            echo "python=$(python --version 2>&1)"
+          } > validation-logs/provenance.txt
+
+      - name: Upload validation logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: egc-public-evidence-validation-${{ github.run_id }}-${{ github.run_attempt }}
+          path: validation-logs/
+          if-no-files-found: error
+          retention-days: 30
