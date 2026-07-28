@@ -1,0 +1,169 @@
+{
+  "schema_version": "egc2-expert-reviewer-candidate-slots-0.1.0",
+  "updated_at_utc": "2026-07-28T02:34:00Z",
+  "status": "sourced_not_contacted",
+  "purpose": "Public-safe sourcing record for the first target-blind semantic-fidelity anchor review. Inclusion records role fit only; it does not imply availability, independence, eligibility, or agreement to participate.",
+  "panel_contract": {
+    "required_lanes": [
+      "psychometrics_measurement",
+      "semantics_pragmatics_discourse",
+      "writing_language_assessment"
+    ],
+    "initial_slots_per_lane": 2,
+    "final_panel_size": 3,
+    "minimum_institutions_in_final_panel": 2,
+    "one_final_reviewer_per_lane": true,
+    "anchor_content_shared_during_sourcing": false,
+    "outreach_sent": false
+  },
+  "candidate_slots": [
+    {
+      "slot_id": "M01",
+      "lane": "psychometrics_measurement",
+      "candidate_name": "Roy Levy",
+      "institution": "Arizona State University",
+      "public_role": "Professor; quantitative psychology and psychometric methodology",
+      "role_evidence": [
+        "Research and teaching in psychometrics and statistical modeling",
+        "Focus on item response theory, structural equation modeling, Bayesian methods, dimensionality assessment, model checking, and assessment design"
+      ],
+      "official_profile_url": "https://search.asu.edu/profile/947297",
+      "official_contact_route": "Public institutional contact details listed on the ASU profile",
+      "fit_rationale": "Direct expertise in evidentiary assessment design, model checking, dimensionality, and psychometric validity threats is relevant to reviewing whether the proposed anchor process supports defensible score interpretation.",
+      "screening_risks": [
+        "Local institutional proximity may create perceived dependence",
+        "Senior faculty workload may reduce availability",
+        "Must confirm no prior exposure to EGC constructor targets or materials"
+      ],
+      "sourcing_status": "public_role_verified_not_contacted",
+      "availability_claimed": false,
+      "independence_claimed": false
+    },
+    {
+      "slot_id": "M02",
+      "lane": "psychometrics_measurement",
+      "candidate_name": "Adrienne Sgammato",
+      "institution": "ETS Research Institute",
+      "public_role": "Senior psychometrician",
+      "role_evidence": [
+        "Coordinates psychometric work for large-scale assessment",
+        "Research includes human constructed-response scoring models, rater unreliability detection, and item-response-model fit"
+      ],
+      "official_profile_url": "https://www.ets.org/research/author-bio/sgammato--adrienne.html",
+      "official_contact_route": "ETS institutional researcher profile and ETS Research Institute contact channels",
+      "fit_rationale": "Her public research focus on constructed-response scoring and rater unreliability is unusually close to the immediate anchor-review problem without implying endorsement or availability.",
+      "screening_risks": [
+        "Institutional policies may prohibit or complicate outside compensated review",
+        "Operational assessment obligations may create availability constraints",
+        "Must confirm no conflict with ETS intellectual-property or consulting rules"
+      ],
+      "sourcing_status": "public_role_verified_not_contacted",
+      "availability_claimed": false,
+      "independence_claimed": false
+    },
+    {
+      "slot_id": "S01",
+      "lane": "semantics_pragmatics_discourse",
+      "candidate_name": "Ezra Keshet",
+      "institution": "University of Michigan",
+      "public_role": "Professor of Linguistics",
+      "role_evidence": [
+        "Research in formal semantics and pragmatics",
+        "Work on how linguistic structure, focus, discourse, and context alter meaning",
+        "Regular teaching and supervision in semantics"
+      ],
+      "official_profile_url": "https://lsa.umich.edu/linguistics/people/faculty/tenure-track-faculty/ekeshet.html",
+      "official_contact_route": "Public institutional contact details listed on the University of Michigan profile",
+      "fit_rationale": "Formal semantic and pragmatic expertise is relevant to separating preserved propositional content, altered relationships, contextual implication, and merely stylistic variation.",
+      "screening_risks": [
+        "Formal-semantic expertise may not map directly onto applied rating practice",
+        "Senior faculty workload may reduce availability",
+        "Must confirm willingness to evaluate synthetic applied examples rather than formal semantic analyses"
+      ],
+      "sourcing_status": "public_role_verified_not_contacted",
+      "availability_claimed": false,
+      "independence_claimed": false
+    },
+    {
+      "slot_id": "S02",
+      "lane": "semantics_pragmatics_discourse",
+      "candidate_name": "Matthew Prior",
+      "institution": "Arizona State University",
+      "public_role": "Professor of English and applied linguist",
+      "role_evidence": [
+        "Expertise in discourse analysis, conversation analysis, narrative analysis, discursive psychology, and qualitative methods",
+        "Research on how meaning, identity, emotion, and experience are constructed through interaction"
+      ],
+      "official_profile_url": "https://search.asu.edu/profile/1768425",
+      "official_contact_route": "Public institutional contact details listed on the ASU profile",
+      "fit_rationale": "Discourse-analytic and narrative-method expertise is relevant to judging intended audience understanding, relationship structure, qualification, and meaning-relevant tone without substituting polish or emotional intensity for fidelity.",
+      "screening_risks": [
+        "Local institutional proximity may create perceived dependence",
+        "Qualitative interpretive orientation may produce a different scoring ontology than formal semantics",
+        "Must confirm no prior exposure to the anchor construction process"
+      ],
+      "sourcing_status": "public_role_verified_not_contacted",
+      "availability_claimed": false,
+      "independence_claimed": false
+    },
+    {
+      "slot_id": "W01",
+      "lane": "writing_language_assessment",
+      "candidate_name": "Laura Aull",
+      "institution": "University of Michigan",
+      "public_role": "Professor of English and Linguistics",
+      "role_evidence": [
+        "Expertise in composition, applied linguistics, corpus linguistics, writing assessment, writing analytics, and genre analysis",
+        "Research on linguistic variation and how student writing is analyzed and judged"
+      ],
+      "official_profile_url": "https://lsa.umich.edu/english/people/faculty/laull.html",
+      "official_contact_route": "Public institutional contact details listed on the University of Michigan profile",
+      "fit_rationale": "Writing-assessment and linguistic-analysis expertise is directly relevant to detecting when raters substitute prescriptive correctness, sophistication, or genre expectations for preservation of intended meaning.",
+      "screening_risks": [
+        "Research leave or other current obligations may limit availability",
+        "Public work on AI and writing may create perceived topical alignment that must not be mistaken for endorsement",
+        "Must confirm no prior exposure to EGC materials"
+      ],
+      "sourcing_status": "public_role_verified_not_contacted",
+      "availability_claimed": false,
+      "independence_claimed": false
+    },
+    {
+      "slot_id": "W02",
+      "lane": "writing_language_assessment",
+      "candidate_name": "Paul Kei Matsuda",
+      "institution": "Arizona State University",
+      "public_role": "Professor of English and Director of Second Language Writing",
+      "role_evidence": [
+        "Research in second-language writing, academic writing, written discourse, research methods, and writing-program evaluation",
+        "Experience as a program developer, evaluator, consultant, editor, and disciplinary leader"
+      ],
+      "official_profile_url": "https://search.asu.edu/profile/1097693",
+      "official_contact_route": "Public institutional contact details listed on the ASU profile",
+      "fit_rationale": "Second-language writing and written-discourse expertise is relevant to distinguishing semantic preservation from fluency, language background, rhetorical polish, and conformity to dominant writing norms.",
+      "screening_risks": [
+        "Local institutional proximity may create perceived dependence",
+        "Extensive professional obligations may reduce availability",
+        "Must confirm that participation would not conflict with consulting or institutional policies"
+      ],
+      "sourcing_status": "public_role_verified_not_contacted",
+      "availability_claimed": false,
+      "independence_claimed": false
+    }
+  ],
+  "selection_constraints": [
+    "Do not select more than one final reviewer from the same disciplinary lane.",
+    "Do not select all final reviewers from one institution.",
+    "Do not contact a candidate with anchor content, constructor targets, rationales, contrast labels, or admissible score ranges.",
+    "Do not interpret silence, refusal, or referral as evidence about the instrument.",
+    "Do not replace a reviewer because their blind ratings are unfavorable.",
+    "Freeze compensation and review window uniformly before sending the first invitation."
+  ],
+  "unresolved_before_outreach": [
+    "Owner approval of the proposed fixed USD 150 compensation",
+    "Owner approval of a seven-day review window",
+    "Authorized ethics and data-use determination",
+    "Administrative method for private identity, payment, and tax records",
+    "Secure queue-delivery and submission-lock procedure"
+  ]
+}
