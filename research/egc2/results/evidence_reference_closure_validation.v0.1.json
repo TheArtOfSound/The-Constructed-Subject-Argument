@@ -1,0 +1,31 @@
+{
+  "schema_version": "egc2-evidence-reference-closure-focused-validation-0.1.0",
+  "validated_at_utc": "2026-07-28T11:34:00Z",
+  "scope": "Focused standard-library validation of the public evidence reference closure validator using temporary synthetic fixtures.",
+  "commands": [
+    "python -m unittest -v test_validate_evidence_reference_closure.py",
+    "python -m py_compile validate_evidence_reference_closure.py test_validate_evidence_reference_closure.py"
+  ],
+  "result": {
+    "tests_passed": 8,
+    "tests_failed": 0,
+    "python_compilation_passed": true
+  },
+  "adversarial_coverage": [
+    "valid declared-referenced-discovered closure",
+    "missing declared file",
+    "altered file with stale digest",
+    "undeclared extra public evidence file",
+    "referenced but undeclared file",
+    "declared but unreferenced file",
+    "duplicate declared file digest",
+    "leakage finding after file and manifest redigest"
+  ],
+  "preserved_failures": [],
+  "claim_limits": [
+    "This validates focused software behavior only.",
+    "No real AWS, Proton, reviewer, queue, submission, CloudTrail, Object Lock, or protected mapping evidence was used.",
+    "Repository-wide CI was not executed in this run.",
+    "A passing closure report does not authenticate cloud configuration or establish scientific validity."
+  ]
+}
