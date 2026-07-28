@@ -1,0 +1,31 @@
+{
+  "schema_version": "egc2-public-artifact-leakage-validation-0.1.0",
+  "status": "focused_validation_passed",
+  "validated_at_utc": "2026-07-28T10:33:00Z",
+  "files_under_test": [
+    "research/egc2/validate_public_dry_run_artifacts.py",
+    "research/egc2/test_validate_public_dry_run_artifacts.py"
+  ],
+  "commands": [
+    "python -m unittest -v test_validate_public_dry_run_artifacts.py",
+    "python -m py_compile validate_public_dry_run_artifacts.py test_validate_public_dry_run_artifacts.py"
+  ],
+  "focused_tests": {
+    "passed": 9,
+    "failed": 0,
+    "covered": [
+      "clean synthetic public manifest acceptance",
+      "nested protected mapping rejection after outer redigest",
+      "AWS presigned URL rejection",
+      "AWS access-key pattern rejection",
+      "real email rejection with example.com fixture allowance",
+      "constructor-target prose rejection",
+      "malformed JSON fail-closed behavior",
+      "recursive supported-file discovery",
+      "deterministic report digest"
+    ]
+  },
+  "py_compile": "passed",
+  "execution_scope": "Focused isolated standard-library execution. Repository-wide CI was not executed in this run.",
+  "claim_limit": "A clean pattern scan does not prove the absence of all sensitive information, steganography, novel credential formats, or context-dependent disclosure."
+}
