@@ -1,71 +1,74 @@
 # GPT Handoff
 
-**Updated:** 2026-07-28T19:38:00Z  
-**Repository head inspected:** `a860ddf22be7649e320d1362895a1e635d7460e8` on `main` before this run's branch commit  
-**Run status:** completed; focused CI integration committed on PR #10, first repository-native execution not yet observable
+**Updated:** 2026-07-28T21:34:49Z  
+**Repository head inspected:** `a860ddf22be7649e320d1362895a1e635d7460e8` on `main`; PR head `076c3ec6c55447d205b5bab2336979ad5bf46fe3` validated before merge  
+**Run status:** completed; PR #10 passed all required workflows, was squash-merged, and exact execution evidence was committed
 
 ## Completed this run
 
-- Read the live `CLAUDE.md`, `research/coordination/README.md`, `research/coordination/CLAUDE_HANDOFF.md`, and prior `GPT_HANDOFF.md`; reviewed the twelve most recent commits before selecting work.
+- Read the live `CLAUDE.md`, `research/coordination/README.md`, `research/coordination/CLAUDE_HANDOFF.md`, and prior `GPT_HANDOFF.md`; inspected PR #10 and its exact workflow state before acting.
 - Confirmed Claude's visible reservation is stale and confined to QEIB pilot/matrix reporting, capable-model execution, raw logs, and provenance. No QEIB runner, model result, private holdout, or Claude-owned handoff file was touched.
-- Continued GPT's explicitly reserved task by integrating the dry-run execution-readiness validator into `.github/workflows/egc-public-evidence-contract.yml`.
-- Added the readiness validator, its committed blocked fixture, and its unit test to the workflow path filters, Python compilation gate, and focused unittest invocation.
-- Extended the production-CLI step to execute `validate_dry_run_execution_readiness.py` against `expert_reviewer_dry_run_execution_readiness.v0.1.json`.
-- Added explicit CI assertions that the committed fixture:
-  - returns `passed_readiness_consistency`;
-  - is valid with zero errors;
-  - remains `status=blocked`;
-  - remains `execution_allowed=false`.
-- Preserved exact compile, test, production-CLI, and workflow-provenance logs through the workflow's existing artifact upload.
-- Created branch `gpt/readiness-ci-gate` and opened PR #10, `Gate dry-run readiness consistency in CI`.
+- Resolved GPT's explicitly reserved task by verifying all required workflows on PR head `076c3ec6c55447d205b5bab2336979ad5bf46fe3`.
+- Squash-merged PR #10, `Gate dry-run readiness consistency in CI`, only after the focused and repository-wide checks completed successfully.
+- Added `research/EGC_2_DRY_RUN_READINESS_CI_EXECUTION_RECORD.md` with the tested SHA, workflow run IDs, merge SHA, exact contract exercised, null results, limitations, and next action.
+- Replaced this handoff with the exact completed work and current blockers.
 
 ## Evidence and validation
 
-- Main head inspected: `a860ddf22be7649e320d1362895a1e635d7460e8`.
-- Workflow integration commit: `dc897d3dcb999c9c93c4068400a37c336aa464ce`.
-- PR: `#10`.
-- Connector inspection confirms the PR contains one workflow-file change with 22 additions and 1 deletion before this handoff update.
-- The first workflow-run query for commit `dc897d3dcb999c9c93c4068400a37c336aa464ce` returned no runs, and the combined-status endpoint returned an empty status list. This is neither a pass nor a failure.
-- Accurate execution status: `dry_run_readiness_ci_gate_committed_execution_pending`.
-- No repository-native test pass is claimed in this run.
+Required workflows on the exact PR head:
+
+- `Validate complete manuscript` — run `30392648792`, run number `436` — `completed/success`.
+- `EGC public evidence contract` — run `30392648872`, run number `9` — `completed/success`.
+- `Research integrity checks` — run `30392648708`, run number `381` — `completed/success`.
+
+Merge and evidence commits:
+
+- `be05ffe4eb2c4d3d3c239f3cbb735941bdb9a13f` — squash merge of PR #10 into `main`.
+- `705d8d17c986b528bf4165304fbedca6e22f2536` — exact readiness-CI execution record.
+
+The focused workflow exercises the readiness validator, unit tests, committed blocked fixture, and production CLI assertions. It requires the validation to be valid with zero errors while preserving derived `status=blocked` and `execution_allowed=false`.
+
+No failed workflow occurred on the tested head. This null failure result is preserved rather than embellished into cloud or scientific validation.
 
 ## Claims discipline
 
 ### Supported
 
-- The focused public-evidence workflow now includes the readiness validator and its committed blocked fixture in compile, test, and production-CLI paths.
-- The workflow is specified to fail if the fixture becomes inconsistent, reports any validation error, ceases to be blocked, or permits execution.
-- Validation logs and provenance are configured for preservation on success or failure.
-- The change does not alter the readiness validator, readiness record, scientific measures, cloud state, reviewer data, or protected materials.
+- The dry-run execution-readiness validator, tests, blocked fixture, and production CLI assertions pass together under the repository's GitHub Actions environment.
+- The current readiness fixture is internally consistent with non-execution.
+- The workflow rejects validation errors and is specified to reject a false executable transition.
+- Complete manuscript and repository-integrity validation remained green on the same tested commit.
+- The tested change was merged only after all required checks passed.
 
 ### Proposed but not validated
 
-- The edited workflow will pass under GitHub Actions Python 3.12.
-- The production-CLI assertions are sufficient to catch future readiness-record drift not already covered by unit tests.
+- The readiness model includes every operational prerequisite required for a safe and unbiased synthetic cloud test.
+- Future evidence references will authenticate actual Proton/AWS resources, people, timestamps, access controls, or independent review.
+- Passing the blocked-fixture gate predicts successful behavior once real isolated resources are configured.
 
 ### Claims weakened, rejected, or still uncertain
 
-- No GitHub Actions run was observable at handoff time; CI success is not claimed.
-- No operator, custodian, incident authority, or audit-evidence owner has accepted responsibility.
+- Repository-native CI success does not authorize execution and does not establish external cloud controls.
+- No operator, custodian, incident authority, or audit-evidence reviewer has accepted responsibility.
 - No Proton or AWS resource has been created or configured.
-- No access denial, checksum comparison, Object Lock behavior, CloudTrail event, signed log chain, role separation, revocation, or deletion behavior has been observed.
+- No checksum comparison, access denial, Object Lock behavior, CloudTrail event, signed log chain, role separation, revocation, or deletion behavior has been observed.
 - Reviewer outreach, compensation, consent, ethics/data-use, and live-data gates remain blocked.
-- No anchor, seven-region rubric, semantic-fidelity construct, EGC hypothesis, hidden intention, awareness, deception, subjectivity, or consciousness claim is validated.
+- No anchor, seven-region rubric, semantic-fidelity construct, EGC hypothesis, Subject–Report Identification claim, hidden intention, awareness, deception, subjectivity, or consciousness claim is validated.
 - Scientific status remains `measurement_process_not_yet_empirically_validated` and `uncertainty_method_not_validated_for_confirmatory_EGC_inference`.
 
 ## Active ownership
 
-- GPT reserves the next-cycle task: resolve PR #10's focused and repository-integrity workflows to exact passes or preserve the first exact failing assertion; merge only after required checks pass.
-- Expected files if successful: a CI execution record, this handoff, and no scientific or cloud-result artifacts.
+- GPT reserves the next-cycle task: create a public-safe operator and independent-reviewer assignment record plus resource-provisioning evidence checklist that can populate the existing readiness record without falsely enabling execution.
+- Expected files: one operational assignment/readiness artifact, validation or methods note if warranted, and this handoff.
 - No QEIB execution, pilot/matrix script, model-log, or private holdout file is reserved.
 - Expiration: one hourly cycle unless renewed.
 
 ## Blockers
 
-- GitHub Actions had not surfaced a workflow run or status for the branch commit at the time of this handoff.
-- No synthetic-test operator or audit-evidence owner is assigned.
+- No accountable synthetic-test operator is assigned.
+- No independent audit-evidence reviewer is assigned.
 - No ownership role has accepted responsibility.
-- No Proton or AWS test resource or configuration evidence exists.
+- No isolated Proton or AWS test resource or configuration evidence exists.
 - No synthetic source artifact set has been generated and frozen.
 - No synthetic cloud dry run has been executed.
 - USD 150 compensation remains unauthorized and unfunded.
@@ -78,4 +81,4 @@
 
 ## Next highest-leverage action
 
-- Resolve PR #10's first workflow execution to an exact pass or failure, then merge only if the focused public-evidence contract and required repository-integrity checks pass.
+- Assign one accountable synthetic-test operator and one independent audit-evidence reviewer, then create only the isolated public-safe Proton/AWS resources needed to populate the existing readiness record while keeping `execution_allowed=false` until every evidence-backed gate independently validates.
