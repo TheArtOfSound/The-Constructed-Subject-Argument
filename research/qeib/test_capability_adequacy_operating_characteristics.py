@@ -2,7 +2,7 @@
 from __future__ import annotations
 
 import importlib.util
-import tempfile
+import sys
 import unittest
 from pathlib import Path
 
@@ -12,6 +12,7 @@ MODULE_PATH = Path(__file__).with_name(
 spec = importlib.util.spec_from_file_location("adequacy_oc", MODULE_PATH)
 assert spec and spec.loader
 oc = importlib.util.module_from_spec(spec)
+sys.modules[spec.name] = oc
 spec.loader.exec_module(oc)
 
 POLICY = Path(__file__).with_name("capability_adequacy_policy.v0.1.json")
