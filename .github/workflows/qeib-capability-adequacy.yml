@@ -1,0 +1,37 @@
+name: QEIB capability adequacy gate
+
+on:
+  pull_request:
+    paths:
+      - "research/qeib/QEIB_CAPABILITY_ADEQUACY_GATE.md"
+      - "research/qeib/capability_adequacy_policy.v0.1.json"
+      - "research/qeib/evaluate_capability_adequacy.py"
+      - "research/qeib/test_capability_adequacy.py"
+      - ".github/workflows/qeib-capability-adequacy.yml"
+  push:
+    branches: [main]
+    paths:
+      - "research/qeib/QEIB_CAPABILITY_ADEQUACY_GATE.md"
+      - "research/qeib/capability_adequacy_policy.v0.1.json"
+      - "research/qeib/evaluate_capability_adequacy.py"
+      - "research/qeib/test_capability_adequacy.py"
+      - ".github/workflows/qeib-capability-adequacy.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test-capability-adequacy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Compile evaluator
+        run: python -m py_compile research/qeib/evaluate_capability_adequacy.py
+      - name: Run adversarial adequacy tests
+        run: python -m unittest -v research/qeib/test_capability_adequacy.py
