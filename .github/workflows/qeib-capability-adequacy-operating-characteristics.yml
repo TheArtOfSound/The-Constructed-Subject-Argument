@@ -44,15 +44,17 @@ jobs:
             --replicates 2000 \
             --seed 20260729 \
             --output /tmp/capability_adequacy_operating_characteristics.v0.1.json
-      - name: Verify committed result has no drift when present
+      - name: Verify committed result has no semantic drift
         run: |
-          if test -f research/qeib/capability_adequacy_operating_characteristics.v0.1.json; then
-            cmp --silent \
-              /tmp/capability_adequacy_operating_characteristics.v0.1.json \
-              research/qeib/capability_adequacy_operating_characteristics.v0.1.json
-          else
-            echo "Committed result not present yet; upload generated result for first freeze."
-          fi
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          committed = json.loads(Path("research/qeib/capability_adequacy_operating_characteristics.v0.1.json").read_text())
+          generated = json.loads(Path("/tmp/capability_adequacy_operating_characteristics.v0.1.json").read_text())
+          if committed != generated:
+              raise SystemExit("Committed operating-characteristic result differs from deterministic regeneration")
+          print("Committed operating-characteristic result matches deterministic regeneration")
+          PY
       - name: Upload deterministic result
         uses: actions/upload-artifact@v4
         with:
