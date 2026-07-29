@@ -1,0 +1,69 @@
+{
+  "schema": "egc2-synthetic-dry-run-assignment-provisioning-0.1.0",
+  "record_id": "egc2-synthetic-dry-run-assignment-provisioning-v0.1",
+  "status": "blocked_unassigned_unprovisioned",
+  "execution_allowed": false,
+  "scope": {
+    "synthetic_only": true,
+    "live_data_prohibited": true,
+    "private_holdout_prohibited": true,
+    "purpose": "Define the minimum public-safe evidence required to assign accountable personnel and provision isolated Proton/AWS resources for a synthetic EGC dry run."
+  },
+  "assignments": {
+    "primary_operator": {"accepted": false, "pseudonym": null, "accepted_at_utc": null, "evidence_path": null},
+    "independent_audit_reviewer": {"accepted": false, "pseudonym": null, "accepted_at_utc": null, "evidence_path": null},
+    "ownership_roles": [
+      {"role_id":"O01","role":"proton_resource_custodian","accepted":false,"pseudonym":null,"accepted_at_utc":null,"evidence_path":null},
+      {"role_id":"O02","role":"aws_resource_custodian","accepted":false,"pseudonym":null,"accepted_at_utc":null,"evidence_path":null},
+      {"role_id":"O03","role":"synthetic_artifact_custodian","accepted":false,"pseudonym":null,"accepted_at_utc":null,"evidence_path":null},
+      {"role_id":"O04","role":"incident_and_rollback_authority","accepted":false,"pseudonym":null,"accepted_at_utc":null,"evidence_path":null},
+      {"role_id":"O05","role":"public_evidence_curator","accepted":false,"pseudonym":null,"accepted_at_utc":null,"evidence_path":null},
+      {"role_id":"O06","role":"execution_authorizer","accepted":false,"pseudonym":null,"accepted_at_utc":null,"evidence_path":null}
+    ]
+  },
+  "resource_controls": [
+    {"control_id":"R01","name":"isolated_proton_account","provisioned":false,"public_alias":null,"evidence_paths":[],"required_properties":["synthetic-only account","no real reviewer/contact data","recovery path controlled"]},
+    {"control_id":"R02","name":"proton_queue_and_delivery_controls","provisioned":false,"public_alias":null,"evidence_paths":[],"required_properties":["synthetic sender/recipient aliases","queue digest frozen","delivery result exportable"]},
+    {"control_id":"R03","name":"isolated_aws_account_and_region","provisioned":false,"public_alias":null,"evidence_paths":[],"required_properties":["dedicated test account or organizational isolation","region frozen","no production data access"]},
+    {"control_id":"R04","name":"s3_immutable_evidence_store","provisioned":false,"public_alias":null,"evidence_paths":[],"required_properties":["versioning enabled","Object Lock enabled","COMPLIANCE mode","retention period frozen"]},
+    {"control_id":"R05","name":"cloudtrail_audit_chain","provisioned":false,"public_alias":null,"evidence_paths":[],"required_properties":["S3 data events enabled","log file validation enabled","delivery destination isolated"]},
+    {"control_id":"R06","name":"iam_and_kms_role_separation","provisioned":false,"public_alias":null,"evidence_paths":[],"required_properties":["operator cannot alter audit logs","audit reviewer cannot execute run","distinct KMS aliases","least privilege documented"]},
+    {"control_id":"R07","name":"private_administration_and_mapping_store","provisioned":false,"public_alias":null,"evidence_paths":[],"required_properties":["identity mapping excluded from public evidence","protected mappings separated","access and retention rules documented"]},
+    {"control_id":"R08","name":"digest_frozen_synthetic_artifact_set","provisioned":false,"public_alias":null,"evidence_paths":[],"required_properties":["synthetic inputs only","manifest and SHA-256 digests","no private holdout","leakage scan and closure pass"]}
+  ],
+  "preflight_gate_mapping": [
+    {"gate_id":"P01","requires":["primary_operator"]},
+    {"gate_id":"P02","requires":["independent_audit_reviewer","O01","O02","O03","O04","O05","O06"]},
+    {"gate_id":"P03","requires":["R01","R02"]},
+    {"gate_id":"P04","requires":["R03"]},
+    {"gate_id":"P05","requires":["R04"]},
+    {"gate_id":"P06","requires":["R05"]},
+    {"gate_id":"P07","requires":["R06"]},
+    {"gate_id":"P08","requires":["R08"]},
+    {"gate_id":"P09","requires":["R08:leakage_scan"]},
+    {"gate_id":"P10","requires":["R08:evidence_reference_closure"]},
+    {"gate_id":"P11","requires":["O04","O05"]},
+    {"gate_id":"P12","requires":["primary_operator:no_live_data_attestation","independent_audit_reviewer:disposition"]}
+  ],
+  "completion_rules": [
+    "An assignment may be accepted only when accepted=true and pseudonym, accepted_at_utc, and evidence_path are non-null.",
+    "A resource control may be provisioned only when provisioned=true, public_alias is non-null, and at least one evidence path demonstrates every required property.",
+    "Public evidence must use non-secret aliases and must not contain credentials, direct account identifiers, real contact data, protected mappings, constructor targets, anchor identities, rationales, or private holdout material.",
+    "Every P01-P12 gate must receive an evidence-backed independent-review disposition before execution can be considered.",
+    "execution_allowed must remain false while any assignment, ownership role, resource control, leakage scan, evidence-closure check, or independent-review disposition is incomplete, failed, or unresolved.",
+    "A failed or stopped run must be preserved as such and may not be edited into a pass."
+  ],
+  "claim_limits": [
+    "This record assigns no person and authenticates no identity.",
+    "This record demonstrates no Proton or AWS resource.",
+    "This record authorizes no execution.",
+    "This record validates no scientific construct, EGC hypothesis, hidden intention, awareness, deception, subjectivity, or consciousness claim."
+  ],
+  "blockers": [
+    "No primary operator has accepted responsibility.",
+    "No independent audit reviewer has accepted responsibility.",
+    "No ownership role is assigned.",
+    "No Proton or AWS resource evidence exists.",
+    "No frozen synthetic artifact set exists."
+  ]
+}
