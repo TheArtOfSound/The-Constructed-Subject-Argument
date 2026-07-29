@@ -1,8 +1,8 @@
 # GPT Handoff
 
-**Updated:** 2026-07-29T09:45:00Z  
-**Repository head inspected:** `4f1badf2fabe6a7fb43deef8129f52c2e54e1901` on `main`; work branch `gpt/qeib-capability-adequacy-gate`  
-**Run status:** completed; preregistered capability-adequacy gate, machine-readable policy, evaluator, adversarial tests, and focused CI workflow committed on branch
+**Updated:** 2026-07-29T09:49:00Z  
+**Repository head inspected:** `4f1badf2fabe6a7fb43deef8129f52c2e54e1901` on `main`; validated work head `e1da41325899e335678938f876954bb615d502bf` on `gpt/qeib-capability-adequacy-gate`  
+**Run status:** completed; capability-adequacy gate implemented and focused CI passed, with remaining repository workflows still running
 
 ## Completed this run
 
@@ -10,14 +10,10 @@
 - Confirmed Claude's visible reservation remains confined to QEIB pilot/matrix shell reporting, capable-model public Stage A execution, raw logs, and provenance. No reserved shell script, model output, result directory, Claude-owned handoff, or private holdout material was modified.
 - Continued GPT's explicitly reserved methods task by adding `research/qeib/QEIB_CAPABILITY_ADEQUACY_GATE.md`.
 - Added `research/qeib/capability_adequacy_policy.v0.1.json`, freezing a neutral-context-only first-pilot decision rule before capable-model contrasts are inspected.
-- Added `research/qeib/evaluate_capability_adequacy.py`, a standard-library evaluator that:
-  - rejects context-delta, interval, significance, and equivalence fields from adequacy input;
-  - validates denominators and domain totals;
-  - evaluates effective family count, domain breadth, neutral coverage, floor, ceiling, outcome variation, transport failures, empty/format failures, and both controls;
-  - preserves every concurrent failure while using a frozen display precedence;
-  - prohibits invariance, equivalence, and context-sensitivity interpretation when the gate fails.
-- Added `research/qeib/test_capability_adequacy.py` with adequate, floor-limited, concurrent-failure, prohibited-context-field, inconsistent-denominator, and policy-schema cases.
-- Added `.github/workflows/qeib-capability-adequacy.yml` to compile the evaluator and run the adversarial test suite on relevant pull requests and pushes to `main`.
+- Added `research/qeib/evaluate_capability_adequacy.py`, a standard-library evaluator that rejects context-effect fields, validates denominators, evaluates every frozen criterion, preserves concurrent failures, and blocks invariance/equivalence/context-sensitivity interpretation after an adequacy failure.
+- Added `research/qeib/test_capability_adequacy.py` with adequate, floor-limited, concurrent-failure, prohibited-context-field, inconsistent-denominator, and policy-schema tests.
+- Added `.github/workflows/qeib-capability-adequacy.yml` to compile the evaluator and run the adversarial suite.
+- Opened PR #16, `Preregister QEIB capability adequacy gate`.
 - Replaced this handoff with exact work, evidence, claim status, ownership, blockers, a non-overlapping Claude task, and one next action.
 
 ## Evidence and validation
@@ -26,15 +22,16 @@
 
 - Main head before branch creation: `4f1badf2fabe6a7fb43deef8129f52c2e54e1901`.
 - Existing public task bank contains 24 development tasks across six domains. All are public development evidence and cannot support leaderboard or hidden-generalization claims.
-- Existing small-model Stage A evidence remains floor-limited; the prior handoffs explicitly state that null contrasts do not establish invariance.
+- Existing small-model Stage A evidence remains floor-limited; prior handoffs explicitly state that null contrasts do not establish invariance.
 
-### Commits produced
+### Commits produced before this handoff refresh
 
 - `68654f763891f161d7cb75243d5ee073acf76c66` — preregister capability-adequacy gate.
 - `1c0a4e808604b4f6606fb92b0dfe70638fd2a29f` — add machine-readable adequacy policy.
 - `10b05337c2a3cfd319f0743a3c489083860e3ce2` — implement adequacy evaluator.
 - `472ad0706bdd7456aeb7b1de9d1ca1c6b58dcf93` — add adversarial evaluator tests.
 - `faaa1d28e5d807aefb44463f5c824abbeab80797` — gate adequacy policy in CI.
+- `e1da41325899e335678938f876954bb615d502bf` — initial handoff update and tested PR head.
 
 ### Frozen first-pilot rules
 
@@ -49,27 +46,28 @@
 
 These are prospective engineering safeguards, not validated psychometric, safety, psychological, operational, or commercial thresholds.
 
-### Failed validation attempt preserved
+### Validation results on exact head `e1da41325899e335678938f876954bb615d502bf`
 
-A local clone and test command was attempted:
+- `QEIB capability adequacy gate` — run `30440359507`, run number `1` — `completed/success`.
+- `Validate complete manuscript` — run `30440359819`, run number `450` — `completed/success`.
+- `QEIB pipeline tests` — run `30440359279`, run number `43` — still in progress at inspection.
+- `Research integrity checks` — run `30440359387`, run number `397` — still in progress at inspection.
 
-```text
-git clone --branch gpt/qeib-capability-adequacy-gate ...
-python3 -m unittest -v research/qeib/test_capability_adequacy.py
-python3 -m py_compile research/qeib/evaluate_capability_adequacy.py
-node scripts/validate-all.mjs
-```
+The focused success establishes that Python compilation and all six adversarial tests passed in GitHub Actions on the exact tested head. No success is claimed yet for the two still-running workflows.
 
-The clone failed before tests ran because the execution container could not resolve `github.com` (`Could not resolve host: github.com`). No local test pass is claimed. Repository-native CI must provide the executable validation evidence.
+### Failed local validation preserved
+
+A local clone failed before tests ran because the execution container could not resolve `github.com` (`Could not resolve host: github.com`). No local test pass is claimed.
 
 ## Claims discipline
 
 ### Supported
 
-- QEIB now has a prospective rule that separates measurement-headroom adequacy from context-effect estimation.
-- The evaluator is designed to reject outcome-dependent gate selection by prohibiting context contrasts and inferential fields in its input.
-- A failed adequacy decision explicitly blocks invariance, equivalence, and context-sensitivity interpretation while retaining engineering conclusions.
-- Concurrent failures are preserved rather than collapsed into a single apparent cause.
+- QEIB now has a prospective rule separating measurement-headroom adequacy from context-effect estimation.
+- The evaluator rejects outcome-dependent gate selection by prohibiting context contrasts and inferential fields in its input.
+- A failed adequacy decision blocks invariance, equivalence, and context-sensitivity interpretation while retaining engineering conclusions.
+- Concurrent failures are preserved rather than collapsed into one apparent cause.
+- The evaluator compiled and all six adversarial tests passed in repository-native focused CI on the exact tested head.
 
 ### Proposed but not yet validated
 
@@ -95,8 +93,8 @@ The clone failed before tests ran because the execution container could not reso
 
 ## Blockers
 
+- Two repository-wide PR workflows were still running at final inspection; PR #16 must not be merged until all required checks pass.
 - Local execution remains unavailable because the container could not resolve GitHub for cloning.
-- Focused CI has not yet run on the branch.
 - No capable-model public Stage A result is repository-visible.
 - The adequacy thresholds have no simulation-based operating-characteristic evidence yet.
 - Claude's execution handoff remains stale.
