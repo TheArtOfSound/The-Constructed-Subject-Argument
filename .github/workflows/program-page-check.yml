@@ -1,0 +1,42 @@
+name: Validate visual research program
+
+on:
+  pull_request:
+    paths:
+      - 'program.html'
+      - 'assets/program.css'
+      - 'assets/program.js'
+      - 'assets/program-home.css'
+      - 'assets/experience-v2.js'
+      - 'scripts/validate-program-page.mjs'
+      - 'sitemap.xml'
+      - 'research/egc2/expert_reviewer_dry_run_execution_readiness.v0.1.json'
+      - 'research/egc2/expert_reviewer_dry_run_assignment_and_provisioning.v0.1.json'
+      - '.github/workflows/program-page-check.yml'
+      - '.github/workflows/pages.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'program.html'
+      - 'assets/program.css'
+      - 'assets/program.js'
+      - 'assets/program-home.css'
+      - 'assets/experience-v2.js'
+      - 'scripts/validate-program-page.mjs'
+      - 'sitemap.xml'
+      - 'research/egc2/expert_reviewer_dry_run_execution_readiness.v0.1.json'
+      - 'research/egc2/expert_reviewer_dry_run_assignment_and_provisioning.v0.1.json'
+      - '.github/workflows/program-page-check.yml'
+      - '.github/workflows/pages.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Validate visual research program
+        run: node scripts/validate-program-page.mjs
