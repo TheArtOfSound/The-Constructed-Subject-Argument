@@ -1,0 +1,43 @@
+name: QEIB v0.3 structural balance oracle
+
+on:
+  pull_request:
+    paths:
+      - "research/qeib/evaluate_v0_3_structural_balance.py"
+      - "research/qeib/test_evaluate_v0_3_structural_balance.py"
+      - "research/qeib/capability_adequacy_v0.3_candidate_grid.json"
+      - ".github/workflows/qeib-v03-structural-balance.yml"
+  push:
+    branches: [main]
+    paths:
+      - "research/qeib/evaluate_v0_3_structural_balance.py"
+      - "research/qeib/test_evaluate_v0_3_structural_balance.py"
+      - "research/qeib/capability_adequacy_v0.3_candidate_grid.json"
+      - ".github/workflows/qeib-v03-structural-balance.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  structural-balance-oracle:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Compile
+        run: python -m py_compile research/qeib/evaluate_v0_3_structural_balance.py research/qeib/test_evaluate_v0_3_structural_balance.py
+      - name: Run adversarial tests
+        run: python -m unittest -v research/qeib/test_evaluate_v0_3_structural_balance.py
+      - name: Verify balanced and severe-imbalance CLI outputs
+        run: |
+          python research/qeib/evaluate_v0_3_structural_balance.py --domain-counts 24,24,24,24,24,24 --output /tmp/balanced.json
+          python research/qeib/evaluate_v0_3_structural_balance.py --domain-counts 116,6,6,6,5,5 --output /tmp/imbalanced.json
+          python - <<'PY'
+          import json
+          balanced = json.load(open('/tmp/balanced.json'))
+          imbalanced = json.load(open('/tmp/imbalanced.json'))
+          assert all(row['structurally_valid'] for row in balanced['results'])
+          assert not any(row['structurally_valid'] for row in imbalanced['results'])
+          PY
