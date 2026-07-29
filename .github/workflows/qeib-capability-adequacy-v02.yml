@@ -1,0 +1,41 @@
+name: QEIB v0.2 adequacy comparison
+
+on:
+  pull_request:
+    paths:
+      - "research/qeib/capability_adequacy_v0.2_candidate_grid.json"
+      - "research/qeib/simulate_capability_adequacy_v0_2.py"
+      - "research/qeib/test_capability_adequacy_v0_2.py"
+      - "research/qeib/capability_adequacy_v0.2_comparison.v0.1.json"
+      - ".github/workflows/qeib-capability-adequacy-v02.yml"
+  push:
+    branches: [main]
+    paths:
+      - "research/qeib/capability_adequacy_v0.2_candidate_grid.json"
+      - "research/qeib/simulate_capability_adequacy_v0_2.py"
+      - "research/qeib/test_capability_adequacy_v0_2.py"
+      - "research/qeib/capability_adequacy_v0.2_comparison.v0.1.json"
+
+jobs:
+  compare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Compile and test
+        run: |
+          python -m py_compile research/qeib/simulate_capability_adequacy_v0_2.py
+          python -m unittest -v research/qeib/test_capability_adequacy_v0_2.py
+      - name: Regenerate frozen result
+        run: |
+          python research/qeib/simulate_capability_adequacy_v0_2.py \
+            --grid research/qeib/capability_adequacy_v0.2_candidate_grid.json \
+            --output /tmp/qeib-v02.json
+          cmp /tmp/qeib-v02.json research/qeib/capability_adequacy_v0.2_comparison.v0.1.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: qeib-v02-comparison
+          path: /tmp/qeib-v02.json
