@@ -47,7 +47,7 @@ class OperatingCharacteristicTests(unittest.TestCase):
         result = oc.run_simulation(POLICY, 500, 20260729)
         by_id = {item["regime"]["regime_id"]: item for item in result["regimes"]}
         self.assertGreater(by_id["floor_boundary_20pct"]["false_inadequacy_rate"], 0.0)
-        self.assertGreater(by_id["ceiling_boundary_90pct"]["false_inadequacy_rate"], 0.0)
+        self.assertGreater(by_id["ceiling_boundary_90pct"]["false_adequacy_rate"], 0.0)
 
     def test_policy_digest_and_claim_boundary_present(self) -> None:
         result = oc.run_simulation(POLICY, 100, 20260729)
