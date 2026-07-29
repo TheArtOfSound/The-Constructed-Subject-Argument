@@ -33,6 +33,31 @@ jobs:
         run: node scripts/validate-site.mjs
       - name: Validate the visual research program
         run: node scripts/validate-program-page.mjs
+      - name: Test exact deployment verifier
+        run: node scripts/test-verify-pages-deployment.mjs
+      - name: Write deployment attestation
+        env:
+          DEPLOY_COMMIT_SHA: ${{ github.sha }}
+          DEPLOY_REPOSITORY: ${{ github.repository }}
+          DEPLOY_RUN_ID: ${{ github.run_id }}
+          DEPLOY_RUN_ATTEMPT: ${{ github.run_attempt }}
+        run: |
+          node - <<'NODE'
+          const fs = require('node:fs');
+          const record = {
+            schema_version: 'constructed-subject-pages-deployment-1.0.0',
+            repository: process.env.DEPLOY_REPOSITORY,
+            commit_sha: process.env.DEPLOY_COMMIT_SHA,
+            workflow_run_id: process.env.DEPLOY_RUN_ID,
+            workflow_run_attempt: process.env.DEPLOY_RUN_ATTEMPT,
+            deployed_at_utc: new Date().toISOString(),
+            claim_limits: [
+              'This record identifies the repository commit packaged for one GitHub Pages deployment.',
+              'It does not validate EGC measurement, QEIB sensitivity, cloud controls, subjectivity, sentience, or consciousness.'
+            ]
+          };
+          fs.writeFileSync('deployment.json', `${JSON.stringify(record, null, 2)}\n`);
+          NODE
       - name: Configure Pages
         uses: actions/configure-pages@v5
       - name: Upload static site
@@ -42,3 +67,9 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+      - name: Verify exact public deployment
+        env:
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          PAGES_VERIFY_RETRIES: '18'
+          PAGES_VERIFY_DELAY_MS: '10000'
+        run: node scripts/verify-pages-deployment.mjs "${{ steps.deployment.outputs.page_url }}" "${{ github.sha }}"
