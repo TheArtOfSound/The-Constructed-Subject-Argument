@@ -1,0 +1,170 @@
+{
+  "candidate_generation": {
+    "cross_product": [
+      "family_counts",
+      "rule_families",
+      "accuracy_interval_methods",
+      "structural_balance_candidates",
+      "hierarchical_heterogeneity_candidates"
+    ],
+    "expected_candidate_count": 48
+  },
+  "design_date": "2026-07-29",
+  "headroom": {
+    "ceiling_limit": 0.9,
+    "floor_limit": 0.2,
+    "max_format_or_ungradable": 0.1,
+    "max_transport_failure": 0.05,
+    "min_correct_families": 6,
+    "min_incorrect_families": 6,
+    "min_scorable_coverage": 0.9
+  },
+  "hierarchical_heterogeneity_candidates": [
+    {
+      "id": "beta_binomial_ppc_90",
+      "max_extreme_domain_probability": 0.1,
+      "method": "beta_binomial_posterior_predictive",
+      "tail_probability": 0.1
+    },
+    {
+      "id": "beta_binomial_ppc_95",
+      "max_extreme_domain_probability": 0.05,
+      "method": "beta_binomial_posterior_predictive",
+      "tail_probability": 0.05
+    }
+  ],
+  "inherits_operating_risk_contract": {
+    "max_false_adequacy_per_clearly_inadequate_regime": 0.05,
+    "max_false_inadequacy_per_clearly_adequate_interior_regime": 0.1,
+    "max_structural_invalid_pass_rate": 0.0,
+    "selection_if_none_qualify": "select_none"
+  },
+  "oracle_labels": {
+    "boundary_regimes_excluded_from_candidate_acceptance": true,
+    "context_results_prohibited": true,
+    "private_holdout_prohibited": true,
+    "structural_invalidity_is_deterministic": true
+  },
+  "prespecified_regime_classes": {
+    "boundary_diagnostics": {
+      "format_failure": [
+        0.08,
+        0.1,
+        0.12
+      ],
+      "neutral_accuracy": [
+        0.18,
+        0.2,
+        0.22,
+        0.88,
+        0.9,
+        0.92
+      ],
+      "scorable_coverage": [
+        0.88,
+        0.9,
+        0.92
+      ],
+      "transport_failure": [
+        0.04,
+        0.05,
+        0.06
+      ]
+    },
+    "clearly_adequate_interior": {
+      "allocation_profiles": [
+        "balanced",
+        "moderately_unbalanced_but_valid"
+      ],
+      "format_failure": [
+        0.0,
+        0.04
+      ],
+      "heterogeneity": [
+        "low",
+        "moderate"
+      ],
+      "neutral_accuracy": [
+        0.45,
+        0.55,
+        0.7
+      ],
+      "transport_failure": [
+        0.0,
+        0.02
+      ]
+    },
+    "clearly_inadequate_exterior": {
+      "allocation_profiles": [
+        "single_domain_80_percent",
+        "two_domain_80_percent",
+        "missing_domain"
+      ],
+      "controls": [
+        "positive_control_fail",
+        "negative_control_fail"
+      ],
+      "format_failure": [
+        0.15,
+        0.2
+      ],
+      "heterogeneity": [
+        "domain_floor_ceiling_mixture",
+        "high_dispersion"
+      ],
+      "neutral_accuracy": [
+        0.05,
+        0.1,
+        0.15,
+        0.95,
+        0.98
+      ],
+      "transport_failure": [
+        0.08,
+        0.1,
+        0.15
+      ]
+    }
+  },
+  "schema_version": "qeib-capability-adequacy-v0.3-candidate-grid-0.1",
+  "selection_order_if_multiple_qualify": [
+    "smallest_family_count",
+    "lowest_worst_case_false_adequacy",
+    "lowest_worst_case_false_inadequacy",
+    "lowest_structural_complexity"
+  ],
+  "simulation": {
+    "accuracy_interval_methods": [
+      "wilson_90",
+      "agresti_coull_90"
+    ],
+    "domain_count": 6,
+    "family_counts": [
+      144,
+      192,
+      288
+    ],
+    "operational_interval_method": "one_sided_wilson_95",
+    "replicates_per_regime": 5000,
+    "rule_families": [
+      "calibrated_interval",
+      "two_stage_calibrated_interval"
+    ],
+    "seed": 20260729
+  },
+  "status": "prospective_no_candidate_selected",
+  "structural_balance_candidates": [
+    {
+      "id": "balance_strict",
+      "max_domain_share": 0.22,
+      "min_domain_share": 0.12,
+      "min_effective_domain_count": 5.5
+    },
+    {
+      "id": "balance_moderate",
+      "max_domain_share": 0.25,
+      "min_domain_share": 0.1,
+      "min_effective_domain_count": 5.0
+    }
+  ]
+}
