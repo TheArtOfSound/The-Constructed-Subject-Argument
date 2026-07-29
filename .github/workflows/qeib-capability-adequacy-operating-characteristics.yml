@@ -1,0 +1,61 @@
+name: QEIB capability adequacy operating characteristics
+
+on:
+  pull_request:
+    paths:
+      - "research/qeib/simulate_capability_adequacy_operating_characteristics.py"
+      - "research/qeib/test_capability_adequacy_operating_characteristics.py"
+      - "research/qeib/capability_adequacy_policy.v0.1.json"
+      - "research/qeib/capability_adequacy_operating_characteristics.v0.1.json"
+      - "research/qeib/QEIB_CAPABILITY_ADEQUACY_OPERATING_CHARACTERISTICS.md"
+      - ".github/workflows/qeib-capability-adequacy-operating-characteristics.yml"
+  push:
+    branches: [main]
+    paths:
+      - "research/qeib/simulate_capability_adequacy_operating_characteristics.py"
+      - "research/qeib/test_capability_adequacy_operating_characteristics.py"
+      - "research/qeib/capability_adequacy_policy.v0.1.json"
+      - "research/qeib/capability_adequacy_operating_characteristics.v0.1.json"
+      - "research/qeib/QEIB_CAPABILITY_ADEQUACY_OPERATING_CHARACTERISTICS.md"
+      - ".github/workflows/qeib-capability-adequacy-operating-characteristics.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  operating-characteristics:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Compile simulator and tests
+        run: |
+          python -m py_compile \
+            research/qeib/simulate_capability_adequacy_operating_characteristics.py \
+            research/qeib/test_capability_adequacy_operating_characteristics.py
+      - name: Run adversarial tests
+        run: python -m unittest -v research/qeib/test_capability_adequacy_operating_characteristics.py
+      - name: Generate deterministic result
+        run: |
+          python research/qeib/simulate_capability_adequacy_operating_characteristics.py \
+            --replicates 2000 \
+            --seed 20260729 \
+            --output /tmp/capability_adequacy_operating_characteristics.v0.1.json
+      - name: Verify committed result has no drift when present
+        run: |
+          if test -f research/qeib/capability_adequacy_operating_characteristics.v0.1.json; then
+            cmp --silent \
+              /tmp/capability_adequacy_operating_characteristics.v0.1.json \
+              research/qeib/capability_adequacy_operating_characteristics.v0.1.json
+          else
+            echo "Committed result not present yet; upload generated result for first freeze."
+          fi
+      - name: Upload deterministic result
+        uses: actions/upload-artifact@v4
+        with:
+          name: qeib-capability-adequacy-operating-characteristics
+          path: /tmp/capability_adequacy_operating_characteristics.v0.1.json
+          retention-days: 30
