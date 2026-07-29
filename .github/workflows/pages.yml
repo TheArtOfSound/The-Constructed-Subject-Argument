@@ -31,6 +31,8 @@ jobs:
       # must not be blocked by an in-progress generated-artifact migration.
       - name: Validate the published site
         run: node scripts/validate-site.mjs
+      - name: Validate the visual research program
+        run: node scripts/validate-program-page.mjs
       - name: Configure Pages
         uses: actions/configure-pages@v5
       - name: Upload static site

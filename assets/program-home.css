@@ -1,0 +1,85 @@
+.topbar nav a.program-nav-link {
+  color: var(--cool);
+  font-weight: 700;
+}
+
+.hero .actions .program-hero-link {
+  border-color: color-mix(in srgb, var(--cool) 64%, var(--line));
+  color: var(--cool);
+}
+
+.program-launch {
+  position: relative;
+  overflow: hidden;
+  margin-block: clamp(2rem, 5vw, 4rem);
+  padding: clamp(2rem, 5vw, 4rem);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background:
+    radial-gradient(65% 150% at 0% 50%, color-mix(in srgb, var(--warm) 13%, transparent), transparent 65%),
+    radial-gradient(65% 150% at 100% 50%, color-mix(in srgb, var(--cool) 14%, transparent), transparent 65%),
+    color-mix(in srgb, var(--surface) 84%, transparent);
+  box-shadow: var(--shadow);
+}
+
+.program-launch::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 3px;
+  background: linear-gradient(90deg, var(--warm), var(--cool), var(--violet));
+}
+
+.program-launch-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(280px, .65fr);
+  gap: clamp(2rem, 6vw, 5rem);
+  align-items: center;
+}
+
+.program-launch h2 {
+  max-width: 13ch;
+  margin: .4rem 0 1rem;
+  font-size: clamp(2.5rem, 5.5vw, 5rem);
+  line-height: .98;
+}
+
+.program-launch-copy > p:not(.eyebrow) {
+  max-width: 62ch;
+  color: var(--muted);
+}
+
+.program-launch-status {
+  display: grid;
+  gap: .65rem;
+}
+
+.program-launch-status div {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: .75rem;
+  align-items: center;
+  padding: .85rem 1rem;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--surface-2) 72%, transparent);
+}
+
+.program-launch-status i {
+  width: .7rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--faint);
+}
+
+.program-launch-status .live i { background: var(--green); box-shadow: 0 0 12px color-mix(in srgb, var(--green) 65%, transparent); }
+.program-launch-status .tested i { background: var(--warm); }
+.program-launch-status .blocked i { background: var(--red); }
+.program-launch-status b { display: block; font-size: .82rem; }
+.program-launch-status span { color: var(--muted); font-family: var(--mono); font-size: .65rem; }
+
+@media (max-width: 800px) {
+  .program-launch-grid { grid-template-columns: 1fr; }
+}

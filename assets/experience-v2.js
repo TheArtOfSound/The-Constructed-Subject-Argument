@@ -199,3 +199,53 @@ function updateProgress() {
 }
 window.addEventListener('scroll', updateProgress, { passive: true });
 updateProgress();
+
+(function mountResearchProgram() {
+  if (!document.querySelector('link[href="assets/program-home.css"]')) {
+    const stylesheet = document.createElement('link');
+    stylesheet.rel = 'stylesheet';
+    stylesheet.href = 'assets/program-home.css';
+    document.head.appendChild(stylesheet);
+  }
+
+  const nav = document.querySelector('.topbar nav');
+  if (nav && !nav.querySelector('a[href="program.html"]')) {
+    const navLink = document.createElement('a');
+    navLink.href = 'program.html';
+    navLink.className = 'program-nav-link';
+    navLink.textContent = 'Research program';
+    nav.insertBefore(navLink, nav.querySelector('a[href="chapters/"]'));
+  }
+
+  const heroActions = document.querySelector('.hero .actions');
+  if (heroActions && !heroActions.querySelector('a[href="program.html"]')) {
+    const heroLink = document.createElement('a');
+    heroLink.href = 'program.html';
+    heroLink.className = 'button secondary program-hero-link';
+    heroLink.textContent = 'See the live research program';
+    heroActions.appendChild(heroLink);
+  }
+
+  const engageSection = document.getElementById('engage');
+  if (engageSection && !document.querySelector('.program-launch')) {
+    engageSection.insertAdjacentHTML('beforebegin', `
+      <section class="program-launch shell" aria-labelledby="programLaunchTitle">
+        <div class="program-launch-grid">
+          <div class="program-launch-copy">
+            <p class="eyebrow cool">Now live · the full research system</p>
+            <h2 id="programLaunchTitle">See what has been built, tested, blocked, and left unresolved.</h2>
+            <p>The public program now connects the Constructed Subject theory, EGC 2.0 human measurement, QEIB evaluation integrity, and evidence-control infrastructure in one visual dashboard. It reads the committed public-safe readiness records instead of presenting a polished fiction of completion.</p>
+            <div class="actions">
+              <a class="button primary" href="program.html">Open the research program →</a>
+              <a class="button secondary" href="program.html#artifacts">Inspect the artifacts</a>
+            </div>
+          </div>
+          <div class="program-launch-status" aria-label="Program status">
+            <div class="live"><i></i><span><b>Public program</b>Visual dashboard and artifact map</span></div>
+            <div class="tested"><i></i><span><b>Engineering controls</b>Repository-tested contracts</span></div>
+            <div class="blocked"><i></i><span><b>Synthetic cloud run</b>Still blocked and unprovisioned</span></div>
+          </div>
+        </div>
+      </section>`);
+  }
+})();
