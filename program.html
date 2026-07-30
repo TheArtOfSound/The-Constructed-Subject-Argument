@@ -3,16 +3,16 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Simple walkthrough — The Constructed Subject research program</title>
-  <meta name="description" content="A plain-language walkthrough of the Constructed Subject research program: the one idea, three tracks, what is built, what is not claimed, and where to go next." />
+  <title>Experience the research program — The Constructed Subject</title>
+  <meta name="description" content="An interactive walkthrough of the Constructed Subject research program: probe the one idea, separate four questions, explore three tracks, and see what is built without overclaiming." />
   <meta name="author" content="Bryan Leonard" />
   <meta name="robots" content="index, follow, max-image-preview:large" />
   <link rel="canonical" href="https://theartofsound.github.io/The-Constructed-Subject-Argument/program.html" />
   <meta name="theme-color" content="#07080c" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="The Constructed Subject Argument" />
-  <meta property="og:title" content="Simple walkthrough — The Constructed Subject research program" />
-  <meta property="og:description" content="A plain walkthrough: what this program is, the one idea, three tracks, current status, and what is not claimed." />
+  <meta property="og:title" content="Experience the research program — The Constructed Subject" />
+  <meta property="og:description" content="Interactive walkthrough: the one idea, four questions, three tracks, and current status—without converting engineering into scientific confirmation." />
   <meta property="og:url" content="https://theartofsound.github.io/The-Constructed-Subject-Argument/program.html" />
   <meta property="og:image" content="https://theartofsound.github.io/The-Constructed-Subject-Argument/assets/og-image.png" />
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
@@ -21,16 +21,18 @@
 </head>
 <body class="program-page walkthrough-page">
   <a class="skip-link" href="#walkthrough">Skip to walkthrough</a>
+  <div class="progress-track" aria-hidden="true"><span id="programProgress"></span></div>
 
   <header class="topbar program-topbar">
     <a class="brand" href="./">
       <span class="brand-glyph" aria-hidden="true">CS</span>
-      <span><strong>The Constructed Subject</strong><small>simple walkthrough</small></span>
+      <span><strong>The Constructed Subject</strong><small>interactive program</small></span>
     </a>
     <nav aria-label="Primary">
       <a href="./">Experience</a>
       <a href="chapters/">Book</a>
       <a href="#walkthrough">Walkthrough</a>
+      <a href="#lab">Lab</a>
       <a href="#next">Next</a>
     </nav>
     <button class="quiet-button" id="programThemeToggle" type="button" aria-pressed="false" aria-label="Toggle light and dark theme">Theme</button>
@@ -38,8 +40,8 @@
 
   <main class="walkthrough shell" id="walkthrough">
     <header class="walk-intro">
-      <p class="eyebrow cool">Public research program · plain walkthrough · incomplete claims</p>
-      <h1>What this program is, in plain steps.</h1>
+      <p class="eyebrow cool">Public research program · incomplete claims</p>
+      <h1>Don’t just read the program.<br /><em>Pressure it.</em></h1>
       <p class="walk-lede">
         This is not a finished scientific result. It is an open research program about
         a hard problem: when a system produces a first-person report, what does that
@@ -50,10 +52,54 @@
       </p>
     </header>
 
+    <!-- Interactive lab first: experience before theory dump -->
+    <section class="walk-lab card" id="lab" aria-labelledby="labTitle">
+      <p class="micro-label cool">Interactive lab</p>
+      <h2 id="labTitle">Try to settle the question.</h2>
+      <p class="lab-lead">Drag the slider. Force a conclusion. Watch what the program refuses to grant.</p>
+
+      <div class="settle-lab">
+        <div class="settle-labels">
+          <span>Only a report</span>
+          <span>A real subject</span>
+        </div>
+        <input
+          type="range"
+          id="settleSlider"
+          min="0"
+          max="100"
+          value="50"
+          aria-label="How settled is the subject question from a report alone"
+        />
+        <div class="settle-readout" id="settleReadout" aria-live="polite">
+          <strong>Undecided</strong>
+          <p>A mid-range guess is honest. The report still underdetermines the mechanism.</p>
+        </div>
+      </div>
+
+      <div class="lens-mix" aria-label="Dual lens mix">
+        <div class="lens-mix-head">
+          <span class="warm-tag">Human lens</span>
+          <span class="cool-tag">System lens</span>
+        </div>
+        <input type="range" id="lensMix" min="0" max="100" value="50" aria-label="Balance human intuition and system evidence" />
+        <p class="lens-mix-copy" id="lensMixCopy">
+          Keep both lenses visible. Feeling and evidence are not the same kind of claim.
+        </p>
+      </div>
+
+      <div class="force-row">
+        <button type="button" class="button secondary" data-force="empty">Force “empty / fake”</button>
+        <button type="button" class="button secondary" data-force="real">Force “real subject”</button>
+        <button type="button" class="button ghost" data-force="reset">Reset</button>
+      </div>
+      <div class="force-return" id="forceReturn" hidden></div>
+    </section>
+
     <ol class="walk-steps">
       <li class="walk-step" id="step-1">
         <p class="step-num">Step 1</p>
-        <h2>Start with the one idea.</h2>
+        <h2>Hold the one idea.</h2>
         <p>
           A system can say “I feel,” “I remember,” or “I prefer.” That language is easy
           to read as proof of an inner subject.
@@ -64,55 +110,84 @@
           the reporting system is the same thing as the thing being reported.
         </p>
         <p class="step-note">
-          We call this the <em>Subject–Report Identification Problem</em>. The rest of
-          the program is how to study it without overclaiming.
+          We call this the <em>Subject–Report Identification Problem</em>. Everything else
+          is how to study it without overclaiming.
         </p>
       </li>
 
       <li class="walk-step" id="step-2">
         <p class="step-num">Step 2</p>
-        <h2>Keep four questions separate.</h2>
-        <p>Ordinary language collapses these. The program keeps them apart:</p>
-        <ol class="plain-list">
-          <li><strong>Origin</strong> — how was this system made?</li>
-          <li><strong>Content</strong> — what does it represent or say?</li>
-          <li><strong>Organization</strong> — what process is running?</li>
-          <li><strong>Experience</strong> — is anything present for the system?</li>
-        </ol>
-        <p class="step-note">
-          “It was constructed” does not settle experience.
-          “It talks like a person” does not settle experience either.
-        </p>
+        <h2>Separate four questions by hand.</h2>
+        <p>Tap a layer. Only one is the target property.</p>
+        <div class="layer-stack" id="layerStack" role="tablist" aria-label="Four questions">
+          <button type="button" class="layer-card is-active" data-layer="origin" role="tab" aria-selected="true">
+            <b>01 · Origin</b><span>How was it made?</span>
+          </button>
+          <button type="button" class="layer-card" data-layer="content" role="tab" aria-selected="false">
+            <b>02 · Content</b><span>What does it say or represent?</span>
+          </button>
+          <button type="button" class="layer-card" data-layer="organization" role="tab" aria-selected="false">
+            <b>03 · Organization</b><span>What process is running?</span>
+          </button>
+          <button type="button" class="layer-card" data-layer="experience" role="tab" aria-selected="false">
+            <b>04 · Experience</b><span>Is anything present for it?</span>
+          </button>
+        </div>
+        <div class="layer-return" id="layerReturn">
+          <strong>Origin</strong>
+          <p>How the system was produced matters historically. It does not, by itself, settle whether anything is present now.</p>
+        </div>
       </li>
 
       <li class="walk-step" id="step-3">
         <p class="step-num">Step 3</p>
-        <h2>Follow three connected tracks.</h2>
-        <div class="track-simple">
-          <article>
-            <h3>Theory</h3>
-            <p class="micro-label">Constructed Subject Argument</p>
-            <p>Argue carefully about artificial systems, continuity, identity, and report underdetermination.</p>
-            <a href="chapters/">Read the book →</a>
+        <h2>Three tracks, one problem.</h2>
+        <div class="track-simple interactive-tracks">
+          <article class="track-flip" tabindex="0">
+            <div class="track-face front">
+              <h3>Theory</h3>
+              <p class="micro-label">Constructed Subject Argument</p>
+              <p>Argue carefully about artificial systems, continuity, identity, and report underdetermination.</p>
+              <span class="flip-hint">Hover or focus · flip</span>
+            </div>
+            <div class="track-face back">
+              <p><strong>What it gives:</strong> distinctions, rivals, claim status.</p>
+              <p><strong>What it does not:</strong> a detector of consciousness.</p>
+              <a href="chapters/">Read the book →</a>
+            </div>
           </article>
-          <article>
-            <h3>Human measurement</h3>
-            <p class="micro-label cool">EGC 2.0</p>
-            <p>Study how people judge origin, continuity, and reports—without treating those judgments as a consciousness meter.</p>
-            <a href="research/EXPERIMENTS.md">See experiment designs →</a>
+          <article class="track-flip" tabindex="0">
+            <div class="track-face front">
+              <h3>Human measurement</h3>
+              <p class="micro-label cool">EGC 2.0</p>
+              <p>Study how people judge origin, continuity, and reports—without treating those judgments as a consciousness meter.</p>
+              <span class="flip-hint">Hover or focus · flip</span>
+            </div>
+            <div class="track-face back">
+              <p><strong>What it gives:</strong> paired designs, raters, falsifiers.</p>
+              <p><strong>What it does not:</strong> a confirmatory human result yet.</p>
+              <a href="research/EXPERIMENTS.md">See experiment designs →</a>
+            </div>
           </article>
-          <article>
-            <h3>Evaluation integrity</h3>
-            <p class="micro-label violet">QEIB</p>
-            <p>Keep public development tasks separate from protected assessment and private holdout material so a practice run cannot be sold as a hidden test.</p>
-            <a href="research/qeib/README.md">Open QEIB overview →</a>
+          <article class="track-flip" tabindex="0">
+            <div class="track-face front">
+              <h3>Evaluation integrity</h3>
+              <p class="micro-label violet">QEIB</p>
+              <p>Keep public development separate from protected assessment and private holdout material.</p>
+              <span class="flip-hint">Hover or focus · flip</span>
+            </div>
+            <div class="track-face back">
+              <p><strong>What it gives:</strong> public/private separation, provenance.</p>
+              <p><strong>What it does not:</strong> permission to rank models from public dev tasks.</p>
+              <a href="research/qeib/README.md">Open QEIB overview →</a>
+            </div>
           </article>
         </div>
       </li>
 
       <li class="walk-step" id="step-4">
         <p class="step-num">Step 4</p>
-        <h2>Know what is built—and what is not proven.</h2>
+        <h2>Built is not proven.</h2>
         <div class="two-col">
           <div class="yes-box">
             <h3>Built and public</h3>
@@ -138,13 +213,13 @@
 
       <li class="walk-step" id="step-5">
         <p class="step-num">Step 5</p>
-        <h2>Use the safe reading order.</h2>
+        <h2>Experience the argument itself.</h2>
         <ol class="plain-list numbered">
-          <li><a href="./">Experience a hard case</a> — feel the pressure before the theory.</li>
-          <li><a href="chapters/">Read the book path</a> — case → distinction → evidence → uncertainty.</li>
-          <li><a href="research/CLAIMS_LEDGER.md">Check the claims ledger</a> — what is supported, contested, or speculative.</li>
-          <li><a href="research/EXPERIMENTS.md">Inspect experiments</a> — what would falsify a claim.</li>
-          <li><a href="https://github.com/TheArtOfSound/The-Constructed-Subject-Argument">Open the repository</a> — audit the actual artifacts.</li>
+          <li><a href="./#awakening">Run the four-stage case</a> — watch which proxy decides for you.</li>
+          <li><a href="./#top">Probe the signal instrument</a> — change a report without settling presence.</li>
+          <li><a href="./#evidence">Build an evidence constellation</a> — qualitative pressure, no score.</li>
+          <li><a href="./#continuity">Fork continuity</a> — same transcript, two branches.</li>
+          <li><a href="research/CLAIMS_LEDGER.md">Check the claims ledger</a> — supported vs speculative.</li>
         </ol>
       </li>
 
@@ -153,10 +228,10 @@
         <h2>If you only open a few files, open these.</h2>
         <ul class="simple-links">
           <li><a href="research/CLAIMS_LEDGER.md"><strong>Claims ledger</strong><span>What we think we can say.</span></a></li>
-          <li><a href="research/ORIGINALITY_LEDGER.md"><strong>Originality ledger</strong><span>What is old, what is synthesis, what is still provisional.</span></a></li>
-          <li><a href="research/EXPERIMENTS.md"><strong>Experiment program</strong><span>Falsifiable designs with rival explanations.</span></a></li>
+          <li><a href="research/ORIGINALITY_LEDGER.md"><strong>Originality ledger</strong><span>What is old, synthesis, or provisional.</span></a></li>
+          <li><a href="research/EXPERIMENTS.md"><strong>Experiment program</strong><span>Falsifiable designs with rivals.</span></a></li>
           <li><a href="research/egc2/expert_reviewer_dry_run_execution_readiness.v0.1.json"><strong>Execution readiness record</strong><span>Machine-readable: currently blocked until gates pass.</span></a></li>
-          <li><a href="research/coordination/README.md"><strong>Agent coordination</strong><span>How multi-agent work is kept non-overlapping.</span></a></li>
+          <li><a href="research/coordination/README.md"><strong>Agent coordination</strong><span>How multi-agent work stays non-overlapping.</span></a></li>
         </ul>
       </li>
     </ol>
@@ -164,11 +239,11 @@
     <section class="walk-end" id="next">
       <h2>What to do next</h2>
       <p>
-        Read the argument. Challenge a claim. Do not treat engineering progress as a
-        scientific finish line.
+        Enter the interactive case. Challenge a claim. Do not treat engineering progress
+        as a scientific finish line.
       </p>
       <div class="actions">
-        <a class="button primary" href="./">Start the interactive case</a>
+        <a class="button primary" href="./#awakening">Enter the interactive case</a>
         <a class="button secondary" href="chapters/">Open the book</a>
         <a class="button secondary" href="https://github.com/TheArtOfSound/The-Constructed-Subject-Argument/issues/new/choose" rel="noopener">Submit an objection</a>
       </div>

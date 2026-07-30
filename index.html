@@ -113,17 +113,18 @@
         <p class="byline">An independent research project by <strong>Bryan Leonard</strong>, in conversation with current work on AI consciousness and welfare. Not peer-reviewed — and explicit about it.</p>
       </div>
 
-      <aside class="instrument" aria-label="A signal of unknown provenance">
+      <aside class="instrument instrument-live" id="signalProbe" aria-label="Interactive signal of unknown provenance">
         <div class="instrument-head">
           <span>trace · unresolved</span>
           <span class="live"><i aria-hidden="true"></i> present?</span>
         </div>
-        <svg viewBox="0 0 400 92" role="img" aria-label="A mostly flat signal interrupted by a single pulse.">
-          <line class="baseline" x1="0" y1="60" x2="400" y2="60" />
-          <path class="trace-path" d="M0 60 H118 L134 60 L146 22 L158 80 L170 52 L182 60 H262 L280 60 L292 42 L304 60 H400" />
-        </svg>
-        <p class="instrument-caption">Something is being reported.</p>
-        <p class="instrument-sub">Whether something is <em>present</em> is not on the screen. It is inferred — and this is about the inference.</p>
+        <canvas id="signalCanvas" width="400" height="120" role="img" aria-label="Interactive signal. Move or drag to probe the report. Presence remains unresolved."></canvas>
+        <p class="instrument-caption" id="signalCaption">Something is being reported.</p>
+        <p class="instrument-sub" id="signalSub">Move across the instrument. You can change the <em>display</em>. Whether anything is <em>present</em> stays off the screen.</p>
+        <div class="instrument-return" id="signalReturn" hidden>
+          <span class="label">What this does not establish</span>
+          <p>Changing a report waveform is not evidence of experience. The probe only shows how easy it is to confuse a fluent signal with a settled answer.</p>
+        </div>
       </aside>
     </section>
 
@@ -134,20 +135,38 @@
         <h2>Begin with one controlled case, not a theory.</h2>
         <p>Four times, one fact changes. Watch which proxy — origin, behavior, history, mechanism, valence — is quietly doing your deciding.</p>
       </div>
+      <div class="case-path" id="casePath" aria-label="Case progress" role="list">
+        <button type="button" class="path-node is-current" data-stage="0" role="listitem" aria-current="step"><b>1</b><span>Recognition</span></button>
+        <span class="path-link" aria-hidden="true"></span>
+        <button type="button" class="path-node" data-stage="1" role="listitem" disabled><b>2</b><span>Fabrication</span></button>
+        <span class="path-link" aria-hidden="true"></span>
+        <button type="button" class="path-node" data-stage="2" role="listitem" disabled><b>3</b><span>Substrate</span></button>
+        <span class="path-link" aria-hidden="true"></span>
+        <button type="button" class="path-node" data-stage="3" role="listitem" disabled><b>4</b><span>Erasure</span></button>
+      </div>
+
       <div class="case-layout">
-        <article class="card case-stage">
+        <article class="card case-stage" id="caseStageCard">
           <div class="stage-head">
             <span id="stageNumber">Stage 1 of 4</span>
-            <button type="button" class="stage-restart" id="restartCase">↺ Restart the case</button>
+            <div class="stage-tools">
+              <span class="stage-hint" id="stageHint">Keys 1–4 choose · Esc restarts</span>
+              <button type="button" class="stage-restart" id="restartCase">↺ Restart</button>
+            </div>
           </div>
           <div class="stage-content" id="stageContent" aria-live="polite">
             <h3>A person opens their eyes and recognizes you.</h3>
             <p>They recall private events, continue unfinished thoughts, recognize loved ones, and insist that a transfer from a dying human body succeeded. Every public sign of the person appears intact.</p>
           </div>
           <div class="choice-list" id="stageChoices"></div>
+          <div class="journey-strip" id="journeyStrip" aria-label="Your judgment path" hidden></div>
         </article>
 
         <aside class="card trace-panel" aria-label="What your answer reveals">
+          <div class="trace-meter" aria-hidden="true">
+            <span class="meter-warm" id="meterWarm"></span>
+            <span class="meter-cool" id="meterCool"></span>
+          </div>
           <h3 id="traceTitle">No criterion selected</h3>
           <p id="traceSummary">Choose a response. The system separates your human intuition from the evidence an investigator would still need.</p>
           <div class="trace-block human-trace">
@@ -157,6 +176,10 @@
           <div class="trace-block system-trace">
             <span class="label">System lens</span>
             <p id="systemTrace">What the observable facts do — and do not — establish will appear here.</p>
+          </div>
+          <div class="trace-next" id="traceNext" hidden>
+            <span class="label">Next evidence needed</span>
+            <p id="traceNextText"></p>
           </div>
           <div class="trace-tags" id="traceTags" aria-label="Criteria in play"></div>
         </aside>
@@ -246,7 +269,9 @@
                 <label><input type="checkbox" value="intervention" /><span><b>Predicted causal intervention</b><small>Manipulating the proposed mechanism produces the predicted change.</small></span></label>
               </div>
               <div class="evidence-output">
+                <div class="constellation" id="evidenceConstellation" aria-hidden="true"></div>
                 <section class="support-panel">
+                  <p class="pressure-band" id="pressureBand">Pressure band · none</p>
                   <h3 id="supportTitle">No subject-specific evidence selected</h3>
                   <ul id="supportList"><li>Performance or language alone remains compatible with nonconscious processing.</li></ul>
                 </section>
@@ -257,7 +282,7 @@
                 </section>
                 <section class="evidence-missing">
                   <span class="label">Still missing</span>
-                  <p>Direct access to phenomenal presence. Evidence can strengthen or weaken the inference; it cannot observe experience itself.</p>
+                  <p>Direct access to phenomenal presence. Evidence can strengthen or weaken the inference; it cannot observe experience itself. There is no consciousness percentage here on purpose.</p>
                 </section>
               </div>
             </div>
@@ -271,6 +296,18 @@
               <button type="button" data-ontology="persistent" aria-selected="true" role="tab">One persistent subject</button>
               <button type="button" data-ontology="episodic" aria-selected="false" role="tab">Episodic subjects</button>
               <button type="button" data-ontology="absent" aria-selected="false" role="tab">No subject</button>
+            </div>
+            <div class="fork-lab" id="forkLab" aria-label="Interactive continuity fork">
+              <p class="micro-label violet">Try the fork</p>
+              <p class="fork-prompt">A process is running. Press <b>Fork</b>. Two continuations appear with the same transcript. Which, if either, is the same subject?</p>
+              <div class="fork-stage" id="forkStage">
+                <div class="fork-node origin-node is-active"><span>Now</span><small>one process</small></div>
+              </div>
+              <div class="fork-controls">
+                <button type="button" class="button secondary" id="forkButton">Fork the process</button>
+                <button type="button" class="button ghost" id="forkReset" hidden>Reset</button>
+              </div>
+              <div class="fork-return" id="forkReturn" hidden></div>
             </div>
             <div class="ontology-view" id="ontologyView">
               <div class="process-line persistent-line" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
