@@ -236,8 +236,8 @@ updateProgress();
             <h2 id="programLaunchTitle">See what has been built, tested, blocked, and left unresolved.</h2>
             <p>The public program now connects the Constructed Subject theory, EGC 2.0 human measurement, QEIB evaluation integrity, and evidence-control infrastructure in one visual dashboard. It reads the committed public-safe readiness records instead of presenting a polished fiction of completion.</p>
             <div class="actions">
-              <a class="button primary" href="program.html">Open the research program →</a>
-              <a class="button secondary" href="program.html#artifacts">Inspect the artifacts</a>
+              <a class="button primary" href="program.html">Open the simple walkthrough →</a>
+              <a class="button secondary" href="program.html#step-6">Open a few key files</a>
             </div>
           </div>
           <div class="program-launch-status" aria-label="Program status">
