@@ -510,19 +510,6 @@ textarea:focus { outline: 2px solid var(--warm); outline-offset: 2px; }
    Experiential layer — motion, probes, path, constellation, fork
    ========================================================================= */
 
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  opacity: .035;
-  background-image:
-    radial-gradient(circle at 20% 20%, rgba(255,255,255,.8) 0 1px, transparent 1.5px),
-    radial-gradient(circle at 80% 60%, rgba(255,255,255,.6) 0 1px, transparent 1.5px);
-  background-size: 3px 3px, 5px 5px;
-}
-body > * { position: relative; z-index: 1; }
 
 .instrument-live {
   cursor: crosshair;
@@ -735,9 +722,7 @@ body > * { position: relative; z-index: 1; }
   padding: .9rem;
   border: 1px solid var(--line);
   border-radius: var(--radius-sm);
-  background:
-    radial-gradient(circle at 20% 40%, color-mix(in srgb, var(--cool) 10%, transparent), transparent 45%),
-    color-mix(in srgb, var(--surface) 70%, transparent);
+  background: color-mix(in srgb, var(--surface) 70%, transparent);
 }
 .constellation-node {
   display: grid;
@@ -793,9 +778,7 @@ body > * { position: relative; z-index: 1; }
   padding: 1.2rem;
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  background:
-    radial-gradient(90% 120% at 100% 0%, color-mix(in srgb, var(--violet) 12%, transparent), transparent 50%),
-    color-mix(in srgb, var(--surface) 75%, transparent);
+  background: color-mix(in srgb, var(--surface) 80%, transparent);
 }
 .fork-prompt {
   margin: .4rem 0 1rem;

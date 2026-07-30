@@ -1,10 +1,5 @@
 'use strict';
 
-/**
- * Program walkthrough — live status + experiential lab.
- * Every forced conclusion returns what it does and does not establish.
- */
-
 const readinessUrl = 'research/egc2/expert_reviewer_dry_run_execution_readiness.v0.1.json';
 
 function setStatus(message, tone) {
@@ -26,24 +21,23 @@ async function loadSimpleStatus() {
     const verified = gates.filter((g) => g.status === 'verified').length;
     if (allowed) {
       setStatus(
-        `Current status: synthetic cloud run is marked allowed (${verified}/${gates.length} gates verified). Still verify evidence before treating this as clearance.`,
+        `Status: execution allowed in the public record (${verified}/${gates.length} gates verified). Check the evidence before treating this as clearance.`,
         'is-good'
       );
     } else {
       setStatus(
-        `Current status: synthetic cloud dry run is blocked (${verified}/${gates.length} gates verified). That is the accurate public state.`,
+        `Status: synthetic cloud dry run blocked (${verified}/${gates.length} gates verified).`,
         'is-blocked'
       );
     }
   } catch {
     setStatus(
-      'Current status: public readiness record could not be loaded. No readiness is inferred from the missing fetch.',
+      'Status: readiness record could not be loaded. No status is inferred from that failure.',
       'is-error'
     );
   }
 }
 
-/* Theme */
 const programRoot = document.documentElement;
 const programThemeToggle = document.getElementById('programThemeToggle');
 const storedTheme = localStorage.getItem('constructedSubjectTheme');
@@ -61,7 +55,6 @@ if (programThemeToggle) {
   });
 }
 
-/* Scroll progress */
 function updateProgramProgress() {
   const bar = document.getElementById('programProgress');
   if (!bar) return;
@@ -72,32 +65,31 @@ function updateProgramProgress() {
 window.addEventListener('scroll', updateProgramProgress, { passive: true });
 updateProgramProgress();
 
-/* Settle slider */
 const settleBands = [
   {
     max: 20,
-    title: 'Strong “only a report” lean',
-    body: 'You treat first-person language as cheap. That may be right—but it still needs architectural and causal reasons, not style alone.'
+    title: 'Lean: only a report',
+    body: 'First-person language is treated as weak evidence. You still need a stated criterion, not just style.'
   },
   {
     max: 40,
-    title: 'Skeptical lean',
-    body: 'Reports are underweighted. Keep open the possibility that organization still supports a subject under some theories.'
+    title: 'Skeptical',
+    body: 'Reports are underweighted. Organization could still matter under some theories.'
   },
   {
     max: 60,
-    title: 'Undecided',
-    body: 'A mid-range guess is honest. The report still underdetermines the mechanism and the subject attribution.'
+    title: 'Open',
+    body: 'A report alone does not fix whether a subject exists or which process it is.'
   },
   {
     max: 80,
-    title: 'Subject lean',
-    body: 'You feel a subject is present. That feeling is a human-lens signal; it is not a detection result.'
+    title: 'Lean: subject present',
+    body: 'You are treating presence as likely. That is a judgment, not a detection result.'
   },
   {
     max: 100,
-    title: 'Strong “real subject” lean',
-    body: 'You treat the report as nearly decisive. The program refuses that shortcut: content is not identity, and report is not experience.'
+    title: 'Lean: real subject',
+    body: 'Report content is not the same as subject identity, and neither is experience.'
   }
 ];
 
@@ -114,19 +106,17 @@ if (settleSlider) {
   settleSlider.addEventListener('input', () => updateSettle(Number(settleSlider.value)));
 }
 
-/* Dual lens mix */
 function updateLensMix(value) {
   const copy = document.getElementById('lensMixCopy');
   if (!copy) return;
   if (value < 30) {
     copy.textContent =
-      'Human lens dominant: intuition, moral weight, and narrative recognition are loud. Still ask what observations would survive a hostile reviewer.';
+      'Judgment is weighted higher. Still ask what a critic would accept as observation.';
   } else if (value > 70) {
     copy.textContent =
-      'System lens dominant: architecture, controls, and underdetermination are loud. Still ask what would count as harm if a subject were present.';
+      'Evidence is weighted higher. Still ask what harm would mean if a subject were present.';
   } else {
-    copy.textContent =
-      'Both lenses stay visible. Feeling and evidence are not the same kind of claim—and neither is a consciousness meter.';
+    copy.textContent = 'Judgment and evidence answer different questions. Keep them separate.';
   }
 }
 
@@ -136,19 +126,16 @@ if (lensMix) {
   lensMix.addEventListener('input', () => updateLensMix(Number(lensMix.value)));
 }
 
-/* Force conclusion */
 const forceCopy = {
   empty: {
-    indicates: 'You treat construction, imitation risk, or report cheapness as decisive against a subject.',
-    not:
-      'That current systems are nonconscious, or that every first-person report is empty. You still need a non-circular criterion.',
-    next: 'Specify the property that would have to be present for you to reverse the judgment, and how it could be measured without private holdouts as public proof.'
+    indicates: 'You treat construction or cheap reports as enough to deny a subject.',
+    not: 'That current systems are nonconscious. You still need a non-circular criterion.',
+    next: 'State what evidence would reverse the judgment, without using private holdouts as public proof.'
   },
   real: {
-    indicates: 'You treat fluent first-person language or continuity of story as nearly sufficient for a subject.',
-    not:
-      'That a subject has been detected. Report production is not report reference, and neither is phenomenal presence.',
-    next: 'Demand mechanism–report correspondence, persistence across context shifts, and rivals that remain open under the same transcript.'
+    indicates: 'You treat first-person language or story continuity as nearly enough for a subject.',
+    not: 'That a subject was detected. Producing a report is not the same as referring to, or being, a subject.',
+    next: 'Ask for mechanism–report mapping, stability across context changes, and open rival explanations.'
   },
   reset: null
 };
@@ -168,11 +155,11 @@ function showForce(kind) {
   const item = forceCopy[kind];
   el.hidden = false;
   el.innerHTML = `
-    <span class="label">What forcing this indicates</span>
+    <span class="label">What this choice shows</span>
     <p>${item.indicates}</p>
-    <span class="label">What it does not establish</span>
+    <span class="label">What it does not show</span>
     <p>${item.not}</p>
-    <span class="label">Next evidence</span>
+    <span class="label">What would help next</span>
     <p>${item.next}</p>`;
   if (settleSlider) {
     settleSlider.value = kind === 'empty' ? '8' : '92';
@@ -184,19 +171,18 @@ document.querySelectorAll('[data-force]').forEach((btn) => {
   btn.addEventListener('click', () => showForce(btn.dataset.force));
 });
 
-/* Layer stack */
 const layerCopy = {
   origin: {
     title: 'Origin',
-    body: 'How the system was produced matters historically. It does not, by itself, settle whether anything is present now.'
+    body: 'How the system was produced is a historical question. It does not settle whether anything is present now.'
   },
   content: {
     title: 'Content',
-    body: 'What is represented—memories, fear, a self-story—can be generated, false, or role-played without settling experience.'
+    body: 'What is represented can be generated or false without settling experience.'
   },
   organization: {
     title: 'Organization',
-    body: 'How states interact causally is where scientific evidence can strengthen or weaken. Still not a direct look at presence.'
+    body: 'How states interact is where measurements can help. It is still not direct access to presence.'
   },
   experience: {
     title: 'Experience',

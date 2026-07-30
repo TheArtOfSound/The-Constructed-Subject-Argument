@@ -65,11 +65,7 @@
   padding: clamp(1.3rem, 3vw, 1.8rem);
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  background:
-    radial-gradient(90% 120% at 0% 0%, color-mix(in srgb, var(--warm) 10%, transparent), transparent 50%),
-    radial-gradient(80% 100% at 100% 100%, color-mix(in srgb, var(--cool) 10%, transparent), transparent 45%),
-    color-mix(in srgb, var(--surface) 82%, transparent);
-  box-shadow: var(--shadow);
+  background: color-mix(in srgb, var(--surface) 88%, transparent);
 }
 
 .walk-lab h2 {
@@ -340,101 +336,23 @@
   font-size: 0.92rem;
 }
 
-/* tracks with flip */
-.track-simple {
-  display: grid;
-  gap: 0.85rem;
-  margin-top: 0.5rem;
-}
-
-.track-flip {
-  position: relative;
-  min-height: 168px;
-  perspective: 1000px;
-  outline: none;
-}
-
-.track-face {
-  position: absolute;
-  inset: 0;
+/* track cards */
+.track-simple article {
   padding: 1.1rem 1.15rem;
   border: 1px solid var(--line);
   border-radius: var(--radius-sm);
   background: color-mix(in srgb, var(--surface) 78%, transparent);
-  backface-visibility: hidden;
-  transition: transform 0.45s ease;
 }
-
-.track-face.front {
-  display: flex;
-  flex-direction: column;
-}
-
-.track-face.back {
-  transform: rotateY(180deg);
-  background:
-    linear-gradient(160deg, color-mix(in srgb, var(--cool) 8%, var(--surface)), var(--surface));
-}
-
-.track-flip:hover .front,
-.track-flip:focus-within .front {
-  transform: rotateY(180deg);
-}
-
-.track-flip:hover .back,
-.track-flip:focus-within .back {
-  transform: rotateY(360deg);
-}
-
-.track-face h3 {
-  margin: 0 0 0.15rem;
-  font-size: 1.2rem;
-}
-
-.track-face p {
-  margin: 0.35rem 0 0;
-  color: var(--muted);
-  font-size: 0.95rem;
-}
-
-.flip-hint {
-  margin-top: auto;
-  padding-top: 0.7rem;
-  font-family: var(--mono);
-  font-size: 0.62rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--faint);
-}
-
-.track-face a {
+.track-simple h3 { margin: 0 0 .15rem; font-size: 1.2rem; }
+.track-simple p { margin: .35rem 0 0; color: var(--muted); font-size: .95rem; }
+.track-simple a {
   display: inline-block;
-  margin-top: 0.75rem;
+  margin-top: .75rem;
   color: var(--cool);
   font-weight: 700;
   text-decoration: none;
 }
-
-.track-face a:hover {
-  text-decoration: underline;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .track-face {
-    position: static;
-    transform: none !important;
-    transition: none;
-  }
-  .track-face.back {
-    margin-top: 0.55rem;
-  }
-  .track-flip {
-    min-height: 0;
-  }
-  .flip-hint {
-    display: none;
-  }
-}
+.track-simple a:hover { text-decoration: underline; }
 
 .two-col {
   display: grid;
@@ -525,9 +443,7 @@
   padding: 1.6rem 1.25rem;
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  background:
-    radial-gradient(90% 120% at 0% 0%, color-mix(in srgb, var(--cool) 10%, transparent), transparent 55%),
-    color-mix(in srgb, var(--surface) 80%, transparent);
+  background: color-mix(in srgb, var(--surface) 88%, transparent);
 }
 
 .walk-end h2 {

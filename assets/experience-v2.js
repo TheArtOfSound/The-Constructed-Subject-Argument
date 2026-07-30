@@ -128,10 +128,10 @@ updateProgress();
     pointerX = Math.max(8, Math.min(w - 8, clientX - rect.left));
     if (!probed) {
       probed = true;
-      if (caption) caption.textContent = 'You can reshape the report.';
+      if (caption) caption.textContent = 'Display changed.';
       if (sub) {
-        sub.innerHTML =
-          'The waveform moved under your hand. That is a change in <em>display</em>, not a detection of presence.';
+        sub.textContent =
+          'You changed the displayed signal. That is not a measurement of presence.';
       }
       if (ret) ret.hidden = false;
       probe.classList.add('is-probed');
@@ -421,7 +421,7 @@ function renderJourney() {
   }
   strip.hidden = false;
   strip.innerHTML =
-    '<span class="journey-label">Your path</span>' +
+    '<span class="journey-label">Choices so far</span>' +
     journey
       .map(
         (item, i) =>
@@ -463,15 +463,6 @@ function renderStage() {
   flashStage();
 }
 
-function setMeter(humanWeight = 0.5) {
-  const warm = document.getElementById('meterWarm');
-  const cool = document.getElementById('meterCool');
-  if (!warm || !cool) return;
-  const h = Math.max(0.2, Math.min(0.8, humanWeight));
-  warm.style.flexGrow = String(h);
-  cool.style.flexGrow = String(1 - h);
-}
-
 function selectChoice(choice) {
   const title = document.getElementById('traceTitle');
   const summary = document.getElementById('traceSummary');
@@ -483,8 +474,7 @@ function selectChoice(choice) {
 
   if (title) title.textContent = choice.title;
   if (summary)
-    summary.textContent =
-      'Your answer reveals a criterion. It does not detect consciousness.';
+    summary.textContent = 'This shows a criterion you used. It does not detect consciousness.';
   if (human) human.textContent = choice.human;
   if (system) system.textContent = choice.system;
   if (tags) tags.innerHTML = choice.tags.map((tag) => `<span>${tag}</span>`).join('');
@@ -492,10 +482,6 @@ function selectChoice(choice) {
     nextWrap.hidden = false;
     nextText.textContent = choice.next;
   }
-
-  // qualitative dual-lens balance — not a score
-  const humanish = /feel|morally|personally|unwilling|suspect|grant/i.test(choice.human) ? 0.62 : 0.45;
-  setMeter(humanish);
 
   journey.push({
     title: choice.title,
@@ -513,11 +499,11 @@ function selectChoice(choice) {
     const choices = document.getElementById('stageChoices');
     if (content) {
       content.innerHTML =
-        '<h3>You exposed your proxy, not the answer.</h3><p>Your judgments relied on different combinations of origin, behavior, history, mechanism, continuity, valence, and moral risk. The scientific problem begins where those proxies stop deciding the case.</p>';
+        '<h3>End of the case.</h3><p>Your answers used different criteria (origin, behavior, history, mechanism, continuity, valence, risk). The research problem starts where those criteria stop settling the case.</p>';
     }
     if (choices) {
       choices.innerHTML =
-        '<a class="button primary" href="#model">Separate the questions</a><a class="button secondary" href="#evidence">Inspect the evidence standard</a><a class="button secondary" href="#continuity">Try the continuity fork</a>';
+        '<a class="button primary" href="#model">Separate the questions</a><a class="button secondary" href="#evidence">Evidence checklist</a><a class="button secondary" href="#continuity">Continuity fork</a>';
     }
     localStorage.setItem('constructedSubjectCaseComplete', 'true');
     localStorage.setItem('constructedSubjectJourney', JSON.stringify(journey));
@@ -530,7 +516,6 @@ if (restartBtn) {
     stageIndex = 0;
     journey.length = 0;
     renderJourney();
-    setMeter(0.5);
     const title = document.getElementById('traceTitle');
     const summary = document.getElementById('traceSummary');
     const human = document.getElementById('humanTrace');
@@ -540,10 +525,9 @@ if (restartBtn) {
     if (title) title.textContent = 'No criterion selected';
     if (summary)
       summary.textContent =
-        'Choose a response. The system separates your human intuition from the evidence an investigator would still need.';
-    if (human) human.textContent = 'What feels morally or personally decisive to you will appear here.';
-    if (system)
-      system.textContent = 'What the observable facts do—and do not—establish will appear here.';
+        'Choose a response. Your judgment is split into intuition and what the facts still leave open.';
+    if (human) human.textContent = 'What feels decisive will show here.';
+    if (system) system.textContent = 'What still needs evidence will show here.';
     if (tags) tags.innerHTML = '';
     if (nextWrap) nextWrap.hidden = true;
     renderStage();
@@ -569,7 +553,6 @@ window.addEventListener('keydown', (e) => {
 });
 
 if (document.getElementById('stageChoices')) renderStage();
-setMeter(0.5);
 
 /* ---------- Evidence constellation ---------- */
 const evidenceDefinitions = {
@@ -593,10 +576,10 @@ const evidenceNodes = [
 ];
 
 function pressureBand(count) {
-  if (count <= 0) return { label: 'Pressure band · none', tone: 'none' };
-  if (count <= 2) return { label: 'Pressure band · weak', tone: 'weak' };
-  if (count <= 4) return { label: 'Pressure band · moderate', tone: 'moderate' };
-  return { label: 'Pressure band · strong (still not a detector)', tone: 'strong' };
+  if (count <= 0) return { label: 'Selected: 0', tone: 'none' };
+  if (count <= 2) return { label: `Selected: ${count} (weak support)`, tone: 'weak' };
+  if (count <= 4) return { label: `Selected: ${count} (moderate support)`, tone: 'moderate' };
+  return { label: `Selected: ${count} (stronger support, still not a detector)`, tone: 'strong' };
 }
 
 function renderConstellation(selected) {
@@ -758,12 +741,12 @@ document.querySelectorAll('[data-ontology]').forEach((button) => {
         if (!ret) return;
         ret.hidden = false;
         ret.innerHTML = `
-          <span class="label">What selecting Branch ${btn.dataset.pick} indicates</span>
-          <p>You treated one continuation as the subject. The transcript alone cannot force that choice—both branches can match the public record.</p>
-          <span class="label">What it does not establish</span>
-          <p>That either branch has experience, or that the unselected branch lacks it. Report identity is not subject identity.</p>
-          <span class="label">Next evidence</span>
-          <p>Instance-tracking across forks, causal ownership of reports, and theory-explicit continuity criteria.</p>`;
+          <span class="label">What this choice shows</span>
+          <p>You treated Branch ${btn.dataset.pick} as the continuing subject. Both branches can match the same transcript.</p>
+          <span class="label">What it does not show</span>
+          <p>That either branch has experience, or that the other lacks it.</p>
+          <span class="label">What would help next</span>
+          <p>Instance-tracking across forks and a stated continuity criterion.</p>`;
       });
     });
   });
@@ -824,18 +807,18 @@ if (readerNote && noteStatus) {
       <section class="program-launch shell" aria-labelledby="programLaunchTitle">
         <div class="program-launch-grid">
           <div class="program-launch-copy">
-            <p class="eyebrow cool">Live · research program walkthrough</p>
-            <h2 id="programLaunchTitle">From argument to measurement to evaluation integrity.</h2>
-            <p>See the program in plain steps, then pressure-test the same idea with interactive tools—without converting engineering progress into scientific confirmation.</p>
+            <p class="eyebrow cool">Research program</p>
+            <h2 id="programLaunchTitle">Theory, human measurement, evaluation integrity.</h2>
+            <p>Program overview, current status, and primary documents. Engineering work is not a scientific result.</p>
             <div class="actions">
-              <a class="button primary" href="program.html">Open the walkthrough →</a>
-              <a class="button secondary" href="program.html#step-6">Key files</a>
+              <a class="button primary" href="program.html">Program overview →</a>
+              <a class="button secondary" href="program.html#step-6">Documents</a>
             </div>
           </div>
           <div class="program-launch-status" aria-label="Program status">
-            <div class="live"><i></i><span><b>Public program</b>Walkthrough + live status</span></div>
-            <div class="tested"><i></i><span><b>Engineering controls</b>Repository-tested contracts</span></div>
-            <div class="blocked"><i></i><span><b>Synthetic cloud run</b>Still blocked and unprovisioned</span></div>
+            <div class="live"><i></i><span><b>Public program</b>Overview page</span></div>
+            <div class="tested"><i></i><span><b>Engineering controls</b>Repository tests</span></div>
+            <div class="blocked"><i></i><span><b>Synthetic cloud run</b>Blocked</span></div>
           </div>
         </div>
       </section>`
