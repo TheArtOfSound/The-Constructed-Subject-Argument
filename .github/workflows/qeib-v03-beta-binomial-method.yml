@@ -1,0 +1,34 @@
+name: QEIB v0.3 beta-binomial method integrity
+
+on:
+  pull_request:
+    paths:
+      - "research/qeib/QEIB_V0_3_BETA_BINOMIAL_PPC_METHOD.md"
+      - "research/qeib/capability_adequacy_v0.3_candidate_grid.json"
+      - "research/qeib/test_v0_3_beta_binomial_method_spec.py"
+      - ".github/workflows/qeib-v03-beta-binomial-method.yml"
+  push:
+    branches: [main]
+    paths:
+      - "research/qeib/QEIB_V0_3_BETA_BINOMIAL_PPC_METHOD.md"
+      - "research/qeib/capability_adequacy_v0.3_candidate_grid.json"
+      - "research/qeib/test_v0_3_beta_binomial_method_spec.py"
+      - ".github/workflows/qeib-v03-beta-binomial-method.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate-method:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Parse candidate grid
+        run: python -m json.tool research/qeib/capability_adequacy_v0.3_candidate_grid.json >/dev/null
+      - name: Compile integrity test
+        run: python -m py_compile research/qeib/test_v0_3_beta_binomial_method_spec.py
+      - name: Run integrity test
+        run: python -m unittest -v research.qeib.test_v0_3_beta_binomial_method_spec
