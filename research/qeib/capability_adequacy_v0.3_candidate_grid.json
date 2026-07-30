@@ -1,4 +1,42 @@
 {
+  "beta_binomial_numerical_method": {
+    "alternative_prior": {
+      "kappa_mass": "proportional_to_1_over_1_plus_kappa",
+      "mu_prior": "beta_0.5_0.5"
+    },
+    "candidate_decision": "pass_when_primary_tail_probability_greater_than_or_equal_to_candidate_threshold",
+    "discreteness": {
+      "interior_event": "abs(Y_rep_d_over_n_d_minus_mu)_strictly_less_than_T_obs",
+      "tail_event": "T_rep_greater_than_or_equal_to_T_obs",
+      "mid_p": false,
+      "randomized_p": false
+    },
+    "grid": {
+      "kappa": {
+        "formula": "2^(j/2)",
+        "j_max": 18,
+        "j_min": 0,
+        "point_count": 19
+      },
+      "mu": {
+        "maximum": 0.995,
+        "minimum": 0.005,
+        "point_count": 199,
+        "step": 0.005
+      },
+      "total_cell_count": 3781
+    },
+    "integration": "exact_beta_binomial_finite_sums_with_log_sum_exp_posterior_weights",
+    "method_specification": "QEIB_V0_3_BETA_BINOMIAL_PPC_METHOD.md",
+    "primary_prior": {
+      "kappa_prior": "uniform_on_frozen_log2_grid",
+      "mu_prior": "beta_1_1"
+    },
+    "qualification_prior": "primary_only",
+    "sensitivity_rule": "flag_when_primary_and_alternative_cross_candidate_threshold_without_changing_primary_decision",
+    "statistic": "maximum_absolute_domain_rate_departure_from_mu",
+    "status": "prospectively_frozen_before_candidate_simulation"
+  },
   "candidate_generation": {
     "cross_product": [
       "family_counts",
@@ -47,86 +85,28 @@
   },
   "prespecified_regime_classes": {
     "boundary_diagnostics": {
-      "format_failure": [
-        0.08,
-        0.1,
-        0.12
-      ],
-      "neutral_accuracy": [
-        0.18,
-        0.2,
-        0.22,
-        0.88,
-        0.9,
-        0.92
-      ],
-      "scorable_coverage": [
-        0.88,
-        0.9,
-        0.92
-      ],
-      "transport_failure": [
-        0.04,
-        0.05,
-        0.06
-      ]
+      "format_failure": [0.08, 0.1, 0.12],
+      "neutral_accuracy": [0.18, 0.2, 0.22, 0.88, 0.9, 0.92],
+      "scorable_coverage": [0.88, 0.9, 0.92],
+      "transport_failure": [0.04, 0.05, 0.06]
     },
     "clearly_adequate_interior": {
-      "allocation_profiles": [
-        "balanced",
-        "moderately_unbalanced_but_valid"
-      ],
-      "format_failure": [
-        0.0,
-        0.04
-      ],
-      "heterogeneity": [
-        "low",
-        "moderate"
-      ],
-      "neutral_accuracy": [
-        0.45,
-        0.55,
-        0.7
-      ],
-      "transport_failure": [
-        0.0,
-        0.02
-      ]
+      "allocation_profiles": ["balanced", "moderately_unbalanced_but_valid"],
+      "format_failure": [0.0, 0.04],
+      "heterogeneity": ["low", "moderate"],
+      "neutral_accuracy": [0.45, 0.55, 0.7],
+      "transport_failure": [0.0, 0.02]
     },
     "clearly_inadequate_exterior": {
-      "allocation_profiles": [
-        "single_domain_80_percent",
-        "two_domain_80_percent",
-        "missing_domain"
-      ],
-      "controls": [
-        "positive_control_fail",
-        "negative_control_fail"
-      ],
-      "format_failure": [
-        0.15,
-        0.2
-      ],
-      "heterogeneity": [
-        "domain_floor_ceiling_mixture",
-        "high_dispersion"
-      ],
-      "neutral_accuracy": [
-        0.05,
-        0.1,
-        0.15,
-        0.95,
-        0.98
-      ],
-      "transport_failure": [
-        0.08,
-        0.1,
-        0.15
-      ]
+      "allocation_profiles": ["single_domain_80_percent", "two_domain_80_percent", "missing_domain"],
+      "controls": ["positive_control_fail", "negative_control_fail"],
+      "format_failure": [0.15, 0.2],
+      "heterogeneity": ["domain_floor_ceiling_mixture", "high_dispersion"],
+      "neutral_accuracy": [0.05, 0.1, 0.15, 0.95, 0.98],
+      "transport_failure": [0.08, 0.1, 0.15]
     }
   },
-  "schema_version": "qeib-capability-adequacy-v0.3-candidate-grid-0.1",
+  "schema_version": "qeib-capability-adequacy-v0.3-candidate-grid-0.2",
   "selection_order_if_multiple_qualify": [
     "smallest_family_count",
     "lowest_worst_case_false_adequacy",
@@ -134,22 +114,12 @@
     "lowest_structural_complexity"
   ],
   "simulation": {
-    "accuracy_interval_methods": [
-      "wilson_90",
-      "agresti_coull_90"
-    ],
+    "accuracy_interval_methods": ["wilson_90", "agresti_coull_90"],
     "domain_count": 6,
-    "family_counts": [
-      144,
-      192,
-      288
-    ],
+    "family_counts": [144, 192, 288],
     "operational_interval_method": "one_sided_wilson_95",
     "replicates_per_regime": 5000,
-    "rule_families": [
-      "calibrated_interval",
-      "two_stage_calibrated_interval"
-    ],
+    "rule_families": ["calibrated_interval", "two_stage_calibrated_interval"],
     "seed": 20260729
   },
   "status": "prospective_no_candidate_selected",

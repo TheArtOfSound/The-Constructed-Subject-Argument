@@ -1,0 +1,60 @@
+name: QEIB v0.3 beta-binomial PPC evaluator
+
+on:
+  pull_request:
+    paths:
+      - "research/qeib/evaluate_v0_3_beta_binomial_ppc.py"
+      - "research/qeib/test_evaluate_v0_3_beta_binomial_ppc.py"
+      - "research/qeib/QEIB_V0_3_BETA_BINOMIAL_PPC_METHOD.md"
+      - "research/qeib/QEIB_V0_3_BETA_BINOMIAL_PPC_IMPLEMENTATION.md"
+      - "research/qeib/capability_adequacy_v0.3_candidate_grid.json"
+      - "research/qeib/evaluate_v0_3_structural_balance.py"
+      - ".github/workflows/qeib-v03-beta-binomial-ppc.yml"
+  push:
+    branches: [main]
+    paths:
+      - "research/qeib/evaluate_v0_3_beta_binomial_ppc.py"
+      - "research/qeib/test_evaluate_v0_3_beta_binomial_ppc.py"
+      - "research/qeib/QEIB_V0_3_BETA_BINOMIAL_PPC_METHOD.md"
+      - "research/qeib/QEIB_V0_3_BETA_BINOMIAL_PPC_IMPLEMENTATION.md"
+      - "research/qeib/capability_adequacy_v0.3_candidate_grid.json"
+      - "research/qeib/evaluate_v0_3_structural_balance.py"
+      - ".github/workflows/qeib-v03-beta-binomial-ppc.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  beta-binomial-ppc:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Compile evaluator and tests
+        run: |
+          python -m py_compile \
+            research/qeib/evaluate_v0_3_beta_binomial_ppc.py \
+            research/qeib/test_evaluate_v0_3_beta_binomial_ppc.py \
+            research/qeib/evaluate_v0_3_structural_balance.py
+      - name: Run beta-binomial method integrity tests
+        run: python -m unittest -v research.qeib.test_v0_3_beta_binomial_method_spec
+      - name: Run structural-balance schema compatibility tests
+        run: python -m unittest -v research.qeib.test_evaluate_v0_3_structural_balance
+      - name: Run beta-binomial PPC adversarial tests
+        run: python -m unittest -v research.qeib.test_evaluate_v0_3_beta_binomial_ppc
+      - name: CLI smoke for balanced domains
+        run: |
+          python research/qeib/evaluate_v0_3_beta_binomial_ppc.py \
+            --y 12,12,12,12,12,12 \
+            --n 24,24,24,24,24,24 \
+            --candidate-id beta_binomial_ppc_90 \
+            --output /tmp/ppc_balanced.json
+          python - <<'PY'
+          import json
+          payload = json.load(open('/tmp/ppc_balanced.json'))
+          assert payload['primary_decision'] == 'pass'
+          assert 0.0 <= payload['primary_prior']['posterior_predictive_tail_probability'] <= 1.0
+          assert payload['artifact_digest']
+          PY
