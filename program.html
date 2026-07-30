@@ -3,24 +3,24 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Research Program — The Constructed Subject Argument, EGC 2.0, and QEIB</title>
-  <meta name="description" content="A visual, public-safe dashboard for the Constructed Subject research program: theory, EGC 2.0 human measurement, evaluation integrity, evidence engineering, current blockers, and live artifacts." />
+  <title>Research program — The Constructed Subject</title>
+  <meta name="description" content="Overview of the Constructed Subject research program: the main problem, three tracks of work, current status, and primary documents." />
   <meta name="author" content="Bryan Leonard" />
   <meta name="robots" content="index, follow, max-image-preview:large" />
   <link rel="canonical" href="https://theartofsound.github.io/The-Constructed-Subject-Argument/program.html" />
   <meta name="theme-color" content="#07080c" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="The Constructed Subject Argument" />
-  <meta property="og:title" content="The Research Program — theory, measurement, and evaluation integrity" />
-  <meta property="og:description" content="See the live public research program, exact engineering state, current blockers, and auditable artifacts without converting incomplete work into scientific claims." />
+  <meta property="og:title" content="Research program — The Constructed Subject" />
+  <meta property="og:description" content="The main problem, three tracks of work, current status, and primary documents." />
   <meta property="og:url" content="https://theartofsound.github.io/The-Constructed-Subject-Argument/program.html" />
   <meta property="og:image" content="https://theartofsound.github.io/The-Constructed-Subject-Argument/assets/og-image.png" />
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="assets/experience-v2.css" />
   <link rel="stylesheet" href="assets/program.css" />
 </head>
-<body class="program-page">
-  <a class="skip-link" href="#program-map">Skip to the research program</a>
+<body class="program-page walkthrough-page">
+  <a class="skip-link" href="#walkthrough">Skip to content</a>
   <div class="progress-track" aria-hidden="true"><span id="programProgress"></span></div>
 
   <header class="topbar program-topbar">
@@ -29,268 +29,213 @@
       <span><strong>The Constructed Subject</strong><small>research program</small></span>
     </a>
     <nav aria-label="Primary">
-      <a href="./">Experience</a>
+      <a href="./">Home</a>
       <a href="chapters/">Book</a>
-      <a href="#program-map">Program map</a>
-      <a href="#live-state">Live state</a>
-      <a href="#artifacts">Artifacts</a>
+      <a href="#walkthrough">Overview</a>
+      <a href="#next">Documents</a>
     </nav>
     <button class="quiet-button" id="programThemeToggle" type="button" aria-pressed="false" aria-label="Toggle light and dark theme">Theme</button>
   </header>
 
-  <main>
-    <section class="program-hero shell" id="top">
-      <div class="program-hero-copy">
-        <p class="eyebrow cool">Public research program · live evidence, incomplete claims</p>
-        <h1>Not a pile of files.<br /><em>A visible research system.</em></h1>
-        <p class="program-lede">The Constructed Subject program now spans a philosophical argument, a human measurement program, an evaluation-integrity benchmark, and a public evidence-control layer. This page makes that work inspectable without pretending that engineering completion equals scientific validation.</p>
-        <div class="actions">
-          <a class="button primary" href="#program-map">See the program map</a>
-          <a class="button secondary" href="#artifacts">Open the evidence</a>
+  <main class="walkthrough shell" id="walkthrough">
+    <header class="walk-intro">
+      <p class="eyebrow cool">Research program · incomplete claims</p>
+      <h1>What this program is working on</h1>
+      <p class="walk-lede">
+        This is unfinished research, not a settled scientific result. The central problem:
+        when a system produces a first-person report, what does that report identify?
+        Public pages do not include private holdout material.
+      </p>
+      <p class="walk-status" id="liveStatusLine" aria-live="polite">
+        Loading status…
+      </p>
+    </header>
+
+    <section class="walk-lab" id="lab" aria-labelledby="labTitle">
+      <h2 id="labTitle">Quick check: what does a report settle?</h2>
+      <p class="lab-lead">Move the slider. Neither end is licensed by a report alone.</p>
+
+      <div class="settle-lab">
+        <div class="settle-labels">
+          <span>Only a report</span>
+          <span>A real subject</span>
         </div>
-        <div class="claim-boundary compact-boundary">
-          <span><b>Built:</b> theory, protocols, validators, fixtures, analysis contracts, and public evidence controls.</span>
-          <span><b>Not established:</b> a validated consciousness measure, a successful cloud dry run, or a confirmatory EGC result.</span>
+        <input
+          type="range"
+          id="settleSlider"
+          min="0"
+          max="100"
+          value="50"
+          aria-label="How much a first-person report settles subject status"
+        />
+        <div class="settle-readout" id="settleReadout" aria-live="polite">
+          <strong>Open</strong>
+          <p>A report alone does not fix whether a subject exists or which process it is.</p>
         </div>
       </div>
 
-      <aside class="program-orbit" aria-label="Three connected research tracks with an evidence boundary">
-        <div class="orbit-ring ring-one"></div>
-        <div class="orbit-ring ring-two"></div>
-        <div class="orbit-core"><span>SRIP</span><small>identification problem</small></div>
-        <div class="orbit-node node-theory"><b>CSA</b><span>theory</span></div>
-        <div class="orbit-node node-egc"><b>EGC</b><span>measurement</span></div>
-        <div class="orbit-node node-qeib"><b>QEIB</b><span>integrity</span></div>
-        <div class="orbit-caption"><i></i> Evidence must cross the boundary before claims advance.</div>
-      </aside>
-    </section>
-
-    <section class="status-ribbon" aria-label="Current research status">
-      <div class="shell status-ribbon-grid">
-        <div><span class="status-dot good"></span><b>Public program</b><small>visually live</small></div>
-        <div><span class="status-dot warm"></span><b>Engineering controls</b><small>repository-tested</small></div>
-        <div><span class="status-dot blocked"></span><b>Synthetic cloud run</b><small>blocked</small></div>
-        <div><span class="status-dot neutral"></span><b>Confirmatory science</b><small>not validated</small></div>
+      <div class="lens-mix" aria-label="Human judgment vs system evidence">
+        <div class="lens-mix-head">
+          <span class="warm-tag">Judgment</span>
+          <span class="cool-tag">Evidence</span>
+        </div>
+        <input type="range" id="lensMix" min="0" max="100" value="50" aria-label="Balance personal judgment and system evidence" />
+        <p class="lens-mix-copy" id="lensMixCopy">
+          Judgment and evidence answer different questions. Keep them separate.
+        </p>
       </div>
-    </section>
 
-    <section class="program-section shell" id="program-map">
-      <header class="program-section-head">
-        <span class="section-num cool">Program map</span>
-        <h2>Three tracks, one identification problem.</h2>
-        <p>The central problem is not whether a system can produce a report. It is whether observed reports and behavior identify the mechanism or subject-level property being claimed.</p>
-      </header>
-
-      <div class="track-grid">
-        <article class="track-card theory-card">
-          <div class="track-index">01</div>
-          <p class="micro-label">Constructed Subject Argument</p>
-          <h3>Separate artificial origin from present subjectivity.</h3>
-          <p>The theory distinguishes historical authenticity, represented content, causal organization, and possible experience. It rejects both automatic inclusion and automatic exclusion.</p>
-          <ul>
-            <li>Twenty-one chapter architecture</li>
-            <li>Claims and originality ledgers</li>
-            <li>Rival theories and falsifiers</li>
-            <li>Subject–Report Identification framing</li>
-          </ul>
-          <a href="chapters/">Open the living book →</a>
-        </article>
-
-        <article class="track-card egc-card">
-          <div class="track-index">02</div>
-          <p class="micro-label cool">EGC 2.0</p>
-          <h3>Measure human judgments without treating them as mechanism readouts.</h3>
-          <p>EGC 2.0 is a paired human-study architecture for studying how origin, continuity, mechanism, valence, and framing alter judgments while preserving underdetermination.</p>
-          <ul>
-            <li>Paired estimands and sensitivity contracts</li>
-            <li>Rater calibration and anchor review</li>
-            <li>Lineage, runtime, and evidence closure</li>
-            <li>Explicit null and failure preservation</li>
-          </ul>
-          <a href="research/EXPERIMENTS.md">Inspect the experiment program →</a>
-        </article>
-
-        <article class="track-card qeib-card">
-          <div class="track-index">03</div>
-          <p class="micro-label violet">QEIB</p>
-          <h3>Test evaluation integrity without confusing public development with hidden assessment.</h3>
-          <p>The benchmark program separates public tasks, capability checks, outcome taxonomies, and protected evaluation material so that development activity cannot be repackaged as leaderboard evidence.</p>
-          <ul>
-            <li>Public Stage A development lane</li>
-            <li>Outcome-family analysis</li>
-            <li>Raw-log and provenance requirements</li>
-            <li>Private holdout exclusion from public UI</li>
-          </ul>
-          <a href="research/THEORY_COMPARISON_MATRIX.md">See the broader comparison framework →</a>
-        </article>
+      <div class="force-row">
+        <button type="button" class="button secondary" data-force="empty">Assume empty</button>
+        <button type="button" class="button secondary" data-force="real">Assume real subject</button>
+        <button type="button" class="button ghost" data-force="reset">Reset</button>
       </div>
+      <div class="force-return" id="forceReturn" hidden></div>
     </section>
 
-    <section class="program-section live-state-section" id="live-state">
-      <div class="shell">
-        <header class="program-section-head split-head">
-          <div>
-            <span class="section-num">Live machine-readable state</span>
-            <h2>The dashboard reads the actual public-safe records.</h2>
-          </div>
-          <p>These values are loaded from committed JSON rather than typed into the page. A blocked result is shown as blocked.</p>
-        </header>
+    <ol class="walk-steps">
+      <li class="walk-step" id="step-1">
+        <p class="step-num">1</p>
+        <h2>The problem</h2>
+        <p>
+          Systems can produce first-person language. That is easy to treat as proof of
+          an inner subject.
+        </p>
+        <p>
+          The stricter question is whether the report identifies a subject at all, which
+          process is the subject, and whether the reporting process is the same as the
+          reported one.
+        </p>
+        <p class="step-note">
+          Working name: <em>Subject–Report Identification Problem</em>.
+        </p>
+      </li>
 
-        <div class="state-grid" id="liveStateGrid" aria-live="polite">
-          <article class="state-card loading-card">
-            <span class="state-kicker">Loading</span>
-            <h3>Reading readiness records…</h3>
-            <p>The page is checking the public assignment, provisioning, and execution-readiness artifacts.</p>
+      <li class="walk-step" id="step-2">
+        <p class="step-num">2</p>
+        <h2>Four separate questions</h2>
+        <p>Pick one. Only the last is the target property.</p>
+        <div class="layer-stack" id="layerStack" role="tablist" aria-label="Four questions">
+          <button type="button" class="layer-card is-active" data-layer="origin" role="tab" aria-selected="true">
+            <b>Origin</b><span>How was it made?</span>
+          </button>
+          <button type="button" class="layer-card" data-layer="content" role="tab" aria-selected="false">
+            <b>Content</b><span>What does it say or represent?</span>
+          </button>
+          <button type="button" class="layer-card" data-layer="organization" role="tab" aria-selected="false">
+            <b>Organization</b><span>What process is running?</span>
+          </button>
+          <button type="button" class="layer-card" data-layer="experience" role="tab" aria-selected="false">
+            <b>Experience</b><span>Is anything present for it?</span>
+          </button>
+        </div>
+        <div class="layer-return" id="layerReturn">
+          <strong>Origin</strong>
+          <p>How the system was produced is a historical question. It does not settle whether anything is present now.</p>
+        </div>
+      </li>
+
+      <li class="walk-step" id="step-3">
+        <p class="step-num">3</p>
+        <h2>Three tracks</h2>
+        <div class="track-simple">
+          <article>
+            <h3>Theory</h3>
+            <p class="micro-label">Constructed Subject Argument</p>
+            <p>Identity, continuity, and report underdetermination.</p>
+            <a href="chapters/">Book →</a>
+          </article>
+          <article>
+            <h3>Human measurement</h3>
+            <p class="micro-label cool">EGC 2.0</p>
+            <p>How people judge origin, continuity, and reports. Not a consciousness meter.</p>
+            <a href="research/EXPERIMENTS.md">Experiments →</a>
+          </article>
+          <article>
+            <h3>Evaluation integrity</h3>
+            <p class="micro-label violet">QEIB</p>
+            <p>Public development kept separate from protected assessment and private holdouts.</p>
+            <a href="research/qeib/README.md">QEIB →</a>
           </article>
         </div>
+      </li>
 
-        <div class="gate-panel">
-          <div class="gate-panel-head">
-            <div>
-              <p class="micro-label cool">P01–P12</p>
-              <h3>Preflight gates</h3>
-            </div>
-            <p id="gateSummary">Loading gate state…</p>
+      <li class="walk-step" id="step-4">
+        <p class="step-num">4</p>
+        <h2>Built vs not established</h2>
+        <div class="two-col">
+          <div class="yes-box">
+            <h3>Built and public</h3>
+            <ul>
+              <li>Book and theory materials</li>
+              <li>Experiment and analysis designs</li>
+              <li>Claims and originality ledgers</li>
+              <li>Public evidence controls</li>
+              <li>Repository tests for engineering contracts</li>
+            </ul>
           </div>
-          <div class="gate-grid" id="gateGrid"></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="program-section shell" id="build-history">
-      <header class="program-section-head">
-        <span class="section-num cool">What has actually been built</span>
-        <h2>A research stack, not one claim.</h2>
-        <p>Each layer closes a different failure mode. None converts uncertainty into a declaration of consciousness, awareness, deception, or hidden intention.</p>
-      </header>
-
-      <div class="build-timeline">
-        <article>
-          <span class="timeline-marker">A</span>
-          <div><p class="micro-label">Argument layer</p><h3>Interactive book and epistemic ledgers</h3><p>The public experience, chapter library, claims ledger, originality ledger, objections, literature map, and theory comparison framework make the philosophical synthesis inspectable.</p></div>
-        </article>
-        <article>
-          <span class="timeline-marker">B</span>
-          <div><p class="micro-label cool">Measurement layer</p><h3>Paired EGC analysis and rater architecture</h3><p>Estimands, pairing logic, sensitivity analysis, lineage requirements, calibration anchors, and machine-readable result contracts constrain what a future human study may claim.</p></div>
-        </article>
-        <article>
-          <span class="timeline-marker">C</span>
-          <div><p class="micro-label violet">Integrity layer</p><h3>QEIB separation and provenance</h3><p>Public development tasks, protected assessment, raw outputs, outcome families, and provenance are kept conceptually separate so one lane cannot impersonate another.</p></div>
-        </article>
-        <article>
-          <span class="timeline-marker">D</span>
-          <div><p class="micro-label">Evidence layer</p><h3>Leakage, closure, and repository-native CI</h3><p>Public artifacts are checked for forbidden disclosures and missing evidence references. Focused workflows preserve logs, exact tested commits, and failed states.</p></div>
-        </article>
-        <article>
-          <span class="timeline-marker blocked-marker">E</span>
-          <div><p class="micro-label cool">Operational layer</p><h3>Synthetic cloud dry-run boundary</h3><p>Operator assignment, independent review, Proton/AWS controls, Object Lock, CloudTrail, KMS separation, and twelve preflight gates are specified—but remain unassigned and unprovisioned.</p></div>
-        </article>
-      </div>
-    </section>
-
-    <section class="program-section artifact-section" id="artifacts">
-      <div class="shell">
-        <header class="program-section-head split-head">
-          <div>
-            <span class="section-num">Open the work</span>
-            <h2>Public artifacts, grouped by function.</h2>
+          <div class="no-box">
+            <h3>Not established</h3>
+            <ul>
+              <li>A validated consciousness test</li>
+              <li>A confirmatory human EGC result</li>
+              <li>A completed synthetic cloud dry run</li>
+              <li>Awareness, deception, or intent from a single output contrast</li>
+            </ul>
           </div>
-          <p>These links expose the research spine and public-safe operational controls. Protected mappings and private holdout material are intentionally absent.</p>
-        </header>
-
-        <div class="artifact-groups">
-          <section class="artifact-group">
-            <h3>Theory and falsification</h3>
-            <div class="artifact-list">
-              <a href="research/CLAIMS_LEDGER.md"><span>Claims ledger</span><small>Epistemic status, rivals, and confidence-lowering conditions.</small></a>
-              <a href="research/ORIGINALITY_LEDGER.md"><span>Originality ledger</span><small>Precedent, synthesis, proposed contribution, and unresolved novelty.</small></a>
-              <a href="research/EXPERIMENTS.md"><span>Experiment program</span><small>Falsifiable human and AI protocols with rival explanations.</small></a>
-              <a href="research/THEORY_COMPARISON_MATRIX.md"><span>Theory comparison</span><small>Substrate commitments, interventions, and what each theory does not establish.</small></a>
-            </div>
-          </section>
-
-          <section class="artifact-group">
-            <h3>Evidence engineering</h3>
-            <div class="artifact-list">
-              <a href="research/EGC_2_PUBLIC_EVIDENCE_CI_GATE.md"><span>Public evidence CI gate</span><small>Leakage and evidence-reference closure in repository-native validation.</small></a>
-              <a href="research/EGC_2_PUBLIC_EVIDENCE_CI_EXECUTION_RECORD.md"><span>CI execution record</span><small>Exact run evidence and claim limits for the focused public contract.</small></a>
-              <a href="research/EGC_2_DRY_RUN_READINESS_CONSISTENCY_GATE.md"><span>Readiness consistency gate</span><small>Rejects digest-valid but logically false execution unlocks.</small></a>
-              <a href="research/EGC_2_DRY_RUN_READINESS_CI_EXECUTION_RECORD.md"><span>Readiness CI record</span><small>Passing repository execution while the fixture remains blocked.</small></a>
-            </div>
-          </section>
-
-          <section class="artifact-group">
-            <h3>Synthetic operations</h3>
-            <div class="artifact-list">
-              <a href="research/EGC_2_DRY_RUN_ASSIGNMENT_AND_PROVISIONING_STANDARD.md"><span>Assignment and provisioning standard</span><small>O01–O06 ownership, R01–R08 controls, and P01–P12 traceability.</small></a>
-              <a href="research/egc2/expert_reviewer_dry_run_assignment_and_provisioning.v0.1.json"><span>Assignment/provisioning JSON</span><small>Current state: blocked, unassigned, and unprovisioned.</small></a>
-              <a href="research/egc2/expert_reviewer_dry_run_execution_readiness.v0.1.json"><span>Execution-readiness JSON</span><small>Current state: execution prohibited with all gates unverified.</small></a>
-              <a href="research/coordination/GPT_HANDOFF.md"><span>Current GPT handoff</span><small>Exact completed work, evidence, blockers, ownership, and next action.</small></a>
-            </div>
-          </section>
         </div>
-      </div>
-    </section>
+      </li>
 
-    <section class="program-section shell" id="claim-status">
-      <header class="program-section-head">
-        <span class="section-num cool">Claim boundary</span>
-        <h2>What the current program supports—and what it does not.</h2>
-      </header>
+      <li class="walk-step" id="step-5">
+        <p class="step-num">5</p>
+        <h2>On the site</h2>
+        <ol class="plain-list numbered">
+          <li><a href="./#awakening">Four-stage case</a></li>
+          <li><a href="./#top">Signal tool</a> (changes a display, not a detection result)</li>
+          <li><a href="./#evidence">Evidence checklist</a></li>
+          <li><a href="./#continuity">Continuity fork</a></li>
+          <li><a href="research/CLAIMS_LEDGER.md">Claims ledger</a></li>
+        </ol>
+      </li>
 
-      <div class="claim-status-grid">
-        <article class="supported-panel">
-          <p class="micro-label">Supported</p>
-          <h3>The public research architecture exists.</h3>
-          <ul>
-            <li>The theory, ledgers, experiment designs, analysis contracts, validators, fixtures, and evidence gates are public.</li>
-            <li>The current dry-run records are internally explicit about non-readiness.</li>
-            <li>Repository workflows have exercised focused engineering contracts.</li>
-            <li>Null, blocked, and failed states are treated as results to preserve.</li>
-          </ul>
-        </article>
-        <article class="unresolved-panel">
-          <p class="micro-label cool">Unresolved</p>
-          <h3>The measurement process is not empirically validated.</h3>
-          <ul>
-            <li>No synthetic Proton/AWS dry run has been executed.</li>
-            <li>No accountable operator or independent reviewer is assigned.</li>
-            <li>No confirmatory human EGC result exists.</li>
-            <li>No benchmark result licenses an inference of hidden intention, awareness, deception, subjectivity, or consciousness.</li>
-          </ul>
-        </article>
-      </div>
-    </section>
+      <li class="walk-step" id="step-6">
+        <p class="step-num">6</p>
+        <h2>Primary documents</h2>
+        <ul class="simple-links">
+          <li><a href="research/CLAIMS_LEDGER.md"><strong>Claims ledger</strong><span>What is supported, contested, or speculative.</span></a></li>
+          <li><a href="research/ORIGINALITY_LEDGER.md"><strong>Originality ledger</strong><span>Precedent, synthesis, and open novelty questions.</span></a></li>
+          <li><a href="research/EXPERIMENTS.md"><strong>Experiment program</strong><span>Designs with rival explanations.</span></a></li>
+          <li><a href="research/egc2/expert_reviewer_dry_run_execution_readiness.v0.1.json"><strong>Execution readiness record</strong><span>Currently blocked until gates pass.</span></a></li>
+          <li><a href="research/coordination/README.md"><strong>Coordination</strong><span>How multi-agent work is divided.</span></a></li>
+        </ul>
+      </li>
+    </ol>
 
-    <section class="program-cta">
-      <div class="shell program-cta-inner">
-        <div>
-          <p class="eyebrow">The program is public enough to inspect—and incomplete enough to challenge.</p>
-          <h2>Read the argument. Audit the evidence. Attack the weak point.</h2>
-        </div>
-        <div class="actions">
-          <a class="button primary" href="./">Enter the interactive argument</a>
-          <a class="button secondary" href="https://github.com/TheArtOfSound/The-Constructed-Subject-Argument/issues/new/choose" rel="noopener">Submit an objection</a>
-        </div>
+    <section class="walk-end" id="next">
+      <h2>Next</h2>
+      <p>Start with the case on the home page, or open the book. Engineering work is not a scientific result.</p>
+      <div class="actions">
+        <a class="button primary" href="./#awakening">Open the case</a>
+        <a class="button secondary" href="chapters/">Open the book</a>
+        <a class="button secondary" href="https://github.com/TheArtOfSound/The-Constructed-Subject-Argument/issues/new/choose" rel="noopener">File an objection</a>
       </div>
+      <p class="tiny-boundary">
+        Public is not peer review. Built tools are not confirmatory results.
+        Self-reports are not direct observations of subjective states.
+      </p>
     </section>
   </main>
 
   <footer class="site-footer program-footer">
     <div>
-      <strong>The Constructed Subject Research Program</strong>
-      <p>Independent research by Bryan Leonard, with AI research and drafting collaboration. Public visibility is not peer review, and engineering readiness is not scientific confirmation.</p>
+      <strong>The Constructed Subject</strong>
+      <p>Independent research by Bryan Leonard.</p>
     </div>
-    <div>
-      <p>Use the live state and artifacts to verify what exists before extending any claim.</p>
-      <div class="footer-links">
-        <a href="./">Experience</a>
-        <a href="chapters/">Book</a>
-        <a href="#program-map">Program</a>
-        <a href="#live-state">Status</a>
-        <a href="#artifacts">Artifacts</a>
-        <a href="https://github.com/TheArtOfSound/The-Constructed-Subject-Argument">GitHub</a>
-      </div>
+    <div class="footer-links">
+      <a href="./">Home</a>
+      <a href="chapters/">Book</a>
+      <a href="#walkthrough">Overview</a>
+      <a href="https://github.com/TheArtOfSound/The-Constructed-Subject-Argument">GitHub</a>
     </div>
   </footer>
 

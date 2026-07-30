@@ -60,8 +60,18 @@ if (fs.existsSync(path.join(root, 'program.html'))) {
     }
   }
 
-  if (!html.includes('live evidence, incomplete claims')) failures.push('program.html is missing the explicit incomplete-claims boundary.');
-  if (!html.includes('Private holdout exclusion from public UI')) failures.push('program.html is missing the private-holdout exclusion statement.');
+  if (!html.includes('incomplete claims') && !html.includes('Not established') && !html.includes('not a finished scientific result')) {
+    failures.push('program.html is missing an explicit incomplete-claims boundary.');
+  }
+  if (!html.toLowerCase().includes('private holdout') && !html.toLowerCase().includes('protected assessment')) {
+    failures.push('program.html is missing a private-holdout / protected-assessment separation statement.');
+  }
+  if (!html.includes('walkthrough') && !html.includes('Walkthrough')) {
+    failures.push('program.html is missing walkthrough framing.');
+  }
+  if (!ids.has('walkthrough') || !ids.has('liveStatusLine')) {
+    failures.push('program.html is missing required walkthrough ids (#walkthrough, #liveStatusLine).');
+  }
 }
 
 for (const jsFile of ['assets/program.js', 'assets/experience-v2.js']) {
