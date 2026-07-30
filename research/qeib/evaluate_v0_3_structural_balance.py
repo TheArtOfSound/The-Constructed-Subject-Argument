@@ -109,9 +109,19 @@ def evaluate_structural_balance(
     )
 
 
+SUPPORTED_GRID_SCHEMAS = frozenset(
+    {
+        "qeib-capability-adequacy-v0.3-candidate-grid-0.1",
+        # 0.2 adds the frozen beta-binomial numerical method block; structural
+        # balance fields are unchanged and remain deterministic.
+        "qeib-capability-adequacy-v0.3-candidate-grid-0.2",
+    }
+)
+
+
 def load_grid(path: Path) -> dict:
     grid = json.loads(path.read_text(encoding="utf-8"))
-    if grid.get("schema_version") != "qeib-capability-adequacy-v0.3-candidate-grid-0.1":
+    if grid.get("schema_version") not in SUPPORTED_GRID_SCHEMAS:
         raise ValueError("unexpected v0.3 candidate-grid schema")
     if not grid.get("oracle_labels", {}).get("structural_invalidity_is_deterministic"):
         raise ValueError("grid does not freeze deterministic structural invalidity")
